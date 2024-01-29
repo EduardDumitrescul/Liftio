@@ -18,8 +18,21 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "5fb56b7092f1e456",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Notes/Typography.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -85,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Notes/Roadmap-mvp.md",
+                "file": "Notes/Typography.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Notes/Roadmap-mvp.md",
+                "file": "Notes/Typography.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Notes/Roadmap-mvp.md"
+                "file": "Notes/Typography.md"
               }
             }
           }
@@ -146,10 +159,11 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "7f8e350462beebf0",
+  "active": "5fb56b7092f1e456",
   "lastOpenFiles": [
-    "Notes/component-library.md",
     "Notes/Roadmap-mvp.md",
+    "Notes/Typography.md",
+    "Notes/component-library.md",
     "Notes/app-screens.md",
     "().md",
     "README.md",
