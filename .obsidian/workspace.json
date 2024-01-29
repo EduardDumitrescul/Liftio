@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Notes/Roadmap-mvp.md",
+                "file": "notes/roadmap-mvp.md",
                 "mode": "source",
                 "source": false
               }
@@ -25,7 +25,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Notes/Typography.md",
+                "file": "notes/typography.md",
                 "mode": "source",
                 "source": false
               }
@@ -98,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Notes/Typography.md",
+                "file": "notes/typography.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Notes/Typography.md",
+                "file": "notes/typography.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -138,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Notes/Typography.md"
+                "file": "notes/typography.md"
               }
             }
           }
@@ -159,14 +159,14 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "5fb56b7092f1e456",
+  "active": "4fd42534743cbfc0",
   "lastOpenFiles": [
-    "Notes/Roadmap-mvp.md",
-    "Notes/Typography.md",
-    "Notes/component-library.md",
-    "Notes/app-screens.md",
+    "notes/roadmap-mvp.md",
+    "notes/typography.md",
+    "notes/component-library.md",
+    "notes/app-screens.md",
     "().md",
     "README.md",
-    "Notes"
+    "notes"
   ]
 }
