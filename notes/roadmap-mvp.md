@@ -5,7 +5,7 @@
 - you can log your workout as you are performing it
 # UI Design
 - [ ] define [typography](typography.md)
-- [ ] select [color theme](color-theme.md)
+- [ ] select [color theme](color-scheme.md)
 - [ ] define & design [app screens](app-screens.md)
 - [ ] design [component library](component-library.md)
 # Database Design
