@@ -5,7 +5,7 @@
 - detailed view of the workout (exercises, sets, muscles trained)
 ## [Edit/Add Template](edit-template.md)
 - add/remove exercises and sets (reps, weight) to the current workout
-## Perform Workout
+## [Perform Workout](perform-workout.md)
 - new / template
 - go through the workout set after set 
 	- can skip sets
