@@ -3,7 +3,7 @@
 - start workout logging (existent or new)
 ## [View Template](view-template.md)
 - detailed view of the workout (exercises, sets, muscles trained)
-## Edit/Add Template
+## [Edit/Add Template](edit-template.md)
 - add/remove exercises and sets (reps, weight) to the current workout
 ## Perform Workout
 - new / template
