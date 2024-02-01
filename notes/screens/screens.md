@@ -1,4 +1,4 @@
-## Browse Workouts (homepage)
+## [Browse Workouts](browse-workouts.md) (homepage)
 - browse, view, edit and add workouts
 - start workout logging (existent or new)
 ## View Workout
