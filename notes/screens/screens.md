@@ -1,9 +1,9 @@
 ## [Browse Workouts](browse-workouts.md) (homepage)
 - browse, view, edit and add workouts
 - start workout logging (existent or new)
-## [View Workout](view-workout.md)
+## [View Template](view-template.md)
 - detailed view of the workout (exercises, sets, muscles trained)
-## Edit/Add Workout
+## Edit/Add Template
 - add/remove exercises and sets (reps, weight) to the current workout
 ## Perform Workout
 - new / template
