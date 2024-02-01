@@ -3,8 +3,6 @@
 ## Actions
 - [ ] add template
 - [ ] edit template
-- [ ] remove template
-- [ ] start performing template
 - [ ] start performing new (empty) workout
 ## Components
 - [ ] workout card
