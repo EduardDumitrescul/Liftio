@@ -15,7 +15,7 @@
 - list of exercises, 
 - searchable by name 
 - filter by muscle trained
-## Edit/Add Exercise
+## [Edit/Add Exercise](edit-exercise.md)
 - add exercise to the database
 ## History
 - the list of workouts (date, type, short description)
