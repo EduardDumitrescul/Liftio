@@ -11,8 +11,12 @@
             "id": "5fb56b7092f1e456",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "notes/roadmap-mvp.md",
+                "mode": "source",
+                "source": false
+              }
             }
           }
         ]
@@ -81,6 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "notes/roadmap-mvp.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -97,6 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "notes/roadmap-mvp.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -119,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "notes/typography.md"
+                "file": "notes/roadmap-mvp.md"
               }
             }
           }
@@ -140,11 +146,12 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "4fd42534743cbfc0",
+  "active": "5fb56b7092f1e456",
   "lastOpenFiles": [
+    "notes/color-scheme.md",
+    "notes/typography.md",
     "notes/roadmap-mvp.md",
     "notes/tmp",
-    "notes/typography.md",
     "notes/Typography.md",
     "notes/Roadmap-mvp.md",
     "notes/app-screens.md",
