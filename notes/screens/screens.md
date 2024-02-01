@@ -19,5 +19,5 @@
 - add exercise to the database
 ## [History](history.md)
 - the list of workouts (date, type, short description)
-## Settings
+## [Settings](settings.md)
 ## Statistics

@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "notes/screens/history.md",
+                "file": "notes/screens/settings.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "notes/screens/history.md",
+                "file": "notes/screens/settings.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "notes/screens/history.md",
+                "file": "notes/screens/settings.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "notes/screens/history.md"
+                "file": "notes/screens/settings.md"
               }
             }
           }
@@ -149,12 +149,13 @@
   "active": "5fb56b7092f1e456",
   "lastOpenFiles": [
     "notes/screens/screens.md",
+    "notes/screens/settings.md",
     "notes/screens/history.md",
+    "notes/screens/browse-workouts.md",
     "notes/screens/edit-exercise.md.md",
     "notes/screens/browse-exercises.md",
     "notes/screens/perform-workout.md",
     "notes/screens/edit-template.md.md",
-    "notes/screens/browse-workouts.md",
     "notes/screens/view-template.md",
     "notes/roadmap-mvp.md",
     "notes/app-screens.md",
@@ -177,7 +178,6 @@
     "Notes/Typography.md",
     "Notes/Roadmap-mvp.md",
     "Notes/typography.md",
-    "Notes/roadmap-mvp.md",
     "Notes"
   ]
 }
