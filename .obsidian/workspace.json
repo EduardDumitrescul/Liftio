@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "notes/screens/perform-workout.md",
+                "file": "notes/screens/browse-exercises.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "notes/screens/perform-workout.md",
+                "file": "notes/screens/browse-exercises.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "notes/screens/perform-workout.md",
+                "file": "notes/screens/browse-exercises.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "notes/screens/perform-workout.md"
+                "file": "notes/screens/browse-exercises.md"
               }
             }
           }
@@ -149,6 +149,7 @@
   "active": "5fb56b7092f1e456",
   "lastOpenFiles": [
     "notes/screens/screens.md",
+    "notes/screens/browse-exercises.md",
     "notes/screens/perform-workout.md",
     "notes/screens/edit-template.md.md",
     "notes/screens/browse-workouts.md",
@@ -177,7 +178,6 @@
     "Notes/roadmap-mvp.md",
     "Notes/component-library.md",
     "Notes/app-screens.md",
-    "Notes",
-    "().md"
+    "Notes"
   ]
 }

@@ -11,7 +11,7 @@
 	- can skip sets
 	- change reps and weight of sets
 - finish early
-## Browse Exercises
+## [Browse Exercises](browse-exercises.md)
 - list of exercises, 
 - searchable by name 
 - filter by muscle trained
