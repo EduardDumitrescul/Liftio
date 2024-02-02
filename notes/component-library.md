@@ -1,3 +1,7 @@
+### Top App Bar
+![image](https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/6b1d32a9-f47a-487b-a058-0d1b3678258b)
+
+
 ### Workout Card
 ![image](https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/239e2f69-9938-4adf-8ed1-c1c34b4898a8)
 
