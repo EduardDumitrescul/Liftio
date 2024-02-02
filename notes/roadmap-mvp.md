@@ -6,8 +6,8 @@
 # UI Design
 - [x] define [typography](typography.md)
 - [ ] select [color theme](color-scheme.md)
-- [ ] define [app screens](screens.md)
-- [ ] design [app screens](screens.md)
+- [ ] define [app screens](screens/screens.md)
+- [ ] design [app screens](screens/screens.md)
 - [ ] design [component library](component-library.md)
 # Database Design
 # Development
