@@ -1,5 +1,6 @@
 ### Top App Bar
-![image](https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/6b1d32a9-f47a-487b-a058-0d1b3678258b)
+![image](https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/2be3bb2b-3fa2-4608-97a2-d3ecb42d8afd)
+
 
 ### Navigation Bar
 ![image](https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/a7d9743a-35cd-4477-8d7c-1fc90d0d5d34)
