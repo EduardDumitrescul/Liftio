@@ -3,8 +3,8 @@
 
 
 ### Navigation Bar
-![image](https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/a7d9743a-35cd-4477-8d7c-1fc90d0d5d34)
-
+![image](https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/3746b7c7-5b2f-482d-8566-21832599ee15)
+- shadow on top
 
 ### Workout Card
 ![image](https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/239e2f69-9938-4adf-8ed1-c1c34b4898a8)
