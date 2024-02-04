@@ -1,13 +1,14 @@
 ### Top App Bar
-![image](https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/2be3bb2b-3fa2-4608-97a2-d3ecb42d8afd)
+<image src="https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/2be3bb2b-3fa2-4608-97a2-d3ecb42d8afd" width="240"/>
 
 
 ### Navigation Bar
-![image](https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/3746b7c7-5b2f-482d-8566-21832599ee15)
+<image src="https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/3746b7c7-5b2f-482d-8566-21832599ee15" width="240"/>
+
 - shadow on top
 
 ### Workout Card
-![image](https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/239e2f69-9938-4adf-8ed1-c1c34b4898a8)
+<image src="https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/239e2f69-9938-4adf-8ed1-c1c34b4898a8" width="240"/>
 
 ### Exercise Card
 <image src="https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/2796c378-e14d-43f2-875f-65aab965b955" width="240"/>
@@ -16,18 +17,18 @@
 
 
 ### Chips
-![image](https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/202c41cd-b8c4-4ee5-8190-bd8d2d18a50d)
+<image src="https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/202c41cd-b8c4-4ee5-8190-bd8d2d18a50d" width="240"/>
 
 ### Buttons
-![image](https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/7a3324c9-b901-493e-8758-4e2a1fe8e4ee)
+<image src="https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/7a3324c9-b901-493e-8758-4e2a1fe8e4ee" width="240"/>
 
 
 
 ### FAB
-![image](https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/0d2dbddb-0d71-4e1f-84ee-a3d3a7956d91)
+<image src="https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/0d2dbddb-0d71-4e1f-84ee-a3d3a7956d91" width="240"/>
 
 ### Set Row
-![image](https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/f01f067f-93f8-4647-9a35-1f02bb8460e0)
+<image src="https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/f01f067f-93f8-4647-9a35-1f02bb8460e0" width="240"/>
 
 
 
