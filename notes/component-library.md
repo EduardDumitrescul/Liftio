@@ -21,6 +21,10 @@
 ### FAB
 ![image](https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/0d2dbddb-0d71-4e1f-84ee-a3d3a7956d91)
 
+### Set Row
+![image](https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/f01f067f-93f8-4647-9a35-1f02bb8460e0)
+
+
 
 TODO
 - should adjust contrast
