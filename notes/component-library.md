@@ -9,6 +9,10 @@
 ### Workout Card
 ![image](https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/239e2f69-9938-4adf-8ed1-c1c34b4898a8)
 
+### Exercise Card
+<image src="https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/2796c378-e14d-43f2-875f-65aab965b955" width="240"/>
+
+
 
 
 ### Chips
