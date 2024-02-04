@@ -14,8 +14,9 @@
 ### Chips
 ![image](https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/202c41cd-b8c4-4ee5-8190-bd8d2d18a50d)
 
-### TextButton
-![image](https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/1afbb4c8-6014-43f8-b236-8282dddc493a)
+### Buttons
+![image](https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/7a3324c9-b901-493e-8758-4e2a1fe8e4ee)
+
 
 
 ### FAB
