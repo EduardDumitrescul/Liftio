@@ -20,7 +20,7 @@
 <image src="https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/202c41cd-b8c4-4ee5-8190-bd8d2d18a50d" width="240"/>
 
 ### Buttons
-<image src="https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/7dc416b7-f321-43a3-b8e6-b074147d8c2b" width="240"/>
+<image src="https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/830db9a5-e6cb-4b74-a2a0-00c984d062d7" width="240"/>
 
 
 
