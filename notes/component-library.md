@@ -30,6 +30,8 @@
 ### Set Row
 <image src="https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/f01f067f-93f8-4647-9a35-1f02bb8460e0" width="240"/>
 
+### Exercise Row
+<image src="https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/2821e60d-f377-48cc-9753-d04387ec289d" width=200/>
 
 
 TODO
