@@ -1,5 +1,5 @@
 ### Top App Bar
-<image src="https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/2be3bb2b-3fa2-4608-97a2-d3ecb42d8afd" width="240"/>
+<image src="https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/282f7882-299e-4532-89a1-446896cc17d8" width="240"/>
 
 
 ### Navigation Bar
