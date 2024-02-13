@@ -10,6 +10,6 @@
 - [ ] design [app screens](screens/screens.md)
 - [ ] design [component library](component-library.md)
 # Database Design
-- [ ] create conceptual diagram
-- [ ] document tables
+- [x] create conceptual diagram [drawio](https://app.diagrams.net/#HEduardDumitrescul%2FFitnessTracker%2Fmain%2Fnotes%2Ffittness-tracker-erd#%7B%22pageId%22%3A%22R2lEEEUBdFMjLlhIrx00%22%7D)
+- [x] document tables
 # Development
