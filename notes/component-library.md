@@ -36,6 +36,10 @@
 ### Field Row
 <img src="https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/6a76c486-c80a-4e01-b146-92a26e06d05b" width="200" />
 
+### Text Field
+<img src="https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/afdc7bc6-1a41-40bb-9a45-0cc76d758820" width="200" />
+
+
 
 TODO
 - should adjust contrast
