@@ -1,3 +1,5 @@
+# Template
+The model which will hold the workout plans . It consists of multiple exercises, each with its sets.
 ### Fields
 - id (number, primary key)
 - name (string)
