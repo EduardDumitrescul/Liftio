@@ -31,7 +31,7 @@
 <image src="https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/f01f067f-93f8-4647-9a35-1f02bb8460e0" width="240"/>
 
 ### Exercise Row
-<image src="https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/2821e60d-f377-48cc-9753-d04387ec289d" width=200/>
+<image src="https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/19ed5c87-499a-4b41-86be-ab52d4990b58" width=200/>
 
 ### Field Row
 <img src="https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/6a76c486-c80a-4e01-b146-92a26e06d05b" width="200" />
