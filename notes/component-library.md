@@ -33,6 +33,9 @@
 ### Exercise Row
 <image src="https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/2821e60d-f377-48cc-9753-d04387ec289d" width=200/>
 
+### Field Row
+<img src="https://github.com/EduardDumitrescul/FitnessTracker/assets/71341569/6a76c486-c80a-4e01-b146-92a26e06d05b" width="200" />
+
 
 TODO
 - should adjust contrast
