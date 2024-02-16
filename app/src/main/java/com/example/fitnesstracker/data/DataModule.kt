@@ -2,6 +2,7 @@ package com.example.fitnesstracker.data
 
 import android.content.Context
 import androidx.room.Room
+import com.example.fitnesstracker.data.daos.ExerciseMuscleDao
 import com.example.fitnesstracker.data.daos.TestDao
 import dagger.Module
 import dagger.Provides
@@ -27,6 +28,11 @@ class DataModule {
     @Provides
     fun provideChannelDao(appDatabase: AppDatabase): TestDao {
         return appDatabase.testDao()
+    }
+
+    @Provides
+    fun provideExerciseMuscleDao(appDatabase: AppDatabase): ExerciseMuscleDao {
+        return appDatabase.exerciseMuscleDao()
     }
 
 }
