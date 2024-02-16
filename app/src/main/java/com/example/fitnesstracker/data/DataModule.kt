@@ -9,11 +9,13 @@ import com.example.fitnesstracker.data.daos.SetDao
 import com.example.fitnesstracker.data.daos.TemplateDao
 import com.example.fitnesstracker.data.daos.TemplateExerciseDao
 import com.example.fitnesstracker.data.daos.TestDao
+import com.example.fitnesstracker.data.daos.WorkoutDao
 import com.example.fitnesstracker.data.repositories.ExerciseRepository
 import com.example.fitnesstracker.data.repositories.MuscleRepository
 import com.example.fitnesstracker.data.repositories.SetRepository
 import com.example.fitnesstracker.data.repositories.TemplateExerciseRepository
 import com.example.fitnesstracker.data.repositories.TemplateRepository
+import com.example.fitnesstracker.data.repositories.WorkoutRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -103,5 +105,17 @@ class DataModule {
         templateDao: TemplateDao
     ): TemplateRepository {
         return TemplateRepository(templateDao)
+    }
+
+    @Provides
+    fun provideWorkoutDao(appDatabase: AppDatabase): WorkoutDao {
+        return appDatabase.workoutDao()
+    }
+
+    @Provides
+    fun provideWorkoutRepository(
+        workoutDao: WorkoutDao
+    ): WorkoutRepository {
+        return WorkoutRepository(workoutDao)
     }
 }

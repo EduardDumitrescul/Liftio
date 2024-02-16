@@ -9,6 +9,7 @@ import com.example.fitnesstracker.data.daos.SetDao
 import com.example.fitnesstracker.data.daos.TemplateDao
 import com.example.fitnesstracker.data.daos.TemplateExerciseDao
 import com.example.fitnesstracker.data.daos.TestDao
+import com.example.fitnesstracker.data.daos.WorkoutDao
 import com.example.fitnesstracker.data.entities.ExerciseEntity
 import com.example.fitnesstracker.data.entities.ExerciseMuscleEntity
 import com.example.fitnesstracker.data.entities.MuscleEntity
@@ -16,6 +17,7 @@ import com.example.fitnesstracker.data.entities.SetEntity
 import com.example.fitnesstracker.data.entities.TemplateEntity
 import com.example.fitnesstracker.data.entities.TemplateExerciseEntity
 import com.example.fitnesstracker.data.entities.TestEntity
+import com.example.fitnesstracker.data.entities.WorkoutEntity
 
 @Database(
     entities = [
@@ -26,6 +28,7 @@ import com.example.fitnesstracker.data.entities.TestEntity
         SetEntity::class,
         TemplateExerciseEntity::class,
         TemplateEntity::class,
+        WorkoutEntity::class,
                ],
     version = 1)
 abstract class AppDatabase : RoomDatabase() {
@@ -42,4 +45,6 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun templateExerciseDao(): TemplateExerciseDao
 
     abstract fun templateDao(): TemplateDao
+
+    abstract fun workoutDao(): WorkoutDao
 }
