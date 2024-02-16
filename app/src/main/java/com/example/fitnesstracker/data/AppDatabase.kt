@@ -2,6 +2,8 @@ package com.example.fitnesstracker.data
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.example.fitnesstracker.data.converters.LocalDateTypeConverter
 import com.example.fitnesstracker.data.daos.ExerciseDao
 import com.example.fitnesstracker.data.daos.ExerciseMuscleDao
 import com.example.fitnesstracker.data.daos.MuscleDao
@@ -31,6 +33,7 @@ import com.example.fitnesstracker.data.entities.WorkoutEntity
         WorkoutEntity::class,
                ],
     version = 1)
+@TypeConverters(LocalDateTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun testDao(): TestDao
 
