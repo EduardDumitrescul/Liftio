@@ -23,6 +23,7 @@ class MainActivity : ComponentActivity() {
 
         db.testDao()
         db.exerciseMuscleDao()
+        db.exerciseDao()
 
         setContent {
             FitnessTrackerTheme {
