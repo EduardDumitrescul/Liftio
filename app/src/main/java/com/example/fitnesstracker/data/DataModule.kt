@@ -6,10 +6,12 @@ import com.example.fitnesstracker.data.daos.ExerciseDao
 import com.example.fitnesstracker.data.daos.ExerciseMuscleDao
 import com.example.fitnesstracker.data.daos.MuscleDao
 import com.example.fitnesstracker.data.daos.SetDao
+import com.example.fitnesstracker.data.daos.TemplateExerciseDao
 import com.example.fitnesstracker.data.daos.TestDao
 import com.example.fitnesstracker.data.repositories.ExerciseRepository
 import com.example.fitnesstracker.data.repositories.MuscleRepository
 import com.example.fitnesstracker.data.repositories.SetRepository
+import com.example.fitnesstracker.data.repositories.TemplateExerciseRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -75,6 +77,18 @@ class DataModule {
         setDao: SetDao
     ): SetRepository {
         return SetRepository(setDao)
+    }
+
+    @Provides
+    fun provideTemplateExerciseDao(appDatabase: AppDatabase): TemplateExerciseDao {
+        return appDatabase.templateExerciseDao()
+    }
+
+    @Provides
+    fun provideTemplateExerciseRepository(
+        templateExerciseDao: TemplateExerciseDao
+    ): TemplateExerciseRepository {
+        return TemplateExerciseRepository(templateExerciseDao)
     }
 
 }
