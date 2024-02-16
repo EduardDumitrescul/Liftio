@@ -5,9 +5,11 @@ import androidx.room.Room
 import com.example.fitnesstracker.data.daos.ExerciseDao
 import com.example.fitnesstracker.data.daos.ExerciseMuscleDao
 import com.example.fitnesstracker.data.daos.MuscleDao
+import com.example.fitnesstracker.data.daos.SetDao
 import com.example.fitnesstracker.data.daos.TestDao
 import com.example.fitnesstracker.data.repositories.ExerciseRepository
 import com.example.fitnesstracker.data.repositories.MuscleRepository
+import com.example.fitnesstracker.data.repositories.SetRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -61,6 +63,18 @@ class DataModule {
         muscleDao: MuscleDao
     ): MuscleRepository {
         return MuscleRepository(muscleDao)
+    }
+
+    @Provides
+    fun provideSetDao(appDatabase: AppDatabase): SetDao {
+        return appDatabase.setDao()
+    }
+
+    @Provides
+    fun provideSetRepository(
+        setDao: SetDao
+    ): SetRepository {
+        return SetRepository(setDao)
     }
 
 }
