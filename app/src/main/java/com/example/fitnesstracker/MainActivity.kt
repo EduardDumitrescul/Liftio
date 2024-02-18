@@ -1,6 +1,7 @@
 package com.example.fitnesstracker
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,16 +16,17 @@ import com.example.fitnesstracker.ui.theme.FitnessTrackerTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+private const val TAG = "MAIN ACTIVITY"
+
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @Inject lateinit var db: AppDatabase;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        db.testDao()
-        db.exerciseMuscleDao()
-        db.exerciseDao()
-        db.muscleDao()
+        db.testDao().getAll().observeForever {
+            Log.d(TAG, it.toString())
+        }
 
         setContent {
             FitnessTrackerTheme {
