@@ -1,3 +1,6 @@
-from excelReader import readExcel
+from excelReader import ExcelReader
 
-print(readExcel('../data/db-preload.xlsx'))
+reader = ExcelReader('../data/db-preload.xlsx')
+
+print(len(reader.exercises))
+
