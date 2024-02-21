@@ -24,3 +24,13 @@ class Exercise:
 
     def __str__(self):
         return self.name + ' - ' + self.description + ' - ' + self.primaryMuscle + ' - ' + ','.join(self.secondaryMuscles) + ' - ' + ','.join(self.equipment)
+
+    def checkMuscles(self, muscleList):
+        ml = [muscle.name for muscle in muscleList]
+        if self.primaryMuscle not in ml:
+            return False
+        for sm in self.secondaryMuscles:
+            if sm not in ml:
+                return False
+
+        return True
