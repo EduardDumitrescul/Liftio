@@ -1,0 +1,54 @@
+[
+  {
+    "id": 1,
+    "name": "Chest"
+  },
+  {
+    "id": 2,
+    "name": "Shoulders"
+  },
+  {
+    "id": 3,
+    "name": "Triceps"
+  },
+  {
+    "id": 4,
+    "name": "Biceps"
+  },
+  {
+    "id": 5,
+    "name": "Forearms"
+  },
+  {
+    "id": 6,
+    "name": "Back"
+  },
+  {
+    "id": 7,
+    "name": "Lats"
+  },
+  {
+    "id": 8,
+    "name": "Abs"
+  },
+  {
+    "id": 9,
+    "name": "Quads"
+  },
+  {
+    "id": 10,
+    "name": "Glutes"
+  },
+  {
+    "id": 11,
+    "name": "Hamstring"
+  },
+  {
+    "id": 12,
+    "name": "Calves"
+  },
+  {
+    "id": 13,
+    "name": "Traps"
+  }
+]
