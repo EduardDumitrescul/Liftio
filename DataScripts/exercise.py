@@ -34,3 +34,12 @@ class Exercise:
                 return False
 
         return True
+
+
+class ExerciseEntity:
+    idCount = 0
+    def __init__(self, exercise: Exercise):
+        self.id = ExerciseEntity.idCount
+        ExerciseEntity.idCount += 1
+        self.name = exercise.name
+        self.description = exercise.description
