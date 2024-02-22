@@ -12,10 +12,10 @@
 # Database Design
 - [x] create conceptual diagram [drawio](https://app.diagrams.net/#HEduardDumitrescul%2FFitnessTracker%2Fmain%2Fnotes%2Ffittness-tracker-erd#%7B%22pageId%22%3A%22R2lEEEUBdFMjLlhIrx00%22%7D)
 - [x] document tables
-- [ ] define base data
+- [x] define base data
 # Development
-- [ ] create database
-- [ ] populate database with initial data
+- [x] create database
+- [x] populate database with initial data
 - [ ] create ui components
 - [ ] create screens ui
 - [ ] implement navigation
