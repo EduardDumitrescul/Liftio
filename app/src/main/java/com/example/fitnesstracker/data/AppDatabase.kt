@@ -79,11 +79,15 @@ abstract class AppDatabase : RoomDatabase() {
                     Log.d(TAG, "seedDatabaseCallback()")
                     super.onCreate(db)
                     ioThread {
-                        val testDao = getInstance(context).testDao()
-                        testDao.insert(TestEntity(UUID.randomUUID()))
+                        val seeder = Seeder(context, getInstance(context))
+                        seeder.seed()
                     }
                 }
             }
         }
     }
+}
+
+fun insertExercises() {
+
 }
