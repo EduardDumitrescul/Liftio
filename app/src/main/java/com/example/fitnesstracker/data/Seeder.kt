@@ -1,7 +1,9 @@
 package com.example.fitnesstracker.data
 
 import android.content.Context
+import androidx.compose.ui.platform.textInputServiceFactory
 import com.example.fitnesstracker.data.entities.ExerciseEntity
+import com.example.fitnesstracker.data.entities.ExerciseMuscleEntity
 import com.example.fitnesstracker.data.entities.MuscleEntity
 import com.example.fitnesstracker.utils.fromJson
 import com.example.fitnesstracker.utils.readJsonFromAssets
@@ -12,12 +14,15 @@ class Seeder (
 ) {
     private val musclesPath = "muscles.json"
     private val exercisesPath = "exercises.json"
+    private val exerciseMusclePath = "exerciseMuscles.json"
 
     fun seed() {
         val muscles = loadMuscles()
         insertMuscles(muscles)
         val exercises = loadExercises()
         insertExercises(exercises)
+        val exerciseMuscles = loadExerciseMuscles()
+        insertExerciseMuscles(exerciseMuscles)
     }
 
     private fun loadExercises(): Array<ExerciseEntity> {
@@ -30,6 +35,19 @@ class Seeder (
         val exerciseDao = database.exerciseDao()
         exercises.forEach {
             exerciseDao.insert(it)
+        }
+    }
+
+    private fun loadExerciseMuscles(): Array<ExerciseMuscleEntity> {
+        val jsonString = readJsonFromAssets(context, exerciseMusclePath)
+        val exerciseMuscles: Array<ExerciseMuscleEntity> = fromJson(jsonString)
+        return exerciseMuscles
+    }
+
+    private fun insertExerciseMuscles(exerciseMuscles: Array<ExerciseMuscleEntity>) {
+        val exerciseMuscleDao = database.exerciseMuscleDao()
+        exerciseMuscles.forEach {
+            exerciseMuscleDao.insert(it)
         }
     }
     private fun loadMuscles(): Array<MuscleEntity> {
