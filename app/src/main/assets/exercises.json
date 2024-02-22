@@ -1,5 +1,227 @@
 [
   {
-    "id": 
+    "id": 0,
+    "name": "bench press",
+    "description": ""
+  },
+  {
+    "id": 1,
+    "name": "incline press",
+    "description": ""
+  },
+  {
+    "id": 2,
+    "name": "decline press",
+    "description": ""
+  },
+  {
+    "id": 3,
+    "name": "dumbbell fly",
+    "description": ""
+  },
+  {
+    "id": 4,
+    "name": "pec dec",
+    "description": ""
+  },
+  {
+    "id": 5,
+    "name": "cable flyes",
+    "description": ""
+  },
+  {
+    "id": 6,
+    "name": "cable press",
+    "description": ""
+  },
+  {
+    "id": 7,
+    "name": "machine press",
+    "description": ""
+  },
+  {
+    "id": 8,
+    "name": "dips (chest focused)",
+    "description": ""
+  },
+  {
+    "id": 9,
+    "name": "shoulder press ",
+    "description": ""
+  },
+  {
+    "id": 10,
+    "name": "lateral raise ",
+    "description": ""
+  },
+  {
+    "id": 11,
+    "name": "front raise",
+    "description": ""
+  },
+  {
+    "id": 12,
+    "name": "face pulls",
+    "description": ""
+  },
+  {
+    "id": 13,
+    "name": "shrugs ",
+    "description": ""
+  },
+  {
+    "id": 14,
+    "name": "dips (triceps focused)",
+    "description": ""
+  },
+  {
+    "id": 15,
+    "name": "triceps pushdown",
+    "description": ""
+  },
+  {
+    "id": 16,
+    "name": "triceps kickback",
+    "description": ""
+  },
+  {
+    "id": 17,
+    "name": "close-grip dumbell press",
+    "description": ""
+  },
+  {
+    "id": 18,
+    "name": "skull crushers ",
+    "description": ""
+  },
+  {
+    "id": 19,
+    "name": "chin-up",
+    "description": ""
+  },
+  {
+    "id": 20,
+    "name": "curls",
+    "description": ""
+  },
+  {
+    "id": 21,
+    "name": "ez-bar curls",
+    "description": ""
+  },
+  {
+    "id": 22,
+    "name": "hammer curls",
+    "description": ""
+  },
+  {
+    "id": 23,
+    "name": "spider curls",
+    "description": ""
+  },
+  {
+    "id": 24,
+    "name": "preacher curls",
+    "description": ""
+  },
+  {
+    "id": 25,
+    "name": "incline curls",
+    "description": ""
+  },
+  {
+    "id": 26,
+    "name": "forearm raise (palms up)",
+    "description": ""
+  },
+  {
+    "id": 27,
+    "name": "forearm raise (palms down)",
+    "description": ""
+  },
+  {
+    "id": 28,
+    "name": "ab crunch",
+    "description": ""
+  },
+  {
+    "id": 29,
+    "name": "leg raise",
+    "description": ""
+  },
+  {
+    "id": 30,
+    "name": "v-sit",
+    "description": ""
+  },
+  {
+    "id": 31,
+    "name": "rows",
+    "description": ""
+  },
+  {
+    "id": 32,
+    "name": "back extenstions",
+    "description": ""
+  },
+  {
+    "id": 33,
+    "name": "deadlift",
+    "description": ""
+  },
+  {
+    "id": 34,
+    "name": "lat pulldown",
+    "description": ""
+  },
+  {
+    "id": 35,
+    "name": "pull-ups",
+    "description": ""
+  },
+  {
+    "id": 36,
+    "name": "hip thrust",
+    "description": ""
+  },
+  {
+    "id": 37,
+    "name": "kickbacks",
+    "description": ""
+  },
+  {
+    "id": 38,
+    "name": "leg extenstion",
+    "description": ""
+  },
+  {
+    "id": 39,
+    "name": "squats",
+    "description": ""
+  },
+  {
+    "id": 40,
+    "name": "hack squats",
+    "description": ""
+  },
+  {
+    "id": 41,
+    "name": "leg press",
+    "description": ""
+  },
+  {
+    "id": 42,
+    "name": "leg curl",
+    "description": ""
+  },
+  {
+    "id": 43,
+    "name": "rdl",
+    "description": ""
+  },
+  {
+    "id": 44,
+    "name": "calf raises",
+    "description": ""
   }
 ]
