@@ -1,0 +1,452 @@
+[
+  {
+    "exerciseId": 0,
+    "muscleId": 0,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 0,
+    "muscleId": 1,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 0,
+    "muscleId": 3,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 1,
+    "muscleId": 0,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 1,
+    "muscleId": 1,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 1,
+    "muscleId": 3,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 2,
+    "muscleId": 0,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 2,
+    "muscleId": 1,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 2,
+    "muscleId": 3,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 3,
+    "muscleId": 0,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 3,
+    "muscleId": 1,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 4,
+    "muscleId": 0,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 4,
+    "muscleId": 1,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 5,
+    "muscleId": 0,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 5,
+    "muscleId": 1,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 6,
+    "muscleId": 0,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 6,
+    "muscleId": 1,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 6,
+    "muscleId": 3,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 7,
+    "muscleId": 0,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 7,
+    "muscleId": 1,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 7,
+    "muscleId": 3,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 8,
+    "muscleId": 0,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 8,
+    "muscleId": 1,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 8,
+    "muscleId": 3,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 9,
+    "muscleId": 1,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 9,
+    "muscleId": 3,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 9,
+    "muscleId": 2,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 10,
+    "muscleId": 1,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 10,
+    "muscleId": 2,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 11,
+    "muscleId": 1,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 12,
+    "muscleId": 1,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 12,
+    "muscleId": 2,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 13,
+    "muscleId": 2,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 14,
+    "muscleId": 3,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 14,
+    "muscleId": 1,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 14,
+    "muscleId": 0,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 15,
+    "muscleId": 3,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 16,
+    "muscleId": 3,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 17,
+    "muscleId": 3,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 17,
+    "muscleId": 1,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 17,
+    "muscleId": 0,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 18,
+    "muscleId": 3,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 19,
+    "muscleId": 4,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 19,
+    "muscleId": 8,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 19,
+    "muscleId": 7,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 20,
+    "muscleId": 4,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 20,
+    "muscleId": 5,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 21,
+    "muscleId": 4,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 21,
+    "muscleId": 5,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 22,
+    "muscleId": 4,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 22,
+    "muscleId": 5,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 23,
+    "muscleId": 4,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 23,
+    "muscleId": 5,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 24,
+    "muscleId": 4,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 24,
+    "muscleId": 5,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 25,
+    "muscleId": 4,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 25,
+    "muscleId": 5,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 26,
+    "muscleId": 5,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 27,
+    "muscleId": 5,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 28,
+    "muscleId": 6,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 29,
+    "muscleId": 6,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 30,
+    "muscleId": 6,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 31,
+    "muscleId": 7,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 31,
+    "muscleId": 4,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 31,
+    "muscleId": 8,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 32,
+    "muscleId": 7,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 33,
+    "muscleId": 7,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 33,
+    "muscleId": 9,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 33,
+    "muscleId": 11,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 34,
+    "muscleId": 8,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 34,
+    "muscleId": 4,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 35,
+    "muscleId": 8,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 35,
+    "muscleId": 4,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 36,
+    "muscleId": 9,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 37,
+    "muscleId": 9,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 38,
+    "muscleId": 10,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 39,
+    "muscleId": 10,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 39,
+    "muscleId": 9,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 39,
+    "muscleId": 7,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 40,
+    "muscleId": 10,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 40,
+    "muscleId": 9,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 40,
+    "muscleId": 7,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 41,
+    "muscleId": 10,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 41,
+    "muscleId": 9,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 41,
+    "muscleId": 7,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 42,
+    "muscleId": 11,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 43,
+    "muscleId": 11,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 43,
+    "muscleId": 9,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 43,
+    "muscleId": 7,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 44,
+    "muscleId": 12,
+    "isPrimary": true
+  }
+]
