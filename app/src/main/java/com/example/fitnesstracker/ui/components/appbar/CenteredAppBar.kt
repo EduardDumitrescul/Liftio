@@ -34,13 +34,7 @@ fun CenteredAppBar(
                 color=AppTheme.colors.onBackground
             )
         },
-        colors = TopAppBarColors(
-            containerColor = AppTheme.colors.background,
-            scrolledContainerColor = AppTheme.colors.background,
-            navigationIconContentColor = AppTheme.colors.onBackground,
-            titleContentColor = AppTheme.colors.onBackground,
-            actionIconContentColor = AppTheme.colors.onBackground,
-        ),
+        colors = appBarColors,
         navigationIcon = {
             IconButton(onClick = { /* do something */ }) {
                 Icon(

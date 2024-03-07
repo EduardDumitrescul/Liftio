@@ -26,11 +26,7 @@ fun LargeAppBar(
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
     MediumTopAppBar(
         modifier = modifier.background(AppTheme.colors.container),
-        colors = TopAppBarDefaults.mediumTopAppBarColors(
-            containerColor = AppTheme.colors.background,
-            titleContentColor = AppTheme.colors.onBackground,
-            scrolledContainerColor = AppTheme.colors.background,
-        ),
+        colors = appBarColors,
         title = {
             Text(
                 text,
