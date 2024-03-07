@@ -28,13 +28,7 @@ fun LargeAppBar(
         modifier = modifier.background(AppTheme.colors.container),
         colors = appBarColors,
         title = { AppBarTitle(title) },
-        navigationIcon = {
-            IconButton(onClick = { /* do something */ }) {
-                Icon(
-                    imageVector = Icons.Rounded.ArrowBackIosNew,
-                    contentDescription = "Go back"
-                )
-            }
+        navigationIcon = { BackNavigationIcon(onClick = { /*TODO*/ })
         },
         actions = {
             IconButton(onClick = { /* do something */ }) {

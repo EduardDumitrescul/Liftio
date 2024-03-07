@@ -27,14 +27,7 @@ fun CenteredAppBar(
     CenterAlignedTopAppBar(
         title = { AppBarTitle(title) },
         colors = appBarColors,
-        navigationIcon = {
-            IconButton(onClick = { /* do something */ }) {
-                Icon(
-                    imageVector = Icons.Rounded.ArrowBackIosNew,
-                    contentDescription = "Go back"
-                )
-            }
-        },
+        navigationIcon = { BackNavigationIcon(onClick = { /*TODO*/ })},
         actions = {
             IconButton(onClick = { /* do something */ }) {
                 Icon(
