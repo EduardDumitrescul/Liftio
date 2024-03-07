@@ -26,8 +26,7 @@ class Seeder (
 
     private fun loadExercises(): Array<ExerciseEntity> {
         val jsonString = readJsonFromAssets(context, exercisesPath)
-        val exercises: Array<ExerciseEntity> = fromJson(jsonString)
-        return exercises
+        return fromJson<Array<ExerciseEntity>>(jsonString)
     }
 
     private fun insertExercises(exercises: Array<ExerciseEntity>) {
@@ -39,8 +38,7 @@ class Seeder (
 
     private fun loadExerciseMuscles(): Array<ExerciseMuscleEntity> {
         val jsonString = readJsonFromAssets(context, exerciseMusclePath)
-        val exerciseMuscles: Array<ExerciseMuscleEntity> = fromJson(jsonString)
-        return exerciseMuscles
+        return fromJson<Array<ExerciseMuscleEntity>>(jsonString)
     }
 
     private fun insertExerciseMuscles(exerciseMuscles: Array<ExerciseMuscleEntity>) {
@@ -51,8 +49,7 @@ class Seeder (
     }
     private fun loadMuscles(): Array<MuscleEntity> {
         val jsonString = readJsonFromAssets(context, musclesPath)
-        val muscleList: Array<MuscleEntity> = fromJson(jsonString)
-        return muscleList
+        return fromJson<Array<MuscleEntity>>(jsonString)
     }
 
     private fun insertMuscles(muscleList: Array<MuscleEntity>) {

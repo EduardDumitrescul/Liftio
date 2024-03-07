@@ -25,7 +25,6 @@ import com.example.fitnesstracker.data.entities.TemplateExerciseEntity
 import com.example.fitnesstracker.data.entities.TestEntity
 import com.example.fitnesstracker.data.entities.WorkoutEntity
 import com.example.fitnesstracker.ioThread
-import java.util.UUID
 
 private const val TAG = "APP DATABASE"
 
@@ -86,8 +85,4 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
     }
-}
-
-fun insertExercises() {
-
 }

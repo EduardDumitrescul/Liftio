@@ -22,10 +22,10 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-private val TAG = "DATA MODULE"
+private const val TAG = "DATA MODULE"
 
 @Module
-@InstallIn(SingletonComponent::class) // to make sure the dependencies stay alive as long as the aplication is running
+@InstallIn(SingletonComponent::class) // to make sure the dependencies stay alive as long as the application is running
 class DataModule {
     @Provides
     @Singleton

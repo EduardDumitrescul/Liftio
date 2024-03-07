@@ -21,7 +21,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -47,7 +47,7 @@ private val items = listOf(
 fun BottomNavBar(
     modifier: Modifier = Modifier
 ) {
-    var selectedItem by remember { mutableStateOf(0) }
+    var selectedItem by remember { mutableIntStateOf(0) }
 
     Surface(
         shadowElevation = 4.dp,
@@ -88,8 +88,9 @@ private fun NavItem(
         modifier = modifier
             .clickable(
                 interactionSource = interactionSource,
-                indication = null
-            ) { onClick() }
+                indication = null,
+                onClick = onClick,
+            )
             .fillMaxHeight(),
         contentAlignment = Alignment.Center
     ){

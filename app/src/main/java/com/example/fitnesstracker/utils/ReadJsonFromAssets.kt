@@ -16,8 +16,7 @@ fun readJsonFromAssets(context: Context, path: String): String {
                 stringBuilder.append(it)
             }
         }
-        val jsonString = stringBuilder.toString()
-        return jsonString
+        return stringBuilder.toString()
     } catch (e: Exception) {
         Log.e(
             identifier,

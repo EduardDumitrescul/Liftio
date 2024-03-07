@@ -5,5 +5,4 @@ import javax.inject.Inject
 
 class SetRepository @Inject constructor(
     private val setDao: SetDao
-) {
-}
+)

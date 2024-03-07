@@ -5,6 +5,4 @@ import javax.inject.Inject
 
 class ExerciseMuscleRepository  @Inject constructor (
     private val exerciseMuscleDao: ExerciseMuscleDao
-) {
-
-}
+)

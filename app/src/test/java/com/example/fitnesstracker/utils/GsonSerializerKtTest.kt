@@ -1,9 +1,7 @@
 package com.example.fitnesstracker.utils
 
-import com.example.fitnesstracker.data.entities.TestEntity
 import org.junit.Test
-import org.junit.jupiter.api.Assertions.*
-import java.util.UUID
+import org.junit.jupiter.api.Assertions.assertEquals
 
 class GsonSerializerKtTest {
     @Test
@@ -14,9 +12,9 @@ class GsonSerializerKtTest {
     }
 
     @Test
-    fun fromJson() {
+    fun fromJsonTest() {
         val json = """{"id":1,"description":"Test"}"""
-        val entity = fromJson(json, MockEntity::class.java)
+        val entity: MockEntity = fromJson(json)
         assertEquals(entity, MockEntity(1, "Test"))
     }
 
