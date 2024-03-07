@@ -23,8 +23,8 @@ fun OutlinedChip(
 ){
     Row(
         modifier = modifier
-            .border(1.dp, outlinedChipColors.outline, RoundedCornerShape(8.dp))
-            .clip(RoundedCornerShape(8.dp))
+            .border(1.dp, outlinedChipColors.outline, chipShape)
+            .clip(chipShape)
             .background(outlinedChipColors.container)
             .padding(vertical = 4.dp, horizontal = 8.dp),
         horizontalArrangement = Arrangement.Center,

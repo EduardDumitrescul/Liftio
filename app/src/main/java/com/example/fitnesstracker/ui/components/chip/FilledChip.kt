@@ -21,7 +21,7 @@ fun FilledChip(
 ){
     Row(
         modifier = modifier
-            .clip(RoundedCornerShape(8.dp))
+            .clip(chipShape)
             .background(filledChipColors.containerColor)
             .padding(vertical = 4.dp, horizontal = 8.dp),
         horizontalArrangement = Arrangement.Center,
