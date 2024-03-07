@@ -25,15 +25,7 @@ fun CenteredAppBar(
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
     CenterAlignedTopAppBar(
-        title = {
-            Text(
-                title,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                style=AppTheme.typography.title,
-                color=AppTheme.colors.onBackground
-            )
-        },
+        title = { AppBarTitle(title) },
         colors = appBarColors,
         navigationIcon = {
             IconButton(onClick = { /* do something */ }) {

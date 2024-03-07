@@ -21,19 +21,13 @@ import com.example.fitnesstracker.ui.theme.AppTheme
 @Composable
 fun LargeAppBar(
     modifier: Modifier = Modifier,
-    text: String,
+    title: String,
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
     MediumTopAppBar(
         modifier = modifier.background(AppTheme.colors.container),
         colors = appBarColors,
-        title = {
-            Text(
-                text,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
-        },
+        title = { AppBarTitle(title) },
         navigationIcon = {
             IconButton(onClick = { /* do something */ }) {
                 Icon(
@@ -57,5 +51,5 @@ fun LargeAppBar(
 @Preview
 @Composable
 private fun LargeAppBarPreview() {
-    LargeAppBar(text = "Medium Top App Bar")
+    LargeAppBar(title = "Medium Top App Bar")
 }
