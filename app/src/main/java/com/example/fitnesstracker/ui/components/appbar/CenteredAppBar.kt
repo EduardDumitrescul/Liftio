@@ -28,14 +28,7 @@ fun CenteredAppBar(
         title = { AppBarTitle(title) },
         colors = appBarColors,
         navigationIcon = { BackNavigationIcon(onClick = { /*TODO*/ })},
-        actions = {
-            IconButton(onClick = { /* do something */ }) {
-                Icon(
-                    imageVector = Icons.Rounded.MoreVert,
-                    contentDescription = "Options"
-                )
-            }
-        },
+        actions = { MoreActionsIcon(onClick = { /*TODO*/ }) },
         scrollBehavior = scrollBehavior
     )
 }
