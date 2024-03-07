@@ -1,14 +1,14 @@
-package com.example.fitnesstracker.ui.components
+package com.example.fitnesstracker.ui.components.appbar
 
-import androidx.compose.foundation.background
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBackIosNew
 import androidx.compose.material.icons.rounded.MoreVert
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MediumTopAppBar
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
@@ -19,25 +19,28 @@ import com.example.fitnesstracker.ui.theme.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LargeAppBar(
+fun CenteredAppBar(
     modifier: Modifier = Modifier,
-    text: String,
+    title: String
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
-    MediumTopAppBar(
-        modifier = modifier.background(AppTheme.colors.container),
-        colors = TopAppBarDefaults.mediumTopAppBarColors(
-            containerColor = AppTheme.colors.background,
-            titleContentColor = AppTheme.colors.onBackground,
-            scrolledContainerColor = AppTheme.colors.background,
-        ),
+    CenterAlignedTopAppBar(
         title = {
             Text(
-                text,
+                title,
                 maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+                overflow = TextOverflow.Ellipsis,
+                style=AppTheme.typography.title,
+                color=AppTheme.colors.onBackground
             )
         },
+        colors = TopAppBarColors(
+            containerColor = AppTheme.colors.background,
+            scrolledContainerColor = AppTheme.colors.background,
+            navigationIconContentColor = AppTheme.colors.onBackground,
+            titleContentColor = AppTheme.colors.onBackground,
+            actionIconContentColor = AppTheme.colors.onBackground,
+        ),
         navigationIcon = {
             IconButton(onClick = { /* do something */ }) {
                 Icon(
@@ -58,8 +61,8 @@ fun LargeAppBar(
     )
 }
 
-@Preview
 @Composable
-private fun LargeAppBarPreview() {
-    LargeAppBar(text = "Medium Top App Bar")
+@Preview
+fun CenteredAppBarPreview() {
+    CenteredAppBar(title = "App Bar")
 }
