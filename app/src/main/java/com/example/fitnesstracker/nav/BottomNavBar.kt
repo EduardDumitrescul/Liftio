@@ -21,10 +21,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.fitnesstracker.ui.theme.AppTheme
 
 @Composable
@@ -36,11 +38,11 @@ fun BottomNavBar(
     var selectedItem by remember { mutableIntStateOf(0) }
 
     Surface(
-        shadowElevation = 4.dp,
+        shadowElevation = 8.dp,
+        color = AppTheme.colors.container,
         modifier = modifier
             .fillMaxWidth()
-            .height(80.dp)
-            .background(AppTheme.colors.container),
+            .height(80.dp),
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically
@@ -81,6 +83,7 @@ private fun NavItem(
                 onClick = onClick,
             )
             .fillMaxHeight(),
+//            .background(AppTheme.colors.container),
         contentAlignment = Alignment.Center
     ){
         Column(
@@ -98,5 +101,17 @@ private fun NavItem(
                 style=AppTheme.typography.body,
                 color=color)
         }
+    }
+}
+
+@Preview(heightDp = 300)
+@Composable
+private fun BottomNavBarPreview() {
+    AppTheme {
+        Column(verticalArrangement = Arrangement.Center,
+            modifier = Modifier.background(Color(0xFFFFFFFF))) {
+            BottomNavBar(destinations = bottomNavBarDestinations.toList(), navController = rememberNavController())
+        }
+
     }
 }
