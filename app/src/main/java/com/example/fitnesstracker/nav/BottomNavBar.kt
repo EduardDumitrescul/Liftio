@@ -1,4 +1,4 @@
-package com.example.fitnesstracker.ui.components
+package com.example.fitnesstracker.nav
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -11,11 +11,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.BarChart
-import androidx.compose.material.icons.rounded.FitnessCenter
-import androidx.compose.material.icons.rounded.History
-import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -29,23 +24,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.fitnesstracker.ui.theme.AppTheme
-
-data class Item(
-    val text: String,
-    val icon: ImageVector
-)
-
-private val items = listOf(
-    Item("Home", Icons.Rounded.Home),
-    Item("Exercises", Icons.Rounded.FitnessCenter),
-    Item("Stats", Icons.Rounded.BarChart),
-    Item("History", Icons.Rounded.History),
-)
 
 @Composable
 fun BottomNavBar(
-    modifier: Modifier = Modifier
+    destinations: List<NavDestination>,
+    navController: NavController,
+    modifier: Modifier = Modifier,
 ) {
     var selectedItem by remember { mutableIntStateOf(0) }
 
@@ -59,13 +45,16 @@ fun BottomNavBar(
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
-            items.forEachIndexed { index, item ->
+            destinations.forEachIndexed { index, item ->
                 NavItem(
                     modifier = Modifier.weight(1f),
                     icon = item.icon,
-                    text = item.text,
+                    text = item.name,
                     selected = selectedItem == index,
-                    onClick = {selectedItem = index}
+                    onClick = {
+                        selectedItem = index
+                        navController.navigate(item.route)
+                    }
                 )
             }
         }
@@ -109,13 +98,5 @@ private fun NavItem(
                 style=AppTheme.typography.body,
                 color=color)
         }
-    }
-}
-
-@Preview (showBackground = true, widthDp = 480)
-@Composable
-fun BottomNavBarPreview() {
-    AppTheme {
-        BottomNavBar()
     }
 }

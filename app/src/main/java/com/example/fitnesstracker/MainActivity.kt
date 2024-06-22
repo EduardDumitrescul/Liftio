@@ -5,14 +5,13 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.example.fitnesstracker.data.AppDatabase
 import com.example.fitnesstracker.nav.AppNavHost
+import com.example.fitnesstracker.nav.BottomNavBar
+import com.example.fitnesstracker.nav.bottomNavBarDestinations
 import com.example.fitnesstracker.ui.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -29,13 +28,21 @@ class MainActivity : ComponentActivity() {
             Log.d(TAG, it.toString())
         }
 
+
+
         setContent {
             AppTheme {
+                val navController = rememberNavController()
                 // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize()
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    bottomBar = {
+                        BottomNavBar(
+                            bottomNavBarDestinations.toList(),
+                            navController = navController)
+                    }
                 ) {
-                    AppNavHost(navController = rememberNavController())
+                    AppNavHost(navController = navController)
                 }
             }
         }

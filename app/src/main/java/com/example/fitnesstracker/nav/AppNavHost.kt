@@ -1,5 +1,6 @@
 package com.example.fitnesstracker.nav
 
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
@@ -14,10 +15,19 @@ fun AppNavHost(
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = "workouts"
+        startDestination = Home.route,
     ) {
-        composable(route = "workouts") {
-
+        composable(route = Home.route) {
+            Text("Workouts")
+        }
+        composable(route = Exercises.route) {
+            Text(text = "Exercises")
+        }
+        composable(route = Stats.route) {
+            Text(text = "Stats")
+        }
+        composable(route = History.route) {
+            Text(text = "History")
         }
     }
 }
