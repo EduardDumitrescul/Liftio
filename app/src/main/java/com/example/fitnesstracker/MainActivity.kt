@@ -8,11 +8,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import com.example.fitnesstracker.data.AppDatabase
 import com.example.fitnesstracker.nav.AppNavHost
 import com.example.fitnesstracker.nav.BottomNavBar
 import com.example.fitnesstracker.nav.bottomNavBarDestinations
-import com.example.fitnesstracker.ui.theme.AppTheme
+import com.example.fitnesstracker.view.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -20,13 +19,13 @@ private const val TAG = "MAIN ACTIVITY"
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    @Inject lateinit var db: AppDatabase
+//    @Inject lateinit var db: AppDatabase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        db.testDao().getAll().observeForever {
-            Log.d(TAG, it.toString())
-        }
+//        db.testDao().getAll().observeForever {
+//            Log.d(TAG, it.toString())
+//        }
 
 
 
