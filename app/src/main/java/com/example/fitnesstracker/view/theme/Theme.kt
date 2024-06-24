@@ -1,4 +1,4 @@
-package com.example.fitnesstracker.ui.theme
+package com.example.fitnesstracker.view.theme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 

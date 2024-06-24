@@ -1,4 +1,4 @@
-package com.example.fitnesstracker.ui.components.chip
+package com.example.fitnesstracker.view.components.chip
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.unit.dp

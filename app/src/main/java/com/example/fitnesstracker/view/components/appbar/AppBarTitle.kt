@@ -1,10 +1,10 @@
-package com.example.fitnesstracker.ui.components.appbar
+package com.example.fitnesstracker.view.components.appbar
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
-import com.example.fitnesstracker.ui.theme.AppTheme
+import com.example.fitnesstracker.view.theme.AppTheme
 
 @Composable
 fun AppBarTitle(

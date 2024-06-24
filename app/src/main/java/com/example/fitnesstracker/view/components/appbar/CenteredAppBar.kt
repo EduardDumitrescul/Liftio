@@ -1,4 +1,4 @@
-package com.example.fitnesstracker.ui.components.appbar
+package com.example.fitnesstracker.view.components.appbar
 
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api

@@ -1,13 +1,13 @@
-package com.example.fitnesstracker.ui.exercise
+package com.example.fitnesstracker.view.exercise
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.fitnesstracker.ui.components.chip.FilledChip
-import com.example.fitnesstracker.ui.components.chip.OutlinedChip
-import com.example.fitnesstracker.ui.theme.AppTheme
+import com.example.fitnesstracker.view.components.chip.FilledChip
+import com.example.fitnesstracker.view.components.chip.OutlinedChip
+import com.example.fitnesstracker.view.theme.AppTheme
 
 data class MuscleChipRowModel(
     val primaryMuscle: String,

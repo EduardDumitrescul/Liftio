@@ -1,33 +1,33 @@
-package com.example.fitnesstracker.ui.components.appbar
+package com.example.fitnesstracker.view.components.appbar
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.ArrowBackIosNew
+import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.example.fitnesstracker.ui.theme.AppTheme
+import com.example.fitnesstracker.view.theme.AppTheme
 
 @Composable
-fun BackNavigationIcon(
+fun MoreActionsIcon(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     IconButton(
         onClick = onClick,
         modifier = modifier,
-        colors = backNavigationIconColors
+        colors = moreActionIconColors
     ) {
         Icon(
-            imageVector = Icons.Rounded.ArrowBackIosNew,
-            contentDescription = "Go back"
+            imageVector = Icons.Rounded.MoreVert,
+            contentDescription = "Options",
         )
     }
 }
 
-private val backNavigationIconColors
+private val moreActionIconColors
     @Composable get() = IconButtonColors(
         containerColor = Color.Transparent,
         contentColor = AppTheme.colors.onBackground,

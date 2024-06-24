@@ -1,4 +1,4 @@
-package com.example.fitnesstracker.ui.exercise
+package com.example.fitnesstracker.view.exercise
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -10,7 +10,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.fitnesstracker.R
-import com.example.fitnesstracker.ui.theme.AppTheme
+import com.example.fitnesstracker.view.theme.AppTheme
 
 @Composable
 fun EquipmentIcon(

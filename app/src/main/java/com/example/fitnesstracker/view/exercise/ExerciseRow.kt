@@ -1,23 +1,19 @@
-package com.example.fitnesstracker.ui.exercise
+package com.example.fitnesstracker.view.exercise
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.fitnesstracker.ui.theme.AppTheme
+import com.example.fitnesstracker.view.theme.AppTheme
 
 @Composable
 fun ExerciseRow(
-    model: ExerciseRowModel,
+    model: ExerciseSummaryDTO,
 ) {
     Row(
         modifier = Modifier,
@@ -37,7 +33,7 @@ fun ExerciseRow(
     }
 }
 
-data class ExerciseRowModel(
+data class ExerciseSummaryDTO(
     val equipmentType: EquipmentType,
     val exerciseName: String,
     val primaryMuscle: String,
@@ -57,7 +53,7 @@ data class ExerciseRowModel(
 private fun PreviewExerciseRow() {
     AppTheme {
         ExerciseRow(
-            ExerciseRowModel(
+            ExerciseSummaryDTO(
                 equipmentType = EquipmentType.Barbell,
                 exerciseName = "Bench Press",
                 primaryMuscle = "chest",
