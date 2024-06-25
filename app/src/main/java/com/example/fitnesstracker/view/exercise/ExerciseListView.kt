@@ -13,6 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.fitnesstracker.view.components.appbar.LargeAppBar
+import com.example.fitnesstracker.view.components.textfield.FilledTextField
 import com.example.fitnesstracker.view.theme.AppTheme
 
 
@@ -26,6 +28,17 @@ fun ExerciseListView(
         Modifier.padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
+        item {
+            LargeAppBar(title = "Exerqqcises")
+        }
+        item {
+            FilledTextField(
+                onValueChange = {},
+                placeholderText = "exercise name"
+            )
+        }
+
+
         items(state.exerciseSummaries) {
             ExerciseRow(it)
         }
