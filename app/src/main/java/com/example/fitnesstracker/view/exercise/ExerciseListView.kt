@@ -16,13 +16,14 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.fitnesstracker.view.components.appbar.LargeAppBar
 import com.example.fitnesstracker.view.components.textfield.FilledTextField
 import com.example.fitnesstracker.view.theme.AppTheme
+import androidx.hilt.navigation.compose.hiltViewModel
 
 
 @Composable
 fun ExerciseListView(
-    viewModel: ExerciseListViewModel = viewModel(),
+    viewModel: ExerciseListViewModel = hiltViewModel<ExerciseListViewModel>(),
 ) {
-    val state by viewModel.state.collectAsState()
+    val exerciseSummaries by viewModel.exerciseSummaries.collectAsState()
 
     LazyColumn(
         Modifier.padding(16.dp),
@@ -39,7 +40,7 @@ fun ExerciseListView(
         }
 
 
-        items(state.exerciseSummaries) {
+        items(exerciseSummaries) {
             ExerciseRow(it)
         }
     }

@@ -1,25 +1,20 @@
 package com.example.fitnesstracker.view.exercise
 
 import androidx.lifecycle.ViewModel
+import com.example.fitnesstracker.service.ExerciseService
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import javax.inject.Inject
 
-class ExerciseListViewModel: ViewModel() {
-    private var _state: MutableStateFlow<State> = MutableStateFlow(State(listOf()))
+@HiltViewModel
+class ExerciseListViewModel @Inject constructor(
+    private val exerciseService: ExerciseService
+): ViewModel() {
+    private var _exerciseSummaries: MutableStateFlow<List<ExerciseSummaryDTO>> = exerciseService.getExerciseSummaries()
 
-    val state = _state.asStateFlow()
+    val exerciseSummaries = _exerciseSummaries.asStateFlow()
 
-    init {
-        _state.value.exerciseSummaries = listOf(
-            ExerciseSummaryDTO(EquipmentType.Barbell, "Bench Press", "chest", listOf("shoulders", "triceps")),
-            ExerciseSummaryDTO(EquipmentType.Dumbbell, "Bicep Curl", "biceps", listOf("forearms")),
-            ExerciseSummaryDTO(EquipmentType.Barbell, "Deadlift", "Hamstring", listOf("glutes", "back", "traps")),
-        )
-    }
 
 
 }
-
-data class State(
-    var exerciseSummaries: List<ExerciseSummaryDTO>
-)

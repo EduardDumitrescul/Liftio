@@ -1,3 +1,12 @@
+package com.example.fitnesstracker.hilt
+
+import com.example.fitnesstracker.service.ExerciseService
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
+
 //package com.example.fitnesstracker.data
 //
 //import android.content.Context
@@ -19,9 +28,16 @@
 //
 //private const val TAG = "DATA MODULE"
 //
-//@Module
-//@InstallIn(SingletonComponent::class) // to make sure the dependencies stay alive as long as the application is running
-//class DataModule {
+@Module
+@InstallIn(SingletonComponent::class)
+class DataModule {
+
+    @Provides
+    @Singleton
+    fun provideExerciseService(): ExerciseService {
+        return ExerciseService()
+    }
+
 //    @Provides
 //    @Singleton
 //    fun provideAppDatabase(@ApplicationContext appContext: Context): AppDatabase {
@@ -109,4 +125,4 @@
 //    ): WorkoutRepository {
 //        return WorkoutRepository(workoutDao)
 //    }
-//}
+}

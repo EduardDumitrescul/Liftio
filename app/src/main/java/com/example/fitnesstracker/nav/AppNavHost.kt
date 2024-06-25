@@ -6,6 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
+import com.example.fitnesstracker.view.exercise.ExerciseListView
 
 @Composable
 fun AppNavHost(
@@ -21,7 +22,7 @@ fun AppNavHost(
             Text("Workouts")
         }
         composable(route = Exercises.route) {
-            Text(text = "Exercises")
+            ExerciseListView()
         }
         composable(route = Stats.route) {
             Text(text = "Stats")
