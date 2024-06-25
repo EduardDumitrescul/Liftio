@@ -1,5 +1,6 @@
 package com.example.fitnesstracker
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -20,6 +21,7 @@ private const val TAG = "MAIN ACTIVITY"
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 //    @Inject lateinit var db: AppDatabase
+    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
