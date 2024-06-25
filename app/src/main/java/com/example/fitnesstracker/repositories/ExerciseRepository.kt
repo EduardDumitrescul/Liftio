@@ -11,7 +11,7 @@ class ExerciseRepository {
         ExerciseSummaryDTO(EquipmentType.Barbell, "Deadlift", "Hamstring", listOf("glutes", "back", "traps")),
     ))
 
-    public fun getExerciseSummaries(): MutableStateFlow<List<ExerciseSummaryDTO>> {
+    public fun getExerciseSummaries(exerciseName: String = ""): MutableStateFlow<List<ExerciseSummaryDTO>> {
         return exerciseSummaries
     }
 }

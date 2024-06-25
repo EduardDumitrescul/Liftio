@@ -42,7 +42,8 @@ fun FilledTextField(
         modifier = Modifier.height(40.dp).fillMaxWidth(),
         cursorBrush = SolidColor(AppTheme.colors.primary),
         enabled = true,
-        interactionSource = interactionSource
+        interactionSource = interactionSource,
+        singleLine = true,
     ) { innerTextField ->
         TextFieldDefaults.DecorationBox(
             value = text,
