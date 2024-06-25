@@ -69,7 +69,7 @@ fun FilledTextField(
                     modifier = Modifier.size(24.dp)
                 )
             },
-            shape = RoundedCornerShape(8.dp),
+            shape = AppTheme.shapes.roundedSmallCornerShape,
             colors = TextFieldDefaults.colors(
                 disabledIndicatorColor = Color.Transparent,
                 focusedIndicatorColor = Color.Transparent,

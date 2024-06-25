@@ -17,7 +17,7 @@ fun EquipmentIcon(
     type: EquipmentType
 ) {
     Surface(
-        shape = RoundedCornerShape(8.dp),
+        shape = AppTheme.shapes.roundedSmallCornerShape,
         color = AppTheme.colors.containerVariant,
     ) {
        Icon(
