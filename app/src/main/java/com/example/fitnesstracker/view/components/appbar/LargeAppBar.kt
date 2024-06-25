@@ -1,14 +1,12 @@
 package com.example.fitnesstracker.view.components.appbar
 
-import androidx.compose.foundation.background
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MediumTopAppBar
+import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.fitnesstracker.view.theme.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -17,8 +15,8 @@ fun LargeAppBar(
     title: String,
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
-    MediumTopAppBar(
-        modifier = modifier.background(AppTheme.colors.container),
+    TopAppBar(
+        modifier = modifier,
         colors = appBarColors,
         title = { AppBarTitle(title) },
         navigationIcon = { BackNavigationIcon(onClick = { /*TODO*/ }) },
@@ -30,5 +28,5 @@ fun LargeAppBar(
 @Preview
 @Composable
 private fun LargeAppBarPreview() {
-    LargeAppBar(title = "Medium Top App Bar")
+    LargeAppBar(title = "Top App Bar")
 }
