@@ -29,7 +29,7 @@ fun ExerciseListView(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         item {
-            LargeAppBar(title = "Exerqqcises")
+            LargeAppBar(title = "Exercises")
         }
         item {
             FilledTextField(
