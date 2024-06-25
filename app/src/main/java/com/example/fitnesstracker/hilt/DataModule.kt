@@ -1,6 +1,6 @@
 package com.example.fitnesstracker.hilt
 
-import com.example.fitnesstracker.service.ExerciseService
+import com.example.fitnesstracker.repositories.ExerciseRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,8 +34,8 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideExerciseService(): ExerciseService {
-        return ExerciseService()
+    fun provideExerciseRepository(): ExerciseRepository {
+        return ExerciseRepository()
     }
 
 //    @Provides
