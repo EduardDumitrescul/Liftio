@@ -18,6 +18,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun ExerciseListView(
+    navigateBack: () -> Unit,
     viewModel: ExerciseListViewModel = hiltViewModel<ExerciseListViewModel>(),
 ) {
     val exerciseSummaries by viewModel.filteredExerciseSummaries.collectAsState()
@@ -27,7 +28,10 @@ fun ExerciseListView(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         item {
-            LargeAppBar(title = "Exercises")
+            LargeAppBar(
+                title = "Exercises",
+                onNavigationIconClick = navigateBack
+            )
         }
         item {
             FilledTextField(
@@ -48,7 +52,9 @@ fun ExerciseListView(
 @Preview(showBackground = true)
 fun Preview() {
     AppTheme {
-        ExerciseListView()
+        ExerciseListView(
+            navigateBack = {}
+        )
     }
 
 }

@@ -22,7 +22,9 @@ fun AppNavHost(
             Text("Workouts")
         }
         composable(route = Exercises.route) {
-            ExerciseListView()
+            ExerciseListView(
+                navigateBack = { navController.navigateUp() }
+            )
         }
         composable(route = Stats.route) {
             Text(text = "Stats")

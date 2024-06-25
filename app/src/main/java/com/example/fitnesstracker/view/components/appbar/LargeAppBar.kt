@@ -11,15 +11,16 @@ import androidx.compose.ui.tooling.preview.Preview
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LargeAppBar(
-    modifier: Modifier = Modifier,
     title: String,
+    modifier: Modifier = Modifier,
+    onNavigationIconClick: () -> Unit = {},
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
     TopAppBar(
         modifier = modifier,
         colors = appBarColors,
         title = { AppBarTitle(title) },
-        navigationIcon = { BackNavigationIcon(onClick = { /*TODO*/ }) },
+        navigationIcon = { BackNavigationIcon(onClick = onNavigationIconClick) },
         actions = { MoreActionsIcon(onClick = { /*TODO*/ })},
         scrollBehavior = scrollBehavior
     )
