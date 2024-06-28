@@ -13,7 +13,7 @@ import com.example.fitnesstracker.view.theme.AppTheme
 
 @Composable
 fun ExerciseRow(
-    model: ExerciseSummaryDTO,
+    model: ExerciseSummary,
 ) {
     Row(
         modifier = Modifier,
@@ -33,7 +33,7 @@ fun ExerciseRow(
     }
 }
 
-data class ExerciseSummaryDTO(
+data class ExerciseSummary(
     val equipmentType: EquipmentType,
     val exerciseName: String,
     val primaryMuscle: String,
@@ -53,7 +53,7 @@ data class ExerciseSummaryDTO(
 private fun PreviewExerciseRow() {
     AppTheme {
         ExerciseRow(
-            ExerciseSummaryDTO(
+            ExerciseSummary(
                 equipmentType = EquipmentType.Barbell,
                 exerciseName = "Bench Press",
                 primaryMuscle = "chest",
