@@ -62,7 +62,7 @@ fun FilledTextField(
                 Icon(
                     imageVector = Icons.Rounded.Search,
                     contentDescription = "search",
-                    modifier = Modifier.size(24.dp)
+                    modifier = Modifier.size(AppTheme.dimensions.iconSmall)
                 )
             },
             shape = AppTheme.shapes.roundedSmallCornerShape,

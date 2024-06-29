@@ -9,11 +9,13 @@ fun AppTheme(
     val appColors = LightColorTheme()
     val typography = CustomTypography()
     val shapes = CustomShapes()
+    val dimensions = Dimensions()
 
     CompositionLocalProvider (
         LocalCustomColors provides appColors,
         LocalCustomTypography provides typography,
         LocalCustomShapes provides shapes,
+        LocalDimensions provides dimensions,
         content = content,
     )
 }
@@ -30,4 +32,8 @@ object AppTheme {
     val shapes: CustomShapes
         @Composable
         get() = LocalCustomShapes.current
+
+    val dimensions: Dimensions
+        @Composable
+        get() = LocalDimensions.current
 }

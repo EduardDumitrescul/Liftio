@@ -22,7 +22,7 @@ fun FilledChip(
         modifier = modifier
             .clip(AppTheme.shapes.roundedSmallCornerShape)
             .background(filledChipColors.containerColor)
-            .padding(vertical = 4.dp, horizontal = 8.dp),
+            .padding(vertical = AppTheme.dimensions.paddingSmall, horizontal = AppTheme.dimensions.paddingNormal),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
     ) {

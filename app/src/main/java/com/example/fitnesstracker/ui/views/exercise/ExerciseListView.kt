@@ -49,7 +49,7 @@ fun ExerciseListView(
                             Icons.Rounded.Add,
                             "add new exercise",
                             tint = AppTheme.colors.onBackground,
-                            modifier = Modifier.size(32.dp),
+                            modifier = Modifier.size(AppTheme.dimensions.iconNormal),
                         )
                     }
                 }
@@ -61,8 +61,8 @@ fun ExerciseListView(
             Modifier
                 .padding(bottom = innerPadding.calculateBottomPadding())
                 .padding(top = innerPadding.calculateTopPadding())
-                .padding(horizontal = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+                .padding(horizontal = AppTheme.dimensions.paddingLarge),
+            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingLarge)
         ) {
             item {
                 FilledTextField(

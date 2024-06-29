@@ -42,7 +42,7 @@ fun BottomNavBar(
     val currentDestination = navBackStackEntry?.destination
 
     Surface(
-        shadowElevation = 8.dp,
+        shadowElevation = AppTheme.dimensions.elevationHigh,
         color = AppTheme.colors.container,
         modifier = modifier
             .fillMaxWidth()
@@ -100,7 +100,7 @@ private fun NavItem(
         Icon(
             icon,
             contentDescription = text,
-            modifier.size(32.dp),
+            modifier.size(AppTheme.dimensions.iconNormal),
             tint = color)
             Text(
                 text = text,

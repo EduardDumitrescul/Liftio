@@ -22,10 +22,10 @@ fun OutlinedChip(
 ){
     Row(
         modifier = modifier
-            .border(1.dp, outlinedChipColors.outline, AppTheme.shapes.roundedSmallCornerShape)
+            .border(AppTheme.dimensions.border, outlinedChipColors.outline, AppTheme.shapes.roundedSmallCornerShape)
             .clip(AppTheme.shapes.roundedSmallCornerShape)
             .background(outlinedChipColors.container)
-            .padding(vertical = 4.dp, horizontal = 8.dp),
+            .padding(vertical = AppTheme.dimensions.paddingSmall, horizontal = AppTheme.dimensions.paddingNormal),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
     ) {

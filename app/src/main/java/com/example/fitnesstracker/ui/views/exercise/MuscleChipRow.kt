@@ -20,7 +20,7 @@ fun MuscleChipRow(
     model: MuscleChipRowModel,
 ) {
     Row(
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal)
     ) {
         FilledChip(label = model.primaryMuscle)
         model.secondaryMuscles.forEach {

@@ -24,7 +24,7 @@ fun Fab(
         containerColor = AppTheme.colors.primary,
         contentColor = AppTheme.colors.onPrimary
     ) {
-        Icon(imageVector, description, modifier = Modifier.size(40.dp))
+        Icon(imageVector, description, modifier = Modifier.size(AppTheme.dimensions.iconLarge))
     }
 }
 
