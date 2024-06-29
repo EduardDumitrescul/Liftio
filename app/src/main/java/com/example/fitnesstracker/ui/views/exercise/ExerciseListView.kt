@@ -30,6 +30,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 @Composable
 fun ExerciseListView(
     navigateBack: () -> Unit,
+    navigateToExerciseEditView: () -> Unit,
     viewModel: ExerciseListViewModel = hiltViewModel<ExerciseListViewModel>(),
 ) {
     val exerciseSummaries by viewModel.filteredExerciseSummaries.collectAsState()
@@ -44,7 +45,7 @@ fun ExerciseListView(
                 onNavigationIconClick = navigateBack,
                 scrollBehavior = scrollBehavior,
                 actions = {
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(onClick = navigateToExerciseEditView) {
                         Icon(
                             Icons.Rounded.Add,
                             "add new exercise",
@@ -95,7 +96,8 @@ fun ExerciseListView(
 fun Preview() {
     AppTheme {
         ExerciseListView(
-            navigateBack = {}
+            navigateBack = {},
+            navigateToExerciseEditView = {},
         )
     }
 

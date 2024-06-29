@@ -2,6 +2,7 @@ package com.example.fitnesstracker.ui.nav
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.BarChart
+import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.FitnessCenter
 import androidx.compose.material.icons.rounded.History
 import androidx.compose.material.icons.rounded.Home
@@ -29,6 +30,18 @@ object Exercises: NavDestination {
         get() = "exercises"
     override val name: String
         get() = "Exercises"
+}
+
+object EditExercise: NavDestination {
+    override val icon: ImageVector
+        get() = Icons.Rounded.Edit
+    override val route: String
+        get() = "exercise/{id}"
+    override val name: String
+        get() = "exercise edit"
+    fun createRoute(id: Int): String {
+        return "exercise/$id"
+    }
 }
 
 object Stats: NavDestination {
