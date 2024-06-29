@@ -1,5 +1,6 @@
 package com.example.fitnesstracker.view.exercise
 
+import android.media.audiofx.DynamicsProcessing.Eq
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -10,12 +11,18 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.fitnesstracker.R
+import com.example.fitnesstracker.view.exercise.EquipmentType.Barbell
+import com.example.fitnesstracker.view.exercise.EquipmentType.Cables
+import com.example.fitnesstracker.view.exercise.EquipmentType.Dumbbell
+import com.example.fitnesstracker.view.exercise.EquipmentType.Machine
+import com.example.fitnesstracker.view.exercise.EquipmentType.None
 import com.example.fitnesstracker.view.theme.AppTheme
 
 @Composable
 fun EquipmentIcon(
-    type: EquipmentType
+    equipment: String = ""
 ) {
+    val type = getType(equipment)
     Surface(
         shape = AppTheme.shapes.roundedSmallCornerShape,
         color = AppTheme.colors.containerVariant,
@@ -32,17 +39,27 @@ fun EquipmentIcon(
 
 
 enum class EquipmentType(val id: Int, val description: String) {
-    Dumbbell(R.drawable.dumbbell, "dumbbell"),
+    Dumbbell(R.drawable.dumbbell, "dumbbells"),
     Barbell(R.drawable.barbell, "barbell"),
     Machine(R.drawable.machine, "machine"),
     Cables(R.drawable.cables, "cables"),
-    None(R.drawable.none, "none"),
+    None(R.drawable.none, "none")
+}
+
+private fun getType(type: String): EquipmentType {
+    return when(type) {
+        "dumbbells" -> Dumbbell
+        "barbell" -> Barbell
+        "machine" -> Machine
+        "cables" -> Cables
+        else -> None
+    }
 }
 
 @Composable
 @Preview
 private fun PreviewEquipmentIcon() {
     AppTheme {
-        EquipmentIcon(type = EquipmentType.None)
+        EquipmentIcon()
     }
 }

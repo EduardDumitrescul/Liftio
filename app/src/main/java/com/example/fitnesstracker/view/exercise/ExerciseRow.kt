@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.fitnesstracker.data.dto.ExerciseSummary
 import com.example.fitnesstracker.view.theme.AppTheme
 
 @Composable
@@ -33,20 +34,6 @@ fun ExerciseRow(
     }
 }
 
-data class ExerciseSummary(
-    val equipmentType: EquipmentType,
-    val exerciseName: String,
-    val primaryMuscle: String,
-    val secondaryMuscles: List<String>
-) {
-    fun getMuscleChipRowModel(): MuscleChipRowModel {
-        return MuscleChipRowModel(
-            primaryMuscle = primaryMuscle,
-            secondaryMuscles = secondaryMuscles,
-        )
-    }
-}
-
 
 @Composable
 @Preview(showBackground = true)
@@ -54,7 +41,7 @@ private fun PreviewExerciseRow() {
     AppTheme {
         ExerciseRow(
             ExerciseSummary(
-                equipmentType = EquipmentType.Barbell,
+                equipmentType = "barbell",
                 exerciseName = "Bench Press",
                 primaryMuscle = "chest",
                 secondaryMuscles = listOf("shoulders", "triceps"),
