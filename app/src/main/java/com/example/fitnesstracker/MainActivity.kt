@@ -8,7 +8,9 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.fitnesstracker.ui.nav.AppNavHost
 import com.example.fitnesstracker.ui.nav.BottomNavBar
@@ -35,10 +37,16 @@ class MainActivity : ComponentActivity() {
         setContent {
             AppTheme {
                 val navController = rememberNavController()
+                val navBackStackEntry by navController.currentBackStackEntryAsState()
+                val currentRoute = navBackStackEntry?.destination?.route
                 // A surface container using the 'background' color from the theme
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                     bottomBar = {
+                        if (currentRoute != null) {
+                            Log.d(TAG, currentRoute)
+                        }
+                        if(currentRoute in bottomNavBarDestinations.map{it.route})
                         BottomNavBar(
                             bottomNavBarDestinations.toList(),
                             navController = navController)
