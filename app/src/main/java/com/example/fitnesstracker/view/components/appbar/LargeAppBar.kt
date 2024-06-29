@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.exclude
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MediumTopAppBar
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -22,14 +23,24 @@ fun LargeAppBar(
     title: String,
     modifier: Modifier = Modifier,
     onNavigationIconClick: () -> Unit = {},
-    scrollBehavior: TopAppBarScrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+    scrollBehavior: TopAppBarScrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(),
+    showNavigationIcon: Boolean = true,
+    showMoreActionsIcon: Boolean = true,
 ) {
-    MediumTopAppBar(
+    LargeTopAppBar(
         modifier = modifier,
         colors = appBarColors,
         title = { AppBarTitle(title) },
-        navigationIcon = { BackNavigationIcon(onClick = onNavigationIconClick) },
-        actions = { MoreActionsIcon(onClick = { /*TODO*/ })},
+        navigationIcon = {
+            if(showNavigationIcon) {
+                BackNavigationIcon(onClick = onNavigationIconClick)
+            }
+                         },
+        actions = {
+            if(showMoreActionsIcon) {
+                MoreActionsIcon(onClick = { /*TODO*/ })
+            }
+            },
         scrollBehavior = scrollBehavior,
     )
 }
