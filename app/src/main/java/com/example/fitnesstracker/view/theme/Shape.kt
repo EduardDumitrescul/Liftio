@@ -8,7 +8,8 @@ import javax.annotation.concurrent.Immutable
 
 @Immutable
 data class CustomShapes (
-    val roundedSmallCornerShape: RoundedCornerShape = RoundedCornerShape(8.dp)
+    val roundedSmallCornerShape: RoundedCornerShape = RoundedCornerShape(8.dp),
+    val roundedFullCornerShape: RoundedCornerShape = RoundedCornerShape(100)
 )
 
 val LocalCustomShapes = staticCompositionLocalOf {
