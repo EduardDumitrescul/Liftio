@@ -1,7 +1,6 @@
 package com.example.fitnesstracker.data.dto
 
-import com.example.fitnesstracker.view.exercise.EquipmentType
-import com.example.fitnesstracker.view.exercise.MuscleChipRowModel
+import com.example.fitnesstracker.ui.views.exercise.MuscleChipRowModel
 
 data class ExerciseSummary(
     val equipmentType: String,

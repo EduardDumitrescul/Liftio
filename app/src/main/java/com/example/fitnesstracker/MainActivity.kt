@@ -9,10 +9,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import com.example.fitnesstracker.nav.AppNavHost
-import com.example.fitnesstracker.nav.BottomNavBar
-import com.example.fitnesstracker.nav.bottomNavBarDestinations
-import com.example.fitnesstracker.view.theme.AppTheme
+import com.example.fitnesstracker.ui.nav.AppNavHost
+import com.example.fitnesstracker.ui.nav.BottomNavBar
+import com.example.fitnesstracker.ui.nav.bottomNavBarDestinations
+import com.example.fitnesstracker.ui.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
