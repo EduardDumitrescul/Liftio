@@ -41,7 +41,8 @@ fun ExerciseListView(
                 onNavigationIconClick = navigateBack,
                 scrollBehavior = scrollBehavior
             )
-        }
+        },
+        containerColor = AppTheme.colors.background
     ) {innerPadding ->
         LazyColumn(
             Modifier.padding(bottom = innerPadding.calculateBottomPadding())

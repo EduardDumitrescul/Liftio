@@ -31,7 +31,8 @@ fun WorkoutListView() {
         },
         floatingActionButton = {
             Fab(Icons.Rounded.Add, "more options", onClick = { /*TODO*/ })
-        }
+        },
+        containerColor = AppTheme.colors.background
     ) { innerPadding ->
         LazyColumn(
             modifier = Modifier
