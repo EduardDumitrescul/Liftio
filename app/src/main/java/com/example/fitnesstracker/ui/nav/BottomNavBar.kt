@@ -26,6 +26,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.fitnesstracker.ui.theme.AppTheme
 
@@ -36,6 +38,8 @@ fun BottomNavBar(
     modifier: Modifier = Modifier,
 ) {
     var selectedItem by remember { mutableIntStateOf(0) }
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
 
     Surface(
         shadowElevation = 8.dp,
@@ -52,7 +56,9 @@ fun BottomNavBar(
                     modifier = Modifier.weight(1f),
                     icon = item.icon,
                     text = item.name,
-                    selected = selectedItem == index,
+                    selected = currentDestination?.hierarchy?.any {
+                        it.route == item.route
+                    } == true,
                     onClick = {
                         selectedItem = index
                         navController.navigate(item.route)
