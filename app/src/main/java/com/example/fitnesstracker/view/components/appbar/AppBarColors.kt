@@ -10,7 +10,7 @@ import com.example.fitnesstracker.view.theme.AppTheme
 val appBarColors
     @Composable get() = TopAppBarColors(
     containerColor = Color.Transparent,
-    scrolledContainerColor = AppTheme.colors.background,
+    scrolledContainerColor = Color.Transparent,
     navigationIconContentColor = AppTheme.colors.onBackground,
     titleContentColor = AppTheme.colors.onBackground,
     actionIconContentColor = AppTheme.colors.onBackground,
