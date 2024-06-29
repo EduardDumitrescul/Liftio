@@ -3,6 +3,7 @@ package com.example.fitnesstracker.ui.components.textfield
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
@@ -22,13 +23,17 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.min
 import com.example.fitnesstracker.ui.theme.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FilledTextField(
     onValueChange: (String) -> Unit,
-    placeholderText: String = ""
+    placeholderText: String = "",
+    singleLine: Boolean = true,
+    minLines: Int = 1,
+    leadingIcon: @Composable (() -> Unit)? = null,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     var text by remember { mutableStateOf("") }
@@ -39,17 +44,19 @@ fun FilledTextField(
             text = it
             onValueChange(it)
         },
-        modifier = Modifier.height(40.dp).fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth(),
         cursorBrush = SolidColor(AppTheme.colors.primary),
         enabled = true,
         interactionSource = interactionSource,
-        singleLine = true,
+        singleLine = singleLine,
+        minLines = minLines,
+        textStyle = AppTheme.typography.body,
     ) { innerTextField ->
         TextFieldDefaults.DecorationBox(
             value = text,
             innerTextField = innerTextField,
             enabled = true,
-            singleLine = true,
+            singleLine = singleLine,
             visualTransformation = VisualTransformation.None,
             interactionSource = interactionSource,
             placeholder = {
@@ -58,13 +65,7 @@ fun FilledTextField(
                     style = AppTheme.typography.body,
                 )
             },
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Rounded.Search,
-                    contentDescription = "search",
-                    modifier = Modifier.size(AppTheme.dimensions.iconSmall)
-                )
-            },
+            leadingIcon = leadingIcon,
             shape = AppTheme.shapes.roundedSmallCornerShape,
             colors = TextFieldDefaults.colors(
                 disabledIndicatorColor = Color.Transparent,
@@ -79,8 +80,8 @@ fun FilledTextField(
                 focusedContainerColor = AppTheme.colors.container,
             ),
             contentPadding = TextFieldDefaults.contentPaddingWithoutLabel(
-                top = 0.dp,
-                bottom = 0.dp,
+                top = 8.dp,
+                bottom = 8.dp,
             ),
         )
     }

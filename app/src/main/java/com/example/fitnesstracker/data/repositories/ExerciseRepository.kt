@@ -9,9 +9,9 @@ import kotlinx.coroutines.flow.flowOf
 
 class ExerciseRepository {
     private var exercises = flowOf(listOf(
-        Exercise(1, "Bench Press", "barbell"),
-        Exercise(2, "Bicep Curl", "dumbbells"),
-        Exercise(3, "Deadlift", "barbell"),
+        Exercise(1, "Bench Press", "The basic Chest Exercise","barbell"),
+        Exercise(2, "Bicep Curl", "Gym Bro's favorite", "dumbbells"),
+        Exercise(3, "Deadlift", "Do at your own risk", "barbell"),
     ))
 
     fun getExercises(): Flow<List<Exercise>> {
