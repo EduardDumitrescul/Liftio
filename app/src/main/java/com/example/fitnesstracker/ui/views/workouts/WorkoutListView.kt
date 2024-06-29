@@ -24,7 +24,7 @@ fun WorkoutListView() {
             LargeAppBar(
                 title = "Workouts",
                 showNavigationIcon = false,
-                showMoreActionsIcon = false,
+                actions = {},
             )
         },
         floatingActionButton = {

@@ -1,7 +1,9 @@
 package com.example.fitnesstracker.ui.components.appbar
 
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LargeTopAppBar
+import androidx.compose.material3.MediumTopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
@@ -16,9 +18,9 @@ fun LargeAppBar(
     onNavigationIconClick: () -> Unit = {},
     scrollBehavior: TopAppBarScrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(),
     showNavigationIcon: Boolean = true,
-    showMoreActionsIcon: Boolean = true,
+    actions: @Composable RowScope.() -> Unit = {},
 ) {
-    LargeTopAppBar(
+    MediumTopAppBar(
         modifier = modifier,
         colors = appBarColors,
         title = { AppBarTitle(title) },
@@ -27,11 +29,7 @@ fun LargeAppBar(
                 BackNavigationIcon(onClick = onNavigationIconClick)
             }
                          },
-        actions = {
-            if(showMoreActionsIcon) {
-                MoreActionsIcon(onClick = { /*TODO*/ })
-            }
-            },
+        actions = actions,
         scrollBehavior = scrollBehavior,
     )
 }
