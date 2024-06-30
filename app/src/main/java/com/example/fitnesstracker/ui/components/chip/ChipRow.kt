@@ -26,7 +26,8 @@ fun SingleChoiceChipGroup(
     }
 
     FlowRow(
-        horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal)
+        horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal),
+        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal)
     ) {
 
         for(option in options) {
@@ -60,7 +61,8 @@ fun MultiChoiceChipGroup(
     }
 
     FlowRow(
-        horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal)
+        horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal),
+        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal)
     ) {
 
         for(option in options) {
