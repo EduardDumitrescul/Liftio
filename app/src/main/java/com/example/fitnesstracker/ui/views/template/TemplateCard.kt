@@ -1,4 +1,4 @@
-package com.example.fitnesstracker.ui.views.workouts
+package com.example.fitnesstracker.ui.views.template
 
 import android.graphics.Color
 import androidx.compose.foundation.layout.Arrangement
@@ -21,7 +21,7 @@ import com.example.fitnesstracker.ui.theme.AppTheme
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun WorkoutCard(
+fun TemplateCard(
     template: TemplateSummary
 ) {
     ElevatedCard(
@@ -77,7 +77,7 @@ private val cardElevation @Composable get() = CardDefaults.elevatedCardElevation
 @Preview(showBackground = true, backgroundColor = Color.GRAY.toLong(), widthDp = 300)
 private fun PreviewWorkoutCard() {
     AppTheme {
-        WorkoutCard(
+        TemplateCard(
             template = TemplateSummary(
                 templateId = 0,
                 templateName = "Push Workout",
