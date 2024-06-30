@@ -3,7 +3,9 @@ package com.example.fitnesstracker.ui.views.exercise.edit
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -17,6 +19,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.fitnesstracker.ui.components.appbar.LargeAppBar
+import com.example.fitnesstracker.ui.components.button.FilledButton
+import com.example.fitnesstracker.ui.components.button.OutlinedButton
 import com.example.fitnesstracker.ui.components.chip.MultiChoiceChipGroup
 import com.example.fitnesstracker.ui.components.chip.SingleChoiceChipGroup
 import com.example.fitnesstracker.ui.components.textfield.FilledTextField
@@ -26,10 +30,10 @@ import com.example.fitnesstracker.ui.views.exercise.ExerciseListViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ExerciseEditView(
-    viewModel: ExerciseEditViewModel = hiltViewModel()
+    viewModel: ExerciseEditViewModel = hiltViewModel(),
+    navigateBack: () -> Unit,
 ) {
     val muscleNames by viewModel.muscleNames.collectAsState()
-
 
     Scaffold(
         topBar = {
@@ -37,6 +41,29 @@ fun ExerciseEditView(
                 title = "Edit Exercise",
                 showNavigationIcon = true,
             )
+        },
+        bottomBar = {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = AppTheme.dimensions.paddingNormal)
+                    .padding(horizontal = AppTheme.dimensions.paddingLarge),
+                horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingLarge)
+            ) {
+                OutlinedButton(
+                    text = "Cancel",
+                    onClick = navigateBack,
+                    modifier = Modifier.weight(0.5f)
+                )
+                FilledButton(
+                    text = "Save",
+                    onClick = {
+                        viewModel.save()
+                        navigateBack()
+                    },
+                    modifier = Modifier.weight(0.5f)
+                )
+            }
         },
         containerColor = AppTheme.colors.background,
         contentColor = AppTheme.colors.onBackground,
@@ -110,13 +137,5 @@ fun ExerciseEditView(
                 )
             }
         }
-    }
-}
-
-@Preview
-@Composable
-fun PreviewExerciseEditView() {
-    AppTheme {
-        ExerciseEditView()
     }
 }

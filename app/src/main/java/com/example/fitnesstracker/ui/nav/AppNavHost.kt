@@ -37,7 +37,7 @@ fun AppNavHost(
             Text(text = "History")
         }
         composable(route = EditExercise.route) {
-            ExerciseEditView()
+            ExerciseEditView(navigateBack = {navController.navigateUp()})
         }
     }
 }

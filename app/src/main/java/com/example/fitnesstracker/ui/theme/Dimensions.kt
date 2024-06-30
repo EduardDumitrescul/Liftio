@@ -12,6 +12,7 @@ data class Dimensions (
     val iconNormal: Dp = 32.dp,
     val iconLarge: Dp = 48.dp,
     val border: Dp = 1.dp,
+    val borderWide: Dp = 2.dp,
     val paddingSmall: Dp = 4.dp,
     val paddingNormal: Dp = 8.dp,
     val paddingLarge: Dp = 16.dp,

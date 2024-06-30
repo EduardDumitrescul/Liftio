@@ -4,7 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fitnesstracker.data.dto.ExerciseWithMuscles
 import com.example.fitnesstracker.data.models.Exercise
+import com.example.fitnesstracker.data.repositories.ExerciseRepository
 import com.example.fitnesstracker.data.repositories.MuscleRepository
+import com.example.fitnesstracker.data.services.ExerciseService
+import com.example.fitnesstracker.data.services.MuscleService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -15,13 +18,15 @@ import javax.inject.Inject
 @HiltViewModel
 class ExerciseEditViewModel @Inject constructor(
     val exerciseId: Int,
-    private val muscleRepository: MuscleRepository,
+    private val exerciseService: ExerciseService,
+    private val muscleService: MuscleService,
 ): ViewModel() {
 
     private var _exercise: MutableStateFlow<ExerciseWithMuscles> = MutableStateFlow(ExerciseWithMuscles(
         exerciseId = 0,
         exerciseName = "",
         exerciseDescription = "",
+        equipment = "",
         primaryMuscle = "",
         secondaryMuscles = listOf()
     ))
@@ -29,7 +34,7 @@ class ExerciseEditViewModel @Inject constructor(
         get() = MutableStateFlow(_exercise.value)
 
     val muscleNames: StateFlow<List<String>> 
-        get() = muscleRepository
+        get() = muscleService
             .getMuscleNames()
             .stateIn(viewModelScope, SharingStarted.WhileSubscribed(0), listOf())
 
@@ -47,6 +52,13 @@ class ExerciseEditViewModel @Inject constructor(
 
     fun updateSecondaryMuscles(it: Set<String>) {
         _exercise.value.secondaryMuscles = it.toList()
+    }
+
+    fun save() {
+        if(_exercise.value.exerciseId == 0) {
+            exerciseService.add(_exercise.value)
+        }
+
     }
 
 }

@@ -7,6 +7,14 @@ data class ExerciseWithMuscles(
     val exerciseId: Int,
     var exerciseName: String,
     var exerciseDescription: String,
+    var equipment: String,
     var primaryMuscle: String,
     var secondaryMuscles: List<String>,
-)
+) {
+    fun getExercise() = Exercise(
+        id = exerciseId,
+        name = exerciseName,
+        description = exerciseDescription,
+        equipment = equipment,
+    )
+}

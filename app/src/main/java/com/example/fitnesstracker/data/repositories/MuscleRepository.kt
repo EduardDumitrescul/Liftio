@@ -2,21 +2,13 @@ package com.example.fitnesstracker.data.repositories
 
 import com.example.fitnesstracker.data.models.ExerciseMuscleCrossRef
 import com.example.fitnesstracker.data.models.Muscle
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
 
 class MuscleRepository {
-    private var muscles = flowOf(listOf(
+    private var muscles = MutableStateFlow(listOf(
         Muscle(1, "Chest"),
         Muscle(2, "Shoulders"),
         Muscle(3, "Triceps"),
@@ -28,7 +20,8 @@ class MuscleRepository {
         Muscle(9, "Traps"),
     ))
 
-    private var exerciseMuscleCrossRefs = flowOf(listOf(
+    private var exerciseMuscleCrossRefs = MutableStateFlow(
+        mutableListOf(
         ExerciseMuscleCrossRef(1, 1, true),
         ExerciseMuscleCrossRef(1, 2, false),
         ExerciseMuscleCrossRef(1, 3, false),
@@ -38,7 +31,8 @@ class MuscleRepository {
         ExerciseMuscleCrossRef(3, 7, false),
         ExerciseMuscleCrossRef(3, 8, false),
         ExerciseMuscleCrossRef(3, 9, false),
-    ))
+    )
+    )
 
     fun getMuscleNames(): Flow<List<String>> {
         return muscles.map { list->
@@ -84,4 +78,13 @@ class MuscleRepository {
         }
     }
 
+    fun getMuscleId(name: String): Int {
+        return muscles.value.find {
+            it.name == name
+        }?.id ?: 0
+    }
+
+    fun addExerciseMuscleCrossRef(exerciseMuscleCrossRef: ExerciseMuscleCrossRef) {
+        exerciseMuscleCrossRefs.value.add(exerciseMuscleCrossRef)
+    }
 }
