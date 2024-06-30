@@ -10,11 +10,15 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.fitnesstracker.ui.components.appbar.LargeAppBar
+import com.example.fitnesstracker.ui.components.chip.MultiChoiceChipGroup
+import com.example.fitnesstracker.ui.components.chip.SingleChoiceChipGroup
 import com.example.fitnesstracker.ui.components.textfield.FilledTextField
 import com.example.fitnesstracker.ui.theme.AppTheme
 import com.example.fitnesstracker.ui.views.exercise.ExerciseListViewModel
@@ -24,6 +28,9 @@ import com.example.fitnesstracker.ui.views.exercise.ExerciseListViewModel
 fun ExerciseEditView(
     viewModel: ExerciseEditViewModel = hiltViewModel()
 ) {
+    val muscleNames by viewModel.muscleNames.collectAsState()
+
+
     Scaffold(
         topBar = {
             LargeAppBar(
@@ -69,6 +76,37 @@ fun ExerciseEditView(
                     placeholderText = "description\n(optional)",
                     singleLine = false,
                     minLines = 5,
+                )
+            }
+
+            Column(
+                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal),
+                modifier = Modifier.padding(vertical = AppTheme.dimensions.paddingNormal)
+            ) {
+                Text(
+                    text = "Target Muscle",
+                    style = AppTheme.typography.caption,
+                    color = AppTheme.colors.onBackground
+                )
+                SingleChoiceChipGroup(
+                    options = muscleNames,
+                    onSelectionChanged = {viewModel.updatePrimaryMuscle(it)}
+                )
+            }
+
+            Column(
+                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal),
+                modifier = Modifier.padding(vertical = AppTheme.dimensions.paddingNormal)
+            ) {
+                Text(
+                    text = "Secondary Muscles",
+                    style = AppTheme.typography.caption,
+                    color = AppTheme.colors.onBackground
+                )
+
+                MultiChoiceChipGroup(
+                    options = muscleNames,
+                    onSelectionChanged = {viewModel.updateSecondaryMuscles(it)}
                 )
             }
         }

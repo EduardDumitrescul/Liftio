@@ -40,6 +40,14 @@ class MuscleRepository {
         ExerciseMuscleCrossRef(3, 9, false),
     ))
 
+    fun getMuscleNames(): Flow<List<String>> {
+        return muscles.map { list->
+            list.map {muscle ->
+                muscle.name
+            }
+        }
+    }
+
     fun getMuscleById(id: Int): Flow<Muscle?> {
         return muscles.map { list ->
             list.find { muscle ->
