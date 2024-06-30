@@ -16,6 +16,8 @@ data class Dimensions (
     val paddingSmall: Dp = 4.dp,
     val paddingNormal: Dp = 8.dp,
     val paddingLarge: Dp = 16.dp,
+    val spacingExtraSmall: Dp = 2.dp,
+    val spacingSmall: Dp = 4.dp,
     val spacingNormal: Dp = 8.dp,
     val spacingLarge: Dp = 16.dp,
     val elevationHigh: Dp = 8.dp,
