@@ -8,7 +8,10 @@ import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -103,6 +106,22 @@ fun ExerciseEditView(
                     placeholderText = "description\n(optional)",
                     singleLine = false,
                     minLines = 5,
+                )
+            }
+
+            Column(
+                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal),
+                modifier = Modifier.padding(vertical = AppTheme.dimensions.paddingNormal)
+            ) {
+                Text(
+                    text = "Necessary Equipment",
+                    style = AppTheme.typography.caption,
+                    color = AppTheme.colors.onBackground
+                )
+
+                SingleChoiceChipGroup(
+                    options = listOf("barbell", "dumbbells", "machine", "cables", "none"),
+                    onSelectionChanged = {viewModel.updateEquipment(it)}
                 )
             }
 

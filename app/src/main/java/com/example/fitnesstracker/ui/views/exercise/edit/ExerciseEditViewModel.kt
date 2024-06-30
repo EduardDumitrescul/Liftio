@@ -61,4 +61,8 @@ class ExerciseEditViewModel @Inject constructor(
 
     }
 
+    fun updateEquipment(it: String) {
+        _exercise.value.equipment = it
+    }
+
 }
