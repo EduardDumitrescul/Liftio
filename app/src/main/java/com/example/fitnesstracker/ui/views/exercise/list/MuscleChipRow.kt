@@ -1,10 +1,9 @@
-package com.example.fitnesstracker.ui.views.exercise
+package com.example.fitnesstracker.ui.views.exercise.list
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.example.fitnesstracker.ui.components.chip.FilledChip
 import com.example.fitnesstracker.ui.components.chip.OutlinedChip
 import com.example.fitnesstracker.ui.theme.AppTheme

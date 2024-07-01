@@ -7,7 +7,7 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import com.example.fitnesstracker.ui.views.exercise.ExerciseListView
+import com.example.fitnesstracker.ui.views.exercise.list.ExerciseListView
 import com.example.fitnesstracker.ui.views.exercise.edit.ExerciseEditView
 import com.example.fitnesstracker.ui.views.template.TemplateListView
 

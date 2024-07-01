@@ -1,4 +1,4 @@
-package com.example.fitnesstracker.ui.views.exercise
+package com.example.fitnesstracker.ui.views.exercise.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

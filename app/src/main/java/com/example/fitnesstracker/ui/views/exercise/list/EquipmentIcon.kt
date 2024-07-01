@@ -1,4 +1,4 @@
-package com.example.fitnesstracker.ui.views.exercise
+package com.example.fitnesstracker.ui.views.exercise.list
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
@@ -9,11 +9,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.fitnesstracker.R
-import com.example.fitnesstracker.ui.views.exercise.EquipmentType.Barbell
-import com.example.fitnesstracker.ui.views.exercise.EquipmentType.Cables
-import com.example.fitnesstracker.ui.views.exercise.EquipmentType.Dumbbell
-import com.example.fitnesstracker.ui.views.exercise.EquipmentType.Machine
-import com.example.fitnesstracker.ui.views.exercise.EquipmentType.None
+import com.example.fitnesstracker.ui.views.exercise.list.EquipmentType.Barbell
+import com.example.fitnesstracker.ui.views.exercise.list.EquipmentType.Cables
+import com.example.fitnesstracker.ui.views.exercise.list.EquipmentType.Dumbbell
+import com.example.fitnesstracker.ui.views.exercise.list.EquipmentType.Machine
+import com.example.fitnesstracker.ui.views.exercise.list.EquipmentType.None
 import com.example.fitnesstracker.ui.theme.AppTheme
 
 @Composable
