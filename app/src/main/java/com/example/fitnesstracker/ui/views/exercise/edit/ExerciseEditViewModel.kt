@@ -6,8 +6,8 @@ import com.example.fitnesstracker.data.dto.ExerciseWithMuscles
 import com.example.fitnesstracker.data.models.Exercise
 import com.example.fitnesstracker.data.repositories.ExerciseRepository
 import com.example.fitnesstracker.data.repositories.MuscleRepository
-import com.example.fitnesstracker.data.services.ExerciseService
-import com.example.fitnesstracker.data.services.MuscleService
+import com.example.fitnesstracker.services.ExerciseService
+import com.example.fitnesstracker.services.MuscleService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted

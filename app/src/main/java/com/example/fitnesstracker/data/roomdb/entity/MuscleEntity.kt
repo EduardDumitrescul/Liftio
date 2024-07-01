@@ -1,4 +1,4 @@
-package com.example.fitnesstracker.data.entity
+package com.example.fitnesstracker.data.roomdb.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

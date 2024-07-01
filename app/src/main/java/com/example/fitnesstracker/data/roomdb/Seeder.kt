@@ -1,9 +1,9 @@
-package com.example.fitnesstracker.data
+package com.example.fitnesstracker.data.roomdb
 
 import android.content.Context
-import com.example.fitnesstracker.data.entity.ExerciseEntity
-import com.example.fitnesstracker.data.entity.ExerciseMuscleCrossRefEntity
-import com.example.fitnesstracker.data.entity.MuscleEntity
+import com.example.fitnesstracker.data.roomdb.entity.ExerciseEntity
+import com.example.fitnesstracker.data.roomdb.entity.ExerciseMuscleCrossRefEntity
+import com.example.fitnesstracker.data.roomdb.entity.MuscleEntity
 import com.example.fitnesstracker.utils.fromJson
 import com.example.fitnesstracker.utils.readJsonFromAssets
 

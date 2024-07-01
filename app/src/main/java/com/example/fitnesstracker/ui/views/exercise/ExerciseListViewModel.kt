@@ -3,7 +3,7 @@ package com.example.fitnesstracker.ui.views.exercise
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fitnesstracker.data.dto.ExerciseSummary
-import com.example.fitnesstracker.data.services.ExerciseService
+import com.example.fitnesstracker.services.ExerciseService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted

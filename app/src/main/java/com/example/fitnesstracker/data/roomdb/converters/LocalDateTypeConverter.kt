@@ -1,4 +1,4 @@
-package com.example.fitnesstracker.data.converters
+package com.example.fitnesstracker.data.roomdb.converters
 
 import android.os.Build
 import androidx.annotation.RequiresApi

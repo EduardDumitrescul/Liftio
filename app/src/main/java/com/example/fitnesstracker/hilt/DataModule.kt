@@ -3,7 +3,7 @@ package com.example.fitnesstracker.hilt
 import com.example.fitnesstracker.data.models.Muscle
 import com.example.fitnesstracker.data.repositories.ExerciseRepository
 import com.example.fitnesstracker.data.repositories.MuscleRepository
-import com.example.fitnesstracker.data.services.ExerciseService
+import com.example.fitnesstracker.services.ExerciseService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

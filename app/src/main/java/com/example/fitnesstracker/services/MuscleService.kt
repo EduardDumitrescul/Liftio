@@ -1,4 +1,4 @@
-package com.example.fitnesstracker.data.services
+package com.example.fitnesstracker.services
 
 import com.example.fitnesstracker.data.repositories.MuscleRepository
 import kotlinx.coroutines.flow.Flow
