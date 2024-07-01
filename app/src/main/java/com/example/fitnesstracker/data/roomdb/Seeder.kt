@@ -1,11 +1,14 @@
 package com.example.fitnesstracker.data.roomdb
 
 import android.content.Context
+import android.util.Log
 import com.example.fitnesstracker.data.roomdb.entity.ExerciseEntity
 import com.example.fitnesstracker.data.roomdb.entity.ExerciseMuscleCrossRefEntity
 import com.example.fitnesstracker.data.roomdb.entity.MuscleEntity
 import com.example.fitnesstracker.utils.fromJson
 import com.example.fitnesstracker.utils.readJsonFromAssets
+
+private const val TAG = "Seeder"
 
 class Seeder (
     private val context: Context,
@@ -17,6 +20,7 @@ class Seeder (
 
     fun seed() {
         val muscles = loadMuscles()
+        Log.d(TAG, muscles.toString())
         insertMuscles(muscles)
         val exercises = loadExercises()
         insertExercises(exercises)

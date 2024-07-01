@@ -3,16 +3,16 @@ package com.example.fitnesstracker.ui.views.exercise.edit
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fitnesstracker.data.dto.ExerciseWithMuscles
-import com.example.fitnesstracker.data.models.Exercise
-import com.example.fitnesstracker.data.repositories.ExerciseRepository
-import com.example.fitnesstracker.data.repositories.MuscleRepository
 import com.example.fitnesstracker.services.ExerciseService
 import com.example.fitnesstracker.services.MuscleService
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -54,11 +54,12 @@ class ExerciseEditViewModel @Inject constructor(
         _exercise.value.secondaryMuscles = it.toList()
     }
 
-    fun save() {
-        if(_exercise.value.exerciseId == 0) {
-            exerciseService.add(_exercise.value)
+    fun save() = viewModelScope.launch {
+        withContext(Dispatchers.IO) {
+            if(_exercise.value.exerciseId == 0) {
+                exerciseService.add(_exercise.value)
+            }
         }
-
     }
 
     fun updateEquipment(it: String) {

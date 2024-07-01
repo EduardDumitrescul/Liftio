@@ -82,18 +82,6 @@ fun ExerciseListView(
             items(exerciseSummaries) {
                 ExerciseRow(it)
             }
-            items(exerciseSummaries) {
-                ExerciseRow(it)
-            }
-            items(exerciseSummaries) {
-                ExerciseRow(it)
-            }
-            items(exerciseSummaries) {
-                ExerciseRow(it)
-            }
-            items(exerciseSummaries) {
-                ExerciseRow(it)
-            }
         }
     }
 }

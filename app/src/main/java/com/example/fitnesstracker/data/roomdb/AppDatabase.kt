@@ -23,7 +23,7 @@ private const val TAG = "AppDatabase"
         MuscleEntity::class,
         ExerciseMuscleCrossRefEntity::class
                ],
-    version = 1)
+    version = 2)
 @TypeConverters(LocalDateTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun exerciseMuscleDao(): ExerciseMuscleDao
@@ -51,18 +51,31 @@ abstract class AppDatabase : RoomDatabase() {
         private fun buildDatabase(context: Context) =
             Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, "FitnessDb")
                 .fallbackToDestructiveMigration()
+//                .fallbackToDestructiveMigrationOnDowngrade()
                 .addCallback(seedDatabaseCallback(context))
                 .build()
 
         private fun seedDatabaseCallback(context: Context): Callback {
             return object : Callback() {
+                private var called = false
                 override fun onCreate(db: SupportSQLiteDatabase) {
                     Log.d(TAG, "seedDatabaseCallback()")
                     super.onCreate(db)
-//                    ioThread {
+                    called = true
+                    ioThread {
                         val seeder = Seeder(context, getInstance(context))
                         seeder.seed()
-//                    }
+                    }
+                }
+                override fun onDestructiveMigration(db: SupportSQLiteDatabase) {
+                    super.onDestructiveMigration(db)
+                    if(!called) {
+                        ioThread {
+                            val seeder = Seeder(context, getInstance(context))
+                            seeder.seed()
+                        }
+                    }
+
                 }
             }
         }

@@ -12,6 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.fitnesstracker.data.roomdb.AppDatabase
 import com.example.fitnesstracker.ui.nav.AppNavHost
 import com.example.fitnesstracker.ui.nav.BottomNavBar
 import com.example.fitnesstracker.ui.nav.bottomNavBarDestinations
@@ -23,15 +24,9 @@ private const val TAG = "MAIN ACTIVITY"
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-//    @Inject lateinit var db: AppDatabase
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-//        db.testDao().getAll().observeForever {
-//            Log.d(TAG, it.toString())
-//        }
-
 
 
         setContent {

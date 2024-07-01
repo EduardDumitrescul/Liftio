@@ -1,39 +1,32 @@
 package com.example.fitnesstracker.hilt
 
-import com.example.fitnesstracker.data.models.Muscle
+import android.content.Context
 import com.example.fitnesstracker.data.repositories.ExerciseRepository
+import com.example.fitnesstracker.data.repositories.LocalExerciseRepository
+import com.example.fitnesstracker.data.repositories.LocalMuscleRepository
 import com.example.fitnesstracker.data.repositories.MuscleRepository
+import com.example.fitnesstracker.data.roomdb.AppDatabase
+import com.example.fitnesstracker.data.roomdb.dao.ExerciseDao
+import com.example.fitnesstracker.data.roomdb.dao.MuscleDao
+import com.example.fitnesstracker.data.roomdb.repository.RoomExerciseRepository
+import com.example.fitnesstracker.data.roomdb.repository.RoomMuscleRepository
 import com.example.fitnesstracker.services.ExerciseService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-//package com.example.fitnesstracker.data
-//
-//import android.content.Context
-//import com.example.fitnesstracker.data.daos.ExerciseDao
-//import com.example.fitnesstracker.data.daos.ExerciseMuscleDao
-//import com.example.fitnesstracker.data.daos.MuscleDao
-//import com.example.fitnesstracker.data.daos.SetDao
-//import com.example.fitnesstracker.data.daos.TemplateDao
-//import com.example.fitnesstracker.data.daos.TemplateExerciseDao
-//import com.example.fitnesstracker.data.daos.TestDao
-//import com.example.fitnesstracker.data.daos.WorkoutDao
-//import com.example.fitnesstracker.data.repositories.ExerciseRepository
-//import dagger.Module
-//import dagger.Provides
-//import dagger.hilt.InstallIn
-//import dagger.hilt.android.qualifiers.ApplicationContext
-//import dagger.hilt.components.SingletonComponent
-//import javax.inject.Singleton
-//
-//private const val TAG = "DATA MODULE"
-//
 @Module
 @InstallIn(SingletonComponent::class)
 class DataModule {
+
+    @Provides
+    @Singleton
+    fun provideAppDatabase(@ApplicationContext appContext: Context): AppDatabase {
+        return AppDatabase.getInstance(appContext)
+    }
 
     @Provides
     @Singleton
@@ -46,21 +39,36 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideExerciseRepository(): ExerciseRepository {
-        return ExerciseRepository()
+    fun provideExerciseRepository(
+        exerciseDao: ExerciseDao
+    ): ExerciseRepository {
+        return RoomExerciseRepository(exerciseDao)
     }
 
     @Provides
     @Singleton
-    fun provideMuscleRepository(): MuscleRepository {
-        return MuscleRepository()
+    fun provideMuscleRepository(
+        muscleDao: MuscleDao
+    ): MuscleRepository {
+        return RoomMuscleRepository(muscleDao)
     }
 
-//    @Provides
-//    @Singleton
-//    fun provideAppDatabase(@ApplicationContext appContext: Context): AppDatabase {
-//        return AppDatabase.getInstance(appContext)
-//    }
+    @Provides
+    @Singleton
+    fun provideMuscleDao(
+        appDatabase: AppDatabase
+    ): MuscleDao {
+        return appDatabase.muscleDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideExerciseDao(
+        appDatabase: AppDatabase
+    ): ExerciseDao {
+        return appDatabase.exerciseDao()
+    }
+
 //
 //    @Provides
 //    fun provideChannelDao(appDatabase: AppDatabase): TestDao {

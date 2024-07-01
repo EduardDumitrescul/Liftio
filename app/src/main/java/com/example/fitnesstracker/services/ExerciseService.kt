@@ -1,15 +1,20 @@
 package com.example.fitnesstracker.services
 
+import android.util.Log
 import com.example.fitnesstracker.data.dto.ExerciseSummary
 import com.example.fitnesstracker.data.dto.ExerciseWithMuscles
 import com.example.fitnesstracker.data.models.ExerciseMuscleCrossRef
 import com.example.fitnesstracker.data.repositories.ExerciseRepository
+import com.example.fitnesstracker.data.repositories.LocalExerciseRepository
+import com.example.fitnesstracker.data.repositories.LocalMuscleRepository
 import com.example.fitnesstracker.data.repositories.MuscleRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapConcat
 import javax.inject.Inject
+
+private const val TAG = "ExerciseService"
 
 class ExerciseService @Inject constructor(
     private val exerciseRepository: ExerciseRepository,
@@ -29,6 +34,7 @@ class ExerciseService @Inject constructor(
                     muscleRepository.getPrimaryMuscleByExerciseId(exercise.id),
                     muscleRepository.getSecondaryMusclesByExerciseId(exercise.id)
                 ) { primaryMuscle, secondaryMuscles ->
+                    Log.d(TAG, primaryMuscle.toString())
                     ExerciseSummary(
                         exercise.equipment,
                         exercise.name,
@@ -44,7 +50,7 @@ class ExerciseService @Inject constructor(
         }
     }
 
-    fun add(exerciseWithMuscles: ExerciseWithMuscles) {
+    suspend fun add(exerciseWithMuscles: ExerciseWithMuscles) {
         val exercise = exerciseWithMuscles.getExercise()
         val exerciseId = exerciseRepository.add(exercise)
 
