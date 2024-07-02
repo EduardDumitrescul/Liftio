@@ -1,5 +1,6 @@
 package com.example.fitnesstracker.ui.views.exercise.edit
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -21,6 +22,8 @@ import com.example.fitnesstracker.ui.components.chip.SingleChoiceChipGroup
 import com.example.fitnesstracker.ui.components.textfield.FilledTextField
 import com.example.fitnesstracker.ui.theme.AppTheme
 
+private const val TAG = "ExerciseEditView"
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ExerciseEditView(
@@ -28,6 +31,9 @@ fun ExerciseEditView(
     navigateBack: () -> Unit,
 ) {
     val muscleNames by viewModel.muscleNames.collectAsState()
+    val exercise by viewModel.exercise.collectAsState()
+
+    Log.d(TAG, exercise.toString())
 
     Scaffold(
         topBar = {
@@ -75,10 +81,11 @@ fun ExerciseEditView(
                 Text(
                     "Name",
                     style = AppTheme.typography.caption,
-                    color=  AppTheme.colors.onBackground
+                    color = AppTheme.colors.onBackground
                 )
                 FilledTextField(
-                    onValueChange = {viewModel.updateExerciseName(it)},
+                    text = exercise.exerciseName,
+                    onValueChange = { viewModel.updateExerciseName(it) },
                     placeholderText = "exercise name"
                 )
             }
@@ -93,6 +100,7 @@ fun ExerciseEditView(
                     color = AppTheme.colors.onBackground
                 )
                 FilledTextField(
+                    text = exercise.exerciseDescription,
                     onValueChange = { viewModel.updateExerciseDescription(it) },
                     placeholderText = "description\n(optional)",
                     singleLine = false,
@@ -112,7 +120,8 @@ fun ExerciseEditView(
 
                 SingleChoiceChipGroup(
                     options = listOf("barbell", "dumbbells", "machine", "cables", "none"),
-                    onSelectionChanged = {viewModel.updateEquipment(it)}
+                    selected = exercise.equipment,
+                    onSelectionChanged = { viewModel.updateEquipment(it) }
                 )
             }
 
@@ -127,7 +136,8 @@ fun ExerciseEditView(
                 )
                 SingleChoiceChipGroup(
                     options = muscleNames,
-                    onSelectionChanged = {viewModel.updatePrimaryMuscle(it)}
+                    selected = exercise.primaryMuscle,
+                    onSelectionChanged = { viewModel.updatePrimaryMuscle(it) }
                 )
             }
 
@@ -143,7 +153,8 @@ fun ExerciseEditView(
 
                 MultiChoiceChipGroup(
                     options = muscleNames,
-                    onSelectionChanged = {viewModel.updateSecondaryMuscles(it)}
+                    selected = exercise.secondaryMuscles.toSet(),
+                    onSelectionChanged = { viewModel.updateSecondaryMuscles(it) }
                 )
             }
         }

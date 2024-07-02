@@ -11,4 +11,5 @@ interface MuscleRepository {
     suspend fun getSecondaryMusclesByExerciseId(id: Int): List<Muscle>
     suspend fun getMuscleId(name: String): Int
     suspend fun addExerciseMuscleCrossRef(exerciseMuscleCrossRef: ExerciseMuscleCrossRef)
+    suspend fun removeExerciseMuscleRefs(exerciseId: Int)
 }

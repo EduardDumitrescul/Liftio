@@ -1,5 +1,6 @@
 package com.example.fitnesstracker.data.roomdb.repository
 
+import com.example.fitnesstracker.data.dto.ExerciseWithMuscles
 import com.example.fitnesstracker.data.models.Exercise
 import com.example.fitnesstracker.data.repositories.ExerciseRepository
 import com.example.fitnesstracker.data.roomdb.dao.ExerciseDao
@@ -26,5 +27,14 @@ class RoomExerciseRepository @Inject constructor(
         return runBlocking {
             exerciseDao.addExercise(entity).toInt()
         }
+    }
+
+    override suspend fun getExerciseWithMuscles(exerciseId: Int): ExerciseWithMuscles {
+        return exerciseDao.getExerciseWithMuscles(exerciseId)
+    }
+
+    override suspend fun updateExercise(exercise: Exercise) {
+        val entity = exercise.toEntity()
+        exerciseDao.updateExercise(entity)
     }
 }

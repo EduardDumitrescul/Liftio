@@ -1,5 +1,6 @@
 package com.example.fitnesstracker.ui.components.chip
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,16 +15,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.fitnesstracker.ui.theme.AppTheme
 
+private const val TAG = "SingleChoiceChipGroup"
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun SingleChoiceChipGroup(
     options: List<String>,
+    selected: String = "",
     onSelectionChanged: (String) -> Unit,
 ) {
-    var selectedOption by remember {
-        mutableStateOf("")
-    }
+    Log.d(TAG, selected)
 
     FlowRow(
         horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal),
@@ -31,7 +32,7 @@ fun SingleChoiceChipGroup(
     ) {
 
         for(option in options) {
-            if(option == selectedOption) {
+            if(option == selected) {
                 FilledChip(
                     label = option
                 )
@@ -40,7 +41,6 @@ fun SingleChoiceChipGroup(
                 OutlinedChip(
                     label = option,
                     modifier = Modifier.clickable {
-                        selectedOption = option
                         onSelectionChanged(option)
                     }
                 )
@@ -54,11 +54,9 @@ fun SingleChoiceChipGroup(
 @Composable
 fun MultiChoiceChipGroup(
     options: List<String>,
+    selected: Set<String> = emptySet(),
     onSelectionChanged: (Set<String>) -> Unit
 ) {
-    var selectedOptions by remember {
-        mutableStateOf(setOf<String>())
-    }
 
     FlowRow(
         horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal),
@@ -66,12 +64,11 @@ fun MultiChoiceChipGroup(
     ) {
 
         for(option in options) {
-            if(option in selectedOptions) {
+            if(option in selected) {
                 FilledChip(
                     label = option,
                     modifier = Modifier.clickable {
-                        selectedOptions = selectedOptions.minus(option)
-                        onSelectionChanged(selectedOptions)
+                        onSelectionChanged(selected.minus(option))
                     }
                 )
             }
@@ -79,8 +76,7 @@ fun MultiChoiceChipGroup(
                 OutlinedChip(
                     label = option,
                     modifier = Modifier.clickable {
-                        selectedOptions = selectedOptions.plus(option)
-                        onSelectionChanged(selectedOptions)
+                        onSelectionChanged(selected.plus(option))
                     }
                 )
             }

@@ -15,9 +15,10 @@ import com.example.fitnesstracker.ui.theme.AppTheme
 @Composable
 fun ExerciseRow(
     model: ExerciseSummary,
+    modifier: Modifier = Modifier,
 ) {
     Row(
-        modifier = Modifier,
+        modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -41,6 +42,7 @@ private fun PreviewExerciseRow() {
     AppTheme {
         ExerciseRow(
             ExerciseSummary(
+                exerciseId = 1,
                 equipmentType = "barbell",
                 exerciseName = "Bench Press",
                 primaryMuscle = "chest",

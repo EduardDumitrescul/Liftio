@@ -1,5 +1,6 @@
 package com.example.fitnesstracker.ui.views.exercise.list
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -30,7 +31,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 @Composable
 fun ExerciseListView(
     navigateBack: () -> Unit,
-    navigateToExerciseEditView: () -> Unit,
+    navigateToExerciseEditView: (Int) -> Unit,
     viewModel: ExerciseListViewModel = hiltViewModel<ExerciseListViewModel>(),
 ) {
     val exerciseSummaries by viewModel.filteredExerciseSummaries.collectAsState()
@@ -45,7 +46,7 @@ fun ExerciseListView(
                 onNavigationIconClick = navigateBack,
                 scrollBehavior = scrollBehavior,
                 actions = {
-                    IconButton(onClick = navigateToExerciseEditView) {
+                    IconButton(onClick = {navigateToExerciseEditView(0)}) {
                         Icon(
                             Icons.Rounded.Add,
                             "add new exercise",
@@ -79,7 +80,12 @@ fun ExerciseListView(
                 )
             }
             items(exerciseSummaries) {
-                ExerciseRow(it)
+                ExerciseRow(
+                    it,
+                    modifier = Modifier.clickable(
+                        onClick = {navigateToExerciseEditView(it.exerciseId)}
+                    )
+                )
             }
         }
     }

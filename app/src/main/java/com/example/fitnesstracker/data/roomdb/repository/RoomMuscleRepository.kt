@@ -43,4 +43,8 @@ class RoomMuscleRepository @Inject constructor(
         muscleDao.insert(entity)
     }
 
+    override suspend fun removeExerciseMuscleRefs(exerciseId: Int) {
+        muscleDao.removeExerciseMuscleRefs(exerciseId)
+    }
+
 }

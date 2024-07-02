@@ -39,4 +39,8 @@ interface MuscleDao {
     @Insert
     fun insert(it: ExerciseMuscleCrossRefEntity)
 
+
+    @Query("delete from exerciseMuscleCrossRef where exerciseId = :exerciseId")
+    fun removeExerciseMuscleRefs(exerciseId: Int)
+
 }

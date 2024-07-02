@@ -2,8 +2,6 @@ package com.example.fitnesstracker.hilt
 
 import android.content.Context
 import com.example.fitnesstracker.data.repositories.ExerciseRepository
-import com.example.fitnesstracker.data.repositories.LocalExerciseRepository
-import com.example.fitnesstracker.data.repositories.LocalMuscleRepository
 import com.example.fitnesstracker.data.repositories.MuscleRepository
 import com.example.fitnesstracker.data.roomdb.AppDatabase
 import com.example.fitnesstracker.data.roomdb.dao.ExerciseDao

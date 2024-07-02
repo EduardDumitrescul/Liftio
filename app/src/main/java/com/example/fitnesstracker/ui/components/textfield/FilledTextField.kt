@@ -7,10 +7,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
@@ -22,6 +19,7 @@ import com.example.fitnesstracker.ui.theme.AppTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FilledTextField(
+    text: String = "",
     onValueChange: (String) -> Unit,
     placeholderText: String = "",
     singleLine: Boolean = true,
@@ -29,12 +27,10 @@ fun FilledTextField(
     leadingIcon: @Composable (() -> Unit)? = null,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
-    var text by remember { mutableStateOf("") }
 
     BasicTextField(
         value = text,
         onValueChange = {
-            text = it
             onValueChange(it)
         },
         modifier = Modifier.fillMaxWidth(),

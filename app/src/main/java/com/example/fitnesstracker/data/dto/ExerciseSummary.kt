@@ -3,6 +3,7 @@ package com.example.fitnesstracker.data.dto
 import com.example.fitnesstracker.ui.views.exercise.list.MuscleChipRowModel
 
 data class ExerciseSummary(
+    val exerciseId: Int,
     val equipmentType: String,
     val exerciseName: String,
     val primaryMuscle: String,
