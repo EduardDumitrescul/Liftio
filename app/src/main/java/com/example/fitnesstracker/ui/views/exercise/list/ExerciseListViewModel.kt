@@ -19,16 +19,18 @@ class ExerciseListViewModel @Inject constructor(
     exerciseService: ExerciseService
 ): ViewModel() {
 
-    private var _exerciseSummaries: StateFlow<List<ExerciseSummary>> = exerciseService.getExerciseSummaries().stateIn(viewModelScope, SharingStarted.WhileSubscribed(0), listOf())
+    private var _exerciseSummaries: StateFlow<List<ExerciseSummary>> = MutableStateFlow(listOf())
     private var _filteredExerciseSummaries: MutableStateFlow<List<ExerciseSummary>> = MutableStateFlow(_exerciseSummaries.value)
 
-    val filteredExerciseSummaries
+    val filteredExerciseSummaries: StateFlow<List<ExerciseSummary>>
         get() = _filteredExerciseSummaries
 
     init {
         viewModelScope.launch {
+            _exerciseSummaries = MutableStateFlow(exerciseService.getExerciseSummaries())
+            _filteredExerciseSummaries.value  = _exerciseSummaries.value
             _exerciseSummaries.collect { summaries ->
-                filteredExerciseSummaries.value = summaries
+                _filteredExerciseSummaries.value = summaries
             }
         }
     }

@@ -14,29 +14,29 @@ interface MuscleDao {
     fun insert(it: MuscleEntity)
 
     @Query("Select name from muscles")
-    fun getMuscleNames(): Flow<List<String>>
+    suspend fun getMuscleNames(): List<String>
 
     @Query("Select * from muscles where id = :id")
-    fun getMuscleById(id: Int): Flow<MuscleEntity?>
+    suspend fun getMuscleById(id: Int): MuscleEntity?
 
     @Query("Select m.id, m.name from exerciseMuscleCrossRef e " +
             "join muscles m on e.muscleId = m.id " +
             "where e.exerciseId = :exerciseId " +
             "and e.isPrimary = 1"
     )
-    fun getPrimaryMuscleByExerciseId(exerciseId: Int): Flow<MuscleEntity?>
+    suspend fun getPrimaryMuscleByExerciseId(exerciseId: Int): MuscleEntity?
 
     @Query("Select m.id, m.name from exerciseMuscleCrossRef e " +
             "join muscles m on e.muscleId = m.id " +
             "where e.exerciseId = :exerciseId " +
             "and e.isPrimary = 0"
     )
-    fun getSecondaryMusclesByExerciseId(exerciseId: Int): Flow<List<MuscleEntity>>
+    suspend fun getSecondaryMusclesByExerciseId(exerciseId: Int): List<MuscleEntity>
 
     @Query("select id from muscles where name like :name")
     fun getMuscleIdByName(name: String): Int
 
     @Insert
-    suspend fun insert(it: ExerciseMuscleCrossRefEntity)
+    fun insert(it: ExerciseMuscleCrossRefEntity)
 
 }

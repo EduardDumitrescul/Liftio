@@ -13,34 +13,28 @@ import javax.inject.Inject
 class RoomMuscleRepository @Inject constructor(
     private val muscleDao: MuscleDao
 ): MuscleRepository {
-    override fun getMuscleNames(): Flow<List<String>> {
+    override suspend fun getMuscleNames(): List<String> {
         return muscleDao.getMuscleNames()
     }
 
-    override fun getMuscleById(id: Int): Flow<Muscle?> {
+    override suspend fun getMuscleById(id: Int): Muscle? {
         val entity = muscleDao.getMuscleById(id)
-        return entity.map {
-            it?.toModel()
-        }
+        return entity?.toModel()
     }
 
-    override fun getPrimaryMuscleByExerciseId(id: Int): Flow<Muscle?> {
+    override suspend fun getPrimaryMuscleByExerciseId(id: Int): Muscle? {
         val entity = muscleDao.getPrimaryMuscleByExerciseId(id)
-        return entity.map {
-            it?.toModel()
-        }
+        return entity?.toModel()
     }
 
-    override fun getSecondaryMusclesByExerciseId(id: Int): Flow<List<Muscle>> {
+    override suspend fun getSecondaryMusclesByExerciseId(id: Int): List<Muscle> {
         val entities = muscleDao.getSecondaryMusclesByExerciseId(id)
-        return entities.map { list ->
-            list.map {
+        return entities.map {
                 it.toModel()
             }
         }
-    }
 
-    override fun getMuscleId(name: String): Int {
+    override suspend fun getMuscleId(name: String): Int {
         return muscleDao.getMuscleIdByName(name)
     }
 

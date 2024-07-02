@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
 
 class LocalMuscleRepository : MuscleRepository {
-    private var muscles = MutableStateFlow(listOf(
+    private var muscles = listOf(
         Muscle(1, "Chest"),
         Muscle(2, "Shoulders"),
         Muscle(3, "Triceps"),
@@ -19,9 +19,9 @@ class LocalMuscleRepository : MuscleRepository {
         Muscle(7, "Hamstring"),
         Muscle(8, "Back"),
         Muscle(9, "Traps"),
-    ))
+    )
 
-    private var exerciseMuscleCrossRefs = MutableStateFlow(
+    private var exerciseMuscleCrossRefs =
         mutableListOf(
         ExerciseMuscleCrossRef(1, 1, true),
         ExerciseMuscleCrossRef(1, 2, false),
@@ -33,54 +33,44 @@ class LocalMuscleRepository : MuscleRepository {
         ExerciseMuscleCrossRef(3, 8, false),
         ExerciseMuscleCrossRef(3, 9, false),
     )
-    )
 
-    override fun getMuscleNames(): Flow<List<String>> {
-        return muscles.map { list->
-            list.map {muscle ->
+
+    override suspend fun getMuscleNames(): List<String> {
+        return muscles.map {muscle ->
                 muscle.name
             }
-        }
     }
 
-    override fun getMuscleById(id: Int): Flow<Muscle?> {
-        return muscles.map { list ->
-            list.find { muscle ->
+    override suspend fun getMuscleById(id: Int): Muscle? {
+        return muscles.find { muscle ->
                 muscle.id == id
             }
-        }
     }
 
-    override fun getPrimaryMuscleByExerciseId(id: Int): Flow<Muscle?> {
-        val ref = exerciseMuscleCrossRefs.map { list ->
-            list.find {
+    override suspend fun getPrimaryMuscleByExerciseId(id: Int): Muscle? {
+        val ref = exerciseMuscleCrossRefs.find {
                 it.exerciseId == id && it.isPrimary
             }
-        }
 
-        return muscles.combine(ref) { muscleList, r ->
-            muscleList.find { it.id == r?.muscleId }
-        }
+        return muscles.find { it.id == ref?.muscleId }
+
     }
 
-    override fun getSecondaryMusclesByExerciseId(id: Int): Flow<List<Muscle>> {
-        val refs = exerciseMuscleCrossRefs.map { list ->
-            list.filter {
+    override suspend fun getSecondaryMusclesByExerciseId(id: Int): List<Muscle> {
+        val refs = exerciseMuscleCrossRefs.filter {
                 it.exerciseId == id && !it.isPrimary
             }
-        }
 
-        return muscles.combine(refs) { muscleList, refs ->
-            refs.mapNotNull { r ->
-                muscleList.find {
+        return refs.mapNotNull { r ->
+                muscles.find {
                     it.id == r.muscleId
                 }
             }
-        }
+
     }
 
-    override fun getMuscleId(name: String): Int {
-        return muscles.value.find {
+    override suspend fun getMuscleId(name: String): Int {
+        return muscles.find {
                 it.name == name
             }?.id ?: 0
         }

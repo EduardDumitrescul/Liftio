@@ -12,8 +12,8 @@ interface ExerciseDao {
     fun insert(it: ExerciseEntity)
 
     @Query("Select * from exercises")
-    fun getExercises(): Flow<List<ExerciseEntity>>
+    suspend fun getExercises(): List<ExerciseEntity>
 
     @Insert
-    suspend fun addExercise(exercise: ExerciseEntity): Long
+    fun addExercise(exercise: ExerciseEntity): Long
 }

@@ -33,10 +33,15 @@ class ExerciseEditViewModel @Inject constructor(
     val exercise: StateFlow<ExerciseWithMuscles>
         get() = MutableStateFlow(_exercise.value)
 
-    val muscleNames: StateFlow<List<String>> 
-        get() = muscleService
-            .getMuscleNames()
-            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(0), listOf())
+    private var _muscleNames: MutableStateFlow<List<String>> =  MutableStateFlow(listOf())
+    val muscleNames: StateFlow<List<String>>
+        get() = _muscleNames
+
+    init {
+        viewModelScope.launch {
+            _muscleNames = MutableStateFlow(muscleService.getMuscleNames())
+        }
+    }
 
     fun updateExerciseName(it: String) {
         _exercise.value.exerciseName = it

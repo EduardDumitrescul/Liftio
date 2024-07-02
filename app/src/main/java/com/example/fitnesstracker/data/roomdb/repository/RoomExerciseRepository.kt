@@ -14,16 +14,14 @@ class RoomExerciseRepository @Inject constructor(
     private val exerciseDao: ExerciseDao
 ): ExerciseRepository {
 
-    override fun getExercises(): Flow<List<Exercise>> {
+    override suspend fun getExercises(): List<Exercise> {
         val entities = exerciseDao.getExercises()
-        return entities.map { list ->
-            list.map {
-                it.toModel()
-            }
+        return entities.map {
+            it.toModel()
         }
     }
 
-    override fun add(exercise: Exercise): Int {
+    override suspend fun add(exercise: Exercise): Int {
         val entity = exercise.toEntity()
         return runBlocking {
             exerciseDao.addExercise(entity).toInt()

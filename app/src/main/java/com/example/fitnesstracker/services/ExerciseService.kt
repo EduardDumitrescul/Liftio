@@ -21,33 +21,25 @@ class ExerciseService @Inject constructor(
     private val muscleRepository: MuscleRepository
 ) {
 
-    @OptIn(ExperimentalCoroutinesApi::class)
-    fun getExerciseSummaries(exerciseName: String = ""): Flow<List<ExerciseSummary>> {
+    suspend fun getExerciseSummaries(exerciseName: String = ""): List<ExerciseSummary> {
         val exercises = exerciseRepository.getExercises()
 
-        return exercises.flatMapConcat { exerciseList ->
-            val filteredExerciseList = exerciseList.filter {
-                exerciseName in it.name
-            }
-            val summaryFlows = filteredExerciseList.map { exercise ->
-                combine(
-                    muscleRepository.getPrimaryMuscleByExerciseId(exercise.id),
-                    muscleRepository.getSecondaryMusclesByExerciseId(exercise.id)
-                ) { primaryMuscle, secondaryMuscles ->
-                    Log.d(TAG, primaryMuscle.toString())
-                    ExerciseSummary(
-                        exercise.equipment,
-                        exercise.name,
-                        primaryMuscle?.name ?: "",
-                        secondaryMuscles.map { it.name }
-                    )
-                }
-            }
-
-            combine(summaryFlows) { summariesArray ->
-                summariesArray.toList()
-            }
+        val filteredExerciseList = exercises.filter {
+            exerciseName in it.name
         }
+        val summaries = filteredExerciseList.map { exercise ->
+            val primaryMuscle =  muscleRepository.getPrimaryMuscleByExerciseId(exercise.id)
+            val secondaryMuscles = muscleRepository.getSecondaryMusclesByExerciseId(exercise.id)
+
+            ExerciseSummary(
+                exercise.equipment,
+                exercise.name,
+                primaryMuscle?.name ?: "",
+                secondaryMuscles.map { it.name }
+            )
+        }
+
+        return summaries
     }
 
     suspend fun add(exerciseWithMuscles: ExerciseWithMuscles) {

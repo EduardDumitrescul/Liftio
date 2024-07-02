@@ -7,7 +7,7 @@ import javax.inject.Inject
 class MuscleService @Inject constructor(
     private val muscleRepository: MuscleRepository
 ) {
-    fun getMuscleNames(): Flow<List<String>> {
+    suspend fun getMuscleNames(): List<String> {
         return muscleRepository.getMuscleNames()
     }
 }
