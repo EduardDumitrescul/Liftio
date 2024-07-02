@@ -8,10 +8,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.fitnesstracker.ui.components.appbar.LargeAppBar
@@ -21,6 +25,7 @@ import com.example.fitnesstracker.ui.components.chip.MultiChoiceChipGroup
 import com.example.fitnesstracker.ui.components.chip.SingleChoiceChipGroup
 import com.example.fitnesstracker.ui.components.textfield.FilledTextField
 import com.example.fitnesstracker.ui.theme.AppTheme
+import kotlinx.coroutines.launch
 
 private const val TAG = "ExerciseEditView"
 
@@ -32,10 +37,15 @@ fun ExerciseEditView(
 ) {
     val muscleNames by viewModel.muscleNames.collectAsState()
     val exercise by viewModel.exercise.collectAsState()
+    val scope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState() }
 
     Log.d(TAG, exercise.toString())
 
     Scaffold(
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState)
+        },
         topBar = {
             LargeAppBar(
                 title = "Edit Exercise",
@@ -58,8 +68,16 @@ fun ExerciseEditView(
                 FilledButton(
                     text = "Save",
                     onClick = {
-                        viewModel.save()
-                        navigateBack()
+                        if(exercise.exerciseName == "") {
+                            scope.launch { snackbarHostState.showSnackbar("Please enter the name for the exercise") }
+                        }
+                        else if(exercise.primaryMuscle == "") {
+                            scope.launch { snackbarHostState.showSnackbar("Please select the targeted muscle") }
+                        }
+                        else {
+                            viewModel.save()
+                            navigateBack()
+                        }
                     },
                     modifier = Modifier.weight(0.5f)
                 )

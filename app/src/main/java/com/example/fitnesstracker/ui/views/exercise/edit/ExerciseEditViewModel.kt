@@ -65,11 +65,16 @@ class ExerciseEditViewModel @Inject constructor(
     }
 
     fun updatePrimaryMuscle(it: String) {
-        _exercise.value = _exercise.value.copy(primaryMuscle = it)
+        _exercise.value = _exercise.value.copy(
+            primaryMuscle = it
+        )
+        _exercise.value = _exercise.value.copy(
+            secondaryMuscles = _exercise.value.secondaryMuscles.minus(_exercise.value.primaryMuscle)
+        )
     }
 
     fun updateSecondaryMuscles(it: Set<String>) {
-        _exercise.value = _exercise.value.copy(secondaryMuscles = it.toList())
+        _exercise.value = _exercise.value.copy(secondaryMuscles = it.minus(_exercise.value.primaryMuscle).toList())
     }
 
     fun save() = viewModelScope.launch {
