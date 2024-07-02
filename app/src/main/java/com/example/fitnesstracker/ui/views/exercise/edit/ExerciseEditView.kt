@@ -50,6 +50,7 @@ fun ExerciseEditView(
             LargeAppBar(
                 title = "Edit Exercise",
                 showNavigationIcon = true,
+                onNavigationIconClick = {navigateBack()}
             )
         },
         bottomBar = {

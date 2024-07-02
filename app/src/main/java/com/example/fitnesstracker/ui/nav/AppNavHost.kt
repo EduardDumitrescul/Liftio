@@ -27,7 +27,7 @@ fun AppNavHost(
         composable(route = Exercises.route) {
             ExerciseListView(
                 navigateBack = { navController.navigateUp() },
-                navigateToExerciseEditView = {navController.navigateSingleTopTo(EditExercise.createRoute(it))}
+                navigateToExerciseEditView = {navController.navigate(EditExercise.createRoute(it))}
             )
         }
         composable(route = Stats.route) {
