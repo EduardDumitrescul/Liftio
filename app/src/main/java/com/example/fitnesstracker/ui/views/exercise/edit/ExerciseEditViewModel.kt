@@ -4,16 +4,17 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fitnesstracker.data.dto.ExerciseWithMuscles
+import com.example.fitnesstracker.data.models.Exercise
+import com.example.fitnesstracker.data.models.Muscle
 import com.example.fitnesstracker.services.ExerciseService
 import com.example.fitnesstracker.services.MuscleService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.withIndex
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -27,16 +28,18 @@ class ExerciseEditViewModel @Inject constructor(
     private val muscleService: MuscleService,
 ): ViewModel() {
 
-    private var _exercise: MutableStateFlow<ExerciseWithMuscles> = MutableStateFlow(ExerciseWithMuscles(
-        exerciseId = 0,
-        exerciseName = "",
-        exerciseDescription = "",
-        equipment = "",
+    private var _exerciseWithMuscles: MutableStateFlow<ExerciseWithMuscles> = MutableStateFlow(ExerciseWithMuscles(
+        exercise = Exercise(
+            id = 0,
+            name = "",
+            description = "",
+            equipment = "",
+        ),
         primaryMuscle = "",
         secondaryMuscles = listOf()
     ))
-    val exercise: StateFlow<ExerciseWithMuscles>
-        get() = _exercise
+    val exerciseWithMuscles: StateFlow<ExerciseWithMuscles>
+        get() = _exerciseWithMuscles
 
     private var _muscleNames: MutableStateFlow<List<String>> =  MutableStateFlow(listOf())
     val muscleNames: StateFlow<List<String>>
@@ -46,7 +49,7 @@ class ExerciseEditViewModel @Inject constructor(
         viewModelScope.launch {
             if (exerciseId != 0) {
                 val fetchedExercise = exerciseService.getExerciseWithMuscles(exerciseId)
-                _exercise.update { fetchedExercise }
+                _exerciseWithMuscles.update { fetchedExercise }
                 Log.d(TAG, "Exercise fetched: $fetchedExercise")
             }
 
@@ -57,39 +60,41 @@ class ExerciseEditViewModel @Inject constructor(
     }
 
     fun updateExerciseName(it: String) {
-        _exercise.value = _exercise.value.copy(exerciseName = it)
+        _exerciseWithMuscles.value = _exerciseWithMuscles.value.copy(exercise = _exerciseWithMuscles.value.exercise.copy(name = it))
     }
 
     fun updateExerciseDescription(it: String) {
-        _exercise.value = _exercise.value.copy(exerciseDescription = it)
+        _exerciseWithMuscles.value = _exerciseWithMuscles.value.copy(exercise = _exerciseWithMuscles.value.exercise.copy(description = it))
     }
 
     fun updatePrimaryMuscle(it: String) {
-        _exercise.value = _exercise.value.copy(
+        _exerciseWithMuscles.value = _exerciseWithMuscles.value.copy(
             primaryMuscle = it
         )
-        _exercise.value = _exercise.value.copy(
-            secondaryMuscles = _exercise.value.secondaryMuscles.minus(_exercise.value.primaryMuscle)
+        _exerciseWithMuscles.value = _exerciseWithMuscles.value.copy(
+            secondaryMuscles = _exerciseWithMuscles.value.secondaryMuscles.minus(_exerciseWithMuscles.value.primaryMuscle)
         )
     }
 
     fun updateSecondaryMuscles(it: Set<String>) {
-        _exercise.value = _exercise.value.copy(secondaryMuscles = it.minus(_exercise.value.primaryMuscle).toList())
+        _exerciseWithMuscles.value = _exerciseWithMuscles.value.copy(secondaryMuscles = it.minus(_exerciseWithMuscles.value.primaryMuscle).toList())
     }
 
     fun save() = viewModelScope.launch {
         withContext(Dispatchers.IO) {
-            if(_exercise.value.exerciseId == 0) {
-                exerciseService.add(_exercise.value)
+            if(_exerciseWithMuscles.value.exercise.id == 0) {
+                exerciseService.add(_exerciseWithMuscles.value)
             }
             else {
-                exerciseService.updateExercise(_exercise.value)
+                exerciseService.updateExercise(_exerciseWithMuscles.value)
             }
         }
     }
 
     fun updateEquipment(it: String) {
-        _exercise.value = _exercise.value.copy(equipment = it)
+        _exerciseWithMuscles.value = _exerciseWithMuscles.value.copy(
+            exercise = _exerciseWithMuscles.value.exercise.copy(equipment = it)
+        )
     }
 
 }

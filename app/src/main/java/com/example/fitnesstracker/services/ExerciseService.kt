@@ -37,7 +37,7 @@ class ExerciseService @Inject constructor(
     }
 
     suspend fun add(exerciseWithMuscles: ExerciseWithMuscles) {
-        val exercise = exerciseWithMuscles.getExercise()
+        val exercise = exerciseWithMuscles.exercise
         val exerciseId = exerciseRepository.add(exercise)
 
         val primaryMuscleId = muscleRepository.getMuscleId(exerciseWithMuscles.primaryMuscle)
@@ -54,7 +54,7 @@ class ExerciseService @Inject constructor(
     }
 
     suspend fun updateExercise(exerciseWithMuscles: ExerciseWithMuscles) {
-        val exercise = exerciseWithMuscles.getExercise()
+        val exercise = exerciseWithMuscles.exercise
         exerciseRepository.updateExercise(exercise)
         muscleRepository.removeExerciseMuscleRefs(exercise.id)
 

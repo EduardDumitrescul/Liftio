@@ -36,7 +36,7 @@ fun ExerciseEditView(
     navigateBack: () -> Unit,
 ) {
     val muscleNames by viewModel.muscleNames.collectAsState()
-    val exercise by viewModel.exercise.collectAsState()
+    val exercise by viewModel.exerciseWithMuscles.collectAsState()
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -69,7 +69,7 @@ fun ExerciseEditView(
                 FilledButton(
                     text = "Save",
                     onClick = {
-                        if(exercise.exerciseName == "") {
+                        if(exercise.exercise.name == "") {
                             scope.launch { snackbarHostState.showSnackbar("Please enter the name for the exercise") }
                         }
                         else if(exercise.primaryMuscle == "") {
@@ -103,7 +103,7 @@ fun ExerciseEditView(
                     color = AppTheme.colors.onBackground
                 )
                 FilledTextField(
-                    text = exercise.exerciseName,
+                    text = exercise.exercise.name,
                     onValueChange = { viewModel.updateExerciseName(it) },
                     placeholderText = "exercise name"
                 )
@@ -119,7 +119,7 @@ fun ExerciseEditView(
                     color = AppTheme.colors.onBackground
                 )
                 FilledTextField(
-                    text = exercise.exerciseDescription,
+                    text = exercise.exercise.description,
                     onValueChange = { viewModel.updateExerciseDescription(it) },
                     placeholderText = "description\n(optional)",
                     singleLine = false,
@@ -139,7 +139,7 @@ fun ExerciseEditView(
 
                 SingleChoiceChipGroup(
                     options = listOf("barbell", "dumbbells", "machine", "cables", "none"),
-                    selected = exercise.equipment,
+                    selected = exercise.exercise.equipment,
                     onSelectionChanged = { viewModel.updateEquipment(it) }
                 )
             }
