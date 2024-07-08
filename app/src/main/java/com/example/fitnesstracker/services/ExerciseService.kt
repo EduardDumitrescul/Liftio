@@ -1,6 +1,5 @@
 package com.example.fitnesstracker.services
 
-import com.example.fitnesstracker.data.dto.ExerciseSummary
 import com.example.fitnesstracker.data.dto.ExerciseWithMuscles
 import com.example.fitnesstracker.data.models.ExerciseMuscleCrossRef
 import com.example.fitnesstracker.data.repositories.ExerciseRepository
@@ -14,7 +13,7 @@ class ExerciseService @Inject constructor(
     private val muscleRepository: MuscleRepository
 ) {
 
-    suspend fun getExerciseSummaries(exerciseName: String = ""): List<ExerciseSummary> {
+    suspend fun getExerciseSummaries(exerciseName: String = ""): List<ExerciseWithMuscles> {
         val exercises = exerciseRepository.getExercises()
 
         val filteredExerciseList = exercises.filter {
@@ -24,10 +23,8 @@ class ExerciseService @Inject constructor(
             val primaryMuscle =  muscleRepository.getPrimaryMuscleByExerciseId(exercise.id)
             val secondaryMuscles = muscleRepository.getSecondaryMusclesByExerciseId(exercise.id)
 
-            ExerciseSummary(
-                exercise.id,
-                exercise.equipment,
-                exercise.name,
+            ExerciseWithMuscles(
+                exercise,
                 primaryMuscle?.name ?: "",
                 secondaryMuscles.map { it.name }
             )

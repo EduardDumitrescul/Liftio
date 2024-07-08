@@ -9,12 +9,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.fitnesstracker.data.dto.ExerciseSummary
+import com.example.fitnesstracker.data.dto.ExerciseWithMuscles
+import com.example.fitnesstracker.data.models.Exercise
 import com.example.fitnesstracker.ui.theme.AppTheme
 
 @Composable
 fun ExerciseRow(
-    model: ExerciseSummary,
+    model: ExerciseWithMuscles,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -22,10 +23,10 @@ fun ExerciseRow(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        EquipmentIcon(model.equipmentType)
+        EquipmentIcon(model.exercise.equipment)
         Column {
             Text(
-                text = model.exerciseName,
+                text = model.exercise.name,
                 color = AppTheme.colors.onBackground,
                 style = AppTheme.typography.headline
             )
@@ -41,10 +42,12 @@ fun ExerciseRow(
 private fun PreviewExerciseRow() {
     AppTheme {
         ExerciseRow(
-            ExerciseSummary(
-                exerciseId = 1,
-                equipmentType = "barbell",
-                exerciseName = "Bench Press",
+            ExerciseWithMuscles(
+                exercise = Exercise(
+                    id = 1,
+                    description = "!231",
+                    equipment = "barbell",
+                    name = "Bench Press"),
                 primaryMuscle = "chest",
                 secondaryMuscles = listOf("shoulders", "triceps"),
             )

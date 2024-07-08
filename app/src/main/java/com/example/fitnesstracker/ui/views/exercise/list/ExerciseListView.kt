@@ -83,7 +83,7 @@ fun ExerciseListView(
                 ExerciseRow(
                     it,
                     modifier = Modifier.clickable(
-                        onClick = {navigateToExerciseEditView(it.exerciseId)}
+                        onClick = {navigateToExerciseEditView(it.exercise.id)}
                     )
                 )
             }
