@@ -9,7 +9,6 @@ import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.fitnesstracker.data.roomdb.converters.LocalDateTypeConverter
 import com.example.fitnesstracker.data.roomdb.dao.ExerciseDao
-import com.example.fitnesstracker.data.roomdb.dao.ExerciseMuscleDao
 import com.example.fitnesstracker.data.roomdb.dao.MuscleDao
 import com.example.fitnesstracker.data.roomdb.entity.ExerciseEntity
 import com.example.fitnesstracker.data.roomdb.entity.ExerciseMuscleCrossRefEntity
@@ -27,8 +26,6 @@ private const val TAG = "AppDatabase"
     version = 2)
 @TypeConverters(LocalDateTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun exerciseMuscleDao(): ExerciseMuscleDao
-
     abstract fun exerciseDao(): ExerciseDao
 
     abstract fun muscleDao(): MuscleDao

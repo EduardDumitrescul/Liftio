@@ -46,9 +46,9 @@ class Seeder (
     }
 
     private fun insertExerciseMuscles(exerciseMuscles: Array<ExerciseMuscleCrossRefEntity>) {
-        val exerciseMuscleDao = database.exerciseMuscleDao()
+        val muscleDao = database.muscleDao()
         exerciseMuscles.forEach {
-            exerciseMuscleDao.insert(it)
+            muscleDao.insert(it)
         }
     }
     private fun loadMuscles(): Array<MuscleEntity> {
