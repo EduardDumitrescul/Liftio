@@ -1,5 +1,6 @@
 package com.example.fitnesstracker.ui.views.exercise.list
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.padding
@@ -18,6 +19,9 @@ import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,6 +30,7 @@ import com.example.fitnesstracker.ui.components.textfield.FilledTextField
 import com.example.fitnesstracker.ui.theme.AppTheme
 import androidx.hilt.navigation.compose.hiltViewModel
 
+private const val TAG = "ExerciseListView"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -36,6 +41,9 @@ fun ExerciseListView(
 ) {
     val exerciseSummaries by viewModel.filteredExerciseSummaries.collectAsState()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
+    var text by remember { mutableStateOf("")}
+
+    Log.d(TAG, exerciseSummaries.toString())
 
     Scaffold(
         modifier = Modifier
@@ -68,7 +76,10 @@ fun ExerciseListView(
         ) {
             item {
                 FilledTextField(
-                    onValueChange = {viewModel.updateFilter(it)},
+                    text = text,
+                    onValueChange = {
+                        text = it
+                        viewModel.updateFilter(it)},
                     placeholderText = "exercise name",
                     leadingIcon = {
                         Icon(

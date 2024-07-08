@@ -5,9 +5,10 @@ import com.example.fitnesstracker.data.models.Exercise
 import kotlinx.coroutines.flow.Flow
 
 interface ExerciseRepository {
-    suspend fun getExercises(): List<Exercise>
+    fun getExercises(): Flow<List<Exercise>>
 
     suspend fun add(exercise: Exercise): Int
-    suspend fun getExerciseWithMuscles(exerciseId: Int): ExerciseWithMuscles
+    fun getExerciseWithMuscles(exerciseId: Int): Flow<ExerciseWithMuscles>
+    fun getExercisesWithMuscles(): Flow<List<ExerciseWithMuscles>>
     suspend fun updateExercise(exercise: Exercise)
 }

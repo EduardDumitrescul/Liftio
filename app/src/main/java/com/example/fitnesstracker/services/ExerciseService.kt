@@ -4,6 +4,7 @@ import com.example.fitnesstracker.data.dto.ExerciseWithMuscles
 import com.example.fitnesstracker.data.models.ExerciseMuscleCrossRef
 import com.example.fitnesstracker.data.repositories.ExerciseRepository
 import com.example.fitnesstracker.data.repositories.MuscleRepository
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 private const val TAG = "ExerciseService"
@@ -13,24 +14,8 @@ class ExerciseService @Inject constructor(
     private val muscleRepository: MuscleRepository
 ) {
 
-    suspend fun getExerciseSummaries(exerciseName: String = ""): List<ExerciseWithMuscles> {
-        val exercises = exerciseRepository.getExercises()
-
-        val filteredExerciseList = exercises.filter {
-            exerciseName in it.name
-        }
-        val summaries = filteredExerciseList.map { exercise ->
-            val primaryMuscle =  muscleRepository.getPrimaryMuscleByExerciseId(exercise.id)
-            val secondaryMuscles = muscleRepository.getSecondaryMusclesByExerciseId(exercise.id)
-
-            ExerciseWithMuscles(
-                exercise,
-                primaryMuscle?.name ?: "",
-                secondaryMuscles.map { it.name }
-            )
-        }
-
-        return summaries
+    fun getExercisesWithMuscles(exerciseName: String = ""): Flow<List<ExerciseWithMuscles>> {
+       return exerciseRepository.getExercisesWithMuscles()
     }
 
     suspend fun add(exerciseWithMuscles: ExerciseWithMuscles) {
@@ -46,7 +31,7 @@ class ExerciseService @Inject constructor(
         }
     }
 
-    suspend fun getExerciseWithMuscles(exerciseId: Int): ExerciseWithMuscles {
+    fun getExerciseWithMuscles(exerciseId: Int): Flow<ExerciseWithMuscles> {
         return exerciseRepository.getExerciseWithMuscles(exerciseId)
     }
 

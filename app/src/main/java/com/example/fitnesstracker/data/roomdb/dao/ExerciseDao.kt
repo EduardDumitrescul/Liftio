@@ -2,6 +2,7 @@ package com.example.fitnesstracker.data.roomdb.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
@@ -18,16 +19,16 @@ interface ExerciseDao {
     fun insert(it: ExerciseEntity)
 
     @Query("Select * from exercises")
-    suspend fun getExercises(): List<ExerciseEntity>
+    fun getExercises(): Flow<List<ExerciseEntity>>
 
     @Query("Select * from exercises " +
             "where id=:exerciseId")
-    suspend fun getExerciseById(exerciseId: Int): ExerciseEntity
+    fun getExerciseById(exerciseId: Int): Flow<ExerciseEntity?>
 
     @Insert
     suspend fun addExercise(exercise: ExerciseEntity): Long
 
 
-    @Update
-    fun updateExercise(entity: ExerciseEntity)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun updateExercise(entity: ExerciseEntity)
 }
