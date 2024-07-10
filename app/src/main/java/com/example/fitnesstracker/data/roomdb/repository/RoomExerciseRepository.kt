@@ -89,4 +89,13 @@ class RoomExerciseRepository @Inject constructor(
         val entity = exercise.toEntity()
         exerciseDao.updateExercise(entity)
     }
+
+    override fun getExercisesByTemplateId(id: Int): Flow<List<Exercise>> {
+        val exercises = exerciseDao.getExercisesByTemplateId(id)
+        return exercises.map { list ->
+            list.map {
+                it.toModel()
+            }
+        }
+    }
 }

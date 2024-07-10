@@ -15,6 +15,7 @@ import com.example.fitnesstracker.data.roomdb.entity.ExerciseEntity
 import com.example.fitnesstracker.data.roomdb.entity.ExerciseMuscleCrossRefEntity
 import com.example.fitnesstracker.data.roomdb.entity.MuscleEntity
 import com.example.fitnesstracker.data.roomdb.entity.TemplateEntity
+import com.example.fitnesstracker.data.roomdb.entity.TemplateExerciseCrossRef
 import kotlinx.coroutines.Dispatchers
 
 private const val TAG = "AppDatabase"
@@ -25,8 +26,9 @@ private const val TAG = "AppDatabase"
         MuscleEntity::class,
         ExerciseMuscleCrossRefEntity::class,
         TemplateEntity::class,
+        TemplateExerciseCrossRef::class,
                ],
-    version = 3)
+    version = 5)
 @TypeConverters(LocalDateTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun exerciseDao(): ExerciseDao

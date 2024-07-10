@@ -31,4 +31,10 @@ interface ExerciseDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateExercise(entity: ExerciseEntity)
+
+    @Query("select e.* " +
+            "from exercises e " +
+            "join templateExerciseCrossRefs te on te.templateId = :id and te.exerciseId = e.id " +
+            "order by te.'index' ")
+    fun getExercisesByTemplateId(id: Int): Flow<List<ExerciseEntity>>
 }

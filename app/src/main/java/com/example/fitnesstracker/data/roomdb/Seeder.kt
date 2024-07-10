@@ -6,6 +6,7 @@ import com.example.fitnesstracker.data.roomdb.entity.ExerciseEntity
 import com.example.fitnesstracker.data.roomdb.entity.ExerciseMuscleCrossRefEntity
 import com.example.fitnesstracker.data.roomdb.entity.MuscleEntity
 import com.example.fitnesstracker.data.roomdb.entity.TemplateEntity
+import com.example.fitnesstracker.data.roomdb.entity.TemplateExerciseCrossRef
 import com.example.fitnesstracker.utils.fromJson
 import com.example.fitnesstracker.utils.readJsonFromAssets
 
@@ -19,6 +20,7 @@ class Seeder (
     private val exercisesPath = "exercises.json"
     private val exerciseMusclePath = "exerciseMuscles.json"
     private val templatesPath = "templates.json"
+    private val templateExerciseCrossRefPath = "templateExerciseCrossRef.json"
 
     fun seed() {
         val muscles = loadMuscles()
@@ -30,6 +32,16 @@ class Seeder (
 
         val templates = loadTemplates()
         insertTemplates(templates)
+
+        insertTemplateExerciseCrossRefs()
+    }
+
+    private fun insertTemplateExerciseCrossRefs() {
+        val jsonString = readJsonFromAssets(context, templateExerciseCrossRefPath)
+        val entities = fromJson<List<TemplateExerciseCrossRef>>(jsonString)
+        entities.forEach {
+            database.templateDao().insertTemplateExerciseCrossRef(it)
+        }
     }
 
     private fun loadTemplates(): List<TemplateEntity> {
