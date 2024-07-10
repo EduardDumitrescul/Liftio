@@ -37,7 +37,7 @@ private const val TAG = "ExerciseListView"
 fun ExerciseBrowseView(
     navigateBack: () -> Unit,
     navigateToExerciseEditView: (Int) -> Unit,
-    viewModel: ExerciseListViewModel = hiltViewModel<ExerciseListViewModel>(),
+    viewModel: ExerciseBrowseViewModel = hiltViewModel<ExerciseBrowseViewModel>(),
 ) {
     val exerciseSummaries by viewModel.filteredExerciseSummaries.collectAsState()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())

@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 private const val TAG = "ExerciseListViewModel"
 @HiltViewModel
-class ExerciseListViewModel @Inject constructor(
+class ExerciseBrowseViewModel @Inject constructor(
     exerciseService: ExerciseService
 ) : ViewModel() {
 
