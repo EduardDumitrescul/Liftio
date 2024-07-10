@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import com.example.fitnesstracker.data.models.ExerciseMuscleCrossRef
+import com.example.fitnesstracker.data.models.Muscle
 import com.example.fitnesstracker.data.roomdb.entity.ExerciseMuscleCrossRefEntity
 import com.example.fitnesstracker.data.roomdb.entity.MuscleEntity
 import kotlinx.coroutines.flow.Flow
@@ -42,5 +43,18 @@ interface MuscleDao {
 
     @Query("delete from exerciseMuscleCrossRef where exerciseId = :exerciseId")
     fun removeExerciseMuscleRefs(exerciseId: Int)
+
+
+    @Query("select m.* " +
+            "from muscles m " +
+            "where exists(select '*' " +
+            "   from templates t" +
+            "   join templateExerciseCrossRefs te on te.templateId = t.id " +
+            "   join exercises e on e.id = te.exerciseId " +
+            "   join exerciseMuscleCrossRef em on em.exerciseId = e.id " +
+            "   where t.id = :id " +
+            "       and em.muscleId = m.id" +
+            "       and em.isPrimary is 1) ")
+    fun getMusclesByTemplateId(id: Int): Flow<List<MuscleEntity>>
 
 }

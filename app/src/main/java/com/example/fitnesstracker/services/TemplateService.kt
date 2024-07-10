@@ -25,14 +25,17 @@ class TemplateService @Inject constructor(
 
         val templateSummaries: Flow<List<TemplateSummary>> = templates.flatMapLatest { temps ->
             val combinedFlows = temps.map { temp ->
-//                val muscles: Flow<List<Muscle>> = muscleRepository.getMusclesByTemplateId(temp.id)
+                val muscles: Flow<List<Muscle>> = muscleRepository.getMusclesByTemplateId(temp.id)
                 val exercises: Flow<List<Exercise>> = exerciseRepository.getExercisesByTemplateId(temp.id)
 
-                exercises.map{ ex ->
+                combine(
+                    muscles,
+                    exercises
+                ) { m, ex ->
                     TemplateSummary(
                         temp.id,
                         temp.name,
-                        emptyList(),
+                        m.map {it.name},
                         ex.map { it.name }
                     )
                 }

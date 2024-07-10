@@ -4,6 +4,7 @@ import com.example.fitnesstracker.data.models.ExerciseMuscleCrossRef
 import com.example.fitnesstracker.data.models.Muscle
 import com.example.fitnesstracker.data.repositories.MuscleRepository
 import com.example.fitnesstracker.data.roomdb.dao.MuscleDao
+import com.example.fitnesstracker.data.roomdb.entity.MuscleEntity
 import com.example.fitnesstracker.data.roomdb.entity.toEntity
 import com.example.fitnesstracker.data.roomdb.entity.toModel
 import kotlinx.coroutines.flow.Flow
@@ -47,6 +48,15 @@ class RoomMuscleRepository @Inject constructor(
 
     override suspend fun removeExerciseMuscleRefs(exerciseId: Int) {
         muscleDao.removeExerciseMuscleRefs(exerciseId)
+    }
+
+    override fun getMusclesByTemplateId(id: Int): Flow<List<Muscle>> {
+        val entities = muscleDao.getMusclesByTemplateId(id)
+        return entities.map { list ->
+            list.map {
+                it.toModel()
+            }
+        }
     }
 
 }

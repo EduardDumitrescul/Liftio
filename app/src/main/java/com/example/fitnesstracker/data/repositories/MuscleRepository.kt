@@ -2,6 +2,7 @@ package com.example.fitnesstracker.data.repositories
 
 import com.example.fitnesstracker.data.models.ExerciseMuscleCrossRef
 import com.example.fitnesstracker.data.models.Muscle
+import com.example.fitnesstracker.data.roomdb.entity.MuscleEntity
 import kotlinx.coroutines.flow.Flow
 
 interface MuscleRepository {
@@ -12,4 +13,5 @@ interface MuscleRepository {
     suspend fun getMuscleId(name: String): Int
     suspend fun addExerciseMuscleCrossRef(exerciseMuscleCrossRef: ExerciseMuscleCrossRef)
     suspend fun removeExerciseMuscleRefs(exerciseId: Int)
+    fun getMusclesByTemplateId(id: Int): Flow<List<Muscle>>
 }
