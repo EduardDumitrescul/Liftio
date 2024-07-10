@@ -1,6 +1,5 @@
-package com.example.fitnesstracker.ui.views.exercise.list
+package com.example.fitnesstracker.ui.views.exercise.browse
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fitnesstracker.data.dto.ExerciseWithMuscles

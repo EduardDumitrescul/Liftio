@@ -1,4 +1,4 @@
-package com.example.fitnesstracker.ui.views.exercise.list
+package com.example.fitnesstracker.ui.views.exercise.browse
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

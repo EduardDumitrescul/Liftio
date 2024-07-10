@@ -1,4 +1,4 @@
-package com.example.fitnesstracker.ui.views.template
+package com.example.fitnesstracker.ui.views.template.browse
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,17 +22,17 @@ import com.example.fitnesstracker.ui.components.button.FilledButton
 import com.example.fitnesstracker.ui.theme.AppTheme
 
 @Composable
-fun TemplateListView(
-    viewModel: TemplateListViewModel = hiltViewModel<TemplateListViewModel>()
+fun TemplateBrowseView(
+    viewModel: TemplateBrowseViewModel = hiltViewModel<TemplateBrowseViewModel>()
 ) {
     val templateSummaries by viewModel.templateSummaries.collectAsState()
     
-    StatelessTemplateListView(templates = templateSummaries)
+    StatelessTemplateBrowseView(templates = templateSummaries)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun StatelessTemplateListView(
+private fun StatelessTemplateBrowseView(
     templates: List<TemplateSummary>
 ) {
     Scaffold(
@@ -74,7 +74,7 @@ private fun StatelessTemplateListView(
 
 @Preview
 @Composable
-fun PreviewTemplateListView() {
+fun PreviewTemplateBrowseView() {
     val template = TemplateSummary(
         templateId = 0,
         templateName = "Push Workout",
@@ -87,7 +87,7 @@ fun PreviewTemplateListView() {
             "5 x lateral raise")
     )
     AppTheme {
-        StatelessTemplateListView(
+        StatelessTemplateBrowseView(
             templates = listOf(template, template, template, template)
         )
     }

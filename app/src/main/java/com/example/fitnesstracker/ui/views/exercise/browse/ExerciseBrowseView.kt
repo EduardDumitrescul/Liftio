@@ -1,4 +1,4 @@
-package com.example.fitnesstracker.ui.views.exercise.list
+package com.example.fitnesstracker.ui.views.exercise.browse
 
 import android.util.Log
 import androidx.compose.foundation.clickable
@@ -34,7 +34,7 @@ private const val TAG = "ExerciseListView"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ExerciseListView(
+fun ExerciseBrowseView(
     navigateBack: () -> Unit,
     navigateToExerciseEditView: (Int) -> Unit,
     viewModel: ExerciseListViewModel = hiltViewModel<ExerciseListViewModel>(),
@@ -107,7 +107,7 @@ fun ExerciseListView(
 @Preview(showBackground = true)
 fun Preview() {
     AppTheme {
-        ExerciseListView(
+        ExerciseBrowseView(
             navigateBack = {},
             navigateToExerciseEditView = {},
         )

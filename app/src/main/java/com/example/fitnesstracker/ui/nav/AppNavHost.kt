@@ -7,9 +7,9 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import com.example.fitnesstracker.ui.views.exercise.list.ExerciseListView
+import com.example.fitnesstracker.ui.views.exercise.browse.ExerciseBrowseView
 import com.example.fitnesstracker.ui.views.exercise.edit.ExerciseEditView
-import com.example.fitnesstracker.ui.views.template.TemplateListView
+import com.example.fitnesstracker.ui.views.template.browse.TemplateBrowseView
 
 @Composable
 fun AppNavHost(
@@ -22,10 +22,10 @@ fun AppNavHost(
         startDestination = Home.route,
     ) {
         composable(route = Home.route) {
-            TemplateListView()
+            TemplateBrowseView()
         }
         composable(route = Exercises.route) {
-            ExerciseListView(
+            ExerciseBrowseView(
                 navigateBack = { navController.navigateUp() },
                 navigateToExerciseEditView = {navController.navigate(EditExercise.createRoute(it))}
             )
