@@ -10,9 +10,11 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.fitnesstracker.data.roomdb.converters.LocalDateTypeConverter
 import com.example.fitnesstracker.data.roomdb.dao.ExerciseDao
 import com.example.fitnesstracker.data.roomdb.dao.MuscleDao
+import com.example.fitnesstracker.data.roomdb.dao.TemplateDao
 import com.example.fitnesstracker.data.roomdb.entity.ExerciseEntity
 import com.example.fitnesstracker.data.roomdb.entity.ExerciseMuscleCrossRefEntity
 import com.example.fitnesstracker.data.roomdb.entity.MuscleEntity
+import com.example.fitnesstracker.data.roomdb.entity.TemplateEntity
 import kotlinx.coroutines.Dispatchers
 
 private const val TAG = "AppDatabase"
@@ -21,14 +23,16 @@ private const val TAG = "AppDatabase"
     entities = [
         ExerciseEntity::class,
         MuscleEntity::class,
-        ExerciseMuscleCrossRefEntity::class
+        ExerciseMuscleCrossRefEntity::class,
+        TemplateEntity::class,
                ],
-    version = 2)
+    version = 3)
 @TypeConverters(LocalDateTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun exerciseDao(): ExerciseDao
 
     abstract fun muscleDao(): MuscleDao
+    abstract fun templateDao(): TemplateDao
 //
 //    abstract fun setDao(): SetDao
 //

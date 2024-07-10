@@ -3,12 +3,16 @@ package com.example.fitnesstracker.hilt
 import android.content.Context
 import com.example.fitnesstracker.data.repositories.ExerciseRepository
 import com.example.fitnesstracker.data.repositories.MuscleRepository
+import com.example.fitnesstracker.data.repositories.TemplateRepository
 import com.example.fitnesstracker.data.roomdb.AppDatabase
 import com.example.fitnesstracker.data.roomdb.dao.ExerciseDao
 import com.example.fitnesstracker.data.roomdb.dao.MuscleDao
+import com.example.fitnesstracker.data.roomdb.dao.TemplateDao
 import com.example.fitnesstracker.data.roomdb.repository.RoomExerciseRepository
 import com.example.fitnesstracker.data.roomdb.repository.RoomMuscleRepository
+import com.example.fitnesstracker.data.roomdb.repository.RoomTemplateRepository
 import com.example.fitnesstracker.services.ExerciseService
+import com.example.fitnesstracker.services.TemplateService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -66,6 +70,38 @@ class DataModule {
         appDatabase: AppDatabase
     ): ExerciseDao {
         return appDatabase.exerciseDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideTemplateService(
+        templateRepository: TemplateRepository,
+        exerciseRepository: ExerciseRepository,
+        muscleRepository: MuscleRepository
+    ): TemplateService {
+        return TemplateService(
+            templateRepository,
+            muscleRepository,
+            exerciseRepository
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideTemplateRepository(
+        templateDao: TemplateDao
+    ): TemplateRepository {
+        return RoomTemplateRepository(
+            templateDao
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideTemplateDao(
+        appDatabase: AppDatabase
+    ): TemplateDao {
+        return appDatabase.templateDao()
     }
 
 //

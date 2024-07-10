@@ -5,6 +5,7 @@ import android.util.Log
 import com.example.fitnesstracker.data.roomdb.entity.ExerciseEntity
 import com.example.fitnesstracker.data.roomdb.entity.ExerciseMuscleCrossRefEntity
 import com.example.fitnesstracker.data.roomdb.entity.MuscleEntity
+import com.example.fitnesstracker.data.roomdb.entity.TemplateEntity
 import com.example.fitnesstracker.utils.fromJson
 import com.example.fitnesstracker.utils.readJsonFromAssets
 
@@ -17,15 +18,30 @@ class Seeder (
     private val musclesPath = "muscles.json"
     private val exercisesPath = "exercises.json"
     private val exerciseMusclePath = "exerciseMuscles.json"
+    private val templatesPath = "templates.json"
 
     fun seed() {
         val muscles = loadMuscles()
-        Log.d(TAG, muscles.toString())
         insertMuscles(muscles)
         val exercises = loadExercises()
         insertExercises(exercises)
         val exerciseMuscles = loadExerciseMuscles()
         insertExerciseMuscles(exerciseMuscles)
+
+        val templates = loadTemplates()
+        insertTemplates(templates)
+    }
+
+    private fun loadTemplates(): List<TemplateEntity> {
+        val jsonString = readJsonFromAssets(context, templatesPath)
+        return fromJson<List<TemplateEntity>>(jsonString)
+    }
+
+    private fun insertTemplates(templates: List<TemplateEntity>) {
+        val templateDao = database.templateDao()
+        templates.forEach {
+            templateDao.insert(it)
+        }
     }
 
     private fun loadExercises(): Array<ExerciseEntity> {

@@ -10,8 +10,11 @@ import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.fitnesstracker.data.dto.TemplateSummary
 import com.example.fitnesstracker.ui.components.appbar.LargeAppBar
 import com.example.fitnesstracker.ui.components.button.Fab
@@ -19,8 +22,12 @@ import com.example.fitnesstracker.ui.components.button.FilledButton
 import com.example.fitnesstracker.ui.theme.AppTheme
 
 @Composable
-fun TemplateListView() {
-
+fun TemplateListView(
+    viewModel: TemplateListViewModel = hiltViewModel<TemplateListViewModel>()
+) {
+    val templateSummaries by viewModel.templateSummaries.collectAsState()
+    
+    StatelessTemplateListView(templates = templateSummaries)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

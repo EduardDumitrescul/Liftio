@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "name": "Push Workout",
+    "isBaseTemplate": true
+  },
+  {
+    "id": 2,
+    "name": "Pull Workout",
+    "isBaseTemplate": true
+  },
+  {
+    "id": 3,
+    "name": "Legs Workout",
+    "isBaseTemplate": true
+  },
+  {
+    "id": 4,
+    "name": "Push2 Workout",
+    "isBaseTemplate": false
+  }
+]
