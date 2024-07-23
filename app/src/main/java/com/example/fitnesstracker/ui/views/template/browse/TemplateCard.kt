@@ -22,9 +22,11 @@ import com.example.fitnesstracker.ui.theme.AppTheme
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun TemplateCard(
-    template: TemplateSummary
+    template: TemplateSummary,
+    onClick: () -> Unit = {},
 ) {
     ElevatedCard(
+        onClick = onClick,
         shape = AppTheme.shapes.roundedNormalCornerShape,
         colors = cardColors,
         elevation = cardElevation

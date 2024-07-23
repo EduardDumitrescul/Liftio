@@ -26,18 +26,23 @@ private const val TAG = "TemplateBrowseView"
 
 @Composable
 fun TemplateBrowseView(
-    viewModel: TemplateBrowseViewModel = hiltViewModel<TemplateBrowseViewModel>()
+    viewModel: TemplateBrowseViewModel = hiltViewModel<TemplateBrowseViewModel>(),
+    navigateToTemplateDetailedView: (Int) -> Unit,
 ) {
     val templateSummaries by viewModel.templateSummaries.collectAsState()
     Log.d(TAG, templateSummaries.toString())
     
-    StatelessTemplateBrowseView(templates = templateSummaries)
+    StatelessTemplateBrowseView(
+        templates = templateSummaries,
+        onCardClicked = navigateToTemplateDetailedView
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun StatelessTemplateBrowseView(
-    templates: List<TemplateSummary>
+    templates: List<TemplateSummary>,
+    onCardClicked: (Int) -> Unit = {},
 ) {
     Scaffold(
         topBar = {
@@ -67,7 +72,12 @@ private fun StatelessTemplateBrowseView(
             }
 
             items(templates) {template ->
-                TemplateCard(template = template)
+                TemplateCard(
+                    template = template,
+                    onClick = {
+                        onCardClicked(template.templateId)
+                    }
+                )
             }
 
         }

@@ -1,11 +1,13 @@
 package com.example.fitnesstracker.ui.nav
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.List
 import androidx.compose.material.icons.rounded.BarChart
 import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.FitnessCenter
 import androidx.compose.material.icons.rounded.History
 import androidx.compose.material.icons.rounded.Home
+import androidx.compose.material.icons.rounded.List
 import androidx.compose.ui.graphics.vector.ImageVector
 
 sealed interface NavDestination {
@@ -21,6 +23,20 @@ object Home: NavDestination {
         get() = "home"
     override val name: String
         get() = "Home"
+}
+
+object TemplateView: NavDestination {
+    override val icon: ImageVector
+        get() = Icons.AutoMirrored.Rounded.List
+    override val route: String
+        get() = "template/{id}"
+    override val name: String
+        get() = "template view"
+
+    fun createRoute(id: Int): String {
+        return "template/$id"
+    }
+
 }
 
 object Exercises: NavDestination {

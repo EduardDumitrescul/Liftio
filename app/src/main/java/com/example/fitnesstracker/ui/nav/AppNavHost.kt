@@ -10,6 +10,7 @@ import androidx.navigation.compose.composable
 import com.example.fitnesstracker.ui.views.exercise.browse.ExerciseBrowseView
 import com.example.fitnesstracker.ui.views.exercise.edit.ExerciseEditView
 import com.example.fitnesstracker.ui.views.template.browse.TemplateBrowseView
+import com.example.fitnesstracker.ui.views.template.detail.TemplateDetailedView
 
 @Composable
 fun AppNavHost(
@@ -22,7 +23,14 @@ fun AppNavHost(
         startDestination = Home.route,
     ) {
         composable(route = Home.route) {
-            TemplateBrowseView()
+            TemplateBrowseView(
+                navigateToTemplateDetailedView = {
+                    navController.navigate(TemplateView.createRoute(it))
+                }
+            )
+        }
+        composable(route = TemplateView.route) {
+            TemplateDetailedView()
         }
         composable(route = Exercises.route) {
             ExerciseBrowseView(
