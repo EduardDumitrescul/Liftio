@@ -1,11 +1,8 @@
 package com.example.fitnesstracker.services
 
 import android.util.Log
-import com.example.fitnesstracker.data.dto.ExerciseWithSets
 import com.example.fitnesstracker.data.dto.TemplateSummary
-import com.example.fitnesstracker.data.models.Exercise
-import com.example.fitnesstracker.data.models.Muscle
-import com.example.fitnesstracker.data.models.Template
+import com.example.fitnesstracker.data.dto.TemplateWithExercises
 import com.example.fitnesstracker.data.repositories.ExerciseRepository
 import com.example.fitnesstracker.data.repositories.MuscleRepository
 import com.example.fitnesstracker.data.repositories.TemplateRepository
@@ -56,6 +53,16 @@ class TemplateService @Inject constructor(
                     summaries
                 }
             }
+        }
+    }
+
+    fun getTemplateWithExercisesById(templateId: Int): Flow<TemplateWithExercises> {
+        val templateFlow = templateRepository.getTemplateById(templateId)
+
+        return templateFlow.map {
+            TemplateWithExercises(
+                template = it
+            )
         }
     }
 

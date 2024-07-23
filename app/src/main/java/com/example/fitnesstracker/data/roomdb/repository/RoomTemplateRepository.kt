@@ -20,4 +20,9 @@ class RoomTemplateRepository @Inject constructor(
         }
     }
 
+    override fun getTemplateById(templateId: Int): Flow<Template> {
+        val templateEntity = templateDao.getTemplateById(templateId)
+        return templateEntity.map {it.toModel()}
+    }
+
 }

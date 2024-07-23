@@ -18,4 +18,9 @@ interface TemplateDao {
 
     @Insert
     fun insertTemplateExerciseCrossRef(it: TemplateExerciseCrossRef)
+
+    @Query("select t.* " +
+            "from templates t " +
+            "where t.id = :templateId")
+     fun getTemplateById(templateId: Int): Flow<TemplateEntity>
 }
