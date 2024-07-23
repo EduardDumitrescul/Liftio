@@ -59,7 +59,7 @@ fun SetRow(
 @Composable
 @Preview(showBackground = true)
 fun PreviewSetRow() {
-    val exerciseSet = ExerciseSet(1, 1, 10, 20)
+    val exerciseSet = ExerciseSet(1, 1, 1, 10, 20)
     AppTheme {
         Column() {
 

@@ -1,25 +1,36 @@
 package com.example.fitnesstracker.data.roomdb.repository
 
+import android.util.Log
 import com.example.fitnesstracker.data.dto.ExerciseWithMuscles
+import com.example.fitnesstracker.data.dto.ExerciseWithSets
 import com.example.fitnesstracker.data.models.Exercise
+import com.example.fitnesstracker.data.models.ExerciseSet
 import com.example.fitnesstracker.data.repositories.ExerciseRepository
 import com.example.fitnesstracker.data.roomdb.dao.ExerciseDao
 import com.example.fitnesstracker.data.roomdb.dao.MuscleDao
+import com.example.fitnesstracker.data.roomdb.dao.SetDao
 import com.example.fitnesstracker.data.roomdb.entity.ExerciseEntity
+import com.example.fitnesstracker.data.roomdb.entity.SetEntity
 import com.example.fitnesstracker.data.roomdb.entity.toEntity
 import com.example.fitnesstracker.data.roomdb.entity.toModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flatMapMerge
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.runBlocking
 import java.io.Console
 import javax.inject.Inject
 
+private const val TAG = "RoomExerciseRepository"
+
 class RoomExerciseRepository @Inject constructor(
     private val exerciseDao: ExerciseDao,
     private val muscleDao: MuscleDao,
+    private val setDao: SetDao,
 ): ExerciseRepository {
 
     override fun getExercises(): Flow<List<Exercise>> {
@@ -95,6 +106,33 @@ class RoomExerciseRepository @Inject constructor(
         return exercises.map { list ->
             list.map {
                 it.toModel()
+            }
+        }
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    override fun getExercisesWithSetsByTemplateId(id: Int): Flow<List<ExerciseWithSets>> {
+        return exerciseDao.getExercisesByTemplateId(id).flatMapLatest { exerciseList ->
+            if (exerciseList.isEmpty()) {
+                Log.d(TAG, "No exercises found for template id: $id")
+                flowOf(emptyList())
+            } else {
+                val combinedFlows = exerciseList.map { exercise ->
+                    val setsFlow = setDao.getSetsByTemplateExercise(id, exercise.id)
+
+                    setsFlow.map { sets ->
+                        ExerciseWithSets(
+                            exercise = exercise.toModel(),
+                            sets = sets.map { it.toModel() }
+                        )
+                    }
+                }
+
+                combine(combinedFlows) { exerciseWithSetsList ->
+                    val result = exerciseWithSetsList.toList()
+                    Log.d(TAG, "Combined ExerciseWithSets: $result")
+                    result
+                }
             }
         }
     }

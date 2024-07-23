@@ -7,6 +7,7 @@ import com.example.fitnesstracker.data.repositories.TemplateRepository
 import com.example.fitnesstracker.data.roomdb.AppDatabase
 import com.example.fitnesstracker.data.roomdb.dao.ExerciseDao
 import com.example.fitnesstracker.data.roomdb.dao.MuscleDao
+import com.example.fitnesstracker.data.roomdb.dao.SetDao
 import com.example.fitnesstracker.data.roomdb.dao.TemplateDao
 import com.example.fitnesstracker.data.roomdb.repository.RoomExerciseRepository
 import com.example.fitnesstracker.data.roomdb.repository.RoomMuscleRepository
@@ -43,9 +44,10 @@ class DataModule {
     @Singleton
     fun provideExerciseRepository(
         exerciseDao: ExerciseDao,
-        muscleDao: MuscleDao
+        muscleDao: MuscleDao,
+        setDao: SetDao
     ): ExerciseRepository {
-        return RoomExerciseRepository(exerciseDao, muscleDao)
+        return RoomExerciseRepository(exerciseDao, muscleDao, setDao)
     }
 
     @Provides
@@ -102,6 +104,14 @@ class DataModule {
         appDatabase: AppDatabase
     ): TemplateDao {
         return appDatabase.templateDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideSetDao(
+        appDatabase: AppDatabase
+    ): SetDao {
+        return appDatabase.setDao()
     }
 
 //

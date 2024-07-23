@@ -1,5 +1,6 @@
 package com.example.fitnesstracker.ui.views.template.browse
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -21,11 +22,14 @@ import com.example.fitnesstracker.ui.components.button.Fab
 import com.example.fitnesstracker.ui.components.button.FilledButton
 import com.example.fitnesstracker.ui.theme.AppTheme
 
+private const val TAG = "TemplateBrowseView"
+
 @Composable
 fun TemplateBrowseView(
     viewModel: TemplateBrowseViewModel = hiltViewModel<TemplateBrowseViewModel>()
 ) {
     val templateSummaries by viewModel.templateSummaries.collectAsState()
+    Log.d(TAG, templateSummaries.toString())
     
     StatelessTemplateBrowseView(templates = templateSummaries)
 }
