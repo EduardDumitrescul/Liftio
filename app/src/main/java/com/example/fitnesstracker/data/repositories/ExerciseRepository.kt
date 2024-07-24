@@ -2,7 +2,7 @@ package com.example.fitnesstracker.data.repositories
 
 import com.example.fitnesstracker.data.dto.ExerciseWithMuscles
 import com.example.fitnesstracker.data.dto.ExerciseWithSets
-import com.example.fitnesstracker.data.dto.ExerciseWithSetsAndMuscles
+import com.example.fitnesstracker.data.dto.ExerciseDetailed
 import com.example.fitnesstracker.data.models.Exercise
 import kotlinx.coroutines.flow.Flow
 
@@ -15,5 +15,5 @@ interface ExerciseRepository {
     suspend fun updateExercise(exercise: Exercise)
     fun getExercisesByTemplateId(id: Int): Flow<List<Exercise>>
     fun getExercisesWithSetsByTemplateId(id: Int): Flow<List<ExerciseWithSets>>
-    fun getExercisesWithSetsAndMuscles(templateId: Int): Flow<List<ExerciseWithSetsAndMuscles>>
+    fun getExercisesWithSetsAndMuscles(templateId: Int): Flow<List<ExerciseDetailed>>
 }

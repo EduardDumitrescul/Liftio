@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.fitnesstracker.data.dto.ExerciseWithSetsAndMuscles
+import com.example.fitnesstracker.data.dto.ExerciseDetailed
 import com.example.fitnesstracker.data.models.ExerciseSet
 import com.example.fitnesstracker.ui.components.MuscleChipRow
 import com.example.fitnesstracker.ui.components.MuscleChipRowModel
@@ -20,7 +20,7 @@ import com.example.fitnesstracker.ui.theme.AppTheme
 
 @Composable
 fun ExerciseCard(
-    exerciseWithSetsAndMuscles: ExerciseWithSetsAndMuscles,
+    exerciseDetailed: ExerciseDetailed,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -35,7 +35,7 @@ fun ExerciseCard(
             verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal),
         ) {
             Text(
-                text = exerciseWithSetsAndMuscles.exercise.name,
+                text = exerciseDetailed.exercise.name,
                 style = AppTheme.typography.headline,
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
@@ -44,15 +44,15 @@ fun ExerciseCard(
 
             MuscleChipRow(
                 model = MuscleChipRowModel(
-                    exerciseWithSetsAndMuscles.primaryMuscle.name,
-                    exerciseWithSetsAndMuscles.secondaryMuscles.map { it.name }
+                    exerciseDetailed.primaryMuscle.name,
+                    exerciseDetailed.secondaryMuscles.map { it.name }
                 ),
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
             Column(
                 modifier = Modifier.padding(top = 8.dp)
             ) {
-                for(set in exerciseWithSetsAndMuscles.sets) {
+                for(set in exerciseDetailed.sets) {
                     SetRow(
                         exerciseSet = set,
                         modifier = Modifier
@@ -84,7 +84,7 @@ private val cardElevation @Composable get() = CardDefaults.elevatedCardElevation
 fun PreviewExerciseCard() {
     AppTheme {
         ExerciseCard(
-            exerciseWithSetsAndMuscles = ExerciseWithSetsAndMuscles.default().copy(
+            exerciseDetailed = ExerciseDetailed.default().copy(
                 sets = listOf(
                     ExerciseSet(0, 1, 1, 10, 20),
                     ExerciseSet(0, 1, 2, 10, 20),

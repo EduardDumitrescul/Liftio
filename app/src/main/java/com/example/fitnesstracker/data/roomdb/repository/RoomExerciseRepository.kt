@@ -3,27 +3,21 @@ package com.example.fitnesstracker.data.roomdb.repository
 import android.util.Log
 import com.example.fitnesstracker.data.dto.ExerciseWithMuscles
 import com.example.fitnesstracker.data.dto.ExerciseWithSets
-import com.example.fitnesstracker.data.dto.ExerciseWithSetsAndMuscles
+import com.example.fitnesstracker.data.dto.ExerciseDetailed
 import com.example.fitnesstracker.data.models.Exercise
-import com.example.fitnesstracker.data.models.ExerciseSet
 import com.example.fitnesstracker.data.repositories.ExerciseRepository
 import com.example.fitnesstracker.data.roomdb.dao.ExerciseDao
 import com.example.fitnesstracker.data.roomdb.dao.MuscleDao
 import com.example.fitnesstracker.data.roomdb.dao.SetDao
-import com.example.fitnesstracker.data.roomdb.entity.ExerciseEntity
-import com.example.fitnesstracker.data.roomdb.entity.SetEntity
 import com.example.fitnesstracker.data.roomdb.entity.toEntity
 import com.example.fitnesstracker.data.roomdb.entity.toModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flatMapMerge
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.runBlocking
-import java.io.Console
 import javax.inject.Inject
 
 private const val TAG = "RoomExerciseRepository"
@@ -139,7 +133,7 @@ class RoomExerciseRepository @Inject constructor(
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    override fun getExercisesWithSetsAndMuscles(templateId: Int): Flow<List<ExerciseWithSetsAndMuscles>> {
+    override fun getExercisesWithSetsAndMuscles(templateId: Int): Flow<List<ExerciseDetailed>> {
         val exercisesFlow = exerciseDao.getExercisesByTemplateId(templateId)
 
         return exercisesFlow.flatMapLatest { exercises ->
@@ -153,7 +147,7 @@ class RoomExerciseRepository @Inject constructor(
                     secondaryMusclesFlow,
                     setsFlow
                 ) { primaryMuscle, secondaryMuscles, sets ->
-                    ExerciseWithSetsAndMuscles(
+                    ExerciseDetailed(
                         exercise = exercise.toModel(),
                         primaryMuscle = primaryMuscle!!.toModel(),
                         secondaryMuscles = secondaryMuscles.map { it.toModel() },

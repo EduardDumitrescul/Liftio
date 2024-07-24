@@ -2,7 +2,7 @@ package com.example.fitnesstracker.services
 
 import android.util.Log
 import com.example.fitnesstracker.data.dto.TemplateSummary
-import com.example.fitnesstracker.data.dto.TemplateWithExercises
+import com.example.fitnesstracker.data.dto.TemplateDetailed
 import com.example.fitnesstracker.data.repositories.ExerciseRepository
 import com.example.fitnesstracker.data.repositories.MuscleRepository
 import com.example.fitnesstracker.data.repositories.TemplateRepository
@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 private const val TAG = "TemplateService"
@@ -56,7 +55,7 @@ class TemplateService @Inject constructor(
         }
     }
 
-    fun getTemplateWithExercisesById(templateId: Int): Flow<TemplateWithExercises> {
+    fun getTemplateWithExercisesById(templateId: Int): Flow<TemplateDetailed> {
         val templateFlow = templateRepository.getTemplateById(templateId)
         val exercises = exerciseRepository.getExercisesWithSetsAndMuscles(templateId)
 
@@ -64,7 +63,7 @@ class TemplateService @Inject constructor(
             templateFlow,
             exercises
         ) { temp, ex ->
-            TemplateWithExercises(
+            TemplateDetailed(
                 template = temp,
                 exercisesWithSetsAndMuscles = ex
             )
