@@ -1,5 +1,6 @@
 package com.example.fitnesstracker.ui.views.template.detail
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -12,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.fitnesstracker.ui.components.appbar.LargeAppBar
+import com.example.fitnesstracker.ui.components.button.FilledButton
 import com.example.fitnesstracker.ui.theme.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -28,9 +30,18 @@ fun TemplateDetailedView(
         containerColor = AppTheme.colors.background
     ) { paddingValues ->
         LazyColumn(
-            modifier = Modifier.padding(paddingValues)
+            modifier = Modifier
+                .padding(paddingValues)
+                .padding(horizontal = AppTheme.dimensions.paddingLarge)
         ) {
-
+            item {
+                FilledButton(
+                    text = "start training",
+                    onClick = {},
+                    modifier = Modifier
+                        .fillMaxWidth()
+                )
+            }
         }
     }
 }
