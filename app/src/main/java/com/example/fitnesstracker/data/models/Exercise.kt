@@ -5,4 +5,13 @@ data class Exercise(
     var name: String,
     val description: String,
     val equipment: String,
-)
+) {
+    companion object {
+        fun default() = Exercise(
+            id = 0,
+            name = "generic exercise",
+            description = "generic exercise description",
+            equipment = "none"
+        )
+    }
+}

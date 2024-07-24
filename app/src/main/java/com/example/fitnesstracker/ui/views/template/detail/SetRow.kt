@@ -29,14 +29,13 @@ fun SetRow(
 
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = modifier
+        modifier = Modifier
             .background(backgroundColor)
-            .padding(vertical = 8.dp)
-            .padding(horizontal = 16.dp)
             .alpha(alpha)
+            .then(modifier)
     ) {
         Text(
-            text = exerciseSet.index.toString(),
+            text = exerciseSet.index.toString() + '.',
             style = AppTheme.typography.body,
             color = AppTheme.colors.onContainer,
         )

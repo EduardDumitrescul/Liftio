@@ -13,7 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TemplateDetailedViewModel @Inject constructor(
     val templateId: Int,
-    val templateService: TemplateService
+    private val templateService: TemplateService
 ): ViewModel() {
     val templateWithExercises: StateFlow<TemplateWithExercises> = templateService
         .getTemplateWithExercisesById(templateId)

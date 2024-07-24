@@ -58,10 +58,15 @@ class TemplateService @Inject constructor(
 
     fun getTemplateWithExercisesById(templateId: Int): Flow<TemplateWithExercises> {
         val templateFlow = templateRepository.getTemplateById(templateId)
+        val exercises = exerciseRepository.getExercisesWithSetsAndMuscles(templateId)
 
-        return templateFlow.map {
+        return combine(
+            templateFlow,
+            exercises
+        ) { temp, ex ->
             TemplateWithExercises(
-                template = it
+                template = temp,
+                exercisesWithSetsAndMuscles = ex
             )
         }
     }

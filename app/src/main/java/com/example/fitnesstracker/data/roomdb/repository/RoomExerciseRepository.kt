@@ -3,6 +3,7 @@ package com.example.fitnesstracker.data.roomdb.repository
 import android.util.Log
 import com.example.fitnesstracker.data.dto.ExerciseWithMuscles
 import com.example.fitnesstracker.data.dto.ExerciseWithSets
+import com.example.fitnesstracker.data.dto.ExerciseWithSetsAndMuscles
 import com.example.fitnesstracker.data.models.Exercise
 import com.example.fitnesstracker.data.models.ExerciseSet
 import com.example.fitnesstracker.data.repositories.ExerciseRepository
@@ -134,6 +135,34 @@ class RoomExerciseRepository @Inject constructor(
                     result
                 }
             }
+        }
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    override fun getExercisesWithSetsAndMuscles(templateId: Int): Flow<List<ExerciseWithSetsAndMuscles>> {
+        val exercisesFlow = exerciseDao.getExercisesByTemplateId(templateId)
+
+        return exercisesFlow.flatMapLatest { exercises ->
+            val combinedFlows = exercises.map { exercise ->
+                val primaryMuscleFlow = muscleDao.getPrimaryMuscleByExerciseId(exercise.id)
+                val secondaryMusclesFlow = muscleDao.getSecondaryMusclesByExerciseId(exercise.id)
+                val setsFlow = setDao.getSetsByTemplateExercise(templateId, exercise.id)
+
+                combine(
+                    primaryMuscleFlow,
+                    secondaryMusclesFlow,
+                    setsFlow
+                ) { primaryMuscle, secondaryMuscles, sets ->
+                    ExerciseWithSetsAndMuscles(
+                        exercise = exercise.toModel(),
+                        primaryMuscle = primaryMuscle!!.toModel(),
+                        secondaryMuscles = secondaryMuscles.map { it.toModel() },
+                        sets = sets.map { it.toModel() }
+                    )
+                }
+            }
+
+            combine(combinedFlows) {it.toList()}
         }
     }
 }

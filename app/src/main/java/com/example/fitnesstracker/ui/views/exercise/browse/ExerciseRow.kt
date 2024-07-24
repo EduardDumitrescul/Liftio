@@ -11,6 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.fitnesstracker.data.dto.ExerciseWithMuscles
 import com.example.fitnesstracker.data.models.Exercise
+import com.example.fitnesstracker.ui.components.MuscleChipRow
 import com.example.fitnesstracker.ui.theme.AppTheme
 
 @Composable
