@@ -16,6 +16,7 @@ import com.example.fitnesstracker.data.dto.ExerciseDetailed
 import com.example.fitnesstracker.data.models.ExerciseSet
 import com.example.fitnesstracker.ui.components.MuscleChipRow
 import com.example.fitnesstracker.ui.components.MuscleChipRowModel
+import com.example.fitnesstracker.ui.components.card.LargeCard
 import com.example.fitnesstracker.ui.theme.AppTheme
 
 @Composable
@@ -24,13 +25,10 @@ fun ExerciseCard(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    ElevatedCard(
-        onClick = onClick,
-        shape = AppTheme.shapes.roundedNormalCornerShape,
-        colors = cardColors,
-        elevation = cardElevation,
-        modifier = modifier
-    ) {
+   LargeCard(
+       onClick = onClick,
+       modifier = modifier,
+   ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal),
         ) {
@@ -49,6 +47,7 @@ fun ExerciseCard(
                 ),
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
+
             Column(
                 modifier = Modifier.padding(top = 8.dp)
             ) {
@@ -67,17 +66,6 @@ fun ExerciseCard(
         }
     }
 }
-
-
-
-private val cardColors @Composable get() = CardColors(
-    contentColor = AppTheme.colors.onContainer,
-    containerColor = AppTheme.colors.container,
-    disabledContentColor = AppTheme.colors.onContainer,
-    disabledContainerColor = AppTheme.colors.container,
-)
-
-private val cardElevation @Composable get() = CardDefaults.elevatedCardElevation()
 
 @Preview
 @Composable

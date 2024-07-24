@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.fitnesstracker.data.dto.TemplateSummary
+import com.example.fitnesstracker.ui.components.card.LargeCard
 import com.example.fitnesstracker.ui.components.chip.FilledChip
 import com.example.fitnesstracker.ui.theme.AppTheme
 
@@ -25,12 +26,7 @@ fun TemplateCard(
     template: TemplateSummary,
     onClick: () -> Unit = {},
 ) {
-    ElevatedCard(
-        onClick = onClick,
-        shape = AppTheme.shapes.roundedNormalCornerShape,
-        colors = cardColors,
-        elevation = cardElevation
-    ) {
+    LargeCard(onClick = onClick){
         Column(
             modifier = Modifier.padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal)
@@ -65,15 +61,6 @@ fun TemplateCard(
 
     }
 }
-
-private val cardColors @Composable get() = CardColors(
-    contentColor = AppTheme.colors.onContainer,
-    containerColor = AppTheme.colors.container,
-    disabledContentColor = AppTheme.colors.onContainer,
-    disabledContainerColor = AppTheme.colors.container,
-)
-
-private val cardElevation @Composable get() = CardDefaults.elevatedCardElevation()
 
 @Composable
 @Preview(showBackground = true, backgroundColor = Color.GRAY.toLong(), widthDp = 300)
