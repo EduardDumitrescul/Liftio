@@ -4,7 +4,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Remove
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -25,6 +30,7 @@ import com.example.fitnesstracker.ui.views.template.detail.SetRowStyle
 fun EditableSetRow(
     exerciseSet: ExerciseSet,
     onValuesChanged: (ExerciseSet) -> Unit,
+    onRemoveClicked: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
 
@@ -57,6 +63,17 @@ fun EditableSetRow(
             },
             modifier = Modifier.width(60.dp),
         )
+
+        IconButton(
+            onClick = onRemoveClicked,
+            Modifier.size(24.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Rounded.Remove,
+                contentDescription = "remove set",
+                Modifier.size(20.dp)
+            )
+        }
     }
 
 }
@@ -71,17 +88,20 @@ fun PreviewEditableSetRow() {
             EditableSetRow(
                 exerciseSet,
                 modifier = Modifier.width(160.dp),
-                onValuesChanged = {exerciseSet = it}
+                onValuesChanged = {exerciseSet = it},
+                onRemoveClicked = {}
             )
             EditableSetRow(
                 exerciseSet,
                 modifier = Modifier.width(160.dp),
-                onValuesChanged = {exerciseSet = it}
+                onValuesChanged = {exerciseSet = it},
+                onRemoveClicked = {}
             )
             EditableSetRow(
                 exerciseSet,
                 modifier = Modifier.width(160.dp),
-                onValuesChanged = {exerciseSet = it}
+                onValuesChanged = {exerciseSet = it},
+                onRemoveClicked = {}
             )
         }
     }

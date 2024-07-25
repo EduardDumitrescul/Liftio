@@ -28,6 +28,7 @@ fun EditableExerciseCard(
     onClick: () -> Unit,
     updateSet: (ExerciseSet) -> Unit,
     addSet: () -> Unit,
+    removeSet: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LargeCard(
@@ -64,7 +65,10 @@ fun EditableExerciseCard(
                             .fillMaxWidth()
                             .padding(vertical = 8.dp)
                             .padding(horizontal = 20.dp),
-                        onValuesChanged = updateSet
+                        onValuesChanged = updateSet,
+                        onRemoveClicked = {
+                            removeSet(set.index)
+                        }
                     )
                 }
 
@@ -93,6 +97,7 @@ fun PreviewEditableExerciseCard() {
                     ExerciseSet(0, 1, 4, 10, 20),
                 )
             ),
+            {},
             {},
             {},
             {}

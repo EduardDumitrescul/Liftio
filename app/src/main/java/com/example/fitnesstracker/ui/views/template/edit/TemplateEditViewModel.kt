@@ -81,4 +81,25 @@ class TemplateEditViewModel @Inject constructor(
             )
         }
     }
+
+    fun removeSet(exerciseId: Int, setIndex: Int) {
+        _templateDetailed.update { templateDetailed ->
+            val updatedExercises = templateDetailed.exercisesWithSetsAndMuscles.map { exerciseDetailed ->
+                if (exerciseDetailed.exercise.id == exerciseId) {
+                    val updatedSets = exerciseDetailed.sets.filter {
+                        it.index != setIndex
+                    }.toMutableList()
+                    for(i in 0 until updatedSets.size) {
+                        updatedSets[i] = updatedSets[i].copy(index = i + 1)
+                    }
+                    exerciseDetailed.copy(sets = updatedSets)
+                } else {
+                    exerciseDetailed
+                }
+            }
+            templateDetailed.copy(
+                exercisesWithSetsAndMuscles = updatedExercises
+            )
+        }
+    }
 }

@@ -47,6 +47,9 @@ fun TemplateEditView(
                     },
                     addSet = {
                         viewModel.addSet(exerciseDetailed.exercise.id)
+                    },
+                    removeSet = {
+                        viewModel.removeSet(exerciseDetailed.exercise.id, it)
                     }
                 )
             }
