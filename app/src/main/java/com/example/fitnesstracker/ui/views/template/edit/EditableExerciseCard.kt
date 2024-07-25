@@ -5,8 +5,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -14,6 +17,7 @@ import com.example.fitnesstracker.data.dto.ExerciseDetailed
 import com.example.fitnesstracker.data.models.ExerciseSet
 import com.example.fitnesstracker.ui.components.MuscleChipRow
 import com.example.fitnesstracker.ui.components.MuscleChipRowModel
+import com.example.fitnesstracker.ui.components.button.TextButton
 import com.example.fitnesstracker.ui.components.card.LargeCard
 import com.example.fitnesstracker.ui.theme.AppTheme
 import com.example.fitnesstracker.ui.views.template.detail.SetRow
@@ -23,6 +27,7 @@ fun EditableExerciseCard(
     exerciseDetailed: ExerciseDetailed,
     onClick: () -> Unit,
     updateSet: (ExerciseSet) -> Unit,
+    addSet: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LargeCard(
@@ -49,7 +54,8 @@ fun EditableExerciseCard(
             )
 
             Column(
-                modifier = Modifier.padding(top = 8.dp)
+                modifier = Modifier.padding(top = 8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 for(set in exerciseDetailed.sets) {
                     EditableSetRow(
@@ -61,6 +67,13 @@ fun EditableExerciseCard(
                         onValuesChanged = updateSet
                     )
                 }
+
+                TextButton(
+                    text = "new set",
+                    imageVector = Icons.Rounded.Add,
+                    onClick = addSet,
+                    modifier = Modifier.padding(8.dp)
+                )
             }
 
         }
@@ -80,6 +93,7 @@ fun PreviewEditableExerciseCard() {
                     ExerciseSet(0, 1, 4, 10, 20),
                 )
             ),
+            {},
             {},
             {}
         )

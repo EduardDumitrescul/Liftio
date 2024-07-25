@@ -1,2 +1,11 @@
- - TemplateEditView - ability to update name
+ - TemplateEditView
+    - ability to update name
+    - add suffix (reps and kg)
+    - add set
+    - remove set
+    - add exercise
+    - remove exercise
+    - save updates to database
+    - navigate back on button press
+    - check value validity
  - Extract two button bottom bar to component

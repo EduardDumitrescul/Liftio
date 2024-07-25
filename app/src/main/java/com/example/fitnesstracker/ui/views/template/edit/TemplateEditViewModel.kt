@@ -1,5 +1,6 @@
 package com.example.fitnesstracker.ui.views.template.edit
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fitnesstracker.data.dto.TemplateDetailed
@@ -14,6 +15,8 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
+private const val TAG = "TemplateEditViewModel"
 
 @HiltViewModel
 class TemplateEditViewModel @Inject constructor(
@@ -55,6 +58,27 @@ class TemplateEditViewModel @Inject constructor(
                 exercisesWithSetsAndMuscles = updatedExercises
             )
 
+        }
+    }
+
+    fun addSet(exerciseId: Int) {
+        _templateDetailed.update { templateDetailed ->
+            val updatedExercises = templateDetailed.exercisesWithSetsAndMuscles.map { exerciseDetailed ->
+                if (exerciseDetailed.exercise.id == exerciseId) {
+                    // Create a new list of sets with the new set added
+                    val newSet = exerciseDetailed.sets.last().copy(
+                        index = exerciseDetailed.sets.last().index + 1,
+                        id = 0
+                    )
+                    val updatedSets = exerciseDetailed.sets + newSet
+                    exerciseDetailed.copy(sets = updatedSets)
+                } else {
+                    exerciseDetailed
+                }
+            }
+            templateDetailed.copy(
+                exercisesWithSetsAndMuscles = updatedExercises
+            )
         }
     }
 }

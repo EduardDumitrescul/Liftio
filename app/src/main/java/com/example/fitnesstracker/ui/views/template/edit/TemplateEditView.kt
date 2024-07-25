@@ -44,6 +44,9 @@ fun TemplateEditView(
                     onClick = { /*TODO*/ },
                     updateSet = { set->
                         viewModel.updateSet(exerciseDetailed.exercise.id, set)
+                    },
+                    addSet = {
+                        viewModel.addSet(exerciseDetailed.exercise.id)
                     }
                 )
             }
