@@ -11,6 +11,7 @@ import com.example.fitnesstracker.ui.views.exercise.browse.ExerciseBrowseView
 import com.example.fitnesstracker.ui.views.exercise.edit.ExerciseEditView
 import com.example.fitnesstracker.ui.views.template.browse.TemplateBrowseView
 import com.example.fitnesstracker.ui.views.template.detail.TemplateDetailedView
+import com.example.fitnesstracker.ui.views.template.edit.TemplateEditView
 
 @Composable
 fun AppNavHost(
@@ -30,7 +31,12 @@ fun AppNavHost(
             )
         }
         composable(route = TemplateView.route) {
-            TemplateDetailedView()
+            TemplateDetailedView(
+                navigateToTemplateEditView = {navController.navigate(TemplateEdit.createRoute(it))}
+            )
+        }
+        composable(route = TemplateEdit.route) {
+            TemplateEditView()
         }
         composable(route = Exercises.route) {
             ExerciseBrowseView(

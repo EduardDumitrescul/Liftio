@@ -36,8 +36,22 @@ object TemplateView: NavDestination {
     fun createRoute(id: Int): String {
         return "template/$id"
     }
-
 }
+
+object TemplateEdit: NavDestination {
+    override val icon: ImageVector
+        get() = Icons.AutoMirrored.Rounded.List
+    override val route: String
+        get() = "template/edit/{id}"
+    override val name: String
+        get() = "template edit"
+
+    fun createRoute(id: Int): String {
+        return "template/edit/$id"
+    }
+}
+
+
 
 object Exercises: NavDestination {
     override val icon: ImageVector
