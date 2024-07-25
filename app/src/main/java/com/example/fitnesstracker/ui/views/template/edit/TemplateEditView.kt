@@ -38,8 +38,14 @@ fun TemplateEditView(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
 
-            items(templateWithExercises.exercisesWithSetsAndMuscles) {
-                ExerciseCard(exerciseDetailed = it, onClick = { /*TODO*/ })
+            items(templateWithExercises.exercisesWithSetsAndMuscles) { exerciseDetailed ->
+                EditableExerciseCard(
+                    exerciseDetailed = exerciseDetailed,
+                    onClick = { /*TODO*/ },
+                    updateSet = { set->
+                        viewModel.updateSet(exerciseDetailed.exercise.id, set)
+                    }
+                )
             }
         }
     }

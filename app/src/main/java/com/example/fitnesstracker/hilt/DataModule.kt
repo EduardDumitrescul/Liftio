@@ -3,6 +3,7 @@ package com.example.fitnesstracker.hilt
 import android.content.Context
 import com.example.fitnesstracker.data.repositories.ExerciseRepository
 import com.example.fitnesstracker.data.repositories.MuscleRepository
+import com.example.fitnesstracker.data.repositories.SetRepository
 import com.example.fitnesstracker.data.repositories.TemplateRepository
 import com.example.fitnesstracker.data.roomdb.AppDatabase
 import com.example.fitnesstracker.data.roomdb.dao.ExerciseDao
@@ -11,8 +12,10 @@ import com.example.fitnesstracker.data.roomdb.dao.SetDao
 import com.example.fitnesstracker.data.roomdb.dao.TemplateDao
 import com.example.fitnesstracker.data.roomdb.repository.RoomExerciseRepository
 import com.example.fitnesstracker.data.roomdb.repository.RoomMuscleRepository
+import com.example.fitnesstracker.data.roomdb.repository.RoomSetRepository
 import com.example.fitnesstracker.data.roomdb.repository.RoomTemplateRepository
 import com.example.fitnesstracker.services.ExerciseService
+import com.example.fitnesstracker.services.SetService
 import com.example.fitnesstracker.services.TemplateService
 import dagger.Module
 import dagger.Provides
@@ -112,6 +115,20 @@ class DataModule {
         appDatabase: AppDatabase
     ): SetDao {
         return appDatabase.setDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideSetRepository(
+        setDao: SetDao
+    ):SetRepository {
+        return RoomSetRepository(setDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSetService(setRepository: SetRepository): SetService {
+        return SetService(setRepository)
     }
 
 //

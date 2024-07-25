@@ -1,0 +1,2 @@
+ - TemplateEditView - ability to update name
+ - Extract two button bottom bar to component
