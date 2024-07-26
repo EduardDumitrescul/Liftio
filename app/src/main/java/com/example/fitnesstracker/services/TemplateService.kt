@@ -58,7 +58,7 @@ class TemplateService @Inject constructor(
 
     fun getTemplateWithExercisesById(templateId: Int): Flow<TemplateDetailed> {
         val templateFlow = templateRepository.getTemplateById(templateId)
-        val exercises = exerciseRepository.getExercisesWithSetsAndMuscles(templateId)
+        val exercises = templateRepository.getExercisesWithSetsAndMuscles(templateId)
 
         return combine(
             templateFlow,

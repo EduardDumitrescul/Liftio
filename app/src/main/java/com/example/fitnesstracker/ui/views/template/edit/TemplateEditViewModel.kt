@@ -1,7 +1,5 @@
 package com.example.fitnesstracker.ui.views.template.edit
 
-import android.util.Log
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fitnesstracker.data.dto.TemplateDetailed
@@ -10,9 +8,7 @@ import com.example.fitnesstracker.services.SetService
 import com.example.fitnesstracker.services.TemplateService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,7 +19,6 @@ private const val TAG = "TemplateEditViewModel"
 class TemplateEditViewModel @Inject constructor(
     val templateId: Int,
     private val templateService: TemplateService,
-    private val setService: SetService,
 ): ViewModel() {
     private val _templateDetailed = MutableStateFlow(TemplateDetailed.default())
     val templateDetailed: StateFlow<TemplateDetailed> get() = _templateDetailed

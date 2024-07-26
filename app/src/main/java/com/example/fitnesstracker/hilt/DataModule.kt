@@ -48,10 +48,9 @@ class DataModule {
     fun provideExerciseRepository(
         exerciseDao: ExerciseDao,
         muscleDao: MuscleDao,
-        setDao: SetDao,
-        templateDao: TemplateDao
+        setDao: SetDao
     ): ExerciseRepository {
-        return RoomExerciseRepository(exerciseDao, muscleDao, setDao, templateDao)
+        return RoomExerciseRepository(exerciseDao, muscleDao, setDao)
     }
 
     @Provides
@@ -95,9 +94,15 @@ class DataModule {
     @Provides
     @Singleton
     fun provideTemplateRepository(
+        exerciseDao: ExerciseDao,
+        muscleDao: MuscleDao,
+        setDao: SetDao,
         templateDao: TemplateDao
     ): TemplateRepository {
         return RoomTemplateRepository(
+            exerciseDao,
+            muscleDao,
+            setDao,
             templateDao
         )
     }

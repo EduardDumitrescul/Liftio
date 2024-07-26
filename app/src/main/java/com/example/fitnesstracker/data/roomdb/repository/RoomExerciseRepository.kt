@@ -27,7 +27,6 @@ class RoomExerciseRepository @Inject constructor(
     private val exerciseDao: ExerciseDao,
     private val muscleDao: MuscleDao,
     private val setDao: SetDao,
-    private val templateDao: TemplateDao,
 ): ExerciseRepository {
 
     override fun getExercises(): Flow<List<Exercise>> {
@@ -131,37 +130,6 @@ class RoomExerciseRepository @Inject constructor(
                     result
                 }
             }
-        }
-    }
-
-    // TODO("move to template repository")
-    @OptIn(ExperimentalCoroutinesApi::class)
-    override fun getExercisesWithSetsAndMuscles(templateId: Int): Flow<List<ExerciseDetailed>> {
-        val templateExerciseFlow = templateDao.getTemplateExercisesByTemplateId(templateId)
-
-        return templateExerciseFlow.flatMapLatest { templateExercises ->
-            val combinedFlows = templateExercises.map { templateExercise ->
-                val exerciseFlow = exerciseDao.getExerciseById(templateExercise.exerciseId)
-                val primaryMuscleFlow = muscleDao.getPrimaryMuscleByExerciseId(templateExercise.exerciseId)
-                val secondaryMusclesFlow = muscleDao.getSecondaryMusclesByExerciseId(templateExercise.exerciseId)
-                val setsFlow = setDao.getSetsByTemplateExercise(templateId, templateExercise.id)
-
-                combine(
-                    exerciseFlow,
-                    primaryMuscleFlow,
-                    secondaryMusclesFlow,
-                    setsFlow
-                ) { exercise, primaryMuscle, secondaryMuscles, sets ->
-                    ExerciseDetailed(
-                        exercise = exercise!!.toModel(),
-                        primaryMuscle = primaryMuscle!!.toModel(),
-                        secondaryMuscles = secondaryMuscles.map { it.toModel() },
-                        sets = sets.map { it.toModel() }
-                    )
-                }
-            }
-
-            combine(combinedFlows) {it.toList()}
         }
     }
 }
