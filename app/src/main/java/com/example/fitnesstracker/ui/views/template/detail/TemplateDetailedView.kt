@@ -62,7 +62,10 @@ fun TemplateDetailedView(
             }
 
             items(templateWithExercises.exercisesWithSetsAndMuscles) {
-                ExerciseCard(exerciseDetailed = it, onClick = { /*TODO*/ })
+                ExerciseCard(
+                    exerciseDetailed = it,
+                    onClick = { /*TODO*/ },
+                    modifier = Modifier.fillMaxWidth())
             }
         }
     }

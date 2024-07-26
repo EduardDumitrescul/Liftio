@@ -55,8 +55,10 @@ fun EditableExerciseCard(
             )
 
             Column(
-                modifier = Modifier.padding(top = 8.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+                modifier = Modifier
+                    .padding(top = 8.dp)
+                    .fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 for(set in exerciseDetailed.sets) {
                     EditableSetRow(

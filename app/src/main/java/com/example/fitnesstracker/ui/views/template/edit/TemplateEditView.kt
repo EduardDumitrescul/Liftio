@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -48,7 +49,8 @@ fun TemplateEditView(
             modifier = Modifier
                 .padding(paddingValues)
                 .padding(horizontal = AppTheme.dimensions.paddingLarge),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
             items(templateWithExercises.exercisesWithSetsAndMuscles) { exerciseDetailed ->
@@ -63,7 +65,8 @@ fun TemplateEditView(
                     },
                     removeSet = {
                         viewModel.removeSet(exerciseDetailed.exercise.id, it)
-                    }
+                    },
+                    modifier = Modifier.fillMaxWidth()
                 )
             }
 
