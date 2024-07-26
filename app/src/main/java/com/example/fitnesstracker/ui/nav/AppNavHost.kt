@@ -33,7 +33,8 @@ fun AppNavHost(
         }
         composable(route = TemplateView.route) {
             TemplateDetailedView(
-                navigateToTemplateEditView = {navController.navigate(TemplateEdit.createRoute(it))}
+                navigateToTemplateEditView = {navController.navigate(TemplateEdit.createRoute(it))},
+                navigateBack = { navController.navigateUp() }
             )
         }
         composable(route = TemplateEdit.route) { navBackStack ->
@@ -41,7 +42,8 @@ fun AppNavHost(
             navBackStack.savedStateHandle.remove<Int>("selectedExerciseId")
             TemplateEditView(
                 previouslySelectedExerciseId = selectedExerciseId,
-                onNewExerciseButtonClick = {navController.navigate(SelectExercise.route)}
+                onNewExerciseButtonClick = {navController.navigate(SelectExercise.route)},
+                navigateBack = {navController.navigateUp()}
             )
         }
         composable(route = SelectExercise.route) {

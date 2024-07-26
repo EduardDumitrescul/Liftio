@@ -26,6 +26,7 @@ import com.example.fitnesstracker.ui.theme.AppTheme
 @Composable
 fun TemplateDetailedView(
     navigateToTemplateEditView: (Int) -> Unit,
+    navigateBack: () -> Unit,
     viewModel: TemplateDetailedViewModel = hiltViewModel(),
 ) {
     val templateWithExercises by viewModel.templateDetailed.collectAsState()
@@ -41,7 +42,8 @@ fun TemplateDetailedView(
                     ) {
                         Icon(Icons.Rounded.Edit, "edit template")
                     }
-                }
+                },
+                onNavigationIconClick = navigateBack
             )
         },
         containerColor = AppTheme.colors.background
@@ -75,6 +77,6 @@ fun TemplateDetailedView(
 @Composable
 fun PreviewTemplateDetailView() {
     AppTheme {
-        TemplateDetailedView({})
+        TemplateDetailedView({}, {})
     }
 }

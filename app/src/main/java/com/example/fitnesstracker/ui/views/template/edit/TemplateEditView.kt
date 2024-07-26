@@ -1,6 +1,5 @@
 package com.example.fitnesstracker.ui.views.template.edit
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -22,14 +21,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.fitnesstracker.ui.components.appbar.LargeAppBar
 import com.example.fitnesstracker.ui.components.button.TextButton
 import com.example.fitnesstracker.ui.theme.AppTheme
-import com.example.fitnesstracker.ui.views.template.detail.ExerciseCard
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TemplateEditView(
     previouslySelectedExerciseId: Int = 0,
     viewModel: TemplateEditViewModel = hiltViewModel(),
-    onNewExerciseButtonClick: () -> Unit
+    onNewExerciseButtonClick: () -> Unit,
+    navigateBack: () -> Unit,
 ) {
     LaunchedEffect(previouslySelectedExerciseId) {
         if(previouslySelectedExerciseId > 0) {
@@ -41,7 +40,10 @@ fun TemplateEditView(
 
     Scaffold(
         topBar = {
-            LargeAppBar(title = "Edit - ${templateWithExercises.template.name}")
+            LargeAppBar(
+                title = "Edit - ${templateWithExercises.template.name}",
+                onNavigationIconClick = navigateBack
+            )
         },
         containerColor = AppTheme.colors.background
     ) { paddingValues ->
@@ -85,7 +87,8 @@ fun TemplateEditView(
 fun PreviewTemplateEditView() {
     AppTheme {
         TemplateEditView(
-            onNewExerciseButtonClick = {}
+            onNewExerciseButtonClick = {},
+            navigateBack = {}
         )
     }
 }
