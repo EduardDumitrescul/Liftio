@@ -2,6 +2,7 @@ package com.example.fitnesstracker.ui.nav
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
@@ -35,13 +36,30 @@ fun AppNavHost(
                 navigateToTemplateEditView = {navController.navigate(TemplateEdit.createRoute(it))}
             )
         }
-        composable(route = TemplateEdit.route) {
-            TemplateEditView()
+        composable(route = TemplateEdit.route) { navBackStack ->
+            val selectedExerciseId = navBackStack.savedStateHandle.getStateFlow("selectedExerciseId", 0).collectAsState().value
+            navBackStack.savedStateHandle.remove<Int>("selectedExerciseId")
+            TemplateEditView(
+                previouslySelectedExerciseId = selectedExerciseId,
+                onNewExerciseButtonClick = {navController.navigate(SelectExercise.route)}
+            )
+        }
+        composable(route = SelectExercise.route) {
+            ExerciseBrowseView(
+                navigateBack = { navController.navigateUp() },
+                onExerciseClick = { exerciseId ->
+                    navController.previousBackStackEntry
+                        ?.savedStateHandle
+                        ?.set("selectedExerciseId", exerciseId)
+                    navController.popBackStack()
+                },
+                onActionClick = { navController.navigate(EditExercise.createRoute(0)) })
         }
         composable(route = Exercises.route) {
             ExerciseBrowseView(
                 navigateBack = { navController.navigateUp() },
-                navigateToExerciseEditView = {navController.navigate(EditExercise.createRoute(it))}
+                onExerciseClick = {navController.navigate(EditExercise.createRoute(it))},
+                onActionClick = {navController.navigate(EditExercise.createRoute(0))}
             )
         }
         composable(route = Stats.route) {

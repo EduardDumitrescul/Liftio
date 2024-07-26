@@ -36,7 +36,8 @@ private const val TAG = "ExerciseListView"
 @Composable
 fun ExerciseBrowseView(
     navigateBack: () -> Unit,
-    navigateToExerciseEditView: (Int) -> Unit,
+    onExerciseClick: (Int) -> Unit,
+    onActionClick: () -> Unit,
     viewModel: ExerciseBrowseViewModel = hiltViewModel<ExerciseBrowseViewModel>(),
 ) {
     val exerciseSummaries by viewModel.filteredExerciseSummaries.collectAsState()
@@ -54,7 +55,7 @@ fun ExerciseBrowseView(
                 onNavigationIconClick = navigateBack,
                 scrollBehavior = scrollBehavior,
                 actions = {
-                    IconButton(onClick = {navigateToExerciseEditView(0)}) {
+                    IconButton(onClick = onActionClick) {
                         Icon(
                             Icons.Rounded.Add,
                             "add new exercise",
@@ -94,7 +95,7 @@ fun ExerciseBrowseView(
                 ExerciseRow(
                     it,
                     modifier = Modifier.clickable(
-                        onClick = {navigateToExerciseEditView(it.exercise.id)}
+                        onClick = {onExerciseClick(it.exercise.id)}
                     )
                 )
             }
@@ -109,7 +110,8 @@ fun Preview() {
     AppTheme {
         ExerciseBrowseView(
             navigateBack = {},
-            navigateToExerciseEditView = {},
+            onExerciseClick = {},
+            onActionClick = {}
         )
     }
 

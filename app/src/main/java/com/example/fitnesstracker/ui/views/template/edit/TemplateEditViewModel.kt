@@ -1,6 +1,7 @@
 package com.example.fitnesstracker.ui.views.template.edit
 
 import android.util.Log
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fitnesstracker.data.dto.TemplateDetailed
@@ -24,7 +25,6 @@ class TemplateEditViewModel @Inject constructor(
     private val templateService: TemplateService,
     private val setService: SetService,
 ): ViewModel() {
-
     private val _templateDetailed = MutableStateFlow(TemplateDetailed.default())
     val templateDetailed: StateFlow<TemplateDetailed> get() = _templateDetailed
 
@@ -100,6 +100,12 @@ class TemplateEditViewModel @Inject constructor(
             templateDetailed.copy(
                 exercisesWithSetsAndMuscles = updatedExercises
             )
+        }
+    }
+
+    fun addExercise(exerciseId: Int) {
+        viewModelScope.launch {
+            templateService.addExerciseToTemplate(templateId, exerciseId)
         }
     }
 }

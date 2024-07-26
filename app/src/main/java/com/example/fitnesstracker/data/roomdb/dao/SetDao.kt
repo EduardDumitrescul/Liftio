@@ -11,7 +11,7 @@ interface SetDao {
 
     @Query("select s.* " +
             "from sets s " +
-            "join templateExerciseCrossRefs te on te.exerciseId = :exerciseId and te.templateId = :templateId " +
+            "join templateExerciseCrossRefs te on te.id = :exerciseId and te.templateId = :templateId " +
             "where te.id = s.templateExerciseId")
     fun getSetsByTemplateExercise(templateId: Int, exerciseId: Int): Flow<List<SetEntity>>
 

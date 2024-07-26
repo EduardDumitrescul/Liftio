@@ -22,7 +22,7 @@ import androidx.room.PrimaryKey
     ]
 )
 data class TemplateExerciseCrossRef (
-    @PrimaryKey val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Int,
     val templateId: Int,
     val exerciseId: Int,
     val index: Int

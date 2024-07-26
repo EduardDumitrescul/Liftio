@@ -17,10 +17,21 @@ interface TemplateDao {
     fun insert(it: TemplateEntity)
 
     @Insert
-    fun insertTemplateExerciseCrossRef(it: TemplateExerciseCrossRef)
+    suspend fun insertTemplateExerciseCrossRef(it: TemplateExerciseCrossRef)
 
     @Query("select t.* " +
             "from templates t " +
             "where t.id = :templateId")
-     fun getTemplateById(templateId: Int): Flow<TemplateEntity>
+    fun getTemplateById(templateId: Int): Flow<TemplateEntity>
+
+    @Query("select count(*) " +
+         "from templateExerciseCrossRefs te " +
+         "where te.templateId = :templateId")
+    suspend fun getNumberOfExercisesInTemplate(templateId: Int): Int
+
+    @Query("select te.* " +
+            "from templateExerciseCrossRefs te " +
+            "where te.templateId = :templateId " +
+            "order by te.`index`")
+    fun getTemplateExercisesByTemplateId(templateId: Int): Flow<List<TemplateExerciseCrossRef>>
 }

@@ -9,6 +9,7 @@ import com.example.fitnesstracker.data.repositories.ExerciseRepository
 import com.example.fitnesstracker.data.roomdb.dao.ExerciseDao
 import com.example.fitnesstracker.data.roomdb.dao.MuscleDao
 import com.example.fitnesstracker.data.roomdb.dao.SetDao
+import com.example.fitnesstracker.data.roomdb.dao.TemplateDao
 import com.example.fitnesstracker.data.roomdb.entity.toEntity
 import com.example.fitnesstracker.data.roomdb.entity.toModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -26,6 +27,7 @@ class RoomExerciseRepository @Inject constructor(
     private val exerciseDao: ExerciseDao,
     private val muscleDao: MuscleDao,
     private val setDao: SetDao,
+    private val templateDao: TemplateDao,
 ): ExerciseRepository {
 
     override fun getExercises(): Flow<List<Exercise>> {
@@ -132,23 +134,26 @@ class RoomExerciseRepository @Inject constructor(
         }
     }
 
+    // TODO("move to template repository")
     @OptIn(ExperimentalCoroutinesApi::class)
     override fun getExercisesWithSetsAndMuscles(templateId: Int): Flow<List<ExerciseDetailed>> {
-        val exercisesFlow = exerciseDao.getExercisesByTemplateId(templateId)
+        val templateExerciseFlow = templateDao.getTemplateExercisesByTemplateId(templateId)
 
-        return exercisesFlow.flatMapLatest { exercises ->
-            val combinedFlows = exercises.map { exercise ->
-                val primaryMuscleFlow = muscleDao.getPrimaryMuscleByExerciseId(exercise.id)
-                val secondaryMusclesFlow = muscleDao.getSecondaryMusclesByExerciseId(exercise.id)
-                val setsFlow = setDao.getSetsByTemplateExercise(templateId, exercise.id)
+        return templateExerciseFlow.flatMapLatest { templateExercises ->
+            val combinedFlows = templateExercises.map { templateExercise ->
+                val exerciseFlow = exerciseDao.getExerciseById(templateExercise.exerciseId)
+                val primaryMuscleFlow = muscleDao.getPrimaryMuscleByExerciseId(templateExercise.exerciseId)
+                val secondaryMusclesFlow = muscleDao.getSecondaryMusclesByExerciseId(templateExercise.exerciseId)
+                val setsFlow = setDao.getSetsByTemplateExercise(templateId, templateExercise.id)
 
                 combine(
+                    exerciseFlow,
                     primaryMuscleFlow,
                     secondaryMusclesFlow,
                     setsFlow
-                ) { primaryMuscle, secondaryMuscles, sets ->
+                ) { exercise, primaryMuscle, secondaryMuscles, sets ->
                     ExerciseDetailed(
-                        exercise = exercise.toModel(),
+                        exercise = exercise!!.toModel(),
                         primaryMuscle = primaryMuscle!!.toModel(),
                         secondaryMuscles = secondaryMuscles.map { it.toModel() },
                         sets = sets.map { it.toModel() }

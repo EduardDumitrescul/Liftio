@@ -24,7 +24,7 @@ class Seeder (
     private val templateExerciseCrossRefPath = "templateExerciseCrossRef.json"
     private val setsPath = "sets.json"
 
-    fun seed() {
+    suspend fun seed() {
         val muscles = loadMuscles()
         insertMuscles(muscles)
         val exercises = loadExercises()
@@ -48,7 +48,7 @@ class Seeder (
         }
     }
 
-    private fun insertTemplateExerciseCrossRefs() {
+    private suspend fun insertTemplateExerciseCrossRefs() {
         val jsonString = readJsonFromAssets(context, templateExerciseCrossRefPath)
         val entities = fromJson<List<TemplateExerciseCrossRef>>(jsonString)
         entities.forEach {
