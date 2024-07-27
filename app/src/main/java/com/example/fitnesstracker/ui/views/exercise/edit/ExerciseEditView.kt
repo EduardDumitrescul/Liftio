@@ -10,7 +10,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -18,12 +17,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.fitnesstracker.ui.components.MultiChoiceChipGroupField
 import com.example.fitnesstracker.ui.components.SingleChoiceChipGroupField
 import com.example.fitnesstracker.ui.components.StringValueEditField
 import com.example.fitnesstracker.ui.components.appbar.LargeAppBar
 import com.example.fitnesstracker.ui.components.button.FilledButton
 import com.example.fitnesstracker.ui.components.button.OutlinedButton
-import com.example.fitnesstracker.ui.components.chip.MultiChoiceChipGroup
 import com.example.fitnesstracker.ui.theme.AppTheme
 import kotlinx.coroutines.launch
 
@@ -123,22 +122,12 @@ fun ExerciseEditView(
                 onSelectionChanged = { viewModel.updatePrimaryMuscle(it) }
             )
 
-            Column(
-                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal),
-                modifier = Modifier.padding(vertical = AppTheme.dimensions.paddingNormal)
-            ) {
-                Text(
-                    text = "Secondary Muscles",
-                    style = AppTheme.typography.caption,
-                    color = AppTheme.colors.onBackground
-                )
-
-                MultiChoiceChipGroup(
-                    options = muscleNames,
-                    selected = exercise.secondaryMuscles.toSet(),
-                    onSelectionChanged = { viewModel.updateSecondaryMuscles(it) }
-                )
-            }
+            MultiChoiceChipGroupField(
+                title = "Secondary Muscles",
+                options = muscleNames,
+                selectedOptions = exercise.secondaryMuscles.toSet(),
+                onSelectionChanged = { viewModel.updateSecondaryMuscles(it) }
+            )
         }
     }
 }
