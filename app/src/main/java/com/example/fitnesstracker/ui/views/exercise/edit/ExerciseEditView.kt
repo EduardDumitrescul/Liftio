@@ -18,12 +18,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.fitnesstracker.ui.components.SingleChoiceChipGroupField
 import com.example.fitnesstracker.ui.components.StringValueEditField
 import com.example.fitnesstracker.ui.components.appbar.LargeAppBar
 import com.example.fitnesstracker.ui.components.button.FilledButton
 import com.example.fitnesstracker.ui.components.button.OutlinedButton
 import com.example.fitnesstracker.ui.components.chip.MultiChoiceChipGroup
-import com.example.fitnesstracker.ui.components.chip.SingleChoiceChipGroup
 import com.example.fitnesstracker.ui.theme.AppTheme
 import kotlinx.coroutines.launch
 
@@ -109,39 +109,19 @@ fun ExerciseEditView(
                 minLines = 5,
             )
 
+            SingleChoiceChipGroupField(
+                title = "Necessary Equipment",
+                options =  listOf("barbell", "dumbbells", "machine", "cables", "none"),
+                selectedOption = exercise.exercise.equipment,
+                onSelectionChanged = { viewModel.updateEquipment(it) }
+            )
 
-            Column(
-                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal),
-                modifier = Modifier.padding(vertical = AppTheme.dimensions.paddingNormal)
-            ) {
-                Text(
-                    text = "Necessary Equipment",
-                    style = AppTheme.typography.caption,
-                    color = AppTheme.colors.onBackground
-                )
-
-                SingleChoiceChipGroup(
-                    options = listOf("barbell", "dumbbells", "machine", "cables", "none"),
-                    selected = exercise.exercise.equipment,
-                    onSelectionChanged = { viewModel.updateEquipment(it) }
-                )
-            }
-
-            Column(
-                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal),
-                modifier = Modifier.padding(vertical = AppTheme.dimensions.paddingNormal)
-            ) {
-                Text(
-                    text = "Target Muscle",
-                    style = AppTheme.typography.caption,
-                    color = AppTheme.colors.onBackground
-                )
-                SingleChoiceChipGroup(
-                    options = muscleNames,
-                    selected = exercise.primaryMuscle,
-                    onSelectionChanged = { viewModel.updatePrimaryMuscle(it) }
-                )
-            }
+            SingleChoiceChipGroupField(
+                title = "Target Muscle",
+                options =  muscleNames,
+                selectedOption = exercise.primaryMuscle,
+                onSelectionChanged = { viewModel.updatePrimaryMuscle(it) }
+            )
 
             Column(
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal),
