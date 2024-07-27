@@ -3,8 +3,6 @@ package com.example.fitnesstracker.ui.views.exercise.edit
 import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -20,9 +18,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.fitnesstracker.ui.components.MultiChoiceChipGroupField
 import com.example.fitnesstracker.ui.components.SingleChoiceChipGroupField
 import com.example.fitnesstracker.ui.components.StringValueEditField
+import com.example.fitnesstracker.ui.components.TwoButtonBottomBar
 import com.example.fitnesstracker.ui.components.appbar.LargeAppBar
-import com.example.fitnesstracker.ui.components.button.FilledButton
-import com.example.fitnesstracker.ui.components.button.OutlinedButton
 import com.example.fitnesstracker.ui.theme.AppTheme
 import kotlinx.coroutines.launch
 
@@ -53,35 +50,23 @@ fun ExerciseEditView(
             )
         },
         bottomBar = {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = AppTheme.dimensions.paddingNormal)
-                    .padding(horizontal = AppTheme.dimensions.paddingLarge),
-                horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingLarge)
-            ) {
-                OutlinedButton(
-                    text = "Cancel",
-                    onClick = navigateBack,
-                    modifier = Modifier.weight(0.5f)
-                )
-                FilledButton(
-                    text = "Save",
-                    onClick = {
-                        if(exercise.exercise.name == "") {
-                            scope.launch { snackbarHostState.showSnackbar("Please enter the name for the exercise") }
-                        }
-                        else if(exercise.primaryMuscle == "") {
-                            scope.launch { snackbarHostState.showSnackbar("Please select the targeted muscle") }
-                        }
-                        else {
-                            viewModel.save()
-                            navigateBack()
-                        }
-                    },
-                    modifier = Modifier.weight(0.5f)
-                )
-            }
+            TwoButtonBottomBar(
+                primaryButtonText = "Save",
+                onPrimaryButtonClick = {
+                    if(exercise.exercise.name == "") {
+                        scope.launch { snackbarHostState.showSnackbar("Please enter the name for the exercise") }
+                    }
+                    else if(exercise.primaryMuscle == "") {
+                        scope.launch { snackbarHostState.showSnackbar("Please select the targeted muscle") }
+                    }
+                    else {
+                        viewModel.save()
+                        navigateBack()
+                    }
+                },
+                secondaryButtonText = "Cancel",
+                onSecondaryButtonClick = navigateBack
+            )
         },
         containerColor = AppTheme.colors.background,
         contentColor = AppTheme.colors.onBackground,
