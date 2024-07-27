@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
@@ -47,21 +48,23 @@ fun EditableSetRow(
         )
         NumberTextField(
             text = exerciseSet.reps,
+            suffix = " reps",
             onValueChange = {
                 onValuesChanged(exerciseSet.copy(
                     reps = it
                 ))
             },
-            modifier = Modifier.width(60.dp),
+            modifier = Modifier.defaultMinSize(minWidth = 60.dp),
         )
         NumberTextField(
             text = exerciseSet.weight,
+            suffix = " kg",
             onValueChange = {
                 onValuesChanged(exerciseSet.copy(
                     weight = it
                 ))
             },
-            modifier = Modifier.width(60.dp),
+            modifier = Modifier.defaultMinSize(minWidth = 60.dp),
         )
 
         IconButton(
