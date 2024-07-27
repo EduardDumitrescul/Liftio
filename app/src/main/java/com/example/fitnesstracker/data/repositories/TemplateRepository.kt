@@ -2,7 +2,6 @@ package com.example.fitnesstracker.data.repositories
 
 import com.example.fitnesstracker.data.dto.ExerciseDetailed
 import com.example.fitnesstracker.data.models.Template
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 
 interface TemplateRepository {
@@ -10,4 +9,5 @@ interface TemplateRepository {
     fun getTemplateById(templateId: Int): Flow<Template>
     suspend fun addExerciseToTemplate(templateId: Int, exerciseId: Int)
     fun getExercisesWithSetsAndMuscles(templateId: Int): Flow<List<ExerciseDetailed>>
+    suspend fun updateTemplateName(templateId: Int, templateName: String)
 }

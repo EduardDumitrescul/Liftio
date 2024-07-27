@@ -77,4 +77,8 @@ class RoomTemplateRepository @Inject constructor(
         }
     }
 
+    override suspend fun updateTemplateName(templateId: Int, templateName: String) {
+        templateDao.updateTemplateName(templateId, templateName)
+    }
+
 }

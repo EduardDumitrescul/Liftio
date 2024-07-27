@@ -34,4 +34,9 @@ interface TemplateDao {
             "where te.templateId = :templateId " +
             "order by te.`index`")
     fun getTemplateExercisesByTemplateId(templateId: Int): Flow<List<TemplateExerciseCrossRef>>
+
+    @Query("update templates " +
+            "set name = :templateName " +
+            "where id = :templateId")
+    suspend fun updateTemplateName(templateId: Int, templateName: String)
 }

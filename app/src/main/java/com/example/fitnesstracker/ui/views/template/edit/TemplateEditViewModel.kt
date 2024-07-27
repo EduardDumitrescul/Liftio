@@ -102,4 +102,10 @@ class TemplateEditViewModel @Inject constructor(
             templateService.addExerciseToTemplate(templateId, exerciseId)
         }
     }
+
+    fun updateTemplateName(templateName: String) {
+        viewModelScope.launch {
+            templateService.updateTemplateName(templateId, templateName)
+        }
+    }
 }

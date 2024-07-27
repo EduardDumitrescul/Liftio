@@ -1,9 +1,8 @@
 package com.example.fitnesstracker.services
 
 import android.util.Log
-import com.example.fitnesstracker.data.dto.ExerciseDetailed
-import com.example.fitnesstracker.data.dto.TemplateSummary
 import com.example.fitnesstracker.data.dto.TemplateDetailed
+import com.example.fitnesstracker.data.dto.TemplateSummary
 import com.example.fitnesstracker.data.repositories.ExerciseRepository
 import com.example.fitnesstracker.data.repositories.MuscleRepository
 import com.example.fitnesstracker.data.repositories.TemplateRepository
@@ -73,5 +72,9 @@ class TemplateService @Inject constructor(
 
     suspend fun addExerciseToTemplate(templateId: Int, exerciseId: Int) {
         templateRepository.addExerciseToTemplate(templateId, exerciseId)
+    }
+
+    suspend fun updateTemplateName(templateId: Int, templateName: String) {
+        templateRepository.updateTemplateName(templateId, templateName)
     }
 }
