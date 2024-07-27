@@ -60,7 +60,7 @@ fun SetRow(
 fun PreviewSetRow() {
     val exerciseSet = ExerciseSet(1, 1, 1, 10, 20)
     AppTheme {
-        Column() {
+        Column {
 
             SetRow(
                 exerciseSet,

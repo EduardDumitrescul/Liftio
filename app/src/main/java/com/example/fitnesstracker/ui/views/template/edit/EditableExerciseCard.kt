@@ -1,6 +1,5 @@
 package com.example.fitnesstracker.ui.views.template.edit
 
-import android.text.Editable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,7 +19,6 @@ import com.example.fitnesstracker.ui.components.MuscleChipRowModel
 import com.example.fitnesstracker.ui.components.button.TextButton
 import com.example.fitnesstracker.ui.components.card.LargeCard
 import com.example.fitnesstracker.ui.theme.AppTheme
-import com.example.fitnesstracker.ui.views.template.detail.SetRow
 
 @Composable
 fun EditableExerciseCard(

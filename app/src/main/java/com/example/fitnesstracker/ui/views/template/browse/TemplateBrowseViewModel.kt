@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TemplateBrowseViewModel @Inject constructor(
-    private val templateService: TemplateService
+    templateService: TemplateService
 ) :ViewModel()
 {
     val templateSummaries: StateFlow<List<TemplateSummary>> = templateService

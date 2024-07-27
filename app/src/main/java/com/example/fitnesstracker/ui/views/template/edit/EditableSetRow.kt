@@ -17,14 +17,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.fitnesstracker.data.models.ExerciseSet
 import com.example.fitnesstracker.ui.components.textfield.NumberTextField
 import com.example.fitnesstracker.ui.theme.AppTheme
-import com.example.fitnesstracker.ui.views.template.detail.SetRowStyle
 
 @Composable
 fun EditableSetRow(
@@ -83,7 +81,7 @@ fun EditableSetRow(
 fun PreviewEditableSetRow() {
     var exerciseSet by remember{mutableStateOf( ExerciseSet(1, 1, 1, 10, 20))}
     AppTheme {
-        Column() {
+        Column {
 
             EditableSetRow(
                 exerciseSet,

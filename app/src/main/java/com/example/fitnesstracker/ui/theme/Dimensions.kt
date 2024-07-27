@@ -1,6 +1,5 @@
 package com.example.fitnesstracker.ui.theme
 
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp

@@ -66,7 +66,7 @@ fun TemplateDetailedView(
             items(templateWithExercises.exercisesWithSetsAndMuscles) {
                 ExerciseCard(
                     exerciseDetailed = it,
-                    onClick = { /*TODO*/ },
+                    onClick = {},
                     modifier = Modifier.fillMaxWidth())
             }
         }

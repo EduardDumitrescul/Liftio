@@ -18,7 +18,7 @@ class ExerciseBrowseViewModel @Inject constructor(
     exerciseService: ExerciseService
 ) : ViewModel() {
 
-    val _exerciseWithMuscles: StateFlow<List<ExerciseWithMuscles>> = exerciseService
+    private val _exerciseWithMuscles: StateFlow<List<ExerciseWithMuscles>> = exerciseService
         .getExercisesWithMuscles()
         .stateIn(
             viewModelScope,

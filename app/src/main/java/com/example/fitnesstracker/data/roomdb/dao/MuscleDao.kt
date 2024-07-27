@@ -3,8 +3,6 @@ package com.example.fitnesstracker.data.roomdb.dao
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.example.fitnesstracker.data.models.ExerciseMuscleCrossRef
-import com.example.fitnesstracker.data.models.Muscle
 import com.example.fitnesstracker.data.roomdb.entity.ExerciseMuscleCrossRefEntity
 import com.example.fitnesstracker.data.roomdb.entity.MuscleEntity
 import kotlinx.coroutines.flow.Flow

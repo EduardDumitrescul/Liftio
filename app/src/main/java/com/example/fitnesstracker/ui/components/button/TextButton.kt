@@ -44,7 +44,7 @@ fun TextButton(
 @Preview
 @Composable
 fun PreviewIconButton() {
-    AppTheme() {
+    AppTheme {
         TextButton(
             text = "add",
             imageVector = Icons.Rounded.Add,

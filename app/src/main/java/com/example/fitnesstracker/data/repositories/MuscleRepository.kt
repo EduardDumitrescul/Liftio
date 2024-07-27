@@ -2,7 +2,6 @@ package com.example.fitnesstracker.data.repositories
 
 import com.example.fitnesstracker.data.models.ExerciseMuscleCrossRef
 import com.example.fitnesstracker.data.models.Muscle
-import com.example.fitnesstracker.data.roomdb.entity.MuscleEntity
 import kotlinx.coroutines.flow.Flow
 
 interface MuscleRepository {
