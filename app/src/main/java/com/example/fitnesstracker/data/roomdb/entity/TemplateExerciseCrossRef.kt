@@ -26,4 +26,10 @@ data class TemplateExerciseCrossRef (
     val templateId: Int,
     val exerciseId: Int,
     val index: Int
-)
+) {
+    companion object {
+        fun default() = TemplateExerciseCrossRef(
+            0, 0, 0, 0
+        )
+    }
+}

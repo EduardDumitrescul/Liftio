@@ -39,4 +39,8 @@ interface TemplateDao {
             "set name = :templateName " +
             "where id = :templateId")
     suspend fun updateTemplateName(templateId: Int, templateName: String)
+
+    @Query("delete from templateExerciseCrossRefs " +
+            "where id = :templateExerciseCrossRefId")
+    suspend fun removeTemplateExerciseCrossRef(templateExerciseCrossRefId: Int)
 }

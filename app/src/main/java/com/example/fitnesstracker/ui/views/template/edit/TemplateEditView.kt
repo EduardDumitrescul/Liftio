@@ -78,6 +78,9 @@ fun TemplateEditView(
                     EditableExerciseCard(
                         exerciseDetailed = exerciseDetailed,
                         onClick = { /*TODO*/ },
+                        onRemoveClick = {
+                            viewModel.removeExerciseFromTemplate(exerciseDetailed.templateExerciseCrossRefId)
+                        },
                         updateSet = { set ->
                             viewModel.updateSet(exerciseDetailed.exercise.id, set)
                         },

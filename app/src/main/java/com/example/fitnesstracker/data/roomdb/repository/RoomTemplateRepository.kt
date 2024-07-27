@@ -66,6 +66,7 @@ class RoomTemplateRepository @Inject constructor(
                 ) { exercise, primaryMuscle, secondaryMuscles, sets ->
                     ExerciseDetailed(
                         exercise = exercise!!.toModel(),
+                        templateExerciseCrossRefId = templateExercise.id,
                         primaryMuscle = primaryMuscle!!.toModel(),
                         secondaryMuscles = secondaryMuscles.map { it.toModel() },
                         sets = sets.map { it.toModel() }
@@ -79,6 +80,10 @@ class RoomTemplateRepository @Inject constructor(
 
     override suspend fun updateTemplateName(templateId: Int, templateName: String) {
         templateDao.updateTemplateName(templateId, templateName)
+    }
+
+    override suspend fun removeTemplateExerciseCrossRef(templateExerciseCrossRefId: Int) {
+        templateDao.removeTemplateExerciseCrossRef(templateExerciseCrossRefId)
     }
 
 }

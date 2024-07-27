@@ -77,4 +77,8 @@ class TemplateService @Inject constructor(
     suspend fun updateTemplateName(templateId: Int, templateName: String) {
         templateRepository.updateTemplateName(templateId, templateName)
     }
+
+    suspend fun removeExerciseFromTemplate(templateExerciseCrossRefId: Int) {
+        templateRepository.removeTemplateExerciseCrossRef(templateExerciseCrossRefId)
+    }
 }
