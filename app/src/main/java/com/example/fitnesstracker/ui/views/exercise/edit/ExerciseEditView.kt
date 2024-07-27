@@ -18,12 +18,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.fitnesstracker.ui.components.StringValueEditField
 import com.example.fitnesstracker.ui.components.appbar.LargeAppBar
 import com.example.fitnesstracker.ui.components.button.FilledButton
 import com.example.fitnesstracker.ui.components.button.OutlinedButton
 import com.example.fitnesstracker.ui.components.chip.MultiChoiceChipGroup
 import com.example.fitnesstracker.ui.components.chip.SingleChoiceChipGroup
-import com.example.fitnesstracker.ui.components.textfield.FilledTextField
 import com.example.fitnesstracker.ui.theme.AppTheme
 import kotlinx.coroutines.launch
 
@@ -93,39 +93,22 @@ fun ExerciseEditView(
                 .padding(horizontal = AppTheme.dimensions.paddingLarge),
             verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingLarge)
         ) {
-            Column(
-                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal),
-                modifier = Modifier.padding(vertical = AppTheme.dimensions.paddingNormal)
-            ) {
-                Text(
-                    "Name",
-                    style = AppTheme.typography.caption,
-                    color = AppTheme.colors.onBackground
-                )
-                FilledTextField(
-                    text = exercise.exercise.name,
-                    onValueChange = { viewModel.updateExerciseName(it) },
-                    placeholderText = "exercise name"
-                )
-            }
+            StringValueEditField(
+                title = "Name",
+                initialFieldValue = exercise.exercise.name,
+                onValueChanged =  { viewModel.updateExerciseName(it) },
+                placeholderText = "exercise name"
+            )
 
-            Column(
-                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal),
-                modifier = Modifier.padding(vertical = AppTheme.dimensions.paddingNormal)
-            ) {
-                Text(
-                    "Description",
-                    style = AppTheme.typography.caption,
-                    color = AppTheme.colors.onBackground
-                )
-                FilledTextField(
-                    text = exercise.exercise.description,
-                    onValueChange = { viewModel.updateExerciseDescription(it) },
-                    placeholderText = "description\n(optional)",
-                    singleLine = false,
-                    minLines = 5,
-                )
-            }
+            StringValueEditField(
+                title = "Description",
+                initialFieldValue = exercise.exercise.description,
+                onValueChanged =  { viewModel.updateExerciseDescription(it) },
+                placeholderText = "description\n(optional)",
+                singleLine = false,
+                minLines = 5,
+            )
+
 
             Column(
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal),
