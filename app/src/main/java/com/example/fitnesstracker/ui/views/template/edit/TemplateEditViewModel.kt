@@ -33,10 +33,10 @@ class TemplateEditViewModel @Inject constructor(
                 }
         }
     }
-    fun updateSet(exerciseId: Int, set: ExerciseSet) {
+    fun updateSet(templateExerciseCrossRefId: Int, set: ExerciseSet) {
         _templateDetailed.update { templateDetailed ->
             val updatedExercises = templateDetailed.exercisesWithSetsAndMuscles.map { exercises ->
-                if(exercises.exercise.id == exerciseId) {
+                if(exercises.templateExerciseCrossRefId == templateExerciseCrossRefId) {
                     val sets = exercises.sets.map {
                         if(it.id == set.id) {
                             set
@@ -58,10 +58,10 @@ class TemplateEditViewModel @Inject constructor(
         }
     }
 
-    fun addSet(exerciseId: Int) {
+    fun addSet(templateExerciseCrossRefId: Int) {
         _templateDetailed.update { templateDetailed ->
             val updatedExercises = templateDetailed.exercisesWithSetsAndMuscles.map { exerciseDetailed ->
-                if (exerciseDetailed.exercise.id == exerciseId) {
+                if (exerciseDetailed.templateExerciseCrossRefId == templateExerciseCrossRefId) {
                     Log.d(TAG, exerciseDetailed.toString())
                     // Create a new list of sets with the new set added
                     val newSet = exerciseDetailed.sets.last().copy(

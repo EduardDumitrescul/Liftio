@@ -82,10 +82,10 @@ fun TemplateEditView(
                             viewModel.removeExerciseFromTemplate(exerciseDetailed.templateExerciseCrossRefId)
                         },
                         updateSet = { set ->
-                            viewModel.updateSet(exerciseDetailed.exercise.id, set)
+                            viewModel.updateSet(exerciseDetailed.templateExerciseCrossRefId, set)
                         },
                         addSet = {
-                            viewModel.addSet(exerciseDetailed.exercise.id)
+                            viewModel.addSet(exerciseDetailed.templateExerciseCrossRefId)
                         },
                         removeSet = {
                             viewModel.removeSet(exerciseDetailed.templateExerciseCrossRefId, it)
