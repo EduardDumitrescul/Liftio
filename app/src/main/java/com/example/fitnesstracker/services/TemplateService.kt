@@ -5,6 +5,7 @@ import com.example.fitnesstracker.data.dto.TemplateDetailed
 import com.example.fitnesstracker.data.dto.TemplateSummary
 import com.example.fitnesstracker.data.repositories.ExerciseRepository
 import com.example.fitnesstracker.data.repositories.MuscleRepository
+import com.example.fitnesstracker.data.repositories.SetRepository
 import com.example.fitnesstracker.data.repositories.TemplateRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -17,6 +18,7 @@ private const val TAG = "TemplateService"
 
 class TemplateService @Inject constructor(
     private val templateRepository: TemplateRepository,
+    private val setRepository: SetRepository,
     private val muscleRepository: MuscleRepository,
     private val exerciseRepository: ExerciseRepository
 ) {
@@ -80,5 +82,11 @@ class TemplateService @Inject constructor(
 
     suspend fun removeExerciseFromTemplate(templateExerciseCrossRefId: Int) {
         templateRepository.removeTemplateExerciseCrossRef(templateExerciseCrossRefId)
+    }
+
+    suspend fun removeSetFromTemplateExercise(templateExerciseCrossRefId: Int, setId: Int) {
+        val set = setRepository.getSet(setId)
+        setRepository.updateSetIndexes(templateExerciseCrossRefId, set.index)
+        setRepository.removeSet(setId)
     }
 }

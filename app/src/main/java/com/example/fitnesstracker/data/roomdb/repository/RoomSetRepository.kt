@@ -4,6 +4,7 @@ import com.example.fitnesstracker.data.models.ExerciseSet
 import com.example.fitnesstracker.data.repositories.SetRepository
 import com.example.fitnesstracker.data.roomdb.dao.SetDao
 import com.example.fitnesstracker.data.roomdb.entity.toEntity
+import com.example.fitnesstracker.data.roomdb.entity.toModel
 import javax.inject.Inject
 
 class RoomSetRepository @Inject constructor(
@@ -11,5 +12,18 @@ class RoomSetRepository @Inject constructor(
 ): SetRepository {
     override suspend fun insertSet(set: ExerciseSet) {
         setDao.insertSet(set.toEntity())
+    }
+
+    override suspend fun removeSet(id: Int) {
+        setDao.removeSet(id)
+    }
+
+    override suspend fun updateSetIndexes(templateExerciseCrossRefId: Int, indexToBeRemoved: Int) {
+        setDao.updateIndexes(templateExerciseCrossRefId, indexToBeRemoved)
+    }
+
+    override suspend fun getSet(id: Int): ExerciseSet {
+        val entity = setDao.getSet(id)
+        return entity.toModel()
     }
 }

@@ -18,4 +18,16 @@ interface SetDao {
     @Insert
     fun insertSet(it: SetEntity)
 
+    @Query("select * from sets where id=:id")
+    suspend fun getSet(id: Int): SetEntity
+
+    @Query("delete from sets where id=:id")
+    suspend fun removeSet(id: Int)
+
+    @Query("update sets " +
+            "set `index` = `index` - 1 " +
+            "where templateExerciseId = :templateExerciseCrossRefId " +
+            "and `index`>:indexToBeRemoved")
+    suspend fun updateIndexes(templateExerciseCrossRefId: Int, indexToBeRemoved: Int)
+
 }

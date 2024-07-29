@@ -86,7 +86,7 @@ fun EditableExerciseCard(
                             .padding(horizontal = 20.dp),
                         onValuesChanged = updateSet,
                         onRemoveClicked = {
-                            removeSet(set.index)
+                            removeSet(set.id)
                         }
                     )
                 }

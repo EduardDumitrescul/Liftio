@@ -1,15 +1,18 @@
 package com.example.fitnesstracker.ui.views.template.edit
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fitnesstracker.data.dto.TemplateDetailed
 import com.example.fitnesstracker.data.models.ExerciseSet
 import com.example.fitnesstracker.services.TemplateService
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 private const val TAG = "TemplateEditViewModel"
@@ -59,6 +62,7 @@ class TemplateEditViewModel @Inject constructor(
         _templateDetailed.update { templateDetailed ->
             val updatedExercises = templateDetailed.exercisesWithSetsAndMuscles.map { exerciseDetailed ->
                 if (exerciseDetailed.exercise.id == exerciseId) {
+                    Log.d(TAG, exerciseDetailed.toString())
                     // Create a new list of sets with the new set added
                     val newSet = exerciseDetailed.sets.last().copy(
                         index = exerciseDetailed.sets.last().index + 1,
@@ -76,25 +80,32 @@ class TemplateEditViewModel @Inject constructor(
         }
     }
 
-    fun removeSet(exerciseId: Int, setIndex: Int) {
-        _templateDetailed.update { templateDetailed ->
-            val updatedExercises = templateDetailed.exercisesWithSetsAndMuscles.map { exerciseDetailed ->
-                if (exerciseDetailed.exercise.id == exerciseId) {
-                    val updatedSets = exerciseDetailed.sets.filter {
-                        it.index != setIndex
-                    }.toMutableList()
-                    for(i in 0 until updatedSets.size) {
-                        updatedSets[i] = updatedSets[i].copy(index = i + 1)
-                    }
-                    exerciseDetailed.copy(sets = updatedSets)
-                } else {
-                    exerciseDetailed
-                }
+    fun removeSet(templateExerciseCrossRefId: Int, setId: Int) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                templateService.removeSetFromTemplateExercise(templateExerciseCrossRefId, setId)
             }
-            templateDetailed.copy(
-                exercisesWithSetsAndMuscles = updatedExercises
-            )
         }
+
+
+//        _templateDetailed.update { templateDetailed ->
+//            val updatedExercises = templateDetailed.exercisesWithSetsAndMuscles.map { exerciseDetailed ->
+//                if (exerciseDetailed.exercise.id == exerciseId) {
+//                    val updatedSets = exerciseDetailed.sets.filter {
+//                        it.index != setIndex
+//                    }.toMutableList()
+//                    for(i in 0 until updatedSets.size) {
+//                        updatedSets[i] = updatedSets[i].copy(index = i + 1)
+//                    }
+//                    exerciseDetailed.copy(sets = updatedSets)
+//                } else {
+//                    exerciseDetailed
+//                }
+//            }
+//            templateDetailed.copy(
+//                exercisesWithSetsAndMuscles = updatedExercises
+//            )
+//        }
     }
 
     fun addExercise(exerciseId: Int) {

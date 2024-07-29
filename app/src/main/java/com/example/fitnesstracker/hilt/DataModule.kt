@@ -82,10 +82,12 @@ class DataModule {
     fun provideTemplateService(
         templateRepository: TemplateRepository,
         exerciseRepository: ExerciseRepository,
-        muscleRepository: MuscleRepository
+        muscleRepository: MuscleRepository,
+        setRepository: SetRepository
     ): TemplateService {
         return TemplateService(
             templateRepository,
+            setRepository,
             muscleRepository,
             exerciseRepository
         )
