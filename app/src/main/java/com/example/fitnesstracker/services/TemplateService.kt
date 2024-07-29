@@ -106,4 +106,8 @@ class TemplateService @Inject constructor(
 
         setRepository.addSet(newSet)
     }
+
+    suspend fun updateSet(set: ExerciseSet) {
+        setRepository.updateSet(set)
+    }
 }

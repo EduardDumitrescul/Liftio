@@ -9,7 +9,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -32,29 +31,35 @@ class TemplateEditViewModel @Inject constructor(
                 }
         }
     }
-    fun updateSet(templateExerciseCrossRefId: Int, set: ExerciseSet) {
-        _templateDetailed.update { templateDetailed ->
-            val updatedExercises = templateDetailed.exercisesWithSetsAndMuscles.map { exercises ->
-                if(exercises.templateExerciseCrossRefId == templateExerciseCrossRefId) {
-                    val sets = exercises.sets.map {
-                        if(it.id == set.id) {
-                            set
-                        }
-                        else {
-                            it
-                        }
-                    }
-                    exercises.copy(sets = sets)
-                }
-                else {
-                    exercises
-                }
+    fun updateSet(set: ExerciseSet) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                templateService.updateSet(set)
             }
-            templateDetailed.copy(
-                exercisesWithSetsAndMuscles = updatedExercises
-            )
-
         }
+
+//        _templateDetailed.update { templateDetailed ->
+//            val updatedExercises = templateDetailed.exercisesWithSetsAndMuscles.map { exercises ->
+//                if(exercises.templateExerciseCrossRefId == templateExerciseCrossRefId) {
+//                    val sets = exercises.sets.map {
+//                        if(it.id == set.id) {
+//                            set
+//                        }
+//                        else {
+//                            it
+//                        }
+//                    }
+//                    exercises.copy(sets = sets)
+//                }
+//                else {
+//                    exercises
+//                }
+//            }
+//            templateDetailed.copy(
+//                exercisesWithSetsAndMuscles = updatedExercises
+//            )
+//
+//        }
     }
 
     fun addSet(templateExerciseCrossRefId: Int) {

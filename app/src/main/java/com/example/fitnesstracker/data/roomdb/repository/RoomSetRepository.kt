@@ -35,4 +35,8 @@ class RoomSetRepository @Inject constructor(
     override suspend fun addSet(set: ExerciseSet) {
         setDao.insertSet(set.toEntity())
     }
+
+    override suspend fun updateSet(set: ExerciseSet) {
+        setDao.updateSet(set.toEntity())
+    }
 }

@@ -9,4 +9,5 @@ interface SetRepository {
     suspend fun getSet(id: Int): ExerciseSet
     suspend fun getSetsForTemplateExercise(templateExerciseCrossRefId: Int): List<ExerciseSet>
     suspend fun addSet(set: ExerciseSet)
+    suspend fun updateSet(set: ExerciseSet)
 }

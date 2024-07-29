@@ -3,6 +3,7 @@ package com.example.fitnesstracker.data.roomdb.dao
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import com.example.fitnesstracker.data.roomdb.entity.SetEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -34,5 +35,8 @@ interface SetDao {
             "where templateExerciseId = :templateExerciseCrossRefId " +
             "and `index`>:indexToBeRemoved")
     suspend fun updateIndexes(templateExerciseCrossRefId: Int, indexToBeRemoved: Int)
+
+    @Update
+    suspend fun updateSet(set: SetEntity)
 
 }
