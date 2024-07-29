@@ -11,9 +11,14 @@ interface SetDao {
 
     @Query("select s.* " +
             "from sets s " +
-            "join templateExerciseCrossRefs te on te.id = :exerciseId and te.templateId = :templateId " +
+            "where s.templateExerciseId = :templateExerciseCrossRefId")
+    fun getSetsFlowByTemplateExercise(templateExerciseCrossRefId: Int): Flow<List<SetEntity>>
+
+    @Query("select s.* " +
+            "from sets s " +
+            "join templateExerciseCrossRefs te on te.id = :templateExerciseCrossRefId " +
             "where te.id = s.templateExerciseId")
-    fun getSetsByTemplateExercise(templateId: Int, exerciseId: Int): Flow<List<SetEntity>>
+    suspend fun getSetsByTemplateExercise(templateExerciseCrossRefId: Int): List<SetEntity>
 
     @Insert
     fun insertSet(it: SetEntity)

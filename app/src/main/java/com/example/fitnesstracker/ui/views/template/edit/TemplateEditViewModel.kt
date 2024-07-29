@@ -1,6 +1,5 @@
 package com.example.fitnesstracker.ui.views.template.edit
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fitnesstracker.data.dto.TemplateDetailed
@@ -59,25 +58,31 @@ class TemplateEditViewModel @Inject constructor(
     }
 
     fun addSet(templateExerciseCrossRefId: Int) {
-        _templateDetailed.update { templateDetailed ->
-            val updatedExercises = templateDetailed.exercisesWithSetsAndMuscles.map { exerciseDetailed ->
-                if (exerciseDetailed.templateExerciseCrossRefId == templateExerciseCrossRefId) {
-                    Log.d(TAG, exerciseDetailed.toString())
-                    // Create a new list of sets with the new set added
-                    val newSet = exerciseDetailed.sets.last().copy(
-                        index = exerciseDetailed.sets.last().index + 1,
-                        id = 0
-                    )
-                    val updatedSets = exerciseDetailed.sets + newSet
-                    exerciseDetailed.copy(sets = updatedSets)
-                } else {
-                    exerciseDetailed
-                }
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                templateService.addSetToTemplateExercise(templateExerciseCrossRefId)
             }
-            templateDetailed.copy(
-                exercisesWithSetsAndMuscles = updatedExercises
-            )
         }
+
+//        _templateDetailed.update { templateDetailed ->
+//            val updatedExercises = templateDetailed.exercisesWithSetsAndMuscles.map { exerciseDetailed ->
+//                if (exerciseDetailed.templateExerciseCrossRefId == templateExerciseCrossRefId) {
+//                    Log.d(TAG, exerciseDetailed.toString())
+//                    // Create a new list of sets with the new set added
+//                    val newSet = exerciseDetailed.sets.last().copy(
+//                        index = exerciseDetailed.sets.last().index + 1,
+//                        id = 0
+//                    )
+//                    val updatedSets = exerciseDetailed.sets + newSet
+//                    exerciseDetailed.copy(sets = updatedSets)
+//                } else {
+//                    exerciseDetailed
+//                }
+//            }
+//            templateDetailed.copy(
+//                exercisesWithSetsAndMuscles = updatedExercises
+//            )
+//        }
     }
 
     fun removeSet(templateExerciseCrossRefId: Int, setId: Int) {

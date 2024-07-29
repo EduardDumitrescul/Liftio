@@ -7,4 +7,6 @@ interface SetRepository {
     suspend fun removeSet(id: Int)
     suspend fun updateSetIndexes(templateExerciseCrossRefId: Int, indexToBeRemoved: Int)
     suspend fun getSet(id: Int): ExerciseSet
+    suspend fun getSetsForTemplateExercise(templateExerciseCrossRefId: Int): List<ExerciseSet>
+    suspend fun addSet(set: ExerciseSet)
 }

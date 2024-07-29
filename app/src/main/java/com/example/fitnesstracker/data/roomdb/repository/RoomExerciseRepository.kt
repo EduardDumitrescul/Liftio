@@ -3,13 +3,11 @@ package com.example.fitnesstracker.data.roomdb.repository
 import android.util.Log
 import com.example.fitnesstracker.data.dto.ExerciseWithMuscles
 import com.example.fitnesstracker.data.dto.ExerciseWithSets
-import com.example.fitnesstracker.data.dto.ExerciseDetailed
 import com.example.fitnesstracker.data.models.Exercise
 import com.example.fitnesstracker.data.repositories.ExerciseRepository
 import com.example.fitnesstracker.data.roomdb.dao.ExerciseDao
 import com.example.fitnesstracker.data.roomdb.dao.MuscleDao
 import com.example.fitnesstracker.data.roomdb.dao.SetDao
-import com.example.fitnesstracker.data.roomdb.dao.TemplateDao
 import com.example.fitnesstracker.data.roomdb.entity.toEntity
 import com.example.fitnesstracker.data.roomdb.entity.toModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -108,20 +106,29 @@ class RoomExerciseRepository @Inject constructor(
 
     @OptIn(ExperimentalCoroutinesApi::class)
     override fun getExercisesWithSetsByTemplateId(id: Int): Flow<List<ExerciseWithSets>> {
-        return exerciseDao.getExercisesByTemplateId(id).flatMapLatest { exerciseList ->
-            if (exerciseList.isEmpty()) {
+        //exerciseDao.getExercisesByTemplateId(id).flatMapLatest
+        return exerciseDao.getTemplateExerciseCrossRefs(id).flatMapLatest { templateExerciseCrossRefs ->
+            if (templateExerciseCrossRefs.isEmpty()) {
                 Log.d(TAG, "No exercises found for template id: $id")
                 flowOf(emptyList())
             } else {
-                val combinedFlows = exerciseList.map { exercise ->
-                    val setsFlow = setDao.getSetsByTemplateExercise(id, exercise.id)
+                val combinedFlows = templateExerciseCrossRefs.map { templateExerciseCrossRef ->
+                    val exerciseFlow = exerciseDao.getExerciseById(templateExerciseCrossRef.exerciseId)
+                    val setsFlow = setDao.getSetsFlowByTemplateExercise(templateExerciseCrossRef.id)
 
-                    setsFlow.map { sets ->
+                    combine(exerciseFlow, setsFlow) { exercise, sets ->
                         ExerciseWithSets(
-                            exercise = exercise.toModel(),
+                            exercise = exercise!!.toModel(),
                             sets = sets.map { it.toModel() }
                         )
                     }
+
+//                    setsFlow.map { sets ->
+//                        ExerciseWithSets(
+//                            exercise = templateExerciseCrossRef.toModel(),
+//                            sets = sets.map { it.toModel() }
+//                        )
+//                    }
                 }
 
                 combine(combinedFlows) { exerciseWithSetsList ->

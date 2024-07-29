@@ -3,6 +3,7 @@ package com.example.fitnesstracker.services
 import android.util.Log
 import com.example.fitnesstracker.data.dto.TemplateDetailed
 import com.example.fitnesstracker.data.dto.TemplateSummary
+import com.example.fitnesstracker.data.models.ExerciseSet
 import com.example.fitnesstracker.data.repositories.ExerciseRepository
 import com.example.fitnesstracker.data.repositories.MuscleRepository
 import com.example.fitnesstracker.data.repositories.SetRepository
@@ -88,5 +89,21 @@ class TemplateService @Inject constructor(
         val set = setRepository.getSet(setId)
         setRepository.updateSetIndexes(templateExerciseCrossRefId, set.index)
         setRepository.removeSet(setId)
+    }
+
+    suspend fun addSetToTemplateExercise(templateExerciseCrossRefId: Int) {
+        val sets: List<ExerciseSet> = setRepository.getSetsForTemplateExercise(templateExerciseCrossRefId)
+
+        val newSet =
+            if(sets.isEmpty())
+                ExerciseSet(0, templateExerciseCrossRefId, 1, 12, 20)
+            else
+                sets.last().copy(
+                    id = 0,
+                    index = sets.last().index + 1
+                )
+
+
+        setRepository.addSet(newSet)
     }
 }

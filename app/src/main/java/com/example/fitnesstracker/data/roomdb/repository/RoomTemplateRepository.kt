@@ -56,7 +56,7 @@ class RoomTemplateRepository @Inject constructor(
                 val exerciseFlow = exerciseDao.getExerciseById(templateExercise.exerciseId)
                 val primaryMuscleFlow = muscleDao.getPrimaryMuscleByExerciseId(templateExercise.exerciseId)
                 val secondaryMusclesFlow = muscleDao.getSecondaryMusclesByExerciseId(templateExercise.exerciseId)
-                val setsFlow = setDao.getSetsByTemplateExercise(templateId, templateExercise.id)
+                val setsFlow = setDao.getSetsFlowByTemplateExercise(templateExercise.id)
 
                 combine(
                     exerciseFlow,
