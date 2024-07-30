@@ -2,7 +2,7 @@ package com.example.fitnesstracker.ui.components.button
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.RemoveCircle
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.runtime.Composable
@@ -21,13 +21,15 @@ fun IconButton(
     containerColor: Color,
     contentColor: Color,
 ) {
-    androidx.compose.material3.IconButton(
-        onClick = onClick,
+
+    FilledIconButton(
+        shape = AppTheme.shapes.roundedSmallCornerShape,
         modifier = modifier,
+        onClick = onClick,
         colors = IconButtonDefaults.filledIconButtonColors(
             containerColor = containerColor,
             contentColor = contentColor
-        )
+        ),
     ) {
         Icon(
             imageVector = imageVector,
