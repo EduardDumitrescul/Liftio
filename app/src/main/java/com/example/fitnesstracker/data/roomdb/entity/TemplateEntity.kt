@@ -16,3 +16,9 @@ fun TemplateEntity.toModel() = Template(
     name,
     isBaseTemplate
 )
+
+fun Template.toEntity() = TemplateEntity(
+    id = id,
+    name = name,
+    isBaseTemplate = isBaseTemplate
+)

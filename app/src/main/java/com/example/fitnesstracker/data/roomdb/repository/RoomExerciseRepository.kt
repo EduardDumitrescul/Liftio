@@ -1,6 +1,5 @@
 package com.example.fitnesstracker.data.roomdb.repository
 
-import android.util.Log
 import com.example.fitnesstracker.data.dto.ExerciseWithMuscles
 import com.example.fitnesstracker.data.dto.ExerciseWithSets
 import com.example.fitnesstracker.data.models.Exercise
@@ -106,10 +105,8 @@ class RoomExerciseRepository @Inject constructor(
 
     @OptIn(ExperimentalCoroutinesApi::class)
     override fun getExercisesWithSetsByTemplateId(id: Int): Flow<List<ExerciseWithSets>> {
-        //exerciseDao.getExercisesByTemplateId(id).flatMapLatest
         return exerciseDao.getTemplateExerciseCrossRefs(id).flatMapLatest { templateExerciseCrossRefs ->
             if (templateExerciseCrossRefs.isEmpty()) {
-                Log.d(TAG, "No exercises found for template id: $id")
                 flowOf(emptyList())
             } else {
                 val combinedFlows = templateExerciseCrossRefs.map { templateExerciseCrossRef ->
@@ -122,18 +119,10 @@ class RoomExerciseRepository @Inject constructor(
                             sets = sets.map { it.toModel() }
                         )
                     }
-
-//                    setsFlow.map { sets ->
-//                        ExerciseWithSets(
-//                            exercise = templateExerciseCrossRef.toModel(),
-//                            sets = sets.map { it.toModel() }
-//                        )
-//                    }
                 }
 
                 combine(combinedFlows) { exerciseWithSetsList ->
                     val result = exerciseWithSetsList.toList()
-                    Log.d(TAG, "Combined ExerciseWithSets: $result")
                     result
                 }
             }

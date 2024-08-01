@@ -14,7 +14,7 @@ interface TemplateDao {
     fun getBaseTemplates(): Flow<List<TemplateEntity>>
 
     @Insert
-    fun insert(it: TemplateEntity)
+    suspend fun insert(it: TemplateEntity): Long
 
     @Insert
     suspend fun insertTemplateExerciseCrossRef(it: TemplateExerciseCrossRef)

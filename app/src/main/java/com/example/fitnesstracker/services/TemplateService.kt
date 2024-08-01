@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.fitnesstracker.data.dto.TemplateDetailed
 import com.example.fitnesstracker.data.dto.TemplateSummary
 import com.example.fitnesstracker.data.models.ExerciseSet
+import com.example.fitnesstracker.data.models.Template
 import com.example.fitnesstracker.data.repositories.ExerciseRepository
 import com.example.fitnesstracker.data.repositories.MuscleRepository
 import com.example.fitnesstracker.data.repositories.SetRepository
@@ -35,8 +36,6 @@ class TemplateService @Inject constructor(
                     val exercisesFlow = exerciseRepository.getExercisesWithSetsByTemplateId(template.id)
 
                     combine(musclesFlow, exercisesFlow) { muscles, exercises ->
-                        Log.d(TAG, "Muscles: $muscles")
-                        Log.d(TAG, "Exercises: $exercises")
 
                         TemplateSummary(
                             templateId = template.id,
@@ -47,11 +46,9 @@ class TemplateService @Inject constructor(
                     }
                 }
 
-                Log.d(TAG, templateSummaryFlows.toString())
 
                 combine(templateSummaryFlows) {
                     val summaries = it.toList()
-                    Log.d(TAG, "Combined summaries: $summaries")
                     summaries
                 }
             }
@@ -109,5 +106,15 @@ class TemplateService @Inject constructor(
 
     suspend fun updateSet(set: ExerciseSet) {
         setRepository.updateSet(set)
+    }
+
+    suspend fun createNewTemplate(): Int {
+        val template = Template(
+            id = 0,
+            name = "New Template",
+            isBaseTemplate = true
+        )
+        val id = templateRepository.addTemplate(template)
+        return id
     }
 }

@@ -5,8 +5,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.fitnesstracker.ui.views.exercise.browse.ExerciseBrowseView
 import com.example.fitnesstracker.ui.views.exercise.edit.ExerciseEditView
@@ -28,6 +28,9 @@ fun AppNavHost(
             TemplateBrowseView(
                 navigateToTemplateDetailedView = {
                     navController.navigate(TemplateView.createRoute(it))
+                },
+                navigateToTemplateEditView = {
+                    navController.navigate(TemplateEdit.createRoute(0))
                 }
             )
         }

@@ -17,13 +17,37 @@ private const val TAG = "TemplateEditViewModel"
 
 @HiltViewModel
 class TemplateEditViewModel @Inject constructor(
-    val templateId: Int,
+    private var templateId: Int,
     private val templateService: TemplateService,
 ): ViewModel() {
     private val _templateDetailed = MutableStateFlow(TemplateDetailed.default())
     val templateDetailed: StateFlow<TemplateDetailed> get() = _templateDetailed
 
     init {
+        if(templateId == 0) {
+            createNewTemplate()
+        }
+        else {
+            getTemplateData()
+        }
+
+    }
+
+    private fun createNewTemplate() {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                templateId = templateService.createNewTemplate()
+                val flow = templateService.getTemplateWithExercisesById(templateId)
+
+                flow.collect { templateDetailed ->
+                    _templateDetailed.value = templateDetailed
+                }
+            }
+
+        }
+    }
+
+    private fun getTemplateData() {
         viewModelScope.launch {
             templateService.getTemplateWithExercisesById(templateId)
                 .collect { newTemplateDetailed ->
@@ -31,35 +55,13 @@ class TemplateEditViewModel @Inject constructor(
                 }
         }
     }
+
     fun updateSet(set: ExerciseSet) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 templateService.updateSet(set)
             }
         }
-
-//        _templateDetailed.update { templateDetailed ->
-//            val updatedExercises = templateDetailed.exercisesWithSetsAndMuscles.map { exercises ->
-//                if(exercises.templateExerciseCrossRefId == templateExerciseCrossRefId) {
-//                    val sets = exercises.sets.map {
-//                        if(it.id == set.id) {
-//                            set
-//                        }
-//                        else {
-//                            it
-//                        }
-//                    }
-//                    exercises.copy(sets = sets)
-//                }
-//                else {
-//                    exercises
-//                }
-//            }
-//            templateDetailed.copy(
-//                exercisesWithSetsAndMuscles = updatedExercises
-//            )
-//
-//        }
     }
 
     fun addSet(templateExerciseCrossRefId: Int) {
@@ -68,26 +70,6 @@ class TemplateEditViewModel @Inject constructor(
                 templateService.addSetToTemplateExercise(templateExerciseCrossRefId)
             }
         }
-
-//        _templateDetailed.update { templateDetailed ->
-//            val updatedExercises = templateDetailed.exercisesWithSetsAndMuscles.map { exerciseDetailed ->
-//                if (exerciseDetailed.templateExerciseCrossRefId == templateExerciseCrossRefId) {
-//                    Log.d(TAG, exerciseDetailed.toString())
-//                    // Create a new list of sets with the new set added
-//                    val newSet = exerciseDetailed.sets.last().copy(
-//                        index = exerciseDetailed.sets.last().index + 1,
-//                        id = 0
-//                    )
-//                    val updatedSets = exerciseDetailed.sets + newSet
-//                    exerciseDetailed.copy(sets = updatedSets)
-//                } else {
-//                    exerciseDetailed
-//                }
-//            }
-//            templateDetailed.copy(
-//                exercisesWithSetsAndMuscles = updatedExercises
-//            )
-//        }
     }
 
     fun removeSet(templateExerciseCrossRefId: Int, setId: Int) {
@@ -96,26 +78,6 @@ class TemplateEditViewModel @Inject constructor(
                 templateService.removeSetFromTemplateExercise(templateExerciseCrossRefId, setId)
             }
         }
-
-
-//        _templateDetailed.update { templateDetailed ->
-//            val updatedExercises = templateDetailed.exercisesWithSetsAndMuscles.map { exerciseDetailed ->
-//                if (exerciseDetailed.exercise.id == exerciseId) {
-//                    val updatedSets = exerciseDetailed.sets.filter {
-//                        it.index != setIndex
-//                    }.toMutableList()
-//                    for(i in 0 until updatedSets.size) {
-//                        updatedSets[i] = updatedSets[i].copy(index = i + 1)
-//                    }
-//                    exerciseDetailed.copy(sets = updatedSets)
-//                } else {
-//                    exerciseDetailed
-//                }
-//            }
-//            templateDetailed.copy(
-//                exercisesWithSetsAndMuscles = updatedExercises
-//            )
-//        }
     }
 
     fun addExercise(exerciseId: Int) {

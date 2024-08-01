@@ -1,6 +1,5 @@
 package com.example.fitnesstracker.ui.views.template.browse
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -28,13 +27,14 @@ private const val TAG = "TemplateBrowseView"
 fun TemplateBrowseView(
     viewModel: TemplateBrowseViewModel = hiltViewModel<TemplateBrowseViewModel>(),
     navigateToTemplateDetailedView: (Int) -> Unit,
+    navigateToTemplateEditView: () -> Unit,
 ) {
     val templateSummaries by viewModel.templateSummaries.collectAsState()
-    Log.d(TAG, templateSummaries.toString())
-    
+
     StatelessTemplateBrowseView(
         templates = templateSummaries,
-        onCardClicked = navigateToTemplateDetailedView
+        onCardClicked = navigateToTemplateDetailedView,
+        onFabClicked = navigateToTemplateEditView
     )
 }
 
@@ -43,6 +43,7 @@ fun TemplateBrowseView(
 private fun StatelessTemplateBrowseView(
     templates: List<TemplateSummary>,
     onCardClicked: (Int) -> Unit = {},
+    onFabClicked: () -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -53,7 +54,11 @@ private fun StatelessTemplateBrowseView(
             )
         },
         floatingActionButton = {
-            Fab(Icons.Rounded.Add, "more options", onClick = { /*TODO*/ })
+            Fab(
+                imageVector = Icons.Rounded.Add,
+                description = "add new template",
+                onClick = onFabClicked
+            )
         },
         containerColor = AppTheme.colors.background
     ) { innerPadding ->
@@ -81,8 +86,6 @@ private fun StatelessTemplateBrowseView(
             }
 
         }
-
-
     }
 }
 
@@ -102,7 +105,9 @@ fun PreviewTemplateBrowseView() {
     )
     AppTheme {
         StatelessTemplateBrowseView(
-            templates = listOf(template, template, template, template)
+            templates = listOf(template, template, template, template),
+            {},
+            {}
         )
     }
 }

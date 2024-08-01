@@ -8,13 +8,17 @@ import com.example.fitnesstracker.data.roomdb.dao.MuscleDao
 import com.example.fitnesstracker.data.roomdb.dao.SetDao
 import com.example.fitnesstracker.data.roomdb.dao.TemplateDao
 import com.example.fitnesstracker.data.roomdb.entity.TemplateExerciseCrossRef
+import com.example.fitnesstracker.data.roomdb.entity.toEntity
 import com.example.fitnesstracker.data.roomdb.entity.toModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
+
+private const val TAG = "RoomTemplateRepository"
 
 class RoomTemplateRepository @Inject constructor(
     private val exerciseDao: ExerciseDao,
@@ -52,29 +56,35 @@ class RoomTemplateRepository @Inject constructor(
         val templateExerciseFlow = templateDao.getTemplateExercisesByTemplateId(templateId)
 
         return templateExerciseFlow.flatMapLatest { templateExercises ->
-            val combinedFlows = templateExercises.map { templateExercise ->
-                val exerciseFlow = exerciseDao.getExerciseById(templateExercise.exerciseId)
-                val primaryMuscleFlow = muscleDao.getPrimaryMuscleByExerciseId(templateExercise.exerciseId)
-                val secondaryMusclesFlow = muscleDao.getSecondaryMusclesByExerciseId(templateExercise.exerciseId)
-                val setsFlow = setDao.getSetsFlowByTemplateExercise(templateExercise.id)
+            if (templateExercises.isEmpty()) {
+                flowOf(emptyList())
+            } else {
+                val combinedFlows = templateExercises.map { templateExercise ->
+                    val exerciseFlow = exerciseDao.getExerciseById(templateExercise.exerciseId)
+                    val primaryMuscleFlow =
+                        muscleDao.getPrimaryMuscleByExerciseId(templateExercise.exerciseId)
+                    val secondaryMusclesFlow =
+                        muscleDao.getSecondaryMusclesByExerciseId(templateExercise.exerciseId)
+                    val setsFlow = setDao.getSetsFlowByTemplateExercise(templateExercise.id)
 
-                combine(
-                    exerciseFlow,
-                    primaryMuscleFlow,
-                    secondaryMusclesFlow,
-                    setsFlow
-                ) { exercise, primaryMuscle, secondaryMuscles, sets ->
-                    ExerciseDetailed(
-                        exercise = exercise!!.toModel(),
-                        templateExerciseCrossRefId = templateExercise.id,
-                        primaryMuscle = primaryMuscle!!.toModel(),
-                        secondaryMuscles = secondaryMuscles.map { it.toModel() },
-                        sets = sets.map { it.toModel() }
-                    )
+                    combine(
+                        exerciseFlow,
+                        primaryMuscleFlow,
+                        secondaryMusclesFlow,
+                        setsFlow
+                    ) { exercise, primaryMuscle, secondaryMuscles, sets ->
+                        ExerciseDetailed(
+                            exercise = exercise!!.toModel(),
+                            templateExerciseCrossRefId = templateExercise.id,
+                            primaryMuscle = primaryMuscle!!.toModel(),
+                            secondaryMuscles = secondaryMuscles.map { it.toModel() },
+                            sets = sets.map { it.toModel() }
+                        )
+                    }
                 }
-            }
 
-            combine(combinedFlows) {it.toList()}
+                combine(combinedFlows) { it.toList() }
+            }
         }
     }
 
@@ -84,6 +94,11 @@ class RoomTemplateRepository @Inject constructor(
 
     override suspend fun removeTemplateExerciseCrossRef(templateExerciseCrossRefId: Int) {
         templateDao.removeTemplateExerciseCrossRef(templateExerciseCrossRefId)
+    }
+
+    override suspend fun addTemplate(template: Template): Int {
+        val entity = template.toEntity()
+        return templateDao.insert(entity).toInt()
     }
 
 }

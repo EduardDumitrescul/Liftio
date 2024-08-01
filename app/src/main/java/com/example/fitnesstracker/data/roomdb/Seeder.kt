@@ -1,7 +1,6 @@
 package com.example.fitnesstracker.data.roomdb
 
 import android.content.Context
-import android.util.Log
 import com.example.fitnesstracker.data.roomdb.entity.ExerciseEntity
 import com.example.fitnesstracker.data.roomdb.entity.ExerciseMuscleCrossRefEntity
 import com.example.fitnesstracker.data.roomdb.entity.MuscleEntity
@@ -61,7 +60,7 @@ class Seeder (
         return fromJson<List<TemplateEntity>>(jsonString)
     }
 
-    private fun insertTemplates(templates: List<TemplateEntity>) {
+    private suspend fun insertTemplates(templates: List<TemplateEntity>) {
         val templateDao = database.templateDao()
         templates.forEach {
             templateDao.insert(it)

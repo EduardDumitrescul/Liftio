@@ -11,4 +11,5 @@ interface TemplateRepository {
     fun getExercisesWithSetsAndMuscles(templateId: Int): Flow<List<ExerciseDetailed>>
     suspend fun updateTemplateName(templateId: Int, templateName: String)
     suspend fun removeTemplateExerciseCrossRef(templateExerciseCrossRefId: Int)
+    suspend fun addTemplate(template: Template): Int
 }
