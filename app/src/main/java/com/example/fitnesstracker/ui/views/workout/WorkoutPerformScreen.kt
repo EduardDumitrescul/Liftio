@@ -26,6 +26,7 @@ fun WorkoutOngoingView(
     navigateBack: () -> Unit,
 ) {
     val ongoingWorkout by viewModel.ongoingWorkout.collectAsState()
+    val elapsedTime by viewModel.elapsedTime.collectAsState()
 
     Scaffold(
         topBar = {
@@ -37,10 +38,13 @@ fun WorkoutOngoingView(
         containerColor = AppTheme.colors.background
     ) { paddingValues ->
         Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .padding(paddingValues)
                 .padding(horizontal = AppTheme.dimensions.paddingLarge),
         ) {
+            Timer(elapsedTime = elapsedTime)
+
             LazyColumn(
                 horizontalAlignment = Alignment.CenterHorizontally ,
                 verticalArrangement = Arrangement.spacedBy(16.dp),
