@@ -22,7 +22,7 @@ interface TemplateDao {
     @Query("select t.* " +
             "from templates t " +
             "where t.id = :templateId")
-    fun getTemplateById(templateId: Int): Flow<TemplateEntity>
+    fun getTemplateById(templateId: Int): Flow<TemplateEntity?>
 
     @Query("select count(*) " +
          "from templateExerciseCrossRefs te " +
@@ -43,4 +43,7 @@ interface TemplateDao {
     @Query("delete from templateExerciseCrossRefs " +
             "where id = :templateExerciseCrossRefId")
     suspend fun removeTemplateExerciseCrossRef(templateExerciseCrossRefId: Int)
+
+    @Query("delete from templates where id =:templateId")
+    suspend fun removeTemplate(templateId: Int)
 }

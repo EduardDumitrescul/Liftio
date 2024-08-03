@@ -117,4 +117,8 @@ class TemplateService @Inject constructor(
         val id = templateRepository.addTemplate(template)
         return id
     }
+
+    suspend fun removeTemplate(templateId: Int) {
+        templateRepository.removeTemplate(templateId)
+    }
 }

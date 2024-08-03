@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.fitnesstracker.ui.components.TwoButtonBottomBar
 import com.example.fitnesstracker.ui.components.appbar.LargeAppBar
 import com.example.fitnesstracker.ui.components.button.TextButton
 import com.example.fitnesstracker.ui.components.dialog.StringInputDialog
@@ -54,6 +55,19 @@ fun TemplateEditView(
                 title = "Edit - ${templateWithExercises.template.name}",
                 onNavigationIconClick = navigateBack
             )
+        },
+        bottomBar = {
+            if(viewModel.isNewTemplate) {
+                TwoButtonBottomBar(
+                    primaryButtonText = "Save",
+                    onPrimaryButtonClick = navigateBack,
+                    secondaryButtonText = "Discard",
+                    onSecondaryButtonClick = {
+                        navigateBack()
+                        viewModel.removeTemplate()
+                    }
+                )
+            }
         },
         containerColor = AppTheme.colors.background
     ) { paddingValues ->

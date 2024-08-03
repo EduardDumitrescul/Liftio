@@ -37,7 +37,9 @@ class RoomTemplateRepository @Inject constructor(
 
     override fun getTemplateById(templateId: Int): Flow<Template> {
         val templateEntity = templateDao.getTemplateById(templateId)
-        return templateEntity.map {it.toModel()}
+        return templateEntity.map {
+            it?.toModel() ?: Template.default()
+        }
     }
 
     override suspend fun addExerciseToTemplate(templateId: Int, exerciseId: Int) {
@@ -99,6 +101,10 @@ class RoomTemplateRepository @Inject constructor(
     override suspend fun addTemplate(template: Template): Int {
         val entity = template.toEntity()
         return templateDao.insert(entity).toInt()
+    }
+
+    override suspend fun removeTemplate(templateId: Int) {
+        templateDao.removeTemplate(templateId)
     }
 
 }

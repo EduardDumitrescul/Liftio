@@ -7,6 +7,7 @@ import com.example.fitnesstracker.data.models.ExerciseSet
 import com.example.fitnesstracker.services.TemplateService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -23,8 +24,14 @@ class TemplateEditViewModel @Inject constructor(
     private val _templateDetailed = MutableStateFlow(TemplateDetailed.default())
     val templateDetailed: StateFlow<TemplateDetailed> get() = _templateDetailed
 
+    private var _isNewTemplate: Boolean = false
+    val isNewTemplate get() = _isNewTemplate
+
+    private var collectionJob: Job? = null
+
     init {
         if(templateId == 0) {
+            _isNewTemplate = true
             createNewTemplate()
         }
         else {
@@ -34,7 +41,7 @@ class TemplateEditViewModel @Inject constructor(
     }
 
     private fun createNewTemplate() {
-        viewModelScope.launch {
+        collectionJob = viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 templateId = templateService.createNewTemplate()
                 val flow = templateService.getTemplateWithExercisesById(templateId)
@@ -95,6 +102,13 @@ class TemplateEditViewModel @Inject constructor(
     fun removeExerciseFromTemplate(templateExerciseCrossRefId: Int) {
         viewModelScope.launch {
             templateService.removeExerciseFromTemplate(templateExerciseCrossRefId)
+        }
+    }
+
+    fun removeTemplate() {
+        collectionJob?.cancel()
+        viewModelScope.launch(Dispatchers.IO) {
+            templateService.removeTemplate(templateId)
         }
     }
 }

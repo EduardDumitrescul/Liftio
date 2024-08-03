@@ -12,4 +12,5 @@ interface TemplateRepository {
     suspend fun updateTemplateName(templateId: Int, templateName: String)
     suspend fun removeTemplateExerciseCrossRef(templateExerciseCrossRefId: Int)
     suspend fun addTemplate(template: Template): Int
+    suspend fun removeTemplate(templateId: Int)
 }
