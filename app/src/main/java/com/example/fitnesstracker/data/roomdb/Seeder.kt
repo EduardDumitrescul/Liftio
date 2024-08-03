@@ -5,8 +5,8 @@ import com.example.fitnesstracker.data.roomdb.entity.ExerciseEntity
 import com.example.fitnesstracker.data.roomdb.entity.ExerciseMuscleCrossRefEntity
 import com.example.fitnesstracker.data.roomdb.entity.MuscleEntity
 import com.example.fitnesstracker.data.roomdb.entity.SetEntity
-import com.example.fitnesstracker.data.roomdb.entity.TemplateEntity
-import com.example.fitnesstracker.data.roomdb.entity.TemplateExerciseCrossRef
+import com.example.fitnesstracker.data.roomdb.entity.WorkoutEntity
+import com.example.fitnesstracker.data.roomdb.entity.WorkoutExerciseCrossRef
 import com.example.fitnesstracker.utils.fromJson
 import com.example.fitnesstracker.utils.readJsonFromAssets
 
@@ -39,7 +39,7 @@ class Seeder (
         insertSets()
     }
 
-    private fun insertSets() {
+    private suspend fun insertSets() {
         val jsonString = readJsonFromAssets(context, setsPath)
         val entities = fromJson<List<SetEntity>>(jsonString)
         entities.forEach {
@@ -49,19 +49,19 @@ class Seeder (
 
     private suspend fun insertTemplateExerciseCrossRefs() {
         val jsonString = readJsonFromAssets(context, templateExerciseCrossRefPath)
-        val entities = fromJson<List<TemplateExerciseCrossRef>>(jsonString)
+        val entities = fromJson<List<WorkoutExerciseCrossRef>>(jsonString)
         entities.forEach {
-            database.templateDao().insertTemplateExerciseCrossRef(it)
+            database.workoutDao().insertTemplateExerciseCrossRef(it)
         }
     }
 
-    private fun loadTemplates(): List<TemplateEntity> {
+    private fun loadTemplates(): List<WorkoutEntity> {
         val jsonString = readJsonFromAssets(context, templatesPath)
-        return fromJson<List<TemplateEntity>>(jsonString)
+        return fromJson<List<WorkoutEntity>>(jsonString)
     }
 
-    private suspend fun insertTemplates(templates: List<TemplateEntity>) {
-        val templateDao = database.templateDao()
+    private suspend fun insertTemplates(templates: List<WorkoutEntity>) {
+        val templateDao = database.workoutDao()
         templates.forEach {
             templateDao.insert(it)
         }
@@ -72,7 +72,7 @@ class Seeder (
         return fromJson<Array<ExerciseEntity>>(jsonString)
     }
 
-    private fun insertExercises(exercises: Array<ExerciseEntity>) {
+    private suspend fun insertExercises(exercises: Array<ExerciseEntity>) {
         val exerciseDao = database.exerciseDao()
         exercises.forEach {
             exerciseDao.insert(it)
@@ -84,7 +84,7 @@ class Seeder (
         return fromJson<Array<ExerciseMuscleCrossRefEntity>>(jsonString)
     }
 
-    private fun insertExerciseMuscles(exerciseMuscles: Array<ExerciseMuscleCrossRefEntity>) {
+    private suspend fun insertExerciseMuscles(exerciseMuscles: Array<ExerciseMuscleCrossRefEntity>) {
         val muscleDao = database.muscleDao()
         exerciseMuscles.forEach {
             muscleDao.insert(it)
@@ -95,7 +95,7 @@ class Seeder (
         return fromJson<Array<MuscleEntity>>(jsonString)
     }
 
-    private fun insertMuscles(muscleList: Array<MuscleEntity>) {
+    private suspend fun insertMuscles(muscleList: Array<MuscleEntity>) {
         val muscleDao = database.muscleDao()
         muscleList.forEach {
             muscleDao.insert(it)

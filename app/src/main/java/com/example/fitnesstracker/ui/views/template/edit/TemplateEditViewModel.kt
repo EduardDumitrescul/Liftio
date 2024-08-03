@@ -2,9 +2,9 @@ package com.example.fitnesstracker.ui.views.template.edit
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.fitnesstracker.data.dto.TemplateDetailed
+import com.example.fitnesstracker.data.dto.DetailedWorkout
 import com.example.fitnesstracker.data.models.ExerciseSet
-import com.example.fitnesstracker.services.TemplateService
+import com.example.fitnesstracker.services.WorkoutService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -19,10 +19,10 @@ private const val TAG = "TemplateEditViewModel"
 @HiltViewModel
 class TemplateEditViewModel @Inject constructor(
     private var templateId: Int,
-    private val templateService: TemplateService,
+    private val workoutService: WorkoutService,
 ): ViewModel() {
-    private val _templateDetailed = MutableStateFlow(TemplateDetailed.default())
-    val templateDetailed: StateFlow<TemplateDetailed> get() = _templateDetailed
+    private val _DetailedWorkout = MutableStateFlow(DetailedWorkout.default())
+    val detailedWorkout: StateFlow<DetailedWorkout> get() = _DetailedWorkout
 
     private var _isNewTemplate: Boolean = false
     val isNewTemplate get() = _isNewTemplate
@@ -46,11 +46,11 @@ class TemplateEditViewModel @Inject constructor(
     private fun createNewTemplate() {
         collectionJob = viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                templateId = templateService.createNewTemplate()
-                val flow = templateService.getTemplateWithExercisesById(templateId)
+                templateId = workoutService.createNewTemplate()
+                val flow = workoutService.getTemplateWithExercisesById(templateId)
 
                 flow.collect { templateDetailed ->
-                    _templateDetailed.value = templateDetailed
+                    _DetailedWorkout.value = templateDetailed
                 }
             }
 
@@ -59,9 +59,9 @@ class TemplateEditViewModel @Inject constructor(
 
     private fun getTemplateData() {
         viewModelScope.launch {
-            templateService.getTemplateWithExercisesById(templateId)
+            workoutService.getTemplateWithExercisesById(templateId)
                 .collect { newTemplateDetailed ->
-                    _templateDetailed.value = newTemplateDetailed
+                    _DetailedWorkout.value = newTemplateDetailed
                 }
         }
     }
@@ -69,7 +69,7 @@ class TemplateEditViewModel @Inject constructor(
     fun updateSet(set: ExerciseSet) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                templateService.updateSet(set)
+                workoutService.updateSet(set)
             }
         }
     }
@@ -77,7 +77,7 @@ class TemplateEditViewModel @Inject constructor(
     fun addSet(templateExerciseCrossRefId: Int) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                templateService.addSetToTemplateExercise(templateExerciseCrossRefId)
+                workoutService.addSetToWorkoutExercise(templateExerciseCrossRefId)
             }
         }
     }
@@ -85,34 +85,34 @@ class TemplateEditViewModel @Inject constructor(
     fun removeSet(templateExerciseCrossRefId: Int, setId: Int) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                templateService.removeSetFromTemplateExercise(templateExerciseCrossRefId, setId)
+                workoutService.removeSetFromWorkoutExercise(templateExerciseCrossRefId, setId)
             }
         }
     }
 
     fun addExercise(exerciseId: Int) {
         viewModelScope.launch {
-            templateService.addExerciseToTemplate(templateId, exerciseId)
+            workoutService.addExerciseToTemplate(templateId, exerciseId)
         }
     }
 
     fun updateTemplateName(templateName: String) {
         viewModelScope.launch {
-            templateService.updateTemplateName(templateId, templateName)
+            workoutService.updateTemplateName(templateId, templateName)
         }
         _wasNameUpdated = true
     }
 
     fun removeExerciseFromTemplate(templateExerciseCrossRefId: Int) {
         viewModelScope.launch {
-            templateService.removeExerciseFromTemplate(templateExerciseCrossRefId)
+            workoutService.removeExerciseFromTemplate(templateExerciseCrossRefId)
         }
     }
 
     fun removeTemplate() {
         collectionJob?.cancel()
         viewModelScope.launch(Dispatchers.IO) {
-            templateService.removeTemplate(templateId)
+            workoutService.removeTemplate(templateId)
         }
     }
 }

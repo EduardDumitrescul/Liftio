@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface MuscleDao {
     @Insert
-    fun insert(it: MuscleEntity)
+    suspend fun insert(it: MuscleEntity)
 
     @Query("Select name from muscles")
     fun getMuscleNames(): Flow<List<String>>
@@ -36,7 +36,7 @@ interface MuscleDao {
     suspend fun getMuscleIdByName(name: String): Int
 
     @Insert
-    fun insert(it: ExerciseMuscleCrossRefEntity)
+    suspend fun insert(it: ExerciseMuscleCrossRefEntity)
 
 
     @Query("delete from exerciseMuscleCrossRef where exerciseId = :exerciseId")
@@ -46,8 +46,8 @@ interface MuscleDao {
     @Query("select m.* " +
             "from muscles m " +
             "where exists(select '*' " +
-            "   from templates t" +
-            "   join templateExerciseCrossRefs te on te.templateId = t.id " +
+            "   from workouts t" +
+            "   join workoutExerciseCrossRefs te on te.workoutId = t.id " +
             "   join exercises e on e.id = te.exerciseId " +
             "   join exerciseMuscleCrossRef em on em.exerciseId = e.id " +
             "   where t.id = :id " +

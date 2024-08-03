@@ -5,12 +5,12 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "templateExerciseCrossRefs",
+    tableName = "workoutExerciseCrossRefs",
     foreignKeys = [
         ForeignKey(
-            entity = TemplateEntity::class,
+            entity = WorkoutEntity::class,
             parentColumns = ["id"],
-            childColumns = ["templateId"],
+            childColumns = ["workoutId"],
             onDelete = ForeignKey.CASCADE
         ),
         ForeignKey(
@@ -21,14 +21,14 @@ import androidx.room.PrimaryKey
         ),
     ]
 )
-data class TemplateExerciseCrossRef (
+data class WorkoutExerciseCrossRef (
     @PrimaryKey(autoGenerate = true) val id: Int,
-    val templateId: Int,
+    val workoutId: Int,
     val exerciseId: Int,
     val index: Int
 ) {
     companion object {
-        fun default() = TemplateExerciseCrossRef(
+        fun default() = WorkoutExerciseCrossRef(
             0, 0, 0, 0
         )
     }

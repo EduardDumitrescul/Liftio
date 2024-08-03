@@ -1,49 +1,49 @@
 [
   {
     "id": "1",
-    "templateExerciseId" : "1",
+    "workoutExerciseId": "1",
     "index" : "1",
     "reps" : "16",
     "weight": "20"
   },
   {
     "id": "2",
-    "templateExerciseId" : "1",
+    "workoutExerciseId": "1",
     "index" : "2",
     "reps" : "12",
     "weight": "40"
   },
   {
     "id": "3",
-    "templateExerciseId" : "1",
+    "workoutExerciseId": "1",
     "index" : "3",
     "reps" : "6",
     "weight": "60"
   },
   {
     "id": "4",
-    "templateExerciseId" : "2",
+    "workoutExerciseId": "2",
     "index" : "1",
     "reps" : "16",
     "weight": "10"
   },
   {
     "id": "5",
-    "templateExerciseId" : "2",
+    "workoutExerciseId": "2",
     "index" : "2",
     "reps" : "12",
     "weight": "16"
   },
   {
     "id": "6",
-    "templateExerciseId" : "3",
+    "workoutExerciseId": "3",
     "index" : "1",
     "reps" : "12",
     "weight": "12"
   },
   {
     "id": "7",
-    "templateExerciseId" : "3",
+    "workoutExerciseId": "3",
     "index" : "2",
     "reps" : "12",
     "weight": "16"

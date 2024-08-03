@@ -47,7 +47,7 @@ fun TemplateEditView(
         }
     }
 
-    val templateWithExercises by viewModel.templateDetailed.collectAsState()
+    val templateWithExercises by viewModel.detailedWorkout.collectAsState()
 
     var shouldShowNameChangeDialog by remember {
         mutableStateOf(false)
@@ -59,7 +59,7 @@ fun TemplateEditView(
     Scaffold(
         topBar = {
             LargeAppBar(
-                title = "Edit - ${templateWithExercises.template.name}",
+                title = "Edit - ${templateWithExercises.workout.name}",
                 onNavigationIconClick = navigateBack
             )
         },
@@ -106,7 +106,7 @@ fun TemplateEditView(
             ) {
                 items(templateWithExercises.exercisesWithSetsAndMuscles) { exerciseDetailed ->
                     EditableExerciseCard(
-                        exerciseDetailed = exerciseDetailed,
+                        detailedExercise = exerciseDetailed,
                         onClick = { /*TODO*/ },
                         onRemoveClick = {
                             viewModel.removeExerciseFromTemplate(exerciseDetailed.templateExerciseCrossRefId)
@@ -138,7 +138,7 @@ fun TemplateEditView(
     if(shouldShowNameChangeDialog) {
         StringInputDialog(
             title = "Choose a name",
-            initialValue = templateWithExercises.template.name,
+            initialValue = templateWithExercises.workout.name,
             onDismissRequest = { shouldShowNameChangeDialog = false },
             onSave = {
                 viewModel.updateTemplateName(it)

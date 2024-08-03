@@ -4,19 +4,19 @@ import android.content.Context
 import com.example.fitnesstracker.data.repositories.ExerciseRepository
 import com.example.fitnesstracker.data.repositories.MuscleRepository
 import com.example.fitnesstracker.data.repositories.SetRepository
-import com.example.fitnesstracker.data.repositories.TemplateRepository
+import com.example.fitnesstracker.data.repositories.WorkoutRepository
 import com.example.fitnesstracker.data.roomdb.AppDatabase
 import com.example.fitnesstracker.data.roomdb.dao.ExerciseDao
 import com.example.fitnesstracker.data.roomdb.dao.MuscleDao
 import com.example.fitnesstracker.data.roomdb.dao.SetDao
-import com.example.fitnesstracker.data.roomdb.dao.TemplateDao
+import com.example.fitnesstracker.data.roomdb.dao.WorkoutDao
 import com.example.fitnesstracker.data.roomdb.repository.RoomExerciseRepository
 import com.example.fitnesstracker.data.roomdb.repository.RoomMuscleRepository
 import com.example.fitnesstracker.data.roomdb.repository.RoomSetRepository
-import com.example.fitnesstracker.data.roomdb.repository.RoomTemplateRepository
+import com.example.fitnesstracker.data.roomdb.repository.RoomWorkoutRepository
 import com.example.fitnesstracker.services.ExerciseService
 import com.example.fitnesstracker.services.SetService
-import com.example.fitnesstracker.services.TemplateService
+import com.example.fitnesstracker.services.WorkoutService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -79,14 +79,14 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideTemplateService(
-        templateRepository: TemplateRepository,
+    fun provideWorkoutService(
+        workoutRepository: WorkoutRepository,
         exerciseRepository: ExerciseRepository,
         muscleRepository: MuscleRepository,
         setRepository: SetRepository
-    ): TemplateService {
-        return TemplateService(
-            templateRepository,
+    ): WorkoutService {
+        return WorkoutService(
+            workoutRepository,
             setRepository,
             muscleRepository,
             exerciseRepository
@@ -95,26 +95,26 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideTemplateRepository(
+    fun provideWorkoutRepository(
         exerciseDao: ExerciseDao,
         muscleDao: MuscleDao,
         setDao: SetDao,
-        templateDao: TemplateDao
-    ): TemplateRepository {
-        return RoomTemplateRepository(
+        workoutDao: WorkoutDao
+    ): WorkoutRepository {
+        return RoomWorkoutRepository(
             exerciseDao,
             muscleDao,
             setDao,
-            templateDao
+            workoutDao
         )
     }
 
     @Provides
     @Singleton
-    fun provideTemplateDao(
+    fun provideWorkoutDao(
         appDatabase: AppDatabase
-    ): TemplateDao {
-        return appDatabase.templateDao()
+    ): WorkoutDao {
+        return appDatabase.workoutDao()
     }
 
     @Provides

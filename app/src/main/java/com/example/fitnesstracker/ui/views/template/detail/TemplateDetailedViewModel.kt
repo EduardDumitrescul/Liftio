@@ -2,8 +2,8 @@ package com.example.fitnesstracker.ui.views.template.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.fitnesstracker.data.dto.TemplateDetailed
-import com.example.fitnesstracker.services.TemplateService
+import com.example.fitnesstracker.data.dto.DetailedWorkout
+import com.example.fitnesstracker.services.WorkoutService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -15,11 +15,11 @@ import javax.inject.Inject
 @HiltViewModel
 class TemplateDetailedViewModel @Inject constructor(
     val templateId: Int,
-    private val templateService: TemplateService
+    private val workoutService: WorkoutService
 ) : ViewModel() {
 
-    private val _templateDetailed = MutableStateFlow(TemplateDetailed.default())
-    val templateDetailed: StateFlow<TemplateDetailed> get() = _templateDetailed
+    private val _detailedWorkout = MutableStateFlow(DetailedWorkout.default())
+    val detailedWorkout: StateFlow<DetailedWorkout> get() = _detailedWorkout
 
     private var collectionJob: Job? = null
 
@@ -30,21 +30,26 @@ class TemplateDetailedViewModel @Inject constructor(
     private fun startCollectingTemplateData() {
         collectionJob?.cancel() // Cancel any previous collection
         collectionJob = viewModelScope.launch {
-            templateService.getTemplateWithExercisesById(templateId)
+            workoutService.getTemplateWithExercisesById(templateId)
                 .collect { templateDetailed ->
-                    _templateDetailed.value = templateDetailed
+                    _detailedWorkout.value = templateDetailed
                 }
         }
     }
 
     fun removeTemplate() {
         viewModelScope.launch(Dispatchers.IO) {
-            templateService.removeTemplate(templateId)
+            workoutService.removeTemplate(templateId)
             stopCollectingTemplateData()
         }
     }
 
     private fun stopCollectingTemplateData() {
         collectionJob?.cancel()
+    }
+
+    suspend fun createWorkoutFromThisTemplate(): Int {
+        val id = workoutService.createWorkoutFromTemplate(_detailedWorkout.value)
+        return id
     }
 }

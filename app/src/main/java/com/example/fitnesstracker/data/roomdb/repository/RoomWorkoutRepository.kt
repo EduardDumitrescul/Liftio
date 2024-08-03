@@ -1,13 +1,13 @@
 package com.example.fitnesstracker.data.roomdb.repository
 
-import com.example.fitnesstracker.data.dto.ExerciseDetailed
-import com.example.fitnesstracker.data.models.Template
-import com.example.fitnesstracker.data.repositories.TemplateRepository
+import com.example.fitnesstracker.data.dto.DetailedExercise
+import com.example.fitnesstracker.data.models.Workout
+import com.example.fitnesstracker.data.repositories.WorkoutRepository
 import com.example.fitnesstracker.data.roomdb.dao.ExerciseDao
 import com.example.fitnesstracker.data.roomdb.dao.MuscleDao
 import com.example.fitnesstracker.data.roomdb.dao.SetDao
-import com.example.fitnesstracker.data.roomdb.dao.TemplateDao
-import com.example.fitnesstracker.data.roomdb.entity.TemplateExerciseCrossRef
+import com.example.fitnesstracker.data.roomdb.dao.WorkoutDao
+import com.example.fitnesstracker.data.roomdb.entity.WorkoutExerciseCrossRef
 import com.example.fitnesstracker.data.roomdb.entity.toEntity
 import com.example.fitnesstracker.data.roomdb.entity.toModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -20,14 +20,14 @@ import javax.inject.Inject
 
 private const val TAG = "RoomTemplateRepository"
 
-class RoomTemplateRepository @Inject constructor(
+class RoomWorkoutRepository @Inject constructor(
     private val exerciseDao: ExerciseDao,
     private val muscleDao: MuscleDao,
     private val setDao: SetDao,
-    private val templateDao: TemplateDao,
-): TemplateRepository {
-    override fun getBaseTemplates(): Flow<List<Template>> {
-        val entities = templateDao.getBaseTemplates()
+    private val workoutDao: WorkoutDao,
+): WorkoutRepository {
+    override fun getBaseTemplates(): Flow<List<Workout>> {
+        val entities = workoutDao.getBaseTemplates()
         return entities.map { list ->
             list.map {
                 it.toModel()
@@ -35,27 +35,27 @@ class RoomTemplateRepository @Inject constructor(
         }
     }
 
-    override fun getTemplateById(templateId: Int): Flow<Template> {
-        val templateEntity = templateDao.getTemplateById(templateId)
+    override fun getWorkout(workoutId: Int): Flow<Workout> {
+        val templateEntity = workoutDao.getTemplateById(workoutId)
         return templateEntity.map {
-            it?.toModel() ?: Template.default()
+            it?.toModel() ?: Workout.default()
         }
     }
 
-    override suspend fun addExerciseToTemplate(templateId: Int, exerciseId: Int) {
-        val numberOfExercisesInTemplate = templateDao.getNumberOfExercisesInTemplate(templateId)
-        val templateExercise = TemplateExerciseCrossRef(
+    override suspend fun addExerciseToWorkout(workoutId: Int, exerciseId: Int): Int {
+        val numberOfExercisesInTemplate = workoutDao.getNumberOfExercisesInTemplate(workoutId)
+        val templateExercise = WorkoutExerciseCrossRef(
             id = 0,
-            templateId = templateId,
+            workoutId = workoutId,
             exerciseId = exerciseId,
             index = numberOfExercisesInTemplate + 1
         )
-        templateDao.insertTemplateExerciseCrossRef(templateExercise)
+        return workoutDao.insertTemplateExerciseCrossRef(templateExercise).toInt()
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    override fun getExercisesWithSetsAndMuscles(templateId: Int): Flow<List<ExerciseDetailed>> {
-        val templateExerciseFlow = templateDao.getTemplateExercisesByTemplateId(templateId)
+    override fun getExercisesWithSetsAndMuscles(workoutId: Int): Flow<List<DetailedExercise>> {
+        val templateExerciseFlow = workoutDao.getTemplateExercisesByTemplateId(workoutId)
 
         return templateExerciseFlow.flatMapLatest { templateExercises ->
             if (templateExercises.isEmpty()) {
@@ -75,7 +75,7 @@ class RoomTemplateRepository @Inject constructor(
                         secondaryMusclesFlow,
                         setsFlow
                     ) { exercise, primaryMuscle, secondaryMuscles, sets ->
-                        ExerciseDetailed(
+                        DetailedExercise(
                             exercise = exercise!!.toModel(),
                             templateExerciseCrossRefId = templateExercise.id,
                             primaryMuscle = primaryMuscle!!.toModel(),
@@ -91,20 +91,20 @@ class RoomTemplateRepository @Inject constructor(
     }
 
     override suspend fun updateTemplateName(templateId: Int, templateName: String) {
-        templateDao.updateTemplateName(templateId, templateName)
+        workoutDao.updateTemplateName(templateId, templateName)
     }
 
-    override suspend fun removeTemplateExerciseCrossRef(templateExerciseCrossRefId: Int) {
-        templateDao.removeTemplateExerciseCrossRef(templateExerciseCrossRefId)
+    override suspend fun removeWorkoutExerciseCrossRef(workoutExerciseCrossRefId: Int) {
+        workoutDao.removeTemplateExerciseCrossRef(workoutExerciseCrossRefId)
     }
 
-    override suspend fun addTemplate(template: Template): Int {
-        val entity = template.toEntity()
-        return templateDao.insert(entity).toInt()
+    override suspend fun addWorkout(workout: Workout): Int {
+        val entity = workout.toEntity()
+        return workoutDao.insert(entity).toInt()
     }
 
-    override suspend fun removeTemplate(templateId: Int) {
-        templateDao.removeTemplate(templateId)
+    override suspend fun removeWorkout(workoutId: Int) {
+        workoutDao.removeTemplate(workoutId)
     }
 
 }

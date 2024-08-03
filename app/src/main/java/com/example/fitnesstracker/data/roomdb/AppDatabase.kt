@@ -11,13 +11,13 @@ import com.example.fitnesstracker.data.roomdb.converters.LocalDateTypeConverter
 import com.example.fitnesstracker.data.roomdb.dao.ExerciseDao
 import com.example.fitnesstracker.data.roomdb.dao.MuscleDao
 import com.example.fitnesstracker.data.roomdb.dao.SetDao
-import com.example.fitnesstracker.data.roomdb.dao.TemplateDao
+import com.example.fitnesstracker.data.roomdb.dao.WorkoutDao
 import com.example.fitnesstracker.data.roomdb.entity.ExerciseEntity
 import com.example.fitnesstracker.data.roomdb.entity.ExerciseMuscleCrossRefEntity
 import com.example.fitnesstracker.data.roomdb.entity.MuscleEntity
 import com.example.fitnesstracker.data.roomdb.entity.SetEntity
-import com.example.fitnesstracker.data.roomdb.entity.TemplateEntity
-import com.example.fitnesstracker.data.roomdb.entity.TemplateExerciseCrossRef
+import com.example.fitnesstracker.data.roomdb.entity.WorkoutEntity
+import com.example.fitnesstracker.data.roomdb.entity.WorkoutExerciseCrossRef
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -29,26 +29,18 @@ private const val TAG = "AppDatabase"
         ExerciseEntity::class,
         MuscleEntity::class,
         ExerciseMuscleCrossRefEntity::class,
-        TemplateEntity::class,
-        TemplateExerciseCrossRef::class,
-        SetEntity::class
+        WorkoutEntity::class,
+        WorkoutExerciseCrossRef::class,
+        SetEntity::class,
                ],
-    version = 10)
+    version = 21)
 @TypeConverters(LocalDateTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun exerciseDao(): ExerciseDao
 
     abstract fun muscleDao(): MuscleDao
-    abstract fun templateDao(): TemplateDao
+    abstract fun workoutDao(): WorkoutDao
     abstract fun setDao(): SetDao
-//
-//    abstract fun setDao(): SetDao
-//
-//    abstract fun templateExerciseDao(): TemplateExerciseDao
-//
-//    abstract fun templateDao(): TemplateDao
-//
-//    abstract fun workoutDao(): WorkoutDao
 
     companion object {
         private var INSTANCE: AppDatabase? = null

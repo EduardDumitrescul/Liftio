@@ -9,16 +9,16 @@ import com.example.fitnesstracker.data.models.ExerciseSet
     tableName = "sets",
     foreignKeys = [
         ForeignKey(
-            entity = TemplateExerciseCrossRef::class,
+            entity = WorkoutExerciseCrossRef::class,
             parentColumns = ["id"],
-            childColumns = ["templateExerciseId"],
+            childColumns = ["workoutExerciseId"],
             onDelete = ForeignKey.CASCADE
         )
     ]
 )
 data class SetEntity (
     @PrimaryKey(autoGenerate = true) val id: Int,
-    val templateExerciseId: Int,
+    val workoutExerciseId: Int,
     val index: Int,
     val reps: Int,
     val weight: Int
@@ -26,7 +26,7 @@ data class SetEntity (
 
 fun SetEntity.toModel(): ExerciseSet = ExerciseSet(
     id = id,
-    templateExerciseId = templateExerciseId,
+    workoutExerciseId = workoutExerciseId,
     index = index,
     reps = reps,
     weight =  weight
@@ -34,7 +34,7 @@ fun SetEntity.toModel(): ExerciseSet = ExerciseSet(
 
 fun ExerciseSet.toEntity(): SetEntity = SetEntity(
     id = id,
-    templateExerciseId = templateExerciseId,
+    workoutExerciseId = workoutExerciseId,
     index = index,
     reps = reps,
     weight =  weight

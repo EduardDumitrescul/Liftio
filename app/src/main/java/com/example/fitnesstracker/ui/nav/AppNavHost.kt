@@ -13,6 +13,7 @@ import com.example.fitnesstracker.ui.views.exercise.edit.ExerciseEditView
 import com.example.fitnesstracker.ui.views.template.browse.TemplateBrowseView
 import com.example.fitnesstracker.ui.views.template.detail.TemplateDetailedView
 import com.example.fitnesstracker.ui.views.template.edit.TemplateEditView
+import com.example.fitnesstracker.ui.views.workout.WorkoutOngoingView
 
 @Composable
 fun AppNavHost(
@@ -37,7 +38,8 @@ fun AppNavHost(
         composable(route = TemplateView.route) {
             TemplateDetailedView(
                 navigateToTemplateEditView = {navController.navigate(TemplateEdit.createRoute(it))},
-                navigateBack = { navController.navigateUp() }
+                navigateBack = { navController.navigateUp() },
+                navigateToOngoingWorkout = { navController.navigateSingleTopTo(PerformWorkout.createRoute(it))}
             )
         }
         composable(route = TemplateEdit.route) { navBackStack ->
@@ -49,6 +51,13 @@ fun AppNavHost(
                 navigateBack = {navController.navigateUp()}
             )
         }
+
+        composable(route = PerformWorkout.route) {
+            WorkoutOngoingView(
+                navigateBack = { navController.navigateUp() }
+            )
+        }
+
         composable(route = SelectExercise.route) {
             ExerciseBrowseView(
                 navigateBack = { navController.navigateUp() },

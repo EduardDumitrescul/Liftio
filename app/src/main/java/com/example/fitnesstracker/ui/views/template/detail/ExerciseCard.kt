@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.fitnesstracker.data.dto.ExerciseDetailed
+import com.example.fitnesstracker.data.dto.DetailedExercise
 import com.example.fitnesstracker.data.models.ExerciseSet
 import com.example.fitnesstracker.ui.components.MuscleChipRow
 import com.example.fitnesstracker.ui.components.MuscleChipRowModel
@@ -18,7 +18,7 @@ import com.example.fitnesstracker.ui.theme.AppTheme
 
 @Composable
 fun ExerciseCard(
-    exerciseDetailed: ExerciseDetailed,
+    detailedExercise: DetailedExercise,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -30,7 +30,7 @@ fun ExerciseCard(
             verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal),
         ) {
             Text(
-                text = exerciseDetailed.exercise.name,
+                text = detailedExercise.exercise.name,
                 style = AppTheme.typography.headline,
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
@@ -39,8 +39,8 @@ fun ExerciseCard(
 
             MuscleChipRow(
                 model = MuscleChipRowModel(
-                    exerciseDetailed.primaryMuscle.name,
-                    exerciseDetailed.secondaryMuscles.map { it.name }
+                    detailedExercise.primaryMuscle.name,
+                    detailedExercise.secondaryMuscles.map { it.name }
                 ),
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
@@ -48,7 +48,7 @@ fun ExerciseCard(
             Column(
                 modifier = Modifier.padding(top = 8.dp)
             ) {
-                for(set in exerciseDetailed.sets) {
+                for(set in detailedExercise.sets) {
                     SetRow(
                         exerciseSet = set,
                         modifier = Modifier
@@ -69,7 +69,7 @@ fun ExerciseCard(
 fun PreviewExerciseCard() {
     AppTheme {
         ExerciseCard(
-            exerciseDetailed = ExerciseDetailed.default().copy(
+            detailedExercise = DetailedExercise.default().copy(
                 sets = listOf(
                     ExerciseSet(0, 1, 1, 10, 20),
                     ExerciseSet(0, 1, 2, 10, 20),

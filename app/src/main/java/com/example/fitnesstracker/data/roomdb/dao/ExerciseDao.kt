@@ -5,13 +5,13 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.fitnesstracker.data.roomdb.entity.ExerciseEntity
-import com.example.fitnesstracker.data.roomdb.entity.TemplateExerciseCrossRef
+import com.example.fitnesstracker.data.roomdb.entity.WorkoutExerciseCrossRef
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ExerciseDao {
     @Insert
-    fun insert(it: ExerciseEntity)
+    suspend fun insert(it: ExerciseEntity)
 
     @Query("Select * from exercises")
     fun getExercises(): Flow<List<ExerciseEntity>>
@@ -29,12 +29,12 @@ interface ExerciseDao {
 
     @Query("select e.* " +
             "from exercises e " +
-            "join templateExerciseCrossRefs te on te.templateId = :id and te.exerciseId = e.id " +
+            "join workoutExerciseCrossRefs te on te.workoutId = :id and te.exerciseId = e.id " +
             "order by te.'index' ")
     fun getExercisesByTemplateId(id: Int): Flow<List<ExerciseEntity>>
 
     @Query("select te.* " +
-            "from templateExerciseCrossRefs te " +
-            "where templateId=:id")
-    fun getTemplateExerciseCrossRefs(id: Int): Flow<List<TemplateExerciseCrossRef>>
+            "from workoutExerciseCrossRefs te " +
+            "where workoutId=:id")
+    fun getTemplateExerciseCrossRefs(id: Int): Flow<List<WorkoutExerciseCrossRef>>
 }

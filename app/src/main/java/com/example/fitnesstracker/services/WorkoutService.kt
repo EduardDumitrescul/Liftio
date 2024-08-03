@@ -1,14 +1,14 @@
 package com.example.fitnesstracker.services
 
 import android.util.Log
-import com.example.fitnesstracker.data.dto.TemplateDetailed
+import com.example.fitnesstracker.data.dto.DetailedWorkout
 import com.example.fitnesstracker.data.dto.TemplateSummary
 import com.example.fitnesstracker.data.models.ExerciseSet
-import com.example.fitnesstracker.data.models.Template
+import com.example.fitnesstracker.data.models.Workout
 import com.example.fitnesstracker.data.repositories.ExerciseRepository
 import com.example.fitnesstracker.data.repositories.MuscleRepository
 import com.example.fitnesstracker.data.repositories.SetRepository
-import com.example.fitnesstracker.data.repositories.TemplateRepository
+import com.example.fitnesstracker.data.repositories.WorkoutRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
@@ -18,15 +18,15 @@ import javax.inject.Inject
 
 private const val TAG = "TemplateService"
 
-class TemplateService @Inject constructor(
-    private val templateRepository: TemplateRepository,
+class WorkoutService @Inject constructor(
+    private val workoutRepository: WorkoutRepository,
     private val setRepository: SetRepository,
     private val muscleRepository: MuscleRepository,
     private val exerciseRepository: ExerciseRepository
 ) {
     @OptIn(ExperimentalCoroutinesApi::class)
     fun getTemplateSummaries(): Flow<List<TemplateSummary>> {
-        return templateRepository.getBaseTemplates().flatMapLatest { templates ->
+        return workoutRepository.getBaseTemplates().flatMapLatest { templates ->
             if (templates.isEmpty()) {
                 Log.d(TAG, "No templates found.")
                 flowOf(emptyList())
@@ -55,40 +55,40 @@ class TemplateService @Inject constructor(
         }
     }
 
-    fun getTemplateWithExercisesById(templateId: Int): Flow<TemplateDetailed> {
-        val templateFlow = templateRepository.getTemplateById(templateId)
-        val exercises = templateRepository.getExercisesWithSetsAndMuscles(templateId)
+    fun getTemplateWithExercisesById(templateId: Int): Flow<DetailedWorkout> {
+        val templateFlow = workoutRepository.getWorkout(templateId)
+        val exercises = workoutRepository.getExercisesWithSetsAndMuscles(templateId)
 
         return combine(
             templateFlow,
             exercises
         ) { temp, ex ->
-            TemplateDetailed(
-                template = temp,
+            DetailedWorkout(
+                workout = temp,
                 exercisesWithSetsAndMuscles = ex
             )
         }
     }
 
     suspend fun addExerciseToTemplate(templateId: Int, exerciseId: Int) {
-        templateRepository.addExerciseToTemplate(templateId, exerciseId)
+        workoutRepository.addExerciseToWorkout(templateId, exerciseId)
     }
 
     suspend fun updateTemplateName(templateId: Int, templateName: String) {
-        templateRepository.updateTemplateName(templateId, templateName)
+        workoutRepository.updateTemplateName(templateId, templateName)
     }
 
     suspend fun removeExerciseFromTemplate(templateExerciseCrossRefId: Int) {
-        templateRepository.removeTemplateExerciseCrossRef(templateExerciseCrossRefId)
+        workoutRepository.removeWorkoutExerciseCrossRef(templateExerciseCrossRefId)
     }
 
-    suspend fun removeSetFromTemplateExercise(templateExerciseCrossRefId: Int, setId: Int) {
+    suspend fun removeSetFromWorkoutExercise(templateExerciseCrossRefId: Int, setId: Int) {
         val set = setRepository.getSet(setId)
         setRepository.updateSetIndexes(templateExerciseCrossRefId, set.index)
         setRepository.removeSet(setId)
     }
 
-    suspend fun addSetToTemplateExercise(templateExerciseCrossRefId: Int) {
+    suspend fun addSetToWorkoutExercise(templateExerciseCrossRefId: Int) {
         val sets: List<ExerciseSet> = setRepository.getSetsForTemplateExercise(templateExerciseCrossRefId)
 
         val newSet =
@@ -109,16 +109,44 @@ class TemplateService @Inject constructor(
     }
 
     suspend fun createNewTemplate(): Int {
-        val template = Template(
+        val workout = Workout(
             id = 0,
+            parentTemplateId = 0,
             name = "New Template",
             isBaseTemplate = true
         )
-        val id = templateRepository.addTemplate(template)
+        val id = workoutRepository.addWorkout(workout)
         return id
     }
 
     suspend fun removeTemplate(templateId: Int) {
-        templateRepository.removeTemplate(templateId)
+        workoutRepository.removeWorkout(templateId)
+    }
+
+    suspend fun createWorkoutFromTemplate(detailedTemplate: DetailedWorkout): Int {
+        val workout = Workout(
+            id = 0,
+            parentTemplateId = detailedTemplate.workout.id,
+            name = detailedTemplate.workout.name,
+            isBaseTemplate = false
+        )
+
+        val workoutId = workoutRepository.addWorkout(workout)
+
+        for(detailedExercise in detailedTemplate.exercisesWithSetsAndMuscles) {
+            val workoutExerciseCrossRefId = workoutRepository.addExerciseToWorkout(workoutId, detailedExercise.exercise.id)
+            for(set in detailedExercise.sets) {
+                val exerciseSet = ExerciseSet(
+                    id = 0,
+                    workoutExerciseId = workoutExerciseCrossRefId,
+                    index = set.index,
+                    reps = set.reps,
+                    weight = set.weight
+                )
+                setRepository.addSet(exerciseSet)
+            }
+        }
+
+        return workoutId
     }
 }

@@ -51,6 +51,20 @@ object TemplateEdit: NavDestination {
     }
 }
 
+object PerformWorkout: NavDestination {
+    override val icon: ImageVector
+        get() = Icons.Rounded.FitnessCenter
+    override val route: String
+        get() = "workout/perform/{id}"
+    override val name: String
+        get() = "perform workout"
+
+    fun createRoute(id: Int): String {
+        return "workout/perform/$id"
+    }
+
+}
+
 object Exercises: NavDestination {
     override val icon: ImageVector
         get() = Icons.Rounded.FitnessCenter

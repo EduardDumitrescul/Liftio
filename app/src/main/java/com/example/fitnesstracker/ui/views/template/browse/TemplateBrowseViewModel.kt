@@ -3,7 +3,7 @@ package com.example.fitnesstracker.ui.views.template.browse
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fitnesstracker.data.dto.TemplateSummary
-import com.example.fitnesstracker.services.TemplateService
+import com.example.fitnesstracker.services.WorkoutService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -12,10 +12,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TemplateBrowseViewModel @Inject constructor(
-    templateService: TemplateService
+    workoutService: WorkoutService
 ) :ViewModel()
 {
-    val templateSummaries: StateFlow<List<TemplateSummary>> = templateService
+    val templateSummaries: StateFlow<List<TemplateSummary>> = workoutService
         .getTemplateSummaries()
         .stateIn(
             viewModelScope,

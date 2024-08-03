@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.fitnesstracker.data.dto.ExerciseDetailed
+import com.example.fitnesstracker.data.dto.DetailedExercise
 import com.example.fitnesstracker.data.models.ExerciseSet
 import com.example.fitnesstracker.ui.components.MuscleChipRow
 import com.example.fitnesstracker.ui.components.MuscleChipRowModel
@@ -26,7 +26,7 @@ import com.example.fitnesstracker.ui.theme.AppTheme
 
 @Composable
 fun EditableExerciseCard(
-    exerciseDetailed: ExerciseDetailed,
+    detailedExercise: DetailedExercise,
     onClick: () -> Unit,
     onRemoveClick: () -> Unit,
     updateSet: (ExerciseSet) -> Unit,
@@ -46,7 +46,7 @@ fun EditableExerciseCard(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = exerciseDetailed.exercise.name,
+                    text = detailedExercise.exercise.name,
                     style = AppTheme.typography.headline,
                     modifier = Modifier
                         .padding(horizontal = 16.dp)
@@ -65,8 +65,8 @@ fun EditableExerciseCard(
 
             MuscleChipRow(
                 model = MuscleChipRowModel(
-                    exerciseDetailed.primaryMuscle.name,
-                    exerciseDetailed.secondaryMuscles.map { it.name }
+                    detailedExercise.primaryMuscle.name,
+                    detailedExercise.secondaryMuscles.map { it.name }
                 ),
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
@@ -77,7 +77,7 @@ fun EditableExerciseCard(
                     .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                for(set in exerciseDetailed.sets) {
+                for(set in detailedExercise.sets) {
                     EditableSetRow(
                         exerciseSet = set,
                         modifier = Modifier
@@ -108,7 +108,7 @@ fun EditableExerciseCard(
 fun PreviewEditableExerciseCard() {
     AppTheme {
         EditableExerciseCard(
-            exerciseDetailed = ExerciseDetailed.default().copy(
+            detailedExercise = DetailedExercise.default().copy(
                 sets = listOf(
                     ExerciseSet(0, 1, 1, 10, 20),
                     ExerciseSet(0, 1, 2, 10, 20),
