@@ -11,12 +11,15 @@ import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,6 +31,7 @@ import com.example.fitnesstracker.ui.components.appbar.LargeAppBar
 import com.example.fitnesstracker.ui.components.button.TextButton
 import com.example.fitnesstracker.ui.components.dialog.StringInputDialog
 import com.example.fitnesstracker.ui.theme.AppTheme
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -49,6 +53,9 @@ fun TemplateEditView(
         mutableStateOf(false)
     }
 
+    val scope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState() }
+
     Scaffold(
         topBar = {
             LargeAppBar(
@@ -60,15 +67,24 @@ fun TemplateEditView(
             if(viewModel.isNewTemplate) {
                 TwoButtonBottomBar(
                     primaryButtonText = "Save",
-                    onPrimaryButtonClick = navigateBack,
+                    onPrimaryButtonClick = {
+                        if(!viewModel.wasNameUpdated) {
+                            scope.launch { snackbarHostState.showSnackbar("Please set a name for the template") }
+                        }
+                        else {
+                            navigateBack()
+                        }
+                    },
                     secondaryButtonText = "Discard",
                     onSecondaryButtonClick = {
                         navigateBack()
                         viewModel.removeTemplate()
+
                     }
                 )
             }
         },
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         containerColor = AppTheme.colors.background
     ) { paddingValues ->
         Column(

@@ -27,6 +27,9 @@ class TemplateEditViewModel @Inject constructor(
     private var _isNewTemplate: Boolean = false
     val isNewTemplate get() = _isNewTemplate
 
+    private var _wasNameUpdated: Boolean = false
+    val wasNameUpdated get() = _wasNameUpdated
+
     private var collectionJob: Job? = null
 
     init {
@@ -97,6 +100,7 @@ class TemplateEditViewModel @Inject constructor(
         viewModelScope.launch {
             templateService.updateTemplateName(templateId, templateName)
         }
+        _wasNameUpdated = true
     }
 
     fun removeExerciseFromTemplate(templateExerciseCrossRefId: Int) {

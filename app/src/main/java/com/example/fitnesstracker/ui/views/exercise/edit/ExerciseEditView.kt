@@ -1,6 +1,5 @@
 package com.example.fitnesstracker.ui.views.exercise.edit
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -35,8 +34,6 @@ fun ExerciseEditView(
     val exercise by viewModel.exerciseWithMuscles.collectAsState()
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
-
-    Log.d(TAG, exercise.toString())
 
     Scaffold(
         snackbarHost = {
