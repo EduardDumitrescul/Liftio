@@ -1,13 +1,22 @@
 package com.example.fitnesstracker.ui.components.appbar
 
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.CheckCircleOutline
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.example.fitnesstracker.ui.components.button.IconButton
+import com.example.fitnesstracker.ui.theme.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -20,10 +29,24 @@ fun CenteredAppBar(
     actions: @Composable RowScope.() -> Unit = {},
 ) {
     CenterAlignedTopAppBar(
-        title = { AppBarTitle(title) },
+        title = {
+            Text(
+                title,
+                modifier = modifier,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                style = AppTheme.typography.title,
+                color= AppTheme.colors.primary
+            )
+        },
         modifier = modifier,
         colors = appBarColors,
-        navigationIcon = { BackNavigationIcon(onClick = onNavigationIconClick) },
+        navigationIcon = {
+            BackNavigationIcon(
+                onClick = onNavigationIconClick,
+                color = AppTheme.colors.primary
+            )
+        },
         actions = actions,
         scrollBehavior = scrollBehavior
     )
@@ -31,7 +54,20 @@ fun CenteredAppBar(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@Preview
+@Preview(showBackground = true)
 fun CenteredAppBarPreview() {
-    CenteredAppBar(title = "App Bar")
+    CenteredAppBar(
+        title = "Pull Workout",
+        actions = {
+            IconButton(
+                onClick = { /*TODO*/ },
+                modifier = Modifier.size(40.dp),
+                imageVector = Icons.Rounded.CheckCircleOutline,
+                contentDescription = "",
+                containerColor = Color.Transparent,
+                contentColor = AppTheme.colors.primary,
+                size = 40.dp
+            )
+        }
+    )
 }

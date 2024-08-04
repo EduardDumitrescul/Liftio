@@ -3,13 +3,12 @@ package com.example.fitnesstracker.ui.views.workout
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.DoneOutline
+import androidx.compose.material.icons.rounded.CheckCircleOutline
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -35,23 +34,7 @@ fun WorkoutOngoingView(
     val elapsedTime by viewModel.elapsedTime.collectAsState()
 
     Scaffold(
-        topBar = {
-            CenteredAppBar(
-                title = "Edit - ${ongoingWorkout.workout.name}",
-                onNavigationIconClick = navigateBack,
-                actions = {
-                    IconButton(
-                        onClick = { /*TODO*/ },
-                        imageVector = Icons.Rounded.DoneOutline,
-                        contentDescription = "finish workout",
-                        containerColor = Color.Transparent,
-                        contentColor = AppTheme.colors.primary,
-                        modifier = Modifier.size(40.dp)
-                    )
-                },
-                modifier = Modifier.height(80.dp)
-            )
-        },
+        topBar = { AppBar(onClick = { /*TODO*/})  },
         containerColor = AppTheme.colors.background
     ) { paddingValues ->
         Column(
@@ -96,4 +79,26 @@ fun WorkoutOngoingView(
             }
         }
     }
+}
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun AppBar(
+    onClick: () -> Unit,
+) {
+    CenteredAppBar(
+        title = "Pull Workout",
+        actions = {
+            IconButton(
+                onClick = onClick,
+                modifier = Modifier.size(40.dp),
+                imageVector = Icons.Rounded.CheckCircleOutline,
+                contentDescription = "finish workout",
+                containerColor = Color.Transparent,
+                contentColor = AppTheme.colors.primary,
+                size = 40.dp
+            )
+        }
+    )
 }
