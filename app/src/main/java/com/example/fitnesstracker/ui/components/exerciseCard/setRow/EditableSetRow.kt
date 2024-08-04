@@ -24,6 +24,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -43,13 +44,19 @@ fun EditableSetRow(
     var isEditing by remember {
         mutableStateOf(false)
     }
+    val alpha = if(state.style == SetRowStyle.DISABLED) 0.5f else 1.0f
 
-    val backgroundColor = if(isEditing) AppTheme.colors.containerVariant else Color.Transparent
+    val backgroundColor = when {
+        state.style == SetRowStyle.HIGHLIGHTED ->  AppTheme.colors.containerVariant
+        isEditing ->  AppTheme.colors.containerVariant
+        else -> Color.Transparent
+    }
 
     Column(
         modifier = Modifier
             .background(backgroundColor)
             .fillMaxWidth()
+            .alpha(alpha)
             .then(modifier),
     ) {
         MainRow(
