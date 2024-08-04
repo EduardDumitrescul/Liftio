@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.fitnesstracker.ui.components.appbar.LargeAppBar
 import com.example.fitnesstracker.ui.components.button.FilledButton
+import com.example.fitnesstracker.ui.components.exerciseCard.ExerciseCard
 import com.example.fitnesstracker.ui.theme.AppTheme
 import kotlinx.coroutines.launch
 
@@ -39,7 +40,7 @@ fun TemplateDetailedView(
     Scaffold(
         topBar = {
             LargeAppBar(
-                title = templateWithExercises.workout.name,
+                title = templateWithExercises.name,
                 actions = {
                     IconButton(onClick = {
                         navigateBack()
@@ -48,7 +49,7 @@ fun TemplateDetailedView(
                         Icon(Icons.Rounded.Delete, "remove template")
                     }
                     IconButton(onClick ={
-                        navigateToTemplateEditView(templateWithExercises.workout.id)
+                        navigateToTemplateEditView(templateWithExercises.id)
                         }
                     ) {
                         Icon(Icons.Rounded.Edit, "edit template")

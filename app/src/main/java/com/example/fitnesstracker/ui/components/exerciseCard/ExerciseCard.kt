@@ -1,4 +1,4 @@
-package com.example.fitnesstracker.ui.views.template.detail
+package com.example.fitnesstracker.ui.components.exerciseCard
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,6 +14,7 @@ import com.example.fitnesstracker.data.models.ExerciseSet
 import com.example.fitnesstracker.ui.components.MuscleChipRow
 import com.example.fitnesstracker.ui.components.MuscleChipRowModel
 import com.example.fitnesstracker.ui.components.card.LargeCard
+import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetRow
 import com.example.fitnesstracker.ui.theme.AppTheme
 
 @Composable

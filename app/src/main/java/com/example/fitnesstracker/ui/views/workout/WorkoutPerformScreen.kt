@@ -22,7 +22,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.fitnesstracker.ui.components.appbar.CenteredAppBar
 import com.example.fitnesstracker.ui.components.button.IconButton
 import com.example.fitnesstracker.ui.theme.AppTheme
-import com.example.fitnesstracker.ui.views.template.edit.EditableExerciseCard
+import com.example.fitnesstracker.ui.components.exerciseCard.EditableExerciseCard
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -49,9 +49,9 @@ fun WorkoutOngoingView(
                 horizontalAlignment = Alignment.CenterHorizontally ,
                 verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
-                items(ongoingWorkout.exercisesWithSetsAndMuscles) { exerciseDetailed ->
+                items(ongoingWorkout.exerciseCardStates) { exerciseDetailed ->
                     EditableExerciseCard(
-                        detailedExercise = exerciseDetailed,
+                        state = exerciseDetailed,
                         onClick = { /*TODO*/ },
                         onRemoveClick = {
                             viewModel.removeExerciseFromWorkout(exerciseDetailed.templateExerciseCrossRefId)

@@ -2,9 +2,10 @@ package com.example.fitnesstracker.ui.views.template.edit
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.fitnesstracker.data.dto.DetailedWorkout
-import com.example.fitnesstracker.data.models.ExerciseSet
 import com.example.fitnesstracker.services.WorkoutService
+import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetState
+import com.example.fitnesstracker.ui.views.template.detail.WorkoutState
+import com.example.fitnesstracker.ui.views.template.detail.toWorkoutState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -21,8 +22,8 @@ class TemplateEditViewModel @Inject constructor(
     private var templateId: Int,
     private val workoutService: WorkoutService,
 ): ViewModel() {
-    private val _DetailedWorkout = MutableStateFlow(DetailedWorkout.default())
-    val detailedWorkout: StateFlow<DetailedWorkout> get() = _DetailedWorkout
+    private val _state = MutableStateFlow(WorkoutState.default())
+    val state: StateFlow<WorkoutState> get() = _state
 
     private var _isNewTemplate: Boolean = false
     val isNewTemplate get() = _isNewTemplate
@@ -50,7 +51,7 @@ class TemplateEditViewModel @Inject constructor(
                 val flow = workoutService.getTemplateWithExercisesById(templateId)
 
                 flow.collect { templateDetailed ->
-                    _DetailedWorkout.value = templateDetailed
+                    _state.value = templateDetailed.toWorkoutState()
                 }
             }
 
@@ -60,16 +61,16 @@ class TemplateEditViewModel @Inject constructor(
     private fun getTemplateData() {
         viewModelScope.launch {
             workoutService.getTemplateWithExercisesById(templateId)
-                .collect { newTemplateDetailed ->
-                    _DetailedWorkout.value = newTemplateDetailed
+                .collect { templateDetailed ->
+                    _state.value = templateDetailed.toWorkoutState()
                 }
         }
     }
 
-    fun updateSet(set: ExerciseSet) {
+    fun updateSet(set: SetState) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                workoutService.updateSet(set)
+                workoutService.updateSet(set.toExerciseSet())
             }
         }
     }

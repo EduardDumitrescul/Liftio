@@ -30,6 +30,7 @@ import com.example.fitnesstracker.ui.components.TwoButtonBottomBar
 import com.example.fitnesstracker.ui.components.appbar.LargeAppBar
 import com.example.fitnesstracker.ui.components.button.TextButton
 import com.example.fitnesstracker.ui.components.dialog.StringInputDialog
+import com.example.fitnesstracker.ui.components.exerciseCard.EditableExerciseCard
 import com.example.fitnesstracker.ui.theme.AppTheme
 import kotlinx.coroutines.launch
 
@@ -47,7 +48,7 @@ fun TemplateEditView(
         }
     }
 
-    val templateWithExercises by viewModel.detailedWorkout.collectAsState()
+    val templateWithExercises by viewModel.state.collectAsState()
 
     var shouldShowNameChangeDialog by remember {
         mutableStateOf(false)
@@ -59,7 +60,7 @@ fun TemplateEditView(
     Scaffold(
         topBar = {
             LargeAppBar(
-                title = "Edit - ${templateWithExercises.workout.name}",
+                title = "Edit - ${templateWithExercises.name}",
                 onNavigationIconClick = navigateBack
             )
         },
@@ -104,21 +105,21 @@ fun TemplateEditView(
                 horizontalAlignment = Alignment.CenterHorizontally ,
                 verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
-                items(templateWithExercises.exercisesWithSetsAndMuscles) { exerciseDetailed ->
+                items(templateWithExercises.exerciseCardStates) { exerciseCardState ->
                     EditableExerciseCard(
-                        detailedExercise = exerciseDetailed,
+                        state = exerciseCardState,
                         onClick = { /*TODO*/ },
                         onRemoveClick = {
-                            viewModel.removeExerciseFromTemplate(exerciseDetailed.templateExerciseCrossRefId)
+                            viewModel.removeExerciseFromTemplate(exerciseCardState.templateExerciseCrossRefId)
                         },
                         updateSet = { set ->
                             viewModel.updateSet(set)
                         },
                         addSet = {
-                            viewModel.addSet(exerciseDetailed.templateExerciseCrossRefId)
+                            viewModel.addSet(exerciseCardState.templateExerciseCrossRefId)
                         },
                         removeSet = {
-                            viewModel.removeSet(exerciseDetailed.templateExerciseCrossRefId, it)
+                            viewModel.removeSet(exerciseCardState.templateExerciseCrossRefId, it)
                         },
                         modifier = Modifier.fillMaxWidth()
                     )
@@ -138,7 +139,7 @@ fun TemplateEditView(
     if(shouldShowNameChangeDialog) {
         StringInputDialog(
             title = "Choose a name",
-            initialValue = templateWithExercises.workout.name,
+            initialValue = templateWithExercises.name,
             onDismissRequest = { shouldShowNameChangeDialog = false },
             onSave = {
                 viewModel.updateTemplateName(it)

@@ -1,4 +1,4 @@
-package com.example.fitnesstracker.ui.views.template.edit
+package com.example.fitnesstracker.ui.components.exerciseCard.setRow
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -27,7 +27,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.fitnesstracker.data.models.ExerciseSet
 import com.example.fitnesstracker.ui.components.button.FilledButton
 import com.example.fitnesstracker.ui.components.button.OutlinedButton
 import com.example.fitnesstracker.ui.components.textfield.NumberField
@@ -36,8 +35,8 @@ import kotlin.math.min
 
 @Composable
 fun EditableSetRow(
-    exerciseSet: ExerciseSet,
-    onValuesChanged: (ExerciseSet) -> Unit,
+    state: SetState,
+    onValuesChanged: (SetState) -> Unit,
     onRemoveClicked: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -54,14 +53,14 @@ fun EditableSetRow(
             .then(modifier),
     ) {
         MainRow(
-            exerciseSet = exerciseSet,
+            state = state,
             onRemoveClicked = onRemoveClicked,
             onClick = {isEditing = true}
         )
 
         if(isEditing) {
             EditingArea(
-                exerciseSet,
+                state,
                 onSave = {
                     onValuesChanged(it)
                     isEditing = false
@@ -74,7 +73,7 @@ fun EditableSetRow(
 
 @Composable
 private fun MainRow(
-    exerciseSet: ExerciseSet,
+    state: SetState,
     onRemoveClicked: () -> Unit,
     onClick: () -> Unit,
 ) {
@@ -87,17 +86,17 @@ private fun MainRow(
             .clickable { onClick() }
     ) {
         Text(
-            text = exerciseSet.index.toString() + '.',
+            text = state.index.toString() + '.',
             style = AppTheme.typography.body,
             color = AppTheme.colors.onContainer,
         )
         Text(
-            text = exerciseSet.reps.toString() + " reps",
+            text = state.reps.toString() + " reps",
             style = AppTheme.typography.body,
             modifier = Modifier.defaultMinSize(minWidth = 60.dp),
         )
         Text(
-            text = exerciseSet.weight.toString() + " kg",
+            text = state.weight.toString() + " kg",
             style = AppTheme.typography.body,
             modifier = Modifier.defaultMinSize(minWidth = 60.dp),
         )
@@ -117,16 +116,16 @@ private fun MainRow(
 
 @Composable
 private fun EditingArea(
-    exerciseSet: ExerciseSet,
-    onSave: (ExerciseSet) -> Unit,
+    state: SetState,
+    onSave: (SetState) -> Unit,
     onCancel: () -> Unit,
 ) {
     var repsValue by remember {
-        mutableStateOf(exerciseSet.reps.toString())
+        mutableStateOf(state.reps.toString())
     }
 
     var weightValue by remember {
-        mutableStateOf(exerciseSet.weight.toString())
+        mutableStateOf(state.weight.toString())
     }
 
     Column(
@@ -213,7 +212,7 @@ private fun EditingArea(
                 text = "save",
                 onClick = {
                     onSave(
-                        exerciseSet.copy(
+                        state.copy(
                             reps = getIntFromString(repsValue),
                             weight = getIntFromString(weightValue)
                         )
@@ -255,26 +254,33 @@ private fun addToIntString(value: String, toAdd: Int): String {
 @Composable
 @Preview(showBackground = true)
 fun PreviewEditableSetRow() {
-    var exerciseSet by remember{mutableStateOf( ExerciseSet(1, 1, 1, 10, 20))}
+    var state by remember{
+        mutableStateOf(
+            SetState(
+                1, 1, 1, 10, 20,
+                SetRowStyle.NORMAL
+            )
+        )
+    }
     AppTheme {
         Column {
 
             EditableSetRow(
-                exerciseSet,
+                state,
                 modifier = Modifier.width(160.dp),
-                onValuesChanged = {exerciseSet = it},
+                onValuesChanged = {},
                 onRemoveClicked = {}
             )
             EditableSetRow(
-                exerciseSet,
+                state,
                 modifier = Modifier.width(160.dp),
-                onValuesChanged = {exerciseSet = it},
+                onValuesChanged = {},
                 onRemoveClicked = {}
             )
             EditableSetRow(
-                exerciseSet,
+                state,
                 modifier = Modifier.width(160.dp),
-                onValuesChanged = {exerciseSet = it},
+                onValuesChanged = {},
                 onRemoveClicked = {}
             )
         }

@@ -2,15 +2,17 @@ package com.example.fitnesstracker.ui.views.workout
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.fitnesstracker.data.dto.DetailedWorkout
-import com.example.fitnesstracker.data.models.ExerciseSet
 import com.example.fitnesstracker.services.WorkoutService
+import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetState
+import com.example.fitnesstracker.ui.views.template.detail.WorkoutState
+import com.example.fitnesstracker.ui.views.template.detail.toWorkoutState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -23,9 +25,12 @@ class WorkoutOngoingViewModel @Inject constructor(
     private val workoutId: Int,
     private val workoutService: WorkoutService
 ): ViewModel() {
-    val ongoingWorkout: StateFlow<DetailedWorkout> = workoutService
+    val ongoingWorkout: StateFlow<WorkoutState> = workoutService
         .getTemplateWithExercisesById(workoutId)
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), DetailedWorkout.default())
+        .map {
+            it.toWorkoutState()
+        }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), WorkoutState.default())
 
     private val startTime = LocalDateTime.now()
     private val _elapsedTime = MutableStateFlow(0L)
@@ -45,10 +50,10 @@ class WorkoutOngoingViewModel @Inject constructor(
         }
     }
 
-    fun updateSet(set: ExerciseSet) {
+    fun updateSet(set: SetState) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                workoutService.updateSet(set)
+                workoutService.updateSet(set.toExerciseSet())
             }
         }
     }

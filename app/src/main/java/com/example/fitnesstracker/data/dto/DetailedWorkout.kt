@@ -1,14 +1,19 @@
 package com.example.fitnesstracker.data.dto
 
-import com.example.fitnesstracker.data.models.Workout
 
 data class DetailedWorkout (
-    val workout: Workout,
+    val id: Int,
+    val parentTemplateId: Int,
+    val name: String,
+    val isBaseTemplate: Boolean,
     val exercisesWithSetsAndMuscles: List<DetailedExercise>,
 ) {
     companion object {
         fun default() = DetailedWorkout(
-            workout = Workout.default(),
+            id = 0,
+            parentTemplateId = 0,
+            name = "Default Workout",
+            isBaseTemplate = false,
             exercisesWithSetsAndMuscles = emptyList(),
         )
     }

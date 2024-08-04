@@ -64,7 +64,10 @@ class WorkoutService @Inject constructor(
             exercises
         ) { temp, ex ->
             DetailedWorkout(
-                workout = temp,
+                id = temp.id,
+                parentTemplateId = temp.parentTemplateId,
+                name = temp.name,
+                isBaseTemplate =  temp.isBaseTemplate,
                 exercisesWithSetsAndMuscles = ex
             )
         }
@@ -126,8 +129,8 @@ class WorkoutService @Inject constructor(
     suspend fun createWorkoutFromTemplate(detailedTemplate: DetailedWorkout): Int {
         val workout = Workout(
             id = 0,
-            parentTemplateId = detailedTemplate.workout.id,
-            name = detailedTemplate.workout.name,
+            parentTemplateId = detailedTemplate.id,
+            name = detailedTemplate.name,
             isBaseTemplate = false
         )
 
