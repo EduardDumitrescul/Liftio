@@ -13,6 +13,20 @@ data class ExerciseCardState(
     val secondaryMuscles: List<Muscle>,
     val sets: List<SetState>
 ) {
+    fun updateSet(id: Int, set: SetState): ExerciseCardState {
+        val updatedSets = sets.map {
+            if(it.id == id) {
+                set
+            }
+            else {
+                it
+            }
+        }
+        return this.copy(
+            sets = updatedSets
+        )
+    }
+
     companion object {
         fun default(): ExerciseCardState {
             return ExerciseCardState(

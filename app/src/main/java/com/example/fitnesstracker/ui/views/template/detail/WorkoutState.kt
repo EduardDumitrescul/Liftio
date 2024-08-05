@@ -2,6 +2,7 @@ package com.example.fitnesstracker.ui.views.template.detail
 
 import com.example.fitnesstracker.data.dto.DetailedWorkout
 import com.example.fitnesstracker.ui.components.exerciseCard.ExerciseCardState
+import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetState
 import com.example.fitnesstracker.ui.components.exerciseCard.toExerciseCardState
 
 data class WorkoutState(
@@ -21,6 +22,15 @@ data class WorkoutState(
                 exerciseCardStates = emptyList()
             )
         }
+    }
+
+    fun updateSet(id: Int, set: SetState): WorkoutState {
+        val updatedExercises = exerciseCardStates.map { exercise->
+            exercise.updateSet(id, set)
+        }
+        return this.copy(
+            exerciseCardStates = updatedExercises
+        )
     }
 }
 

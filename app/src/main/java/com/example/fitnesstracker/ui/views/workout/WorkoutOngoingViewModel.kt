@@ -28,37 +28,57 @@ class WorkoutOngoingViewModel @Inject constructor(
     private val workoutId: Int,
     private val workoutService: WorkoutService
 ): ViewModel() {
-    private val rowStyleMapFlow: MutableStateFlow<Map<Int, SetRowStyle>> = MutableStateFlow(emptyMap())
 
     private lateinit var _ongoingWorkout: StateFlow<WorkoutState>
     val ongoingWorkout get() = _ongoingWorkout
+
+    private val _setStyleMapFlow: MutableStateFlow<Map<Int, SetRowStyle>> = MutableStateFlow(emptyMap())
+
+
+    private lateinit var progressTracker: ProgressTracker
 
     private val startTime = LocalDateTime.now()
     private val _elapsedTime = MutableStateFlow(0L)
     val elapsedTime get() = _elapsedTime
     private val timerRunning = true
 
+
     init {
-        fetchData()
+        initializeState()
+        initializeProgressTracker()
         runTimer()
     }
 
-    private fun fetchData() {
-        val templateFlow = workoutService.getTemplateWithExercisesById(workoutId)
-        val flow = templateFlow.combine(rowStyleMapFlow) { templateDetailed, rowStyleMap ->
-            templateDetailed
-                .toWorkoutState()
-                .copy(
-                    exerciseCardStates = templateDetailed.exercisesWithSetsAndMuscles.map { detailedExercise ->
-                        detailedExercise.toExerciseCardState().copy(
-                            sets = detailedExercise.sets.map {
-                                it.toSetState(rowStyleMap[it.id] ?: SetRowStyle.DISABLED)
-                            }
-                        )
+    private fun initializeState() {
+        _ongoingWorkout = combine(
+                workoutService.getTemplateWithExercisesById(workoutId),
+                _setStyleMapFlow
+            ) { workout, map ->
+                val updatedExercises = workout.exercisesWithSetsAndMuscles.map { exercise ->
+                    val updatedSets = exercise.sets.map { set ->
+                        if(map[set.id] != null) {
+                            set.toSetState(map[set.id]!!)
+                        }
+                        else {
+                            set.toSetState(SetRowStyle.DISABLED)
+                        }
                     }
+                    exercise.toExerciseCardState().copy(
+                        sets = updatedSets
+                    )
+                }
+                workout.toWorkoutState().copy(
+                    exerciseCardStates = updatedExercises
                 )
-        }
-        _ongoingWorkout = flow.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), WorkoutState.default())
+            }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), WorkoutState.default())
+    }
+
+    private fun initializeProgressTracker() {
+        progressTracker = ProgressTracker(
+            state = ongoingWorkout,
+            scope = viewModelScope,
+            updateSetStyle = { id, style-> updateSetStyle(id, style)}
+        )
     }
 
 
@@ -67,6 +87,14 @@ class WorkoutOngoingViewModel @Inject constructor(
             while (timerRunning) {
                 delay(1000)
                 _elapsedTime.update { _elapsedTime.value + 1 }
+            }
+        }
+    }
+
+    private fun updateSetStyle(id: Int, style: SetRowStyle) {
+        _setStyleMapFlow.update { map ->
+            map.toMutableMap().apply {
+                put(id, style)
             }
         }
     }
