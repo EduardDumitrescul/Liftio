@@ -23,18 +23,17 @@ interface ExerciseDao {
     @Insert
     suspend fun addExercise(exercise: ExerciseEntity): Long
 
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateExercise(entity: ExerciseEntity)
 
     @Query("select e.* " +
             "from exercises e " +
-            "join workoutExerciseCrossRefs te on te.workoutId = :id and te.exerciseId = e.id " +
-            "order by te.'index' ")
-    fun getExercisesByTemplateId(id: Int): Flow<List<ExerciseEntity>>
+            "join workoutExerciseCrossRefs we on we.workoutId = :id and we.exerciseId = e.id " +
+            "order by we.'index' ")
+    fun getExercisesByWorkoutId(id: Int): Flow<List<ExerciseEntity>>
 
-    @Query("select te.* " +
-            "from workoutExerciseCrossRefs te " +
+    @Query("select we.* " +
+            "from workoutExerciseCrossRefs we " +
             "where workoutId=:id")
-    fun getTemplateExerciseCrossRefs(id: Int): Flow<List<WorkoutExerciseCrossRef>>
+    fun getWorkoutExerciseCrossRefs(id: Int): Flow<List<WorkoutExerciseCrossRef>>
 }

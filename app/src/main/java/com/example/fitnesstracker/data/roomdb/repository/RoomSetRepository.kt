@@ -28,7 +28,7 @@ class RoomSetRepository @Inject constructor(
     }
 
     override suspend fun getSetsForWorkoutExercise(workoutExerciseCrossRefId: Int): List<ExerciseSet> {
-        val entities = setDao.getSetsByTemplateExercise(workoutExerciseCrossRefId)
+        val entities = setDao.getSetsByWorkoutExercise(workoutExerciseCrossRefId)
         return entities.map {it.toModel()}
     }
 

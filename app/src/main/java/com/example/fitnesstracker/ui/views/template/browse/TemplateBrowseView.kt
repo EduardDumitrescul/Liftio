@@ -15,7 +15,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.fitnesstracker.data.dto.TemplateSummary
+import com.example.fitnesstracker.data.dto.WorkoutSummary
 import com.example.fitnesstracker.ui.components.appbar.LargeAppBar
 import com.example.fitnesstracker.ui.components.button.Fab
 import com.example.fitnesstracker.ui.components.button.FilledButton
@@ -41,7 +41,7 @@ fun TemplateBrowseView(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun StatelessTemplateBrowseView(
-    templates: List<TemplateSummary>,
+    templates: List<WorkoutSummary>,
     onCardClicked: (Int) -> Unit = {},
     onFabClicked: () -> Unit,
 ) {
@@ -77,10 +77,10 @@ private fun StatelessTemplateBrowseView(
             }
 
             items(templates) {template ->
-                TemplateCard(
-                    template = template,
+                WorkoutCard(
+                    workout = template,
                     onClick = {
-                        onCardClicked(template.templateId)
+                        onCardClicked(template.id)
                     }
                 )
             }
@@ -92,9 +92,9 @@ private fun StatelessTemplateBrowseView(
 @Preview
 @Composable
 fun PreviewTemplateBrowseView() {
-    val template = TemplateSummary(
-        templateId = 0,
-        templateName = "Push Workout",
+    val template = WorkoutSummary(
+        id = 0,
+        name = "Push Workout",
         workedMuscles = listOf("chest", "shoulders", "triceps"),
         exerciseList = listOf(
             "3 x bench press",

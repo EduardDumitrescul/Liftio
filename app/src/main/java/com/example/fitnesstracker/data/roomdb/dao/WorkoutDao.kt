@@ -11,17 +11,17 @@ import kotlinx.coroutines.flow.Flow
 interface WorkoutDao {
     @Query("select * from workouts " +
             "where isBaseTemplate is 1")
-    fun getBaseTemplates(): Flow<List<WorkoutEntity>>
+    fun getTemplates(): Flow<List<WorkoutEntity>>
 
     @Insert
     suspend fun insert(it: WorkoutEntity): Long
 
     @Insert
-    suspend fun insertTemplateExerciseCrossRef(it: WorkoutExerciseCrossRef): Long
+    suspend fun insertWorkoutExerciseCrossRef(it: WorkoutExerciseCrossRef): Long
 
-    @Query("select t.* " +
-            "from workouts t " +
-            "where t.id = :templateId")
+    @Query("select w.* " +
+            "from workouts w " +
+            "where w.id = :templateId")
     fun getTemplateById(templateId: Int): Flow<WorkoutEntity?>
 
     @Query("select count(*) " +

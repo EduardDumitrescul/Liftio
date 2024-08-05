@@ -27,7 +27,7 @@ class RoomWorkoutRepository @Inject constructor(
     private val workoutDao: WorkoutDao,
 ): WorkoutRepository {
     override fun getTemplates(): Flow<List<Workout>> {
-        val entities = workoutDao.getBaseTemplates()
+        val entities = workoutDao.getTemplates()
         return entities.map { list ->
             list.map {
                 it.toModel()
@@ -50,7 +50,7 @@ class RoomWorkoutRepository @Inject constructor(
             exerciseId = exerciseId,
             index = numberOfExercisesInTemplate + 1
         )
-        return workoutDao.insertTemplateExerciseCrossRef(templateExercise).toInt()
+        return workoutDao.insertWorkoutExerciseCrossRef(templateExercise).toInt()
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -67,7 +67,7 @@ class RoomWorkoutRepository @Inject constructor(
                         muscleDao.getPrimaryMuscleByExerciseId(templateExercise.exerciseId)
                     val secondaryMusclesFlow =
                         muscleDao.getSecondaryMusclesByExerciseId(templateExercise.exerciseId)
-                    val setsFlow = setDao.getSetsFlowByTemplateExercise(templateExercise.id)
+                    val setsFlow = setDao.getSetsFlowByWorkoutExercise(templateExercise.id)
 
                     combine(
                         exerciseFlow,

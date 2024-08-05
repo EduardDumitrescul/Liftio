@@ -4,7 +4,6 @@ import com.example.fitnesstracker.data.models.ExerciseMuscleCrossRef
 import com.example.fitnesstracker.data.models.Muscle
 import com.example.fitnesstracker.data.repositories.MuscleRepository
 import com.example.fitnesstracker.data.roomdb.dao.MuscleDao
-import com.example.fitnesstracker.data.roomdb.entity.MuscleEntity
 import com.example.fitnesstracker.data.roomdb.entity.toEntity
 import com.example.fitnesstracker.data.roomdb.entity.toModel
 import kotlinx.coroutines.flow.Flow
@@ -51,7 +50,7 @@ class RoomMuscleRepository @Inject constructor(
     }
 
     override fun getMusclesByWorkoutId(id: Int): Flow<List<Muscle>> {
-        val entities = muscleDao.getMusclesByTemplateId(id)
+        val entities = muscleDao.getMusclesByWorkoutId(id)
         return entities.map { list ->
             list.map {
                 it.toModel()

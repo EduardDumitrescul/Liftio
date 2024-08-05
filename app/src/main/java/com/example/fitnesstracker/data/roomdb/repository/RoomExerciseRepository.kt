@@ -95,7 +95,7 @@ class RoomExerciseRepository @Inject constructor(
     }
 
     override fun getExercisesByWorkoutId(id: Int): Flow<List<Exercise>> {
-        val exercises = exerciseDao.getExercisesByTemplateId(id)
+        val exercises = exerciseDao.getExercisesByWorkoutId(id)
         return exercises.map { list ->
             list.map {
                 it.toModel()
@@ -105,13 +105,13 @@ class RoomExerciseRepository @Inject constructor(
 
     @OptIn(ExperimentalCoroutinesApi::class)
     override fun getExercisesWithSetsByWorkoutId(id: Int): Flow<List<ExerciseWithSets>> {
-        return exerciseDao.getTemplateExerciseCrossRefs(id).flatMapLatest { templateExerciseCrossRefs ->
-            if (templateExerciseCrossRefs.isEmpty()) {
+        return exerciseDao.getWorkoutExerciseCrossRefs(id).flatMapLatest { workoutExerciseCrossRefs ->
+            if (workoutExerciseCrossRefs.isEmpty()) {
                 flowOf(emptyList())
             } else {
-                val combinedFlows = templateExerciseCrossRefs.map { templateExerciseCrossRef ->
-                    val exerciseFlow = exerciseDao.getExerciseById(templateExerciseCrossRef.exerciseId)
-                    val setsFlow = setDao.getSetsFlowByTemplateExercise(templateExerciseCrossRef.id)
+                val combinedFlows = workoutExerciseCrossRefs.map { workoutExerciseCrossRef ->
+                    val exerciseFlow = exerciseDao.getExerciseById(workoutExerciseCrossRef.exerciseId)
+                    val setsFlow = setDao.getSetsFlowByWorkoutExercise(workoutExerciseCrossRef.id)
 
                     combine(exerciseFlow, setsFlow) { exercise, sets ->
                         ExerciseWithSets(

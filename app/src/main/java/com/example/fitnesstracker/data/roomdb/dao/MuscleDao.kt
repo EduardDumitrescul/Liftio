@@ -46,13 +46,13 @@ interface MuscleDao {
     @Query("select m.* " +
             "from muscles m " +
             "where exists(select '*' " +
-            "   from workouts t" +
-            "   join workoutExerciseCrossRefs te on te.workoutId = t.id " +
-            "   join exercises e on e.id = te.exerciseId " +
+            "   from workouts w" +
+            "   join workoutExerciseCrossRefs we on we.workoutId = w.id " +
+            "   join exercises e on e.id = we.exerciseId " +
             "   join exerciseMuscleCrossRef em on em.exerciseId = e.id " +
-            "   where t.id = :id " +
+            "   where w.id = :id " +
             "       and em.muscleId = m.id" +
             "       and em.isPrimary is 1) ")
-    fun getMusclesByTemplateId(id: Int): Flow<List<MuscleEntity>>
+    fun getMusclesByWorkoutId(id: Int): Flow<List<MuscleEntity>>
 
 }

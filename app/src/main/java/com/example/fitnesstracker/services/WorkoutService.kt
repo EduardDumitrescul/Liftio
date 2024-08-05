@@ -2,7 +2,7 @@ package com.example.fitnesstracker.services
 
 import android.util.Log
 import com.example.fitnesstracker.data.dto.DetailedWorkout
-import com.example.fitnesstracker.data.dto.TemplateSummary
+import com.example.fitnesstracker.data.dto.WorkoutSummary
 import com.example.fitnesstracker.data.models.ExerciseSet
 import com.example.fitnesstracker.data.models.Workout
 import com.example.fitnesstracker.data.repositories.ExerciseRepository
@@ -25,21 +25,21 @@ class WorkoutService @Inject constructor(
     private val exerciseRepository: ExerciseRepository
 ) {
     @OptIn(ExperimentalCoroutinesApi::class)
-    fun getTemplateSummaries(): Flow<List<TemplateSummary>> {
+    fun getTemplateSummaries(): Flow<List<WorkoutSummary>> {
         return workoutRepository.getTemplates().flatMapLatest { templates ->
             if (templates.isEmpty()) {
                 Log.d(TAG, "No templates found.")
                 flowOf(emptyList())
             } else {
-                val templateSummaryFlows = templates.map { template ->
+                val workoutSummaryFlows = templates.map { template ->
                     val musclesFlow = muscleRepository.getMusclesByWorkoutId(template.id)
                     val exercisesFlow = exerciseRepository.getExercisesWithSetsByWorkoutId(template.id)
 
                     combine(musclesFlow, exercisesFlow) { muscles, exercises ->
 
-                        TemplateSummary(
-                            templateId = template.id,
-                            templateName = template.name,
+                        WorkoutSummary(
+                            id = template.id,
+                            name = template.name,
                             workedMuscles = muscles.map { it.name },
                             exerciseList = exercises.map { "${it.sets.size} x ${it.exercise.name}" }
                         )
@@ -47,7 +47,7 @@ class WorkoutService @Inject constructor(
                 }
 
 
-                combine(templateSummaryFlows) {
+                combine(workoutSummaryFlows) {
                     val summaries = it.toList()
                     summaries
                 }

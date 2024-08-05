@@ -6,24 +6,21 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.CardColors
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.fitnesstracker.data.dto.TemplateSummary
+import com.example.fitnesstracker.data.dto.WorkoutSummary
 import com.example.fitnesstracker.ui.components.card.LargeCard
 import com.example.fitnesstracker.ui.components.chip.FilledChip
 import com.example.fitnesstracker.ui.theme.AppTheme
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun TemplateCard(
-    template: TemplateSummary,
+fun WorkoutCard(
+    workout: WorkoutSummary,
     onClick: () -> Unit = {},
 ) {
     LargeCard(onClick = onClick){
@@ -32,7 +29,7 @@ fun TemplateCard(
             verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal)
         ) {
             Text(
-                text = template.templateName,
+                text = workout.name,
                 style = AppTheme.typography.headline
             )
 
@@ -42,7 +39,7 @@ fun TemplateCard(
                 horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal),
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal),
             ) {
-                for(muscle in template.workedMuscles) {
+                for(muscle in workout.workedMuscles) {
                     FilledChip(label = muscle)
                 }
             }
@@ -50,7 +47,7 @@ fun TemplateCard(
             Column(
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingExtraSmall)
             ) {
-                for(exercise in template.exerciseList) {
+                for(exercise in workout.exerciseList) {
                     Text(
                         text = exercise,
                         style = AppTheme.typography.body,
@@ -66,10 +63,10 @@ fun TemplateCard(
 @Preview(showBackground = true, backgroundColor = Color.GRAY.toLong(), widthDp = 300)
 private fun PreviewWorkoutCard() {
     AppTheme {
-        TemplateCard(
-            template = TemplateSummary(
-                templateId = 0,
-                templateName = "Push Workout",
+        WorkoutCard(
+            workout = WorkoutSummary(
+                id = 0,
+                name = "Push Workout",
                 workedMuscles = listOf("chest", "shoulders", "triceps"),
                 exerciseList = listOf(
                     "3 x bench press",

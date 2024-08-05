@@ -19,8 +19,8 @@ class Seeder (
     private val musclesPath = "muscles.json"
     private val exercisesPath = "exercises.json"
     private val exerciseMusclePath = "exerciseMuscles.json"
-    private val templatesPath = "templates.json"
-    private val templateExerciseCrossRefPath = "templateExerciseCrossRef.json"
+    private val workoutsPath = "workouts.json"
+    private val workoutExerciseCrossRefPath = "workoutExerciseCrossRef.json"
     private val setsPath = "sets.json"
 
     suspend fun seed() {
@@ -31,10 +31,10 @@ class Seeder (
         val exerciseMuscles = loadExerciseMuscles()
         insertExerciseMuscles(exerciseMuscles)
 
-        val templates = loadTemplates()
-        insertTemplates(templates)
+        val workouts = loadWorkouts()
+        insertWorkouts(workouts)
 
-        insertTemplateExerciseCrossRefs()
+        insertWorkoutExerciseCrossRefs()
 
         insertSets()
     }
@@ -47,23 +47,23 @@ class Seeder (
         }
     }
 
-    private suspend fun insertTemplateExerciseCrossRefs() {
-        val jsonString = readJsonFromAssets(context, templateExerciseCrossRefPath)
+    private suspend fun insertWorkoutExerciseCrossRefs() {
+        val jsonString = readJsonFromAssets(context, workoutExerciseCrossRefPath)
         val entities = fromJson<List<WorkoutExerciseCrossRef>>(jsonString)
         entities.forEach {
-            database.workoutDao().insertTemplateExerciseCrossRef(it)
+            database.workoutDao().insertWorkoutExerciseCrossRef(it)
         }
     }
 
-    private fun loadTemplates(): List<WorkoutEntity> {
-        val jsonString = readJsonFromAssets(context, templatesPath)
+    private fun loadWorkouts(): List<WorkoutEntity> {
+        val jsonString = readJsonFromAssets(context, workoutsPath)
         return fromJson<List<WorkoutEntity>>(jsonString)
     }
 
-    private suspend fun insertTemplates(templates: List<WorkoutEntity>) {
-        val templateDao = database.workoutDao()
-        templates.forEach {
-            templateDao.insert(it)
+    private suspend fun insertWorkouts(workouts: List<WorkoutEntity>) {
+        val workoutDao = database.workoutDao()
+        workouts.forEach {
+            workoutDao.insert(it)
         }
     }
 

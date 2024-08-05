@@ -14,14 +14,14 @@ interface SetDao {
             "from sets s " +
             "where s.workoutExerciseId = :templateExerciseCrossRefId"
     )
-    fun getSetsFlowByTemplateExercise(templateExerciseCrossRefId: Int): Flow<List<SetEntity>>
+    fun getSetsFlowByWorkoutExercise(templateExerciseCrossRefId: Int): Flow<List<SetEntity>>
 
     @Query("select s.* " +
             "from sets s " +
-            "join workoutExerciseCrossRefs te on te.id = :templateExerciseCrossRefId " +
+            "join workoutExerciseCrossRefs te on te.id = :workoutExerciseCrossRefId " +
             "where te.id = s.workoutExerciseId"
     )
-    suspend fun getSetsByTemplateExercise(templateExerciseCrossRefId: Int): List<SetEntity>
+    suspend fun getSetsByWorkoutExercise(workoutExerciseCrossRefId: Int): List<SetEntity>
 
     @Insert
     suspend fun insertSet(it: SetEntity)
@@ -34,9 +34,9 @@ interface SetDao {
 
     @Query("update sets " +
             "set `index` = `index` - 1 " +
-            "where workoutExerciseId = :templateExerciseCrossRefId " +
+            "where workoutExerciseId = :workoutExerciseCrossRefId " +
             "and `index`>:indexToBeRemoved")
-    suspend fun updateIndexes(templateExerciseCrossRefId: Int, indexToBeRemoved: Int)
+    suspend fun updateIndexes(workoutExerciseCrossRefId: Int, indexToBeRemoved: Int)
 
     @Update
     suspend fun updateSet(set: SetEntity)
