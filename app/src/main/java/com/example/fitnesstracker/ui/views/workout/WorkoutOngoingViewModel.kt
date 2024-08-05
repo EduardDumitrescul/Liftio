@@ -128,4 +128,8 @@ class WorkoutOngoingViewModel @Inject constructor(
             workoutService.removeExerciseFromTemplate(workoutExerciseCrossRefId)
         }
     }
+
+    fun completeSet() {
+        progressTracker.completeSet()
+    }
 }

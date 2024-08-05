@@ -19,10 +19,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.fitnesstracker.ui.components.TwoButtonBottomBar
 import com.example.fitnesstracker.ui.components.appbar.CenteredAppBar
 import com.example.fitnesstracker.ui.components.button.IconButton
-import com.example.fitnesstracker.ui.theme.AppTheme
 import com.example.fitnesstracker.ui.components.exerciseCard.EditableExerciseCard
+import com.example.fitnesstracker.ui.theme.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -35,6 +36,12 @@ fun WorkoutOngoingView(
 
     Scaffold(
         topBar = { AppBar(onClick = { /*TODO*/})  },
+        bottomBar = {
+            BottomBar(
+                completeSet = { viewModel.completeSet() },
+                skipSet = {}
+            )
+        },
         containerColor = AppTheme.colors.background
     ) { paddingValues ->
         Column(
@@ -100,5 +107,17 @@ private fun AppBar(
                 size = 40.dp
             )
         }
+    )
+}
+@Composable
+private fun BottomBar(
+    completeSet: () -> Unit,
+    skipSet: () -> Unit,
+) {
+    TwoButtonBottomBar(
+        primaryButtonText = "complete set",
+        onPrimaryButtonClick = completeSet,
+        secondaryButtonText = "skip",
+        onSecondaryButtonClick = skipSet
     )
 }

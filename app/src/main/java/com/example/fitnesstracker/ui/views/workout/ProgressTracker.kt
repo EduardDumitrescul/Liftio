@@ -1,6 +1,5 @@
 package com.example.fitnesstracker.ui.views.workout
 
-import android.util.Log
 import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetRowStyle
 import com.example.fitnesstracker.ui.views.template.detail.WorkoutState
 import kotlinx.coroutines.CoroutineScope
@@ -28,7 +27,6 @@ class ProgressTracker(
         scope.launch {
             state.collect { state->
                 val ids = state.getAllSetIds()
-                Log.d(TAG, ids.toString())
                 if(currentSetIndex < ids.size) {
                     if(currentSetId != ids[currentSetIndex]) {
                         currentSetId = ids[currentSetIndex]
@@ -41,6 +39,26 @@ class ProgressTracker(
 
     private fun highlightSet(id: Int) {
         updateSetStyle(id, SetRowStyle.HIGHLIGHTED)
+    }
+
+    fun completeSet() {
+        updateSetStyle(currentSetId, SetRowStyle.NORMAL)
+        goToNextSet()
+    }
+
+    private fun goToNextSet() {
+        currentSetIndex += 1
+        scope.launch {
+            state.collect { state->
+                val ids = state.getAllSetIds()
+                if(currentSetIndex < ids.size) {
+                    if(currentSetId != ids[currentSetIndex]) {
+                        currentSetId = ids[currentSetIndex]
+                        highlightSet(currentSetId)
+                    }
+                }
+            }
+        }
     }
 
 }
