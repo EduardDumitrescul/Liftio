@@ -39,7 +39,7 @@ fun WorkoutOngoingView(
         bottomBar = {
             BottomBar(
                 completeSet = { viewModel.completeSet() },
-                skipSet = {}
+                skipSet = { viewModel.skipSet() }
             )
         },
         containerColor = AppTheme.colors.background

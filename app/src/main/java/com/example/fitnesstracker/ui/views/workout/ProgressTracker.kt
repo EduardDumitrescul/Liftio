@@ -19,7 +19,8 @@ class ProgressTracker(
 //    val rowStyleMapFlow: StateFlow<Map<Int, SetRowStyle>> get() = _rowStyleMapFlow
 
     private var currentSetIndex = 0
-    private var currentSetId = 0
+    private var _currentSetId = 0
+    val currentSetId get() = _currentSetId
 
     init {
         initializeStatus()
@@ -31,8 +32,8 @@ class ProgressTracker(
                 val ids = state.getAllSetIds()
                 if(ids.isNotEmpty()) {
                     ids.forEach { markTodo(it) }
-                    currentSetId = ids.first()
-                    markOngoing(currentSetId)
+                    _currentSetId = ids.first()
+                    markOngoing(_currentSetId)
                     this.cancel()
                 }
             }
@@ -51,19 +52,23 @@ class ProgressTracker(
 
 
     fun completeSet() {
-        markDone(currentSetId)
+        markDone(_currentSetId)
         markNextOngoing()
     }
 
     private fun markNextOngoing() {
         val sets = state.value.getAllSets()
         for(i in 1 until sets.size) {
-            if(sets[i-1].id == currentSetId) {
-                currentSetId = sets[i].id
-                markOngoing(currentSetId)
+            if(sets[i-1].id == _currentSetId) {
+                _currentSetId = sets[i].id
+                markOngoing(_currentSetId)
                 break
             }
         }
+    }
+
+    fun skipSet() {
+        markNextOngoing()
     }
 }
 

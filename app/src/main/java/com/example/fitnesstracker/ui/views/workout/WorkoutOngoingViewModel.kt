@@ -137,4 +137,12 @@ class WorkoutOngoingViewModel @Inject constructor(
     fun completeSet() {
         progressTracker.completeSet()
     }
+
+    fun skipSet() {
+        val id = progressTracker.currentSetId
+        progressTracker.skipSet()
+        viewModelScope.launch {
+            workoutService.removeSetFromWorkoutExercise(workoutId, id)
+        }
+    }
 }
