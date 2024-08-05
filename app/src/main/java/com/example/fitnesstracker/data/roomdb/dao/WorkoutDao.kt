@@ -10,7 +10,8 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface WorkoutDao {
     @Query("select * from workouts " +
-            "where isBaseTemplate is 1")
+            "where isTemplate is 1"
+    )
     fun getTemplates(): Flow<List<WorkoutEntity>>
 
     @Insert

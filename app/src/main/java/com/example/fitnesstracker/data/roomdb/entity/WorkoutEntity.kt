@@ -9,19 +9,19 @@ data class WorkoutEntity (
     @PrimaryKey(autoGenerate = true) val id: Int,
     val parentTemplateId: Int,
     val name: String,
-    val isBaseTemplate: Boolean
+    val isTemplate: Boolean
 )
 
 fun WorkoutEntity.toModel() = Workout(
     id = id,
     parentTemplateId = parentTemplateId,
     name = name,
-    isBaseTemplate = isBaseTemplate,
+    isBaseTemplate = isTemplate,
 )
 
 fun Workout.toEntity() = WorkoutEntity(
     id = id,
     parentTemplateId = parentTemplateId,
     name = name,
-    isBaseTemplate = isBaseTemplate
+    isTemplate = isBaseTemplate
 )

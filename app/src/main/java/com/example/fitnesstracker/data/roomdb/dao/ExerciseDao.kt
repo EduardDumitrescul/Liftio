@@ -18,7 +18,7 @@ interface ExerciseDao {
 
     @Query("Select * from exercises " +
             "where id=:exerciseId")
-    fun getExerciseById(exerciseId: Int): Flow<ExerciseEntity?>
+    fun getExerciseById(exerciseId: Int): Flow<ExerciseEntity>
 
     @Insert
     suspend fun addExercise(exercise: ExerciseEntity): Long

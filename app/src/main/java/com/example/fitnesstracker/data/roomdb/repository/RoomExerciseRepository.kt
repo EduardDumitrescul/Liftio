@@ -53,7 +53,7 @@ class RoomExerciseRepository @Inject constructor(
             secondaryMuscles
         ) { ex, pm, sm ->
             ExerciseWithMuscles(
-                exercise = ex?.toModel() ?: Exercise(0, "", "", ""),
+                exercise = ex?.toModel() ?: Exercise.default(),
                 primaryMuscle = pm?.name ?: "",
                 secondaryMuscles = sm.map { it.name }
             )
@@ -115,7 +115,7 @@ class RoomExerciseRepository @Inject constructor(
 
                     combine(exerciseFlow, setsFlow) { exercise, sets ->
                         ExerciseWithSets(
-                            exercise = exercise!!.toModel(),
+                            exercise = exercise.toModel(),
                             sets = sets.map { it.toModel() }
                         )
                     }
