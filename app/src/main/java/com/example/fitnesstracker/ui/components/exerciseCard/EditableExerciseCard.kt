@@ -21,6 +21,7 @@ import com.example.fitnesstracker.ui.components.button.IconButton
 import com.example.fitnesstracker.ui.components.button.TextButton
 import com.example.fitnesstracker.ui.components.card.LargeCard
 import com.example.fitnesstracker.ui.components.exerciseCard.setRow.EditableSetRow
+import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetRowOptions
 import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetState
 import com.example.fitnesstracker.ui.theme.AppTheme
 
@@ -33,6 +34,7 @@ fun EditableExerciseCard(
     addSet: () -> Unit,
     removeSet: (Int) -> Unit,
     modifier: Modifier = Modifier,
+    options: ExerciseCardOptions = ExerciseCardOptions()
 ) {
     LargeCard(
         onClick = onClick,
@@ -53,13 +55,15 @@ fun EditableExerciseCard(
                         .padding(top = 16.dp)
                 )
 
-                IconButton(
-                    onClick = onRemoveClick,
-                    imageVector = Icons.Rounded.DeleteOutline,
-                    contentDescription = "remove exercise",
-                    containerColor = Color.Transparent,
-                    contentColor = AppTheme.colors.red
-                )
+                if(options.canRemoveExercise) {
+                    IconButton(
+                        onClick = onRemoveClick,
+                        imageVector = Icons.Rounded.DeleteOutline,
+                        contentDescription = "remove exercise",
+                        containerColor = Color.Transparent,
+                        contentColor = AppTheme.colors.red
+                    )
+                }
             }
 
 
@@ -80,6 +84,7 @@ fun EditableExerciseCard(
                 for(set in state.sets) {
                     EditableSetRow(
                         state = set,
+                        options = options.setRowOptions,
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(vertical = 8.dp)
@@ -91,17 +96,24 @@ fun EditableExerciseCard(
                     )
                 }
 
-                TextButton(
-                    text = "new set",
-                    imageVector = Icons.Rounded.Add,
-                    onClick = addSet,
-                    modifier = Modifier.padding(8.dp)
-                )
+                if(options.canAddSet) {
+                    TextButton(
+                        text = "new set",
+                        imageVector = Icons.Rounded.Add,
+                        onClick = addSet,
+                        modifier = Modifier.padding(8.dp)
+                    )
+                }
             }
-
         }
     }
 }
+
+data class ExerciseCardOptions(
+    val canRemoveExercise: Boolean = false,
+    val canAddSet: Boolean = false,
+    val setRowOptions: SetRowOptions = SetRowOptions(),
+)
 
 @Preview
 @Composable

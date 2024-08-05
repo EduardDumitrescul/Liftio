@@ -37,6 +37,7 @@ import kotlin.math.min
 @Composable
 fun EditableSetRow(
     state: SetState,
+    options: SetRowOptions = SetRowOptions(),
     onValuesChanged: (SetState) -> Unit,
     onRemoveClicked: () -> Unit,
     modifier: Modifier = Modifier,
@@ -62,7 +63,11 @@ fun EditableSetRow(
         MainRow(
             state = state,
             onRemoveClicked = onRemoveClicked,
-            onClick = {isEditing = true}
+            onClick = {
+                if(options.canUpdateValues) {
+                    isEditing = true
+                }
+            }
         )
 
         if(isEditing) {
@@ -81,6 +86,7 @@ fun EditableSetRow(
 @Composable
 private fun MainRow(
     state: SetState,
+    options: SetRowOptions = SetRowOptions(),
     onRemoveClicked: () -> Unit,
     onClick: () -> Unit,
 ) {
@@ -107,19 +113,25 @@ private fun MainRow(
             style = AppTheme.typography.body,
             modifier = Modifier.defaultMinSize(minWidth = 60.dp),
         )
-
-        IconButton(
-            onClick = onRemoveClicked,
-            Modifier.size(24.dp)
-        ) {
-            Icon(
-                imageVector = Icons.Rounded.Remove,
-                contentDescription = "remove set",
-                Modifier.size(20.dp)
-            )
+        if(options.canRemoveSet) {
+            IconButton(
+                onClick = onRemoveClicked,
+                Modifier.size(24.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Rounded.Remove,
+                    contentDescription = "remove set",
+                    Modifier.size(20.dp)
+                )
+            }
         }
     }
 }
+
+data class SetRowOptions(
+    val canRemoveSet: Boolean = false,
+    val canUpdateValues: Boolean = false,
+)
 
 @Composable
 private fun EditingArea(
