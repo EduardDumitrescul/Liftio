@@ -3,24 +3,24 @@
     "id": 1,
     "parentTemplateId": 0,
     "name": "Push Workout",
-    "isBaseTemplate": true
+    "isTemplate": true
   },
   {
     "id": 2,
     "parentTemplateId": 0,
     "name": "Pull Workout",
-    "isBaseTemplate": true
+    "isTemplate": true
   },
   {
     "id": 3,
     "parentTemplateId": 0,
     "name": "Legs Workout",
-    "isBaseTemplate": true
+    "isTemplate": true
   },
   {
     "id": 4,
     "parentTemplateId": 0,
     "name": "Push2 Workout",
-    "isBaseTemplate": false
+    "isTemplate": false
   }
 ]

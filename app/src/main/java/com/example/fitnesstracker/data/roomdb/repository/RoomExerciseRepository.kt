@@ -7,6 +7,8 @@ import com.example.fitnesstracker.data.repositories.ExerciseRepository
 import com.example.fitnesstracker.data.roomdb.dao.ExerciseDao
 import com.example.fitnesstracker.data.roomdb.dao.MuscleDao
 import com.example.fitnesstracker.data.roomdb.dao.SetDao
+import com.example.fitnesstracker.data.roomdb.entity.ExerciseEntity
+import com.example.fitnesstracker.data.roomdb.entity.WorkoutExerciseCrossRef
 import com.example.fitnesstracker.data.roomdb.entity.toEntity
 import com.example.fitnesstracker.data.roomdb.entity.toModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -69,24 +71,27 @@ class RoomExerciseRepository @Inject constructor(
         val exercisesWithMuscle: Flow<List<ExerciseWithMuscles>> =
             exercises.flatMapLatest { exList ->
                 val combinedFlows = exList.map { ex ->
-                    val primaryMuscle = muscleDao.getPrimaryMuscleByExerciseId(ex.id)
-                    val secondaryMuscles = muscleDao.getSecondaryMusclesByExerciseId(ex.id)
-                    combine(
-                        primaryMuscle,
-                        secondaryMuscles
-                    ) { pm, sm ->
-                        ExerciseWithMuscles(
-                            ex.toModel(),
-                            pm?.name ?: "",
-                            sm.map { it.name }
-                        )
-                    }
+                    getWorkedMuscles(ex)
                 }
-
                 combine(combinedFlows) {it.toList()}
             }
 
         return exercisesWithMuscle
+    }
+
+    private fun getWorkedMuscles(ex: ExerciseEntity): Flow<ExerciseWithMuscles> {
+        val primaryMuscle = muscleDao.getPrimaryMuscleByExerciseId(ex.id)
+        val secondaryMuscles = muscleDao.getSecondaryMusclesByExerciseId(ex.id)
+        return combine(
+            primaryMuscle,
+            secondaryMuscles
+        ) { pm, sm ->
+            ExerciseWithMuscles(
+                ex.toModel(),
+                pm?.name ?: "",
+                sm.map { it.name }
+            )
+        }
     }
 
     override suspend fun updateExercise(exercise: Exercise) {
@@ -110,15 +115,7 @@ class RoomExerciseRepository @Inject constructor(
                 flowOf(emptyList())
             } else {
                 val combinedFlows = workoutExerciseCrossRefs.map { workoutExerciseCrossRef ->
-                    val exerciseFlow = exerciseDao.getExerciseById(workoutExerciseCrossRef.exerciseId)
-                    val setsFlow = setDao.getSetsFlowByWorkoutExercise(workoutExerciseCrossRef.id)
-
-                    combine(exerciseFlow, setsFlow) { exercise, sets ->
-                        ExerciseWithSets(
-                            exercise = exercise.toModel(),
-                            sets = sets.map { it.toModel() }
-                        )
-                    }
+                    getExerciseWithSets(workoutExerciseCrossRef)
                 }
 
                 combine(combinedFlows) { exerciseWithSetsList ->
@@ -126,6 +123,18 @@ class RoomExerciseRepository @Inject constructor(
                     result
                 }
             }
+        }
+    }
+
+    private fun getExerciseWithSets(workoutExerciseCrossRef: WorkoutExerciseCrossRef): Flow<ExerciseWithSets> {
+        val exerciseFlow = exerciseDao.getExerciseById(workoutExerciseCrossRef.exerciseId)
+        val setsFlow = setDao.getSetsFlowByWorkoutExercise(workoutExerciseCrossRef.id)
+
+        return combine(exerciseFlow, setsFlow) { exercise, sets ->
+            ExerciseWithSets(
+                exercise = exercise.toModel(),
+                sets = sets.map { it.toModel() }
+            )
         }
     }
 }

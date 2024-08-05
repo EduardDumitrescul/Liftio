@@ -36,14 +36,14 @@ class RoomWorkoutRepository @Inject constructor(
     }
 
     override fun getWorkout(workoutId: Int): Flow<Workout> {
-        val templateEntity = workoutDao.getTemplateById(workoutId)
+        val templateEntity = workoutDao.getWorkoutById(workoutId)
         return templateEntity.map {
             it?.toModel() ?: Workout.default()
         }
     }
 
     override suspend fun addExerciseToWorkout(workoutId: Int, exerciseId: Int): Int {
-        val numberOfExercisesInTemplate = workoutDao.getNumberOfExercisesInTemplate(workoutId)
+        val numberOfExercisesInTemplate = workoutDao.getNumberOfExercisesInWorkout(workoutId)
         val templateExercise = WorkoutExerciseCrossRef(
             id = 0,
             workoutId = workoutId,
@@ -55,34 +55,14 @@ class RoomWorkoutRepository @Inject constructor(
 
     @OptIn(ExperimentalCoroutinesApi::class)
     override fun getExercisesWithSetsAndMuscles(workoutId: Int): Flow<List<DetailedExercise>> {
-        val templateExerciseFlow = workoutDao.getTemplateExercisesByTemplateId(workoutId)
+        val workoutExerciseFlow = workoutDao.getWorkoutExercisesByTemplateId(workoutId)
 
-        return templateExerciseFlow.flatMapLatest { templateExercises ->
-            if (templateExercises.isEmpty()) {
+        return workoutExerciseFlow.flatMapLatest { workoutExercises ->
+            if (workoutExercises.isEmpty()) {
                 flowOf(emptyList())
             } else {
-                val combinedFlows = templateExercises.map { templateExercise ->
-                    val exerciseFlow = exerciseDao.getExerciseById(templateExercise.exerciseId)
-                    val primaryMuscleFlow =
-                        muscleDao.getPrimaryMuscleByExerciseId(templateExercise.exerciseId)
-                    val secondaryMusclesFlow =
-                        muscleDao.getSecondaryMusclesByExerciseId(templateExercise.exerciseId)
-                    val setsFlow = setDao.getSetsFlowByWorkoutExercise(templateExercise.id)
-
-                    combine(
-                        exerciseFlow,
-                        primaryMuscleFlow,
-                        secondaryMusclesFlow,
-                        setsFlow
-                    ) { exercise, primaryMuscle, secondaryMuscles, sets ->
-                        DetailedExercise(
-                            exercise = exercise!!.toModel(),
-                            templateExerciseCrossRefId = templateExercise.id,
-                            primaryMuscle = primaryMuscle!!.toModel(),
-                            secondaryMuscles = secondaryMuscles.map { it.toModel() },
-                            sets = sets.map { it.toModel() }
-                        )
-                    }
+                val combinedFlows = workoutExercises.map { workoutExerciseCrossRef ->
+                    getDetailedExercise(workoutExerciseCrossRef)
                 }
 
                 combine(combinedFlows) { it.toList() }
@@ -90,12 +70,34 @@ class RoomWorkoutRepository @Inject constructor(
         }
     }
 
+    private fun getDetailedExercise(workoutExerciseCrossRef: WorkoutExerciseCrossRef): Flow<DetailedExercise> {
+        val exerciseFlow = exerciseDao.getExerciseById(workoutExerciseCrossRef.exerciseId)
+        val primaryMuscleFlow = muscleDao.getPrimaryMuscleByExerciseId(workoutExerciseCrossRef.exerciseId)
+        val secondaryMusclesFlow = muscleDao.getSecondaryMusclesByExerciseId(workoutExerciseCrossRef.exerciseId)
+        val setsFlow = setDao.getSetsFlowByWorkoutExercise(workoutExerciseCrossRef.id)
+
+        return combine(
+            exerciseFlow,
+            primaryMuscleFlow,
+            secondaryMusclesFlow,
+            setsFlow
+        ) { exercise, primaryMuscle, secondaryMuscles, sets ->
+            DetailedExercise(
+                exercise = exercise.toModel(),
+                templateExerciseCrossRefId = workoutExerciseCrossRef.id,
+                primaryMuscle = primaryMuscle!!.toModel(),
+                secondaryMuscles = secondaryMuscles.map { it.toModel() },
+                sets = sets.map { it.toModel() }
+            )
+        }
+    }
+
     override suspend fun updateWorkoutName(workoutId: Int, name: String) {
-        workoutDao.updateTemplateName(workoutId, name)
+        workoutDao.updateWorkoutName(workoutId, name)
     }
 
     override suspend fun removeWorkoutExerciseCrossRef(workoutExerciseCrossRefId: Int) {
-        workoutDao.removeTemplateExerciseCrossRef(workoutExerciseCrossRefId)
+        workoutDao.removeWorkoutExerciseCrossRef(workoutExerciseCrossRefId)
     }
 
     override suspend fun addWorkout(workout: Workout): Int {
@@ -104,7 +106,7 @@ class RoomWorkoutRepository @Inject constructor(
     }
 
     override suspend fun removeWorkout(workoutId: Int) {
-        workoutDao.removeTemplate(workoutId)
+        workoutDao.removeWorkout(workoutId)
     }
 
 }
