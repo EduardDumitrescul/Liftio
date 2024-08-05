@@ -94,7 +94,7 @@ class RoomExerciseRepository @Inject constructor(
         exerciseDao.updateExercise(entity)
     }
 
-    override fun getExercisesByTemplateId(id: Int): Flow<List<Exercise>> {
+    override fun getExercisesByWorkoutId(id: Int): Flow<List<Exercise>> {
         val exercises = exerciseDao.getExercisesByTemplateId(id)
         return exercises.map { list ->
             list.map {
@@ -104,7 +104,7 @@ class RoomExerciseRepository @Inject constructor(
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    override fun getExercisesWithSetsByTemplateId(id: Int): Flow<List<ExerciseWithSets>> {
+    override fun getExercisesWithSetsByWorkoutId(id: Int): Flow<List<ExerciseWithSets>> {
         return exerciseDao.getTemplateExerciseCrossRefs(id).flatMapLatest { templateExerciseCrossRefs ->
             if (templateExerciseCrossRefs.isEmpty()) {
                 flowOf(emptyList())

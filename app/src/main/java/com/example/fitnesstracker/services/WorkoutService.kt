@@ -33,7 +33,7 @@ class WorkoutService @Inject constructor(
             } else {
                 val templateSummaryFlows = templates.map { template ->
                     val musclesFlow = muscleRepository.getMusclesByTemplateId(template.id)
-                    val exercisesFlow = exerciseRepository.getExercisesWithSetsByTemplateId(template.id)
+                    val exercisesFlow = exerciseRepository.getExercisesWithSetsByWorkoutId(template.id)
 
                     combine(musclesFlow, exercisesFlow) { muscles, exercises ->
 
