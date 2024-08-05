@@ -31,6 +31,8 @@ import com.example.fitnesstracker.ui.components.appbar.LargeAppBar
 import com.example.fitnesstracker.ui.components.button.TextButton
 import com.example.fitnesstracker.ui.components.dialog.StringInputDialog
 import com.example.fitnesstracker.ui.components.exerciseCard.EditableExerciseCard
+import com.example.fitnesstracker.ui.components.exerciseCard.ExerciseCardOptions
+import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetRowOptions
 import com.example.fitnesstracker.ui.theme.AppTheme
 import kotlinx.coroutines.launch
 
@@ -108,7 +110,14 @@ fun TemplateEditView(
                 items(templateWithExercises.exerciseCardStates) { exerciseCardState ->
                     EditableExerciseCard(
                         state = exerciseCardState,
-                        onClick = { /*TODO*/ },
+                        options = ExerciseCardOptions(
+                            canRemoveExercise = true,
+                            canAddSet = true,
+                            setRowOptions = SetRowOptions(
+                                canRemoveSet = true,
+                                canUpdateValues = true
+                            )
+                        ),
                         onRemoveClick = {
                             viewModel.removeExerciseFromTemplate(exerciseCardState.templateExerciseCrossRefId)
                         },

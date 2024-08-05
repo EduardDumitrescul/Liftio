@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.fitnesstracker.ui.components.appbar.LargeAppBar
 import com.example.fitnesstracker.ui.components.button.FilledButton
-import com.example.fitnesstracker.ui.components.exerciseCard.ExerciseCard
+import com.example.fitnesstracker.ui.components.exerciseCard.EditableExerciseCard
 import com.example.fitnesstracker.ui.components.exerciseCard.toExerciseCardState
 import com.example.fitnesstracker.ui.theme.AppTheme
 import kotlinx.coroutines.launch
@@ -82,10 +82,10 @@ fun TemplateDetailedView(
             }
 
             items(templateWithExercises.exercisesWithSetsAndMuscles) {
-                ExerciseCard(
+                EditableExerciseCard(
                     state = it.toExerciseCardState(),
-                    onClick = {},
-                    modifier = Modifier.fillMaxWidth())
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
         }
     }

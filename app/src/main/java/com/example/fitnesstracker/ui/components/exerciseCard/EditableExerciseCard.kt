@@ -28,13 +28,13 @@ import com.example.fitnesstracker.ui.theme.AppTheme
 @Composable
 fun EditableExerciseCard(
     state: ExerciseCardState,
-    onClick: () -> Unit,
-    onRemoveClick: () -> Unit,
-    updateSet: (SetState) -> Unit,
-    addSet: () -> Unit,
-    removeSet: (Int) -> Unit,
     modifier: Modifier = Modifier,
-    options: ExerciseCardOptions = ExerciseCardOptions()
+    options: ExerciseCardOptions = ExerciseCardOptions(),
+    onClick: () -> Unit = {},
+    onRemoveClick: () -> Unit = {},
+    updateSet: (SetState) -> Unit = {},
+    addSet: () -> Unit = {},
+    removeSet: (Int) -> Unit = {},
 ) {
     LargeCard(
         onClick = onClick,
@@ -121,11 +121,6 @@ fun PreviewEditableExerciseCard() {
     AppTheme {
         EditableExerciseCard(
             state = ExerciseCardState.default(),
-            {},
-            {},
-            {},
-            {},
-            {}
         )
     }
 }

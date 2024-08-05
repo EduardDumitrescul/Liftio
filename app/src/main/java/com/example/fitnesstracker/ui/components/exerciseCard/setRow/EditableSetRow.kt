@@ -62,6 +62,7 @@ fun EditableSetRow(
     ) {
         MainRow(
             state = state,
+            options = options,
             onRemoveClicked = onRemoveClicked,
             onClick = {
                 if(options.canUpdateValues) {
@@ -86,7 +87,7 @@ fun EditableSetRow(
 @Composable
 private fun MainRow(
     state: SetState,
-    options: SetRowOptions = SetRowOptions(),
+    options: SetRowOptions,
     onRemoveClicked: () -> Unit,
     onClick: () -> Unit,
 ) {
