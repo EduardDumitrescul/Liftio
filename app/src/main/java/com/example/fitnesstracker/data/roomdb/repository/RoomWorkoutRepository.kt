@@ -26,7 +26,7 @@ class RoomWorkoutRepository @Inject constructor(
     private val setDao: SetDao,
     private val workoutDao: WorkoutDao,
 ): WorkoutRepository {
-    override fun getBaseTemplates(): Flow<List<Workout>> {
+    override fun getTemplates(): Flow<List<Workout>> {
         val entities = workoutDao.getBaseTemplates()
         return entities.map { list ->
             list.map {
@@ -90,8 +90,8 @@ class RoomWorkoutRepository @Inject constructor(
         }
     }
 
-    override suspend fun updateTemplateName(templateId: Int, templateName: String) {
-        workoutDao.updateTemplateName(templateId, templateName)
+    override suspend fun updateWorkoutName(workoutId: Int, name: String) {
+        workoutDao.updateTemplateName(workoutId, name)
     }
 
     override suspend fun removeWorkoutExerciseCrossRef(workoutExerciseCrossRefId: Int) {

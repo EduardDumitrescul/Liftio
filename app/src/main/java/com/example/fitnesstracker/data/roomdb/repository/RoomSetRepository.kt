@@ -18,8 +18,8 @@ class RoomSetRepository @Inject constructor(
         setDao.removeSet(id)
     }
 
-    override suspend fun updateSetIndexes(templateExerciseCrossRefId: Int, indexToBeRemoved: Int) {
-        setDao.updateIndexes(templateExerciseCrossRefId, indexToBeRemoved)
+    override suspend fun updateSetIndexes(workoutExerciseCrossRefId: Int, indexToBeRemoved: Int) {
+        setDao.updateIndexes(workoutExerciseCrossRefId, indexToBeRemoved)
     }
 
     override suspend fun getSet(id: Int): ExerciseSet {
@@ -27,8 +27,8 @@ class RoomSetRepository @Inject constructor(
         return entity.toModel()
     }
 
-    override suspend fun getSetsForTemplateExercise(templateExerciseCrossRefId: Int): List<ExerciseSet> {
-        val entities = setDao.getSetsByTemplateExercise(templateExerciseCrossRefId)
+    override suspend fun getSetsForWorkoutExercise(workoutExerciseCrossRefId: Int): List<ExerciseSet> {
+        val entities = setDao.getSetsByTemplateExercise(workoutExerciseCrossRefId)
         return entities.map {it.toModel()}
     }
 

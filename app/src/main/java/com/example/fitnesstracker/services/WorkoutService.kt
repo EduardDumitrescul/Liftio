@@ -26,13 +26,13 @@ class WorkoutService @Inject constructor(
 ) {
     @OptIn(ExperimentalCoroutinesApi::class)
     fun getTemplateSummaries(): Flow<List<TemplateSummary>> {
-        return workoutRepository.getBaseTemplates().flatMapLatest { templates ->
+        return workoutRepository.getTemplates().flatMapLatest { templates ->
             if (templates.isEmpty()) {
                 Log.d(TAG, "No templates found.")
                 flowOf(emptyList())
             } else {
                 val templateSummaryFlows = templates.map { template ->
-                    val musclesFlow = muscleRepository.getMusclesByTemplateId(template.id)
+                    val musclesFlow = muscleRepository.getMusclesByWorkoutId(template.id)
                     val exercisesFlow = exerciseRepository.getExercisesWithSetsByWorkoutId(template.id)
 
                     combine(musclesFlow, exercisesFlow) { muscles, exercises ->
@@ -78,7 +78,7 @@ class WorkoutService @Inject constructor(
     }
 
     suspend fun updateTemplateName(templateId: Int, templateName: String) {
-        workoutRepository.updateTemplateName(templateId, templateName)
+        workoutRepository.updateWorkoutName(templateId, templateName)
     }
 
     suspend fun removeExerciseFromTemplate(templateExerciseCrossRefId: Int) {
@@ -92,7 +92,7 @@ class WorkoutService @Inject constructor(
     }
 
     suspend fun addSetToWorkoutExercise(templateExerciseCrossRefId: Int) {
-        val sets: List<ExerciseSet> = setRepository.getSetsForTemplateExercise(templateExerciseCrossRefId)
+        val sets: List<ExerciseSet> = setRepository.getSetsForWorkoutExercise(templateExerciseCrossRefId)
 
         val newSet =
             if(sets.isEmpty())

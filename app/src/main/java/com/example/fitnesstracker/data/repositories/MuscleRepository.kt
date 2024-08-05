@@ -12,5 +12,5 @@ interface MuscleRepository {
     suspend fun getMuscleId(name: String): Int
     suspend fun addExerciseMuscleCrossRef(exerciseMuscleCrossRef: ExerciseMuscleCrossRef)
     suspend fun removeExerciseMuscleRefs(exerciseId: Int)
-    fun getMusclesByTemplateId(id: Int): Flow<List<Muscle>>
+    fun getMusclesByWorkoutId(id: Int): Flow<List<Muscle>>
 }

@@ -50,7 +50,7 @@ class RoomMuscleRepository @Inject constructor(
         muscleDao.removeExerciseMuscleRefs(exerciseId)
     }
 
-    override fun getMusclesByTemplateId(id: Int): Flow<List<Muscle>> {
+    override fun getMusclesByWorkoutId(id: Int): Flow<List<Muscle>> {
         val entities = muscleDao.getMusclesByTemplateId(id)
         return entities.map { list ->
             list.map {
