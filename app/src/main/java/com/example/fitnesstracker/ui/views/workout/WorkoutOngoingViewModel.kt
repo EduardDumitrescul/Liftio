@@ -1,10 +1,11 @@
 package com.example.fitnesstracker.ui.views.workout
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fitnesstracker.services.WorkoutService
-import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetRowStyle
 import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetState
+import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetStatus
 import com.example.fitnesstracker.ui.components.exerciseCard.setRow.toSetState
 import com.example.fitnesstracker.ui.components.exerciseCard.toExerciseCardState
 import com.example.fitnesstracker.ui.views.template.detail.WorkoutState
@@ -23,6 +24,8 @@ import kotlinx.coroutines.withContext
 import java.time.LocalDateTime
 import javax.inject.Inject
 
+private const val TAG = "WorkoutOngoingViewModel"
+
 @HiltViewModel
 class WorkoutOngoingViewModel @Inject constructor(
     private val workoutId: Int,
@@ -32,7 +35,7 @@ class WorkoutOngoingViewModel @Inject constructor(
     private lateinit var _ongoingWorkout: StateFlow<WorkoutState>
     val ongoingWorkout get() = _ongoingWorkout
 
-    private val _setStyleMapFlow: MutableStateFlow<Map<Int, SetRowStyle>> = MutableStateFlow(emptyMap())
+    private val _setStyleMapFlow: MutableStateFlow<Map<Int, SetStatus>> = MutableStateFlow(emptyMap())
 
 
     private lateinit var progressTracker: ProgressTracker
@@ -60,7 +63,7 @@ class WorkoutOngoingViewModel @Inject constructor(
                             set.toSetState(map[set.id]!!)
                         }
                         else {
-                            set.toSetState(SetRowStyle.DISABLED)
+                            set.toSetState(SetStatus.TODO)
                         }
                     }
                     exercise.toExerciseCardState().copy(
@@ -77,7 +80,7 @@ class WorkoutOngoingViewModel @Inject constructor(
         progressTracker = ProgressTracker(
             state = ongoingWorkout,
             scope = viewModelScope,
-            updateSetStyle = { id, style-> updateSetStyle(id, style)}
+            updateSetStatus = { id, style-> updateSetStatus(id, style)}
         )
     }
 
@@ -91,10 +94,12 @@ class WorkoutOngoingViewModel @Inject constructor(
         }
     }
 
-    private fun updateSetStyle(id: Int, style: SetRowStyle) {
+    private fun updateSetStatus(id: Int, status: SetStatus) {
         _setStyleMapFlow.update { map ->
+
+            Log.d(TAG, "$id, ${status}")
             map.toMutableMap().apply {
-                put(id, style)
+                put(id, status)
             }
         }
     }

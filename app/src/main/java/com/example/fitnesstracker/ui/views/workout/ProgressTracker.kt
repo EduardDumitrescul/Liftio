@@ -1,8 +1,10 @@
 package com.example.fitnesstracker.ui.views.workout
 
-import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetRowStyle
+import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetState
+import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetStatus
 import com.example.fitnesstracker.ui.views.template.detail.WorkoutState
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
@@ -11,7 +13,7 @@ private const val TAG = "ProgressTracker"
 class ProgressTracker(
     private val state: StateFlow<WorkoutState>,
     private val scope: CoroutineScope,
-    private val updateSetStyle: (Int, SetRowStyle) -> Unit,
+    private val updateSetStatus: (Int, SetStatus) -> Unit,
 ) {
 //    private val _rowStyleMapFlow: MutableStateFlow<Map<Int, SetRowStyle>> = MutableStateFlow(emptyMap())
 //    val rowStyleMapFlow: StateFlow<Map<Int, SetRowStyle>> get() = _rowStyleMapFlow
@@ -20,49 +22,55 @@ class ProgressTracker(
     private var currentSetId = 0
 
     init {
-        observeState()
+        initializeStatus()
     }
 
-    private fun observeState() {
+    private fun initializeStatus() {
         scope.launch {
-            state.collect { state->
+            state.collect { state ->
                 val ids = state.getAllSetIds()
-                if(currentSetIndex < ids.size) {
-                    if(currentSetId != ids[currentSetIndex]) {
-                        currentSetId = ids[currentSetIndex]
-                        highlightSet(currentSetId)
-                    }
+                if(ids.isNotEmpty()) {
+                    ids.forEach { markTodo(it) }
+                    currentSetId = ids.first()
+                    markOngoing(currentSetId)
+                    this.cancel()
                 }
             }
         }
     }
 
-    private fun highlightSet(id: Int) {
-        updateSetStyle(id, SetRowStyle.HIGHLIGHTED)
+    private fun markOngoing(id: Int) {
+        updateSetStatus(id, SetStatus.ONGOING)
     }
+    private fun markTodo(id: Int) {
+        updateSetStatus(id, SetStatus.TODO)
+    }
+    private fun markDone(id: Int) {
+        updateSetStatus(id, SetStatus.DONE)
+    }
+
 
     fun completeSet() {
-        updateSetStyle(currentSetId, SetRowStyle.NORMAL)
-        goToNextSet()
+        markDone(currentSetId)
+        markNextOngoing()
     }
 
-    private fun goToNextSet() {
-        currentSetIndex += 1
-        scope.launch {
-            state.collect { state->
-                val ids = state.getAllSetIds()
-                if(currentSetIndex < ids.size) {
-                    if(currentSetId != ids[currentSetIndex]) {
-                        currentSetId = ids[currentSetIndex]
-                        highlightSet(currentSetId)
-                    }
-                }
+    private fun markNextOngoing() {
+        val sets = state.value.getAllSets()
+        for(i in 1 until sets.size) {
+            if(sets[i-1].id == currentSetId) {
+                currentSetId = sets[i].id
+                markOngoing(currentSetId)
+                break
             }
         }
     }
-
 }
 
 private fun WorkoutState.getAllSetIds(): List<Int> {
     return exerciseCardStates.flatMap { it.sets.map { set -> set.id } }
+}
+
+private fun WorkoutState.getAllSets(): List<SetState> {
+    return exerciseCardStates.flatMap { it.sets }
 }

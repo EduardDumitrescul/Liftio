@@ -17,12 +17,11 @@ import com.example.fitnesstracker.ui.theme.AppTheme
 
 @Composable
 fun SetRow(
-    exerciseSet: ExerciseSet,
+    state: SetState,
     modifier: Modifier = Modifier,
-    style: SetRowStyle = SetRowStyle.NORMAL
 ) {
-    val alpha = if(style == SetRowStyle.DISABLED) 0.5f else 1.0f
-    val backgroundColor = if(style == SetRowStyle.HIGHLIGHTED) AppTheme.colors.containerVariant else Color.Transparent
+    val alpha = if(state.status == SetStatus.TODO) 0.5f else 1.0f
+    val backgroundColor = if(state.status == SetStatus.ONGOING) AppTheme.colors.containerVariant else Color.Transparent
 
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -32,19 +31,19 @@ fun SetRow(
             .then(modifier)
     ) {
         Text(
-            text = exerciseSet.index.toString() + '.',
+            text = state.index.toString() + '.',
             style = AppTheme.typography.body,
             color = AppTheme.colors.onContainer,
         )
 
         Text(
-            text = exerciseSet.reps.toString() + " reps",
+            text = state.reps.toString() + " reps",
             style = AppTheme.typography.body,
             color = AppTheme.colors.onContainer,
         )
 
         Text(
-            text = exerciseSet.weight.toString() + "kg",
+            text = state.weight.toString() + "kg",
             style = AppTheme.typography.body,
             color = AppTheme.colors.onContainer,
         )
@@ -55,7 +54,7 @@ fun SetRow(
 @Composable
 @Preview(showBackground = true)
 fun PreviewSetRow() {
-    val exerciseSet = ExerciseSet(1, 1, 1, 10, 20)
+    val exerciseSet = ExerciseSet(1, 1, 1, 10, 20).toSetState()
     AppTheme {
         Column {
 
@@ -65,12 +64,10 @@ fun PreviewSetRow() {
             )
             SetRow(
                 exerciseSet,
-                style = SetRowStyle.DISABLED,
                 modifier = Modifier.width(160.dp)
             )
             SetRow(
                 exerciseSet,
-                style = SetRowStyle.HIGHLIGHTED,
                 modifier = Modifier.width(160.dp)
             )
         }

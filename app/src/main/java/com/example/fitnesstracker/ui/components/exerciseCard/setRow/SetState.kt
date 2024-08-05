@@ -8,7 +8,7 @@ data class SetState(
     val index: Int,
     val reps: Int,
     val weight: Int,
-    var style: SetRowStyle
+    var status: SetStatus
 ) {
     fun toExerciseSet() =
         ExerciseSet(
@@ -20,20 +20,21 @@ data class SetState(
         )
 }
 
-fun ExerciseSet.toSetState(style: SetRowStyle = SetRowStyle.NORMAL) =
+fun ExerciseSet.toSetState(status: SetStatus = SetStatus.DONE) =
     SetState(
         id = id,
         workoutExerciseId = workoutExerciseId,
         index = index,
         reps = reps,
         weight = weight,
-        style = style
+        status = status
     )
 
 
 
-enum class SetRowStyle {
-    NORMAL,
-    HIGHLIGHTED,
-    DISABLED
+enum class SetStatus {
+    DONE,
+    ONGOING,
+    TODO,
+    SKIPPED,
 }

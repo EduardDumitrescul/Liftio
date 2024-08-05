@@ -44,10 +44,10 @@ fun EditableSetRow(
     var isEditing by remember {
         mutableStateOf(false)
     }
-    val alpha = if(state.style == SetRowStyle.DISABLED) 0.5f else 1.0f
+    val alpha = if(state.status == SetStatus.TODO) 0.5f else 1.0f
 
     val backgroundColor = when {
-        state.style == SetRowStyle.HIGHLIGHTED ->  AppTheme.colors.containerVariant
+        state.status == SetStatus.ONGOING ->  AppTheme.colors.containerVariant
         isEditing ->  AppTheme.colors.containerVariant
         else -> Color.Transparent
     }
@@ -265,7 +265,7 @@ fun PreviewEditableSetRow() {
         mutableStateOf(
             SetState(
                 1, 1, 1, 10, 20,
-                SetRowStyle.NORMAL
+                SetStatus.DONE
             )
         )
     }

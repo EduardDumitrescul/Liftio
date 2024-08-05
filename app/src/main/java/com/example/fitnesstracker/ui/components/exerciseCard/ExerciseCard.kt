@@ -19,7 +19,7 @@ import com.example.fitnesstracker.ui.theme.AppTheme
 
 @Composable
 fun ExerciseCard(
-    detailedExercise: DetailedExercise,
+    state: ExerciseCardState,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -31,7 +31,7 @@ fun ExerciseCard(
             verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal),
         ) {
             Text(
-                text = detailedExercise.exercise.name,
+                text = state.exercise.name,
                 style = AppTheme.typography.headline,
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
@@ -40,8 +40,8 @@ fun ExerciseCard(
 
             MuscleChipRow(
                 model = MuscleChipRowModel(
-                    detailedExercise.primaryMuscle.name,
-                    detailedExercise.secondaryMuscles.map { it.name }
+                    state.primaryMuscle.name,
+                    state.secondaryMuscles.map { it.name }
                 ),
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
@@ -49,9 +49,9 @@ fun ExerciseCard(
             Column(
                 modifier = Modifier.padding(top = 8.dp)
             ) {
-                for(set in detailedExercise.sets) {
+                for(set in state.sets) {
                     SetRow(
-                        exerciseSet = set,
+                        state = set,
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(vertical = 8.dp)
@@ -70,14 +70,14 @@ fun ExerciseCard(
 fun PreviewExerciseCard() {
     AppTheme {
         ExerciseCard(
-            detailedExercise = DetailedExercise.default().copy(
+            state = DetailedExercise.default().copy(
                 sets = listOf(
                     ExerciseSet(0, 1, 1, 10, 20),
                     ExerciseSet(0, 1, 2, 10, 20),
                     ExerciseSet(0, 1, 3, 10, 20),
                     ExerciseSet(0, 1, 4, 10, 20),
                     )
-            ),
+            ).toExerciseCardState(),
             {}
         )
     }
