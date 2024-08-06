@@ -53,7 +53,7 @@ fun AppNavHost(
         }
 
         composable(route = PerformWorkout.route) {
-            WorkoutOngoingView()
+            WorkoutOngoingView(navigateBack = {navController.navigateUp()})
         }
 
         composable(route = SelectExercise.route) {

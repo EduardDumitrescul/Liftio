@@ -30,12 +30,15 @@ import com.example.fitnesstracker.ui.theme.AppTheme
 @Composable
 fun WorkoutOngoingView(
     viewModel: WorkoutOngoingViewModel = hiltViewModel(),
+    navigateBack: () -> Unit,
 ) {
     val ongoingWorkout by viewModel.ongoingWorkout.collectAsState()
     val elapsedTime by viewModel.elapsedTime.collectAsState()
 
     Scaffold(
-        topBar = { AppBar(onFinishButtonClick = { /*TODO*/})  },
+        topBar = { AppBar(
+            navigateBack = navigateBack,
+            onFinishButtonClick = { /*TODO*/})  },
         bottomBar = {
             BottomBar(
                 completeSet = { viewModel.completeSet() },
@@ -91,9 +94,11 @@ fun WorkoutOngoingView(
 @Composable
 private fun AppBar(
     onFinishButtonClick: () -> Unit,
+    navigateBack: () -> Unit,
 ) {
     CenteredAppBar(
         title = "Pull Workout",
+        onNavigationIconClick = navigateBack,
         actions = {
             FinishButton(onFinishButtonClick)
         }
