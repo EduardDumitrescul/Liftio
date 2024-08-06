@@ -36,5 +36,4 @@ enum class SetStatus {
     DONE,
     ONGOING,
     TODO,
-    SKIPPED,
 }
