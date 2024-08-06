@@ -15,11 +15,12 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.fitnesstracker.data.dto.ExerciseWithMuscles
+import com.example.fitnesstracker.ui.components.appbar.LargeAppBar
+import com.example.fitnesstracker.ui.components.button.TwoButtonRow
 import com.example.fitnesstracker.ui.components.chip.MultiChoiceChipGroupField
 import com.example.fitnesstracker.ui.components.chip.SingleChoiceChipGroupField
 import com.example.fitnesstracker.ui.components.textfield.StringValueEditField
-import com.example.fitnesstracker.ui.components.button.TwoButtonRow
-import com.example.fitnesstracker.ui.components.appbar.LargeAppBar
 import com.example.fitnesstracker.ui.theme.AppTheme
 import kotlinx.coroutines.launch
 
@@ -44,7 +45,7 @@ fun ExerciseEditView(
             LargeAppBar(
                 title = "Edit Exercise",
                 showNavigationIcon = true,
-                onNavigationIconClick = {navigateBack()}
+                onNavigationIconClick = navigateBack
             )
         },
         bottomBar = {
@@ -76,42 +77,84 @@ fun ExerciseEditView(
                 .padding(horizontal = AppTheme.dimensions.paddingLarge),
             verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingLarge)
         ) {
-            StringValueEditField(
-                title = "Name",
-                initialFieldValue = exercise.exercise.name,
-                onValueChanged =  { viewModel.updateExerciseName(it) },
-                placeholderText = "exercise name"
-            )
+            NameEditField(exercise, viewModel)
 
-            StringValueEditField(
-                title = "Description",
-                initialFieldValue = exercise.exercise.description,
-                onValueChanged =  { viewModel.updateExerciseDescription(it) },
-                placeholderText = "description\n(optional)",
-                singleLine = false,
-                minLines = 5,
-            )
+            DescriptionEditField(exercise, viewModel)
 
-            SingleChoiceChipGroupField(
-                title = "Necessary Equipment",
-                options =  listOf("barbell", "dumbbells", "machine", "cables", "none"),
-                selectedOption = exercise.exercise.equipment,
-                onSelectionChanged = { viewModel.updateEquipment(it) }
-            )
+            EquipmentSelect(exercise, viewModel)
 
-            SingleChoiceChipGroupField(
-                title = "Target Muscle",
-                options =  muscleNames,
-                selectedOption = exercise.primaryMuscle,
-                onSelectionChanged = { viewModel.updatePrimaryMuscle(it) }
-            )
+            PrimaryMuscleSelect(muscleNames, exercise, viewModel)
 
-            MultiChoiceChipGroupField(
-                title = "Secondary Muscles",
-                options = muscleNames,
-                selectedOptions = exercise.secondaryMuscles.toSet(),
-                onSelectionChanged = { viewModel.updateSecondaryMuscles(it) }
-            )
+            SecondaryMusclesSelect(muscleNames, exercise, viewModel)
         }
     }
+}
+
+@Composable
+private fun SecondaryMusclesSelect(
+    muscleNames: List<String>,
+    exercise: ExerciseWithMuscles,
+    viewModel: ExerciseEditViewModel
+) {
+    MultiChoiceChipGroupField(
+        title = "Secondary Muscles",
+        options = muscleNames,
+        selectedOptions = exercise.secondaryMuscles.toSet(),
+        onSelectionChanged = { viewModel.updateSecondaryMuscles(it) }
+    )
+}
+
+@Composable
+private fun PrimaryMuscleSelect(
+    muscleNames: List<String>,
+    exercise: ExerciseWithMuscles,
+    viewModel: ExerciseEditViewModel
+) {
+    SingleChoiceChipGroupField(
+        title = "Target Muscle",
+        options = muscleNames,
+        selectedOption = exercise.primaryMuscle,
+        onSelectionChanged = { viewModel.updatePrimaryMuscle(it) }
+    )
+}
+
+@Composable
+private fun EquipmentSelect(
+    exercise: ExerciseWithMuscles,
+    viewModel: ExerciseEditViewModel
+) {
+    SingleChoiceChipGroupField(
+        title = "Necessary Equipment",
+        options = listOf("barbell", "dumbbells", "machine", "cables", "none"),
+        selectedOption = exercise.exercise.equipment,
+        onSelectionChanged = { viewModel.updateEquipment(it) }
+    )
+}
+
+@Composable
+private fun DescriptionEditField(
+    exercise: ExerciseWithMuscles,
+    viewModel: ExerciseEditViewModel
+) {
+    StringValueEditField(
+        title = "Description",
+        initialFieldValue = exercise.exercise.description,
+        onValueChanged = { viewModel.updateExerciseDescription(it) },
+        placeholderText = "description\n(optional)",
+        singleLine = false,
+        minLines = 5,
+    )
+}
+
+@Composable
+private fun NameEditField(
+    exercise: ExerciseWithMuscles,
+    viewModel: ExerciseEditViewModel
+) {
+    StringValueEditField(
+        title = "Name",
+        initialFieldValue = exercise.exercise.name,
+        onValueChanged = { viewModel.updateExerciseName(it) },
+        placeholderText = "exercise name"
+    )
 }

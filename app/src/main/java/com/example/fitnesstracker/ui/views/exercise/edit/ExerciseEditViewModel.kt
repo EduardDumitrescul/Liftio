@@ -29,12 +29,7 @@ class ExerciseEditViewModel @Inject constructor(
 
     private var _exerciseWithMuscles: MutableStateFlow<ExerciseWithMuscles> = MutableStateFlow(
         ExerciseWithMuscles(
-            exercise = Exercise(
-                id = 0,
-                name = "",
-                description = "",
-                equipment = ""
-            ),
+            exercise = Exercise.default(),
             primaryMuscle = "",
             secondaryMuscles = listOf()
         )
