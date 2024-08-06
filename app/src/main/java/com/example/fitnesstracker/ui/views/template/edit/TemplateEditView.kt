@@ -26,9 +26,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.fitnesstracker.ui.components.button.TwoButtonRow
 import com.example.fitnesstracker.ui.components.appbar.LargeAppBar
 import com.example.fitnesstracker.ui.components.button.TextButton
+import com.example.fitnesstracker.ui.components.button.TwoButtonRow
 import com.example.fitnesstracker.ui.components.dialog.StringInputDialog
 import com.example.fitnesstracker.ui.components.exerciseCard.EditableExerciseCard
 import com.example.fitnesstracker.ui.components.exerciseCard.ExerciseCardOptions
@@ -95,14 +95,8 @@ fun TemplateEditView(
                 .padding(paddingValues)
                 .padding(horizontal = AppTheme.dimensions.paddingLarge),
         ) {
-            TextButton(
-                text = "change name",
-                imageVector = Icons.Rounded.Edit,
-                onClick = { shouldShowNameChangeDialog = true },
-                modifier = Modifier.padding(bottom = 32.dp)
-            )
-
-
+            ChangeNameButton(shouldShowNameChangeDialog)
+            
             LazyColumn(
                 horizontalAlignment = Alignment.CenterHorizontally ,
                 verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -135,11 +129,7 @@ fun TemplateEditView(
                 }
 
                 item {
-                    TextButton(
-                        text = "new exercise",
-                        imageVector = Icons.Rounded.Add,
-                        onClick = onNewExerciseButtonClick
-                    )
+                    AddExerciseButton(onNewExerciseButtonClick)
                 }
             }
         }
@@ -155,6 +145,26 @@ fun TemplateEditView(
             })
     }
 
+}
+
+@Composable
+private fun AddExerciseButton(onNewExerciseButtonClick: () -> Unit) {
+    TextButton(
+        text = "new exercise",
+        imageVector = Icons.Rounded.Add,
+        onClick = onNewExerciseButtonClick
+    )
+}
+
+@Composable
+private fun ChangeNameButton(shouldShowNameChangeDialog: Boolean) {
+    var shouldShowNameChangeDialog1 = shouldShowNameChangeDialog
+    TextButton(
+        text = "change name",
+        imageVector = Icons.Rounded.Edit,
+        onClick = { shouldShowNameChangeDialog1 = true },
+        modifier = Modifier.padding(bottom = 32.dp)
+    )
 }
 
 @Preview
