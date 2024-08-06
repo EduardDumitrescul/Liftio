@@ -123,7 +123,7 @@ class WorkoutOngoingViewModel @Inject constructor(
     fun removeSet(workoutExerciseCrossRefId: Int, setId: Int) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                workoutService.removeSetFromWorkoutExercise(workoutExerciseCrossRefId, setId)
+                workoutService.removeSetFromWorkoutExercise(setId)
             }
         }
     }
@@ -142,7 +142,7 @@ class WorkoutOngoingViewModel @Inject constructor(
         val id = progressTracker.currentSetId
         progressTracker.skipSet()
         viewModelScope.launch {
-            workoutService.removeSetFromWorkoutExercise(workoutId, id)
+            workoutService.removeSetFromWorkoutExercise(id)
         }
     }
 }

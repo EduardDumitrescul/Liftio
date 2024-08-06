@@ -122,7 +122,7 @@ fun TemplateEditView(
                             viewModel.addSet(exerciseCardState.templateExerciseCrossRefId)
                         },
                         removeSet = {
-                            viewModel.removeSet(exerciseCardState.templateExerciseCrossRefId, it)
+                            viewModel.removeSet(it)
                         },
                         modifier = Modifier.fillMaxWidth()
                     )

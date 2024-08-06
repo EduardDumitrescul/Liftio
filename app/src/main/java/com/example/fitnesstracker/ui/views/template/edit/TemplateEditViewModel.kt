@@ -83,10 +83,10 @@ class TemplateEditViewModel @Inject constructor(
         }
     }
 
-    fun removeSet(templateExerciseCrossRefId: Int, setId: Int) {
+    fun removeSet(setId: Int) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                workoutService.removeSetFromWorkoutExercise(templateExerciseCrossRefId, setId)
+                workoutService.removeSetFromWorkoutExercise(setId)
             }
         }
     }

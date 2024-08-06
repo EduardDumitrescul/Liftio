@@ -76,30 +76,30 @@ class WorkoutService @Inject constructor(
         }
     }
 
-    suspend fun addExerciseToTemplate(templateId: Int, exerciseId: Int) {
-        workoutRepository.addExerciseToWorkout(templateId, exerciseId)
+    suspend fun addExerciseToTemplate(id: Int, exerciseId: Int) {
+        workoutRepository.addExerciseToWorkout(id, exerciseId)
     }
 
-    suspend fun updateTemplateName(templateId: Int, templateName: String) {
-        workoutRepository.updateWorkoutName(templateId, templateName)
+    suspend fun updateTemplateName(id: Int, name: String) {
+        workoutRepository.updateWorkoutName(id, name)
     }
 
-    suspend fun removeExerciseFromTemplate(templateExerciseCrossRefId: Int) {
-        workoutRepository.removeWorkoutExerciseCrossRef(templateExerciseCrossRefId)
+    suspend fun removeExerciseFromTemplate(workoutExerciseCrossRefId: Int) {
+        workoutRepository.removeWorkoutExerciseCrossRef(workoutExerciseCrossRefId)
     }
 
-    suspend fun removeSetFromWorkoutExercise(templateExerciseCrossRefId: Int, setId: Int) {
+    suspend fun removeSetFromWorkoutExercise(setId: Int) {
         val set = setRepository.getSet(setId)
-        setRepository.updateSetIndexes(templateExerciseCrossRefId, set.index)
+        setRepository.updateSetIndexes(set.workoutExerciseId, set.index)
         setRepository.removeSet(setId)
     }
 
-    suspend fun addSetToWorkoutExercise(templateExerciseCrossRefId: Int) {
-        val sets: List<ExerciseSet> = setRepository.getSetsForWorkoutExercise(templateExerciseCrossRefId)
+    suspend fun addSetToWorkoutExercise(workoutExerciseCrossRefId: Int) {
+        val sets: List<ExerciseSet> = setRepository.getSetsForWorkoutExercise(workoutExerciseCrossRefId)
 
         val newSet =
             if(sets.isEmpty())
-                ExerciseSet(0, templateExerciseCrossRefId, 1, 12, 20)
+                ExerciseSet(0, workoutExerciseCrossRefId, 1, 12, 20)
             else
                 sets.last().copy(
                     id = 0,
