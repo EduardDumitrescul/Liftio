@@ -76,7 +76,7 @@ fun WorkoutOngoingView(
                             viewModel.addSet(exerciseDetailed.templateExerciseCrossRefId)
                         },
                         removeSet = {
-                            viewModel.removeSet(exerciseDetailed.templateExerciseCrossRefId, it)
+                            viewModel.removeSet(it)
                         },
                         modifier = Modifier.fillMaxWidth()
                     )

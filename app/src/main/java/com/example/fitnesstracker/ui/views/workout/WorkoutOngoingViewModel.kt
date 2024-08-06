@@ -120,7 +120,7 @@ class WorkoutOngoingViewModel @Inject constructor(
         }
     }
 
-    fun removeSet(workoutExerciseCrossRefId: Int, setId: Int) {
+    fun removeSet(setId: Int) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 workoutService.removeSetFromWorkoutExercise(setId)
