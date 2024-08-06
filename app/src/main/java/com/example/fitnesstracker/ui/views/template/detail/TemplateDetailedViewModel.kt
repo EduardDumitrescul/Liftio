@@ -30,7 +30,7 @@ class TemplateDetailedViewModel @Inject constructor(
     private fun startCollectingTemplateData() {
         collectionJob?.cancel() // Cancel any previous collection
         collectionJob = viewModelScope.launch {
-            workoutService.getTemplateWithExercisesById(templateId)
+            workoutService.getDetailedWorkout(templateId)
                 .collect { templateDetailed ->
                     _detailedWorkout.value = templateDetailed
                 }

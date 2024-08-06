@@ -31,20 +31,7 @@ class WorkoutService @Inject constructor(
                 Log.d(TAG, "No templates found.")
                 flowOf(emptyList())
             } else {
-                val workoutSummaryFlows = templates.map { template ->
-                    val musclesFlow = muscleRepository.getMusclesByWorkoutId(template.id)
-                    val exercisesFlow = exerciseRepository.getExercisesWithSetsByWorkoutId(template.id)
-
-                    combine(musclesFlow, exercisesFlow) { muscles, exercises ->
-
-                        WorkoutSummary(
-                            id = template.id,
-                            name = template.name,
-                            workedMuscles = muscles.map { it.name },
-                            exerciseList = exercises.map { "${it.sets.size} x ${it.exercise.name}" }
-                        )
-                    }
-                }
+                val workoutSummaryFlows = templates.map { getWorkoutSummary(it.id) }
 
 
                 combine(workoutSummaryFlows) {
@@ -55,9 +42,25 @@ class WorkoutService @Inject constructor(
         }
     }
 
-    fun getTemplateWithExercisesById(templateId: Int): Flow<DetailedWorkout> {
-        val templateFlow = workoutRepository.getWorkout(templateId)
-        val exercises = workoutRepository.getExercisesWithSetsAndMuscles(templateId)
+    private fun getWorkoutSummary(id: Int): Flow<WorkoutSummary> {
+        val musclesFlow = muscleRepository.getMusclesByWorkoutId(id)
+        val exercisesFlow = exerciseRepository.getExercisesWithSetsByWorkoutId(id)
+        val workoutFlow = workoutRepository.getWorkout(id)
+
+        return combine(workoutFlow, musclesFlow, exercisesFlow) { workout, muscles, exercises ->
+
+            WorkoutSummary(
+                id = workout.id,
+                name = workout.name,
+                workedMuscles = muscles.map { it.name },
+                exerciseList = exercises.map { "${it.sets.size} x ${it.exercise.name}" }
+            )
+        }
+    }
+
+    fun getDetailedWorkout(id: Int): Flow<DetailedWorkout> {
+        val templateFlow = workoutRepository.getWorkout(id)
+        val exercises = workoutRepository.getExercisesWithSetsAndMuscles(id)
 
         return combine(
             templateFlow,

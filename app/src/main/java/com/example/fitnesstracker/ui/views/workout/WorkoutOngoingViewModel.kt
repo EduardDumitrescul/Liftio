@@ -54,7 +54,7 @@ class WorkoutOngoingViewModel @Inject constructor(
 
     private fun initializeState() {
         _ongoingWorkout = combine(
-                workoutService.getTemplateWithExercisesById(workoutId),
+                workoutService.getDetailedWorkout(workoutId),
                 _setStyleMapFlow
             ) { workout, map ->
                 val updatedExercises = workout.exercisesWithSetsAndMuscles.map { exercise ->

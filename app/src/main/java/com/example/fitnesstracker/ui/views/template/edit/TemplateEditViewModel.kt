@@ -48,7 +48,7 @@ class TemplateEditViewModel @Inject constructor(
         collectionJob = viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 templateId = workoutService.createNewTemplate()
-                val flow = workoutService.getTemplateWithExercisesById(templateId)
+                val flow = workoutService.getDetailedWorkout(templateId)
 
                 flow.collect { templateDetailed ->
                     _state.value = templateDetailed.toWorkoutState()
@@ -60,7 +60,7 @@ class TemplateEditViewModel @Inject constructor(
 
     private fun getTemplateData() {
         viewModelScope.launch {
-            workoutService.getTemplateWithExercisesById(templateId)
+            workoutService.getDetailedWorkout(templateId)
                 .collect { templateDetailed ->
                     _state.value = templateDetailed.toWorkoutState()
                 }
