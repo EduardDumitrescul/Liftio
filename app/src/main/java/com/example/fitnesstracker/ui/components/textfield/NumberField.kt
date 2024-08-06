@@ -39,70 +39,93 @@ fun NumberField(
     modifier: Modifier = Modifier,
     leadingIcon: @Composable (() -> Unit)? = null,
 ) {
-    val interactionSource = remember { MutableInteractionSource() }
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        IconButton(
-            onClick = onDecreaseValue,
-            imageVector = Icons.Rounded.Remove,
-            contentDescription = "decrease",
-            containerColor = numberFieldColors.focusedContainerColor,
-            contentColor = numberFieldColors.focusedTextColor,
-            modifier = Modifier.size(32.dp)
-        )
+        DecreaseValueButton(onDecreaseValue)
 
-        BasicTextField(
-            value = value,
-            onValueChange = {
-                onValueChange(it)
-            },
-            modifier = modifier,
-            cursorBrush = SolidColor(AppTheme.colors.primary),
-            enabled = true,
-            interactionSource = interactionSource,
-            singleLine = true,
-            textStyle = AppTheme.typography.body.copy(
-                textAlign = TextAlign.Center
-            ),
-            keyboardOptions = KeyboardOptions().copy(
-                keyboardType = KeyboardType.Number,
-                imeAction = ImeAction.Done,
-            ),
-        ) { innerTextField ->
-            TextFieldDefaults.DecorationBox(
-                value = value,
-                innerTextField = innerTextField,
-                enabled = true,
-                singleLine = true,
-                visualTransformation = VisualTransformation.None,
-                interactionSource = interactionSource,
-                leadingIcon = leadingIcon,
-                shape = AppTheme.shapes.roundedSmallCornerShape,
-                colors = numberFieldColors,
-                contentPadding = TextFieldDefaults.contentPaddingWithoutLabel(
-                    top = 4.dp,
-                    bottom = 4.dp,
-                    start = 4.dp,
-                    end = 4.dp,
-                ),
-            )
-        }
+        TextField(value, onValueChange, modifier, leadingIcon)
 
-        IconButton(
-            onClick = onIncreaseValue,
-            imageVector = Icons.Rounded.Add,
-            contentDescription = "increase",
-            containerColor = numberFieldColors.focusedContainerColor,
-            contentColor = numberFieldColors.focusedTextColor,
-            modifier = Modifier.size(32.dp)
-        )
-
+        IncreaseValueButton(onIncreaseValue)
     }
+}
 
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+private fun TextField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    modifier: Modifier,
+    leadingIcon: @Composable() (() -> Unit)?,
+) {
+    val interactionSource = remember { MutableInteractionSource() }
 
+    BasicTextField(
+        value = value,
+        onValueChange = {
+            onValueChange(it)
+        },
+        modifier = modifier,
+        cursorBrush = SolidColor(AppTheme.colors.primary),
+        enabled = true,
+        interactionSource = interactionSource,
+        singleLine = true,
+        textStyle = AppTheme.typography.body.copy(
+            textAlign = TextAlign.Center
+        ),
+        keyboardOptions = KeyboardOptions().copy(
+            keyboardType = KeyboardType.Number,
+            imeAction = ImeAction.Done,
+        ),
+    ) { innerTextField ->
+        TextFieldDefaults.DecorationBox(
+            value = value,
+            innerTextField = innerTextField,
+            enabled = true,
+            singleLine = true,
+            visualTransformation = VisualTransformation.None,
+            interactionSource = interactionSource,
+            leadingIcon = leadingIcon,
+            shape = AppTheme.shapes.roundedSmallCornerShape,
+            colors = numberFieldColors,
+            contentPadding = TextFieldDefaults.contentPaddingWithoutLabel(
+                top = 4.dp,
+                bottom = 4.dp,
+                start = 4.dp,
+                end = 4.dp,
+            ),
+        )
+    }
+}
+
+@Composable
+private fun DecreaseValueButton(
+    onDecreaseValue: () -> Unit,
+) {
+    IconButton(
+        onClick = onDecreaseValue,
+        imageVector = Icons.Rounded.Remove,
+        contentDescription = "decrease",
+        containerColor = numberFieldColors.focusedContainerColor,
+        contentColor = numberFieldColors.focusedTextColor,
+        modifier = Modifier.size(32.dp)
+    )
+}
+
+@Composable
+private fun IncreaseValueButton(
+    onIncreaseValue: () -> Unit,
+) {
+    IconButton(
+        onClick = onIncreaseValue,
+        imageVector = Icons.Rounded.Add,
+        contentDescription = "increase",
+        containerColor = numberFieldColors.focusedContainerColor,
+        contentColor = numberFieldColors.focusedTextColor,
+        modifier = Modifier.size(32.dp)
+    )
 }
 
 private val numberFieldColors @Composable get() = TextFieldDefaults.colors(

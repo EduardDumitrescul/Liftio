@@ -47,22 +47,10 @@ fun EditableExerciseCard(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text(
-                    text = state.exercise.name,
-                    style = AppTheme.typography.headline,
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .padding(top = 16.dp)
-                )
+                Title(state.exercise.name)
 
                 if(options.canRemoveExercise) {
-                    IconButton(
-                        onClick = onRemoveClick,
-                        imageVector = Icons.Rounded.DeleteOutline,
-                        contentDescription = "remove exercise",
-                        containerColor = Color.Transparent,
-                        contentColor = AppTheme.colors.red
-                    )
+                    RemoveButton(onRemoveClick)
                 }
             }
 
@@ -81,32 +69,69 @@ fun EditableExerciseCard(
                     .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                for(set in state.sets) {
-                    EditableSetRow(
-                        state = set,
-                        options = options.setRowOptions,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 8.dp)
-                            .padding(horizontal = 20.dp),
-                        onValuesChanged = updateSet,
-                        onRemoveClicked = {
-                            removeSet(set.id)
-                        }
-                    )
-                }
+                SetRowsColumn(state, options, updateSet, removeSet)
 
                 if(options.canAddSet) {
-                    TextButton(
-                        text = "new set",
-                        imageVector = Icons.Rounded.Add,
-                        onClick = addSet,
-                        modifier = Modifier.padding(8.dp)
-                    )
+                    AddSetButton(addSet)
                 }
             }
         }
     }
+}
+
+@Composable
+private fun SetRowsColumn(
+    state: ExerciseCardState,
+    options: ExerciseCardOptions,
+    updateSet: (SetState) -> Unit,
+    removeSet: (Int) -> Unit
+) {
+    for (set in state.sets) {
+        EditableSetRow(
+            state = set,
+            options = options.setRowOptions,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp)
+                .padding(horizontal = 20.dp),
+            onValuesChanged = updateSet,
+            onRemoveClicked = {
+                removeSet(set.id)
+            }
+        )
+    }
+}
+
+@Composable
+private fun AddSetButton(addSet: () -> Unit) {
+    TextButton(
+        text = "new set",
+        imageVector = Icons.Rounded.Add,
+        onClick = addSet,
+        modifier = Modifier.padding(8.dp)
+    )
+}
+
+@Composable
+private fun Title(text: String) {
+    Text(
+        text = text,
+        style = AppTheme.typography.headline,
+        modifier = Modifier
+            .padding(horizontal = 16.dp)
+            .padding(top = 16.dp)
+    )
+}
+
+@Composable
+private fun RemoveButton(onRemoveClick: () -> Unit) {
+    IconButton(
+        onClick = onRemoveClick,
+        imageVector = Icons.Rounded.DeleteOutline,
+        contentDescription = "remove exercise",
+        containerColor = Color.Transparent,
+        contentColor = AppTheme.colors.red
+    )
 }
 
 data class ExerciseCardOptions(
