@@ -17,7 +17,6 @@ import com.example.fitnesstracker.ui.components.card.LargeCard
 import com.example.fitnesstracker.ui.components.chip.FilledChip
 import com.example.fitnesstracker.ui.theme.AppTheme
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun WorkoutCard(
     workout: WorkoutSummary,
@@ -28,35 +27,52 @@ fun WorkoutCard(
             modifier = Modifier.padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal)
         ) {
-            Text(
-                text = workout.name,
-                style = AppTheme.typography.headline
-            )
+            Title(workout.name)
 
             HorizontalDivider(color = AppTheme.colors.container)
 
-            FlowRow(
-                horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal),
-                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal),
-            ) {
-                for(muscle in workout.workedMuscles) {
-                    FilledChip(label = muscle)
-                }
-            }
+            MusclesRow(workout.workedMuscles)
 
-            Column(
-                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingExtraSmall)
-            ) {
-                for(exercise in workout.exerciseList) {
-                    Text(
-                        text = exercise,
-                        style = AppTheme.typography.body,
-                        color = AppTheme.colors.onContainer.copy(alpha = 0.7f))
-                }
-            }
+            ExerciseList(workout.exerciseList)
         }
 
     }
+}
+
+@Composable
+private fun ExerciseList(exerciseList: List<String>) {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingExtraSmall)
+    ) {
+        for (exercise in exerciseList) {
+            Text(
+                text = exercise,
+                style = AppTheme.typography.body,
+                color = AppTheme.colors.onContainer.copy(alpha = 0.7f)
+            )
+        }
+    }
+}
+
+@Composable
+@OptIn(ExperimentalLayoutApi::class)
+private fun MusclesRow(workedMuscles: List<String>) {
+    FlowRow(
+        horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal),
+        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal),
+    ) {
+        for (muscle in workedMuscles) {
+            FilledChip(label = muscle)
+        }
+    }
+}
+
+@Composable
+private fun Title(text: String) {
+    Text(
+        text = text,
+        style = AppTheme.typography.headline
+    )
 }
 
 @Composable
