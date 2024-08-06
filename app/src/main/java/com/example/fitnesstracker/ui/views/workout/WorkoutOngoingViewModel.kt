@@ -39,6 +39,8 @@ class WorkoutOngoingViewModel @Inject constructor(
 
     private lateinit var progressTracker: ProgressTracker
 
+    val currentExerciseId get() = if(::progressTracker.isInitialized) progressTracker.currentExerciseId else 0
+
     private val _elapsedTime = MutableStateFlow(0L)
     val elapsedTime get() = _elapsedTime
     private val timerRunning = true

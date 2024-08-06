@@ -23,6 +23,7 @@ import com.example.fitnesstracker.ui.components.appbar.CenteredAppBar
 import com.example.fitnesstracker.ui.components.button.IconButton
 import com.example.fitnesstracker.ui.components.button.TwoButtonRow
 import com.example.fitnesstracker.ui.components.exerciseCard.EditableExerciseCard
+import com.example.fitnesstracker.ui.components.exerciseCard.ExerciseCardOptions
 import com.example.fitnesstracker.ui.theme.AppTheme
 
 @Composable
@@ -57,6 +58,9 @@ fun WorkoutOngoingView(
                 items(ongoingWorkout.exerciseCardStates) { exerciseDetailed ->
                     EditableExerciseCard(
                         state = exerciseDetailed,
+                        options = ExerciseCardOptions().copy(
+                            canAddSet = exerciseDetailed.exercise.id == viewModel.currentExerciseId
+                        ),
                         onClick = { /*TODO*/ },
                         onRemoveClick = {
                             viewModel.removeExerciseFromWorkout(exerciseDetailed.templateExerciseCrossRefId)

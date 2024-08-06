@@ -46,7 +46,6 @@ class ProgressTracker(
         updateSetStatus(id, SetStatus.DONE)
     }
 
-
     fun completeSet() {
         markDone(_currentSetId)
         markNextOngoing()
@@ -65,6 +64,15 @@ class ProgressTracker(
 
     fun skipSet() {
         markNextOngoing()
+    }
+
+    val currentExerciseId: Int get() = run {
+        for(exercise in state.value.exerciseCardStates) {
+            if(exercise.sets.find { it.id == _currentSetId } != null) {
+                return exercise.exercise.id
+            }
+        }
+        return 0
     }
 }
 
