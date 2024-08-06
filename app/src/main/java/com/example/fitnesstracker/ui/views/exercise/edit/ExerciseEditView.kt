@@ -15,8 +15,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.fitnesstracker.ui.components.MultiChoiceChipGroupField
-import com.example.fitnesstracker.ui.components.SingleChoiceChipGroupField
+import com.example.fitnesstracker.ui.components.chip.MultiChoiceChipGroupField
+import com.example.fitnesstracker.ui.components.chip.SingleChoiceChipGroupField
 import com.example.fitnesstracker.ui.components.StringValueEditField
 import com.example.fitnesstracker.ui.components.TwoButtonRow
 import com.example.fitnesstracker.ui.components.appbar.LargeAppBar

@@ -1,4 +1,4 @@
-package com.example.fitnesstracker.ui.components
+package com.example.fitnesstracker.ui.components.chip
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -6,15 +6,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.example.fitnesstracker.ui.components.chip.SingleChoiceChipGroup
 import com.example.fitnesstracker.ui.theme.AppTheme
 
 @Composable
-fun SingleChoiceChipGroupField(
+fun MultiChoiceChipGroupField(
     title: String,
     options: List<String>,
-    selectedOption: String,
-    onSelectionChanged: (String) -> Unit,
+    selectedOptions: Set<String>,
+    onSelectionChanged: (Set<String>) -> Unit,
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal),
@@ -26,9 +25,9 @@ fun SingleChoiceChipGroupField(
             color = AppTheme.colors.onBackground
         )
 
-        SingleChoiceChipGroup(
+        MultiChoiceChipGroup(
             options = options,
-            selected = selectedOption,
+            selected = selectedOptions,
             onSelectionChanged = onSelectionChanged
         )
     }
