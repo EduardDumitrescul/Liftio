@@ -25,30 +25,33 @@ fun CenteredAppBar(
     modifier: Modifier = Modifier,
     onNavigationIconClick: () -> Unit = {},
     scrollBehavior: TopAppBarScrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(),
-    showNavigationIcon: Boolean = true,
     actions: @Composable RowScope.() -> Unit = {},
 ) {
     CenterAlignedTopAppBar(
         title = {
-            Text(
-                title,
-                modifier = modifier,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                style = AppTheme.typography.title,
-                color= AppTheme.colors.primary
-            )
+            Title(title)
         },
         modifier = modifier,
         colors = appBarColors,
         navigationIcon = {
             BackNavigationIcon(
                 onClick = onNavigationIconClick,
-                color = AppTheme.colors.primary
+                color = AppTheme.colors.onBackground
             )
         },
         actions = actions,
         scrollBehavior = scrollBehavior
+    )
+}
+
+@Composable
+private fun Title(title: String) {
+    Text(
+        title,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis,
+        style = AppTheme.typography.title,
+        color = AppTheme.colors.onBackground
     )
 }
 
