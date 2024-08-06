@@ -1,11 +1,9 @@
-package com.example.fitnesstracker.ui.components
+package com.example.fitnesstracker.ui.components.button
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.example.fitnesstracker.ui.components.button.FilledButton
-import com.example.fitnesstracker.ui.components.button.OutlinedButton
 import com.example.fitnesstracker.ui.theme.AppTheme
 
 @Composable

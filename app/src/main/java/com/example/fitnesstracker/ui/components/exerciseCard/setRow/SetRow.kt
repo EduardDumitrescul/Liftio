@@ -28,7 +28,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.fitnesstracker.ui.components.TwoButtonRow
+import com.example.fitnesstracker.ui.components.button.TwoButtonRow
 import com.example.fitnesstracker.ui.components.textfield.NumberField
 import com.example.fitnesstracker.ui.theme.AppTheme
 import kotlin.math.min

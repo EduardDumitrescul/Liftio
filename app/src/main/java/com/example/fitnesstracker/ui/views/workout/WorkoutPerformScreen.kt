@@ -19,7 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.fitnesstracker.ui.components.TwoButtonRow
+import com.example.fitnesstracker.ui.components.button.TwoButtonRow
 import com.example.fitnesstracker.ui.components.appbar.CenteredAppBar
 import com.example.fitnesstracker.ui.components.button.IconButton
 import com.example.fitnesstracker.ui.components.exerciseCard.EditableExerciseCard
