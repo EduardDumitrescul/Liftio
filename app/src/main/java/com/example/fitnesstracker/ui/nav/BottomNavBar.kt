@@ -46,7 +46,7 @@ fun BottomNavBar(
         color = AppTheme.colors.container,
         modifier = modifier
             .fillMaxWidth()
-            .height(80.dp),
+            .height(64.dp),
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically
@@ -89,7 +89,6 @@ private fun NavItem(
                 onClick = onClick,
             )
             .fillMaxHeight(),
-//            .background(AppTheme.colors.container),
         contentAlignment = Alignment.Center
     ){
         Column(
