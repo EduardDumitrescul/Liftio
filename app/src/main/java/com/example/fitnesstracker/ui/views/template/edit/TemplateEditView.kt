@@ -95,7 +95,7 @@ fun TemplateEditView(
                 .padding(paddingValues)
                 .padding(horizontal = AppTheme.dimensions.paddingLarge),
         ) {
-            ChangeNameButton(shouldShowNameChangeDialog)
+            ChangeNameButton(onClick = { shouldShowNameChangeDialog = true })
             
             LazyColumn(
                 horizontalAlignment = Alignment.CenterHorizontally ,
@@ -157,12 +157,11 @@ private fun AddExerciseButton(onNewExerciseButtonClick: () -> Unit) {
 }
 
 @Composable
-private fun ChangeNameButton(shouldShowNameChangeDialog: Boolean) {
-    var shouldShowNameChangeDialog1 = shouldShowNameChangeDialog
+private fun ChangeNameButton(onClick: () -> Unit) {
     TextButton(
         text = "change name",
         imageVector = Icons.Rounded.Edit,
-        onClick = { shouldShowNameChangeDialog1 = true },
+        onClick = onClick,
         modifier = Modifier.padding(bottom = 32.dp)
     )
 }
