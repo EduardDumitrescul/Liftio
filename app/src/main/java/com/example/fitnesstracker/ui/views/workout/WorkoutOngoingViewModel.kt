@@ -21,7 +21,6 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.time.LocalDateTime
 import javax.inject.Inject
 
 private const val TAG = "WorkoutOngoingViewModel"
@@ -40,7 +39,6 @@ class WorkoutOngoingViewModel @Inject constructor(
 
     private lateinit var progressTracker: ProgressTracker
 
-    private val startTime = LocalDateTime.now()
     private val _elapsedTime = MutableStateFlow(0L)
     val elapsedTime get() = _elapsedTime
     private val timerRunning = true

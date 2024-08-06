@@ -19,23 +19,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.fitnesstracker.ui.components.button.TwoButtonRow
 import com.example.fitnesstracker.ui.components.appbar.CenteredAppBar
 import com.example.fitnesstracker.ui.components.button.IconButton
+import com.example.fitnesstracker.ui.components.button.TwoButtonRow
 import com.example.fitnesstracker.ui.components.exerciseCard.EditableExerciseCard
 import com.example.fitnesstracker.ui.theme.AppTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WorkoutOngoingView(
     viewModel: WorkoutOngoingViewModel = hiltViewModel(),
-    navigateBack: () -> Unit,
 ) {
     val ongoingWorkout by viewModel.ongoingWorkout.collectAsState()
     val elapsedTime by viewModel.elapsedTime.collectAsState()
 
     Scaffold(
-        topBar = { AppBar(onClick = { /*TODO*/})  },
+        topBar = { AppBar(onFinishButtonClick = { /*TODO*/})  },
         bottomBar = {
             BottomBar(
                 completeSet = { viewModel.completeSet() },
@@ -75,14 +73,6 @@ fun WorkoutOngoingView(
                         modifier = Modifier.fillMaxWidth()
                     )
                 }
-
-//                item {
-//                    TextButton(
-//                        text = "new exercise",
-//                        imageVector = Icons.Rounded.Add,
-//                        onClick = onNewExerciseButtonClick
-//                    )
-//                }
             }
         }
     }
@@ -92,23 +82,29 @@ fun WorkoutOngoingView(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun AppBar(
-    onClick: () -> Unit,
+    onFinishButtonClick: () -> Unit,
 ) {
     CenteredAppBar(
         title = "Pull Workout",
         actions = {
-            IconButton(
-                onClick = onClick,
-                modifier = Modifier.size(40.dp),
-                imageVector = Icons.Rounded.CheckCircleOutline,
-                contentDescription = "finish workout",
-                containerColor = Color.Transparent,
-                contentColor = AppTheme.colors.primary,
-                size = 40.dp
-            )
+            FinishButton(onFinishButtonClick)
         }
     )
 }
+
+@Composable
+private fun FinishButton(onClick: () -> Unit) {
+    IconButton(
+        onClick = onClick,
+        modifier = Modifier.size(40.dp),
+        imageVector = Icons.Rounded.CheckCircleOutline,
+        contentDescription = "finish workout",
+        containerColor = Color.Transparent,
+        contentColor = AppTheme.colors.primary,
+        size = 40.dp
+    )
+}
+
 @Composable
 private fun BottomBar(
     completeSet: () -> Unit,

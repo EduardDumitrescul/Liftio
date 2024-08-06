@@ -15,10 +15,6 @@ class ProgressTracker(
     private val scope: CoroutineScope,
     private val updateSetStatus: (Int, SetStatus) -> Unit,
 ) {
-//    private val _rowStyleMapFlow: MutableStateFlow<Map<Int, SetRowStyle>> = MutableStateFlow(emptyMap())
-//    val rowStyleMapFlow: StateFlow<Map<Int, SetRowStyle>> get() = _rowStyleMapFlow
-
-    private var currentSetIndex = 0
     private var _currentSetId = 0
     val currentSetId get() = _currentSetId
 
