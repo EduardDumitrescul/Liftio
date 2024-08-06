@@ -43,18 +43,13 @@ fun TemplateDetailedView(
             LargeAppBar(
                 title = templateWithExercises.name,
                 actions = {
-                    IconButton(onClick = {
+                    RemoveButton(onClick = {
                         navigateBack()
                         viewModel.removeTemplate()
-                    }) {
-                        Icon(Icons.Rounded.Delete, "remove template")
-                    }
-                    IconButton(onClick ={
+                    })
+                    EditButton(onClick = {
                         navigateToTemplateEditView(templateWithExercises.id)
-                        }
-                    ) {
-                        Icon(Icons.Rounded.Edit, "edit template")
-                    }
+                    })
                 },
                 onNavigationIconClick = navigateBack
             )
@@ -68,17 +63,12 @@ fun TemplateDetailedView(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             item {
-                FilledButton(
-                    text = "start training",
-                    onClick = {
-                        coroutineScope.launch {
-                            val id  = viewModel.createWorkoutFromThisTemplate()
-                            navigateToOngoingWorkout(id)
-                        }
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                )
+                StartTrainingButton(onClick = {
+                    coroutineScope.launch {
+                        val id = viewModel.createWorkoutFromThisTemplate()
+                        navigateToOngoingWorkout(id)
+                    }
+                })
             }
 
             items(templateWithExercises.exercisesWithSetsAndMuscles) {
@@ -88,6 +78,37 @@ fun TemplateDetailedView(
                 )
             }
         }
+    }
+}
+
+@Composable
+private fun StartTrainingButton(
+    onClick: () -> Unit,
+) {
+    FilledButton(
+        text = "start training",
+        onClick = onClick,
+        modifier = Modifier
+            .fillMaxWidth()
+    )
+}
+
+@Composable
+private fun EditButton(
+    onClick: () -> Unit,
+) {
+    IconButton(onClick = onClick,
+    ) {
+        Icon(Icons.Rounded.Edit, "edit template")
+    }
+}
+
+@Composable
+private fun RemoveButton(
+    onClick: () -> Unit,
+) {
+    IconButton(onClick = onClick) {
+        Icon(Icons.Rounded.Delete, "remove template")
     }
 }
 
