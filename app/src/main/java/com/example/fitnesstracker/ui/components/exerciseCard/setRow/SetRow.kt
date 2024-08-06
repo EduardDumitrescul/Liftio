@@ -28,8 +28,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.fitnesstracker.ui.components.button.FilledButton
-import com.example.fitnesstracker.ui.components.button.OutlinedButton
+import com.example.fitnesstracker.ui.components.TwoButtonRow
 import com.example.fitnesstracker.ui.components.textfield.NumberField
 import com.example.fitnesstracker.ui.theme.AppTheme
 import kotlin.math.min
@@ -37,10 +36,10 @@ import kotlin.math.min
 @Composable
 fun EditableSetRow(
     state: SetState,
+    modifier: Modifier = Modifier,
     options: SetRowOptions = SetRowOptions(),
     onValuesChanged: (SetState) -> Unit,
     onRemoveClicked: () -> Unit,
-    modifier: Modifier = Modifier,
 ) {
     var isEditing by remember {
         mutableStateOf(false)
@@ -99,33 +98,56 @@ private fun MainRow(
             .fillMaxWidth()
             .clickable { onClick() }
     ) {
-        Text(
-            text = state.index.toString() + '.',
-            style = AppTheme.typography.body,
-            color = AppTheme.colors.onContainer,
-        )
-        Text(
-            text = state.reps.toString() + " reps",
-            style = AppTheme.typography.body,
-            modifier = Modifier.defaultMinSize(minWidth = 60.dp),
-        )
-        Text(
-            text = state.weight.toString() + " kg",
-            style = AppTheme.typography.body,
-            modifier = Modifier.defaultMinSize(minWidth = 60.dp),
-        )
+        IndexText(state.index)
+
+        RepsText(state.reps)
+
+        WeightText(state.weight)
+
         if(options.canRemoveSet) {
-            IconButton(
-                onClick = onRemoveClicked,
-                Modifier.size(24.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.Rounded.Remove,
-                    contentDescription = "remove set",
-                    Modifier.size(20.dp)
-                )
-            }
+            RemoveButton(onRemoveClicked)
         }
+    }
+}
+
+@Composable
+private fun WeightText(weight: Int) {
+    Text(
+        text = "$weight kg",
+        style = AppTheme.typography.body,
+        modifier = Modifier.defaultMinSize(minWidth = 60.dp),
+    )
+}
+
+@Composable
+private fun RepsText(reps: Int) {
+    Text(
+        text = "$reps reps",
+        style = AppTheme.typography.body,
+        modifier = Modifier.defaultMinSize(minWidth = 60.dp),
+    )
+}
+
+@Composable
+private fun IndexText(index: Int) {
+    Text(
+        text = "$index.",
+        style = AppTheme.typography.body,
+        color = AppTheme.colors.onContainer,
+    )
+}
+
+@Composable
+private fun RemoveButton(onRemoveClicked: () -> Unit) {
+    IconButton(
+        onClick = onRemoveClicked,
+        Modifier.size(24.dp)
+    ) {
+        Icon(
+            imageVector = Icons.Rounded.Remove,
+            contentDescription = "remove set",
+            Modifier.size(20.dp)
+        )
     }
 }
 
@@ -150,99 +172,75 @@ private fun EditingArea(
 
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxWidth()
             .background(AppTheme.colors.containerVariant)
             .padding(8.dp)
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            Spacer(modifier = Modifier.weight(0.5f))
-            NumberField(
-                value = repsValue,
-                onValueChange = {
-                    repsValue = validateString(it).toString()
-                },
-                onIncreaseValue = {
-                    repsValue = addToIntString(repsValue, 1)
-                },
-                onDecreaseValue = {
-                    repsValue = addToIntString(repsValue, -1)
-                },
-                modifier = Modifier.width(120.dp)
-            )
-            Text(
-                text = "reps",
-                style = AppTheme.typography.body,
-                color = AppTheme.colors.onContainerVariant,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(0.5f)
-            )
-        }
 
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            Spacer(modifier = Modifier.weight(0.5f))
-            NumberField(
-                value = weightValue,
-                onValueChange = {
-                    weightValue = validateString(it)
-                },
-                onIncreaseValue = {
-                    weightValue = addToIntString(weightValue, 1)
-                                  },
-                onDecreaseValue = {
-                   weightValue = addToIntString(weightValue, -1)
-                                  },
-                modifier = Modifier.width(120.dp)
-            )
-            Text(
-                text = "kg",
-                style = AppTheme.typography.body,
-                color = AppTheme.colors.onContainerVariant,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(0.5f)
-            )
-        }
+        ValueEditRow(
+            value = repsValue,
+            text = "reps",
+            onValueChange = { repsValue = validateString(it)},
+            onIncreaseValue = { repsValue = addToIntString(repsValue, 1) },
+            onDecreaseValue = { repsValue = addToIntString(repsValue, -1) },
+        )
 
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(
-                space = 8.dp,
-                alignment = Alignment.CenterHorizontally
-            ),
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            OutlinedButton(
-                text = "cancel",
-                onClick = onCancel,
-                modifier = Modifier
-                    .height(32.dp)
-                    .width(96.dp)
-            )
+        ValueEditRow(
+            value = weightValue,
+            text = "kg",
+            onValueChange = { weightValue = validateString(it)},
+            onIncreaseValue = { weightValue = addToIntString(weightValue, 1) },
+            onDecreaseValue = { weightValue = addToIntString(weightValue, -1) },
+        )
 
-            FilledButton(
-                text = "save",
-                onClick = {
-                    onSave(
-                        state.copy(
-                            reps = getIntFromString(repsValue),
-                            weight = getIntFromString(weightValue)
-                        )
+        TwoButtonRow(
+            primaryButtonText = "save",
+            onPrimaryButtonClick = {
+                onSave(
+                    state.copy(
+                        reps = getIntFromString(repsValue),
+                        weight = getIntFromString(weightValue)
                     )
-                },
-                modifier = Modifier
-                    .height(32.dp)
-                    .width(96.dp)
-            )
-        }
+                )
+            },
+            secondaryButtonText = "cancel",
+            onSecondaryButtonClick = onCancel,
+            modifier = Modifier.width(200.dp).height(32.dp)
+        )
+    }
+}
+
+@Composable
+private fun ValueEditRow(
+    value: String,
+    text: String,
+    onValueChange: (String) -> Unit,
+    onIncreaseValue: () -> Unit,
+    onDecreaseValue: () -> Unit,
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Spacer(modifier = Modifier.weight(0.5f))
+        NumberField(
+            value = value,
+            onValueChange = onValueChange,
+            onIncreaseValue = onIncreaseValue,
+            onDecreaseValue = onDecreaseValue,
+            modifier = Modifier.width(120.dp)
+        )
+        Text(
+            text = text,
+            style = AppTheme.typography.body,
+            color = AppTheme.colors.onContainerVariant,
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(0.5f)
+        )
     }
 }
 

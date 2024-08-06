@@ -13,11 +13,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.fitnesstracker.ui.components.MultiChoiceChipGroupField
 import com.example.fitnesstracker.ui.components.SingleChoiceChipGroupField
 import com.example.fitnesstracker.ui.components.StringValueEditField
-import com.example.fitnesstracker.ui.components.TwoButtonBottomBar
+import com.example.fitnesstracker.ui.components.TwoButtonRow
 import com.example.fitnesstracker.ui.components.appbar.LargeAppBar
 import com.example.fitnesstracker.ui.theme.AppTheme
 import kotlinx.coroutines.launch
@@ -47,7 +48,7 @@ fun ExerciseEditView(
             )
         },
         bottomBar = {
-            TwoButtonBottomBar(
+            TwoButtonRow(
                 primaryButtonText = "Save",
                 onPrimaryButtonClick = {
                     if(exercise.exercise.name == "") {
@@ -62,7 +63,8 @@ fun ExerciseEditView(
                     }
                 },
                 secondaryButtonText = "Cancel",
-                onSecondaryButtonClick = navigateBack
+                onSecondaryButtonClick = navigateBack,
+                modifier = Modifier.padding(16.dp)
             )
         },
         containerColor = AppTheme.colors.background,

@@ -2,8 +2,6 @@ package com.example.fitnesstracker.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.example.fitnesstracker.ui.components.button.FilledButton
@@ -11,17 +9,15 @@ import com.example.fitnesstracker.ui.components.button.OutlinedButton
 import com.example.fitnesstracker.ui.theme.AppTheme
 
 @Composable
-fun TwoButtonBottomBar(
+fun TwoButtonRow(
     primaryButtonText: String,
     onPrimaryButtonClick: () -> Unit,
     secondaryButtonText: String,
     onSecondaryButtonClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = AppTheme.dimensions.paddingNormal)
-            .padding(horizontal = AppTheme.dimensions.paddingLarge),
+        modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingLarge)
     ) {
         OutlinedButton(

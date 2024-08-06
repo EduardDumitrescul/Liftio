@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import com.example.fitnesstracker.ui.components.TwoButtonBottomBar
+import com.example.fitnesstracker.ui.components.TwoButtonRow
 import com.example.fitnesstracker.ui.components.textfield.FilledTextField
 import com.example.fitnesstracker.ui.theme.AppTheme
 
@@ -57,7 +57,7 @@ fun StringInputDialog(
                 )
             }
 
-            TwoButtonBottomBar(
+            TwoButtonRow(
                 primaryButtonText = "Save",
                 onPrimaryButtonClick = {
                     onSave(value)
