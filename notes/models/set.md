@@ -7,5 +7,5 @@ It contains the reps, weight and the index for ordering.
 - templateExerciseId (number, references TemplateExercise)
 - index (number 0..)
 - reps (number)
-- weigth (number, in kg)
+- weight (number, in kg)
 

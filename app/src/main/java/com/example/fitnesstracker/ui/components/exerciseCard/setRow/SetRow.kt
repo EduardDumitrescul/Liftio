@@ -272,7 +272,7 @@ private fun addToIntString(value: String, toAdd: Int): String {
 @Composable
 @Preview(showBackground = true)
 fun PreviewEditableSetRow() {
-    var state by remember{
+    val state by remember{
         mutableStateOf(
             SetState(
                 1, 1, 1, 10, 20,

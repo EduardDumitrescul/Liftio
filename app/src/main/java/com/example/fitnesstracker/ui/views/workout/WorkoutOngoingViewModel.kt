@@ -95,7 +95,7 @@ class WorkoutOngoingViewModel @Inject constructor(
     private fun updateSetStatus(id: Int, status: SetStatus) {
         _setStyleMapFlow.update { map ->
 
-            Log.d(TAG, "$id, ${status}")
+            Log.d(TAG, "$id, $status")
             map.toMutableMap().apply {
                 put(id, status)
             }

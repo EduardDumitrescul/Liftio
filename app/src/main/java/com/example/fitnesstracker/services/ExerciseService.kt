@@ -14,7 +14,7 @@ class ExerciseService @Inject constructor(
     private val muscleRepository: MuscleRepository
 ) {
 
-    fun getExercisesWithMuscles(exerciseName: String = ""): Flow<List<ExerciseWithMuscles>> {
+    fun getExercisesWithMuscles(): Flow<List<ExerciseWithMuscles>> {
        return exerciseRepository.getExercisesWithMuscles()
     }
 

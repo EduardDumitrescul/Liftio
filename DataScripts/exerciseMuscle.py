@@ -1,5 +1,5 @@
 class ExerciseMuscleEntity:
-    def __init__(self, exerciseId, muscleId, isPimary=False):
+    def __init__(self, exerciseId, muscleId, isPrimary=False):
         self.exerciseId = exerciseId
         self.muscleId = muscleId
         self.isPrimary = isPimary

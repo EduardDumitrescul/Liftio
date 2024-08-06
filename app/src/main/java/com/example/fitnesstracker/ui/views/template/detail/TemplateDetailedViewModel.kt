@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TemplateDetailedViewModel @Inject constructor(
-    val templateId: Int,
+    private val templateId: Int,
     private val workoutService: WorkoutService
 ) : ViewModel() {
 

@@ -7,7 +7,6 @@ import java.time.LocalDate
 
 
 object LocalDateTypeConverter {
-    @RequiresApi(Build.VERSION_CODES.O)
     @TypeConverter
     fun toDate(dateString: String?): LocalDate? {
         return if (dateString == null) {

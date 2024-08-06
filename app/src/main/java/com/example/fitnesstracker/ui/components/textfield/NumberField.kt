@@ -29,7 +29,6 @@ import androidx.compose.ui.unit.dp
 import com.example.fitnesstracker.ui.components.button.IconButton
 import com.example.fitnesstracker.ui.theme.AppTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NumberField(
     value: String,
@@ -58,7 +57,7 @@ private fun TextField(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier,
-    leadingIcon: @Composable() (() -> Unit)?,
+    leadingIcon: @Composable (() -> Unit)?,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
 

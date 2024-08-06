@@ -1,6 +1,5 @@
 package com.example.fitnesstracker.hilt
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import dagger.Module
 import dagger.Provides

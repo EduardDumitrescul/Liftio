@@ -15,8 +15,8 @@ import com.example.fitnesstracker.ui.theme.AppTheme
 @Composable
 fun BackNavigationIcon(
     onClick: () -> Unit,
-    color: Color = AppTheme.colors.onBackground,
     modifier: Modifier = Modifier,
+    color: Color = AppTheme.colors.onBackground,
 ) {
     IconButton(
         onClick = onClick,

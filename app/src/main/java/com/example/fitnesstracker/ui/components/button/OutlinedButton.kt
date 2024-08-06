@@ -1,7 +1,6 @@
 package com.example.fitnesstracker.ui.components.button
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Text

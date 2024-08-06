@@ -55,7 +55,7 @@ class RoomExerciseRepository @Inject constructor(
             secondaryMuscles
         ) { ex, pm, sm ->
             ExerciseWithMuscles(
-                exercise = ex?.toModel() ?: Exercise.default(),
+                exercise = ex.toModel(),
                 primaryMuscle = pm?.name ?: "",
                 secondaryMuscles = sm.map { it.name }
             )
