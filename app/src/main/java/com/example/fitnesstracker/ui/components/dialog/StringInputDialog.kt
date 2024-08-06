@@ -39,7 +39,7 @@ fun StringInputDialog(
             colors = CardDefaults.cardColors().copy(
                 containerColor = AppTheme.colors.background,
                 contentColor = AppTheme.colors.onBackground
-            )
+            ),
         ) {
             Column(
                 modifier = Modifier.padding(16.dp),
@@ -55,17 +55,19 @@ fun StringInputDialog(
                     text = value,
                     onValueChange = {value = it}
                 )
+
+                TwoButtonRow(
+                    primaryButtonText = "Save",
+                    onPrimaryButtonClick = {
+                        onSave(value)
+                        onDismissRequest()
+                    },
+                    secondaryButtonText = "Cancel",
+                    onSecondaryButtonClick = onDismissRequest
+                )
             }
 
-            TwoButtonRow(
-                primaryButtonText = "Save",
-                onPrimaryButtonClick = {
-                    onSave(value)
-                    onDismissRequest()
-                },
-                secondaryButtonText = "Cancel",
-                onSecondaryButtonClick = onDismissRequest
-            )
+
         }
     }
 }
