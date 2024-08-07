@@ -10,6 +10,7 @@ import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.DeleteOutline
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.key
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -87,18 +88,20 @@ private fun SetRowsColumn(
     removeSet: (Int) -> Unit
 ) {
     for (set in state.sets) {
-        EditableSetRow(
-            state = set,
-            options = options.setRowOptions,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp)
-                .padding(horizontal = 20.dp),
-            onValuesChanged = updateSet,
-            onRemoveClicked = {
-                removeSet(set.id)
-            }
-        )
+        key(set.id) {
+            EditableSetRow(
+                state = set,
+                options = options.setRowOptions,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp)
+                    .padding(horizontal = 20.dp),
+                onValuesChanged = updateSet,
+                removeSet = {
+                    removeSet(set.id)
+                }
+            )
+        }
     }
 }
 

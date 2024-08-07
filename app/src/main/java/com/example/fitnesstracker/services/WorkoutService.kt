@@ -89,9 +89,14 @@ class WorkoutService @Inject constructor(
     }
 
     suspend fun removeSetFromWorkoutExercise(setId: Int) {
-        val set = setRepository.getSet(setId)
-        setRepository.updateSetIndexes(set.workoutExerciseId, set.index)
-        setRepository.removeSet(setId)
+        try {
+            val set = setRepository.getSet(setId)
+            setRepository.updateSetIndexes(set.workoutExerciseId, set.index)
+            setRepository.removeSet(setId)
+        }
+        catch (ignored: Exception) {
+
+        }
     }
 
     suspend fun addSetToWorkoutExercise(workoutExerciseCrossRefId: Int) {

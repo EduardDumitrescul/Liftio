@@ -7,16 +7,22 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.rounded.Remove
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.SwipeToDismissBox
+import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -25,7 +31,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.fitnesstracker.ui.components.button.TwoButtonRow
@@ -33,13 +38,58 @@ import com.example.fitnesstracker.ui.components.textfield.NumberField
 import com.example.fitnesstracker.ui.theme.AppTheme
 import kotlin.math.min
 
+private const val TAG = "SetRow"
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EditableSetRow(
     state: SetState,
     modifier: Modifier = Modifier,
     options: SetRowOptions = SetRowOptions(),
     onValuesChanged: (SetState) -> Unit,
+    removeSet: () -> Unit,
+) {
+    val dismissState = rememberSwipeToDismissBoxState(
+        positionalThreshold = {it * 0.15f},
+    )
+    when(dismissState.currentValue) {
+        SwipeToDismissBoxValue.EndToStart -> {
+            removeSet()
+        }
+
+        SwipeToDismissBoxValue.StartToEnd -> {
+            removeSet()
+        }
+
+        SwipeToDismissBoxValue.Settled -> {
+        }
+    }
+
+    SwipeToDismissBox(
+        state = dismissState,
+        backgroundContent = {
+            DismissBackground()
+        },
+        enableDismissFromStartToEnd = options.canRemoveSet,
+        enableDismissFromEndToStart = options.canRemoveSet
+    ) {
+        EditableSetRowContent(
+            modifier,
+            state,
+            options,
+            removeSet,
+            onValuesChanged
+        )
+    }
+}
+
+@Composable
+private fun EditableSetRowContent(
+    modifier: Modifier,
+    state: SetState,
+    options: SetRowOptions,
     onRemoveClicked: () -> Unit,
+    onValuesChanged: (SetState) -> Unit
 ) {
     var isEditing by remember {
         mutableStateOf(false)
@@ -49,7 +99,7 @@ fun EditableSetRow(
     val backgroundColor = when {
         state.status == SetStatus.ONGOING ->  AppTheme.colors.containerVariant
         isEditing ->  AppTheme.colors.containerVariant
-        else -> Color.Transparent
+        else -> AppTheme.colors.container
     }
 
     Column(
@@ -64,20 +114,20 @@ fun EditableSetRow(
             options = options,
             onRemoveClicked = onRemoveClicked,
             onClick = {
-                if(options.canUpdateValues) {
+                if (options.canUpdateValues) {
                     isEditing = true
                 }
             }
         )
 
-        if(isEditing) {
+        if (isEditing) {
             EditingArea(
                 state,
                 onSave = {
                     onValuesChanged(it)
                     isEditing = false
-                 },
-                onCancel = {isEditing = false}
+                },
+                onCancel = { isEditing = false }
             )
         }
     }
@@ -207,7 +257,9 @@ private fun EditingArea(
             },
             secondaryButtonText = "cancel",
             onSecondaryButtonClick = onCancel,
-            modifier = Modifier.width(200.dp).height(32.dp)
+            modifier = Modifier
+                .width(200.dp)
+                .height(32.dp)
         )
     }
 }
@@ -270,6 +322,29 @@ private fun addToIntString(value: String, toAdd: Int): String {
 }
 
 @Composable
+fun DismissBackground() {
+    val  color = AppTheme.colors.red.copy(alpha = 0.8f)
+    Row(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color)
+            .padding(16.dp, 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Icon(
+            Icons.Default.Delete,
+            contentDescription = "delete"
+        )
+        Spacer(modifier = Modifier)
+        Icon(
+            Icons.Default.Delete,
+            contentDescription = "delete"
+        )
+    }
+}
+
+@Composable
 @Preview(showBackground = true)
 fun PreviewEditableSetRow() {
     val state by remember{
@@ -287,19 +362,19 @@ fun PreviewEditableSetRow() {
                 state,
                 modifier = Modifier.width(160.dp),
                 onValuesChanged = {},
-                onRemoveClicked = {}
+                removeSet = {}
             )
             EditableSetRow(
                 state,
                 modifier = Modifier.width(160.dp),
                 onValuesChanged = {},
-                onRemoveClicked = {}
+                removeSet = {}
             )
             EditableSetRow(
                 state,
                 modifier = Modifier.width(160.dp),
                 onValuesChanged = {},
-                onRemoveClicked = {}
+                removeSet = {}
             )
         }
     }
