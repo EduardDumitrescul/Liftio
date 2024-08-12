@@ -40,7 +40,6 @@ import kotlin.math.min
 
 private const val TAG = "SetRow"
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EditableSetRow(
     state: SetState,
@@ -49,20 +48,40 @@ fun EditableSetRow(
     onValuesChanged: (SetState) -> Unit,
     removeSet: () -> Unit,
 ) {
+    if(options.canRemoveSet) {
+        SwipeableSetRow(
+            onSwipe = removeSet,
+            state = state,
+            modifier = modifier,
+            onValuesChanged = onValuesChanged
+        )
+    }
+    else {
+        EditableSetRowContent(
+            modifier = modifier,
+            state = state,
+            options = options,
+            onValuesChanged = onValuesChanged
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun SwipeableSetRow(
+    onSwipe: () -> Unit,
+    state: SetState,
+    modifier: Modifier,
+    options: SetRowOptions = SetRowOptions(),
+    onValuesChanged: (SetState) -> Unit,
+) {
     val dismissState = rememberSwipeToDismissBoxState(
         positionalThreshold = {it * 0.15f},
     )
     when(dismissState.currentValue) {
-        SwipeToDismissBoxValue.EndToStart -> {
-            removeSet()
-        }
-
-        SwipeToDismissBoxValue.StartToEnd -> {
-            removeSet()
-        }
-
-        SwipeToDismissBoxValue.Settled -> {
-        }
+        SwipeToDismissBoxValue.EndToStart -> { onSwipe() }
+        SwipeToDismissBoxValue.StartToEnd -> { onSwipe() }
+        SwipeToDismissBoxValue.Settled -> {}
     }
 
     SwipeToDismissBox(
@@ -70,14 +89,11 @@ fun EditableSetRow(
         backgroundContent = {
             DismissBackground()
         },
-        enableDismissFromStartToEnd = options.canRemoveSet,
-        enableDismissFromEndToStart = options.canRemoveSet
     ) {
         EditableSetRowContent(
             modifier,
             state,
             options,
-            removeSet,
             onValuesChanged
         )
     }
@@ -88,7 +104,6 @@ private fun EditableSetRowContent(
     modifier: Modifier,
     state: SetState,
     options: SetRowOptions,
-    onRemoveClicked: () -> Unit,
     onValuesChanged: (SetState) -> Unit
 ) {
     var isEditing by remember {
@@ -111,8 +126,6 @@ private fun EditableSetRowContent(
     ) {
         MainRow(
             state = state,
-            options = options,
-            onRemoveClicked = onRemoveClicked,
             onClick = {
                 if (options.canUpdateValues) {
                     isEditing = true
@@ -136,8 +149,6 @@ private fun EditableSetRowContent(
 @Composable
 private fun MainRow(
     state: SetState,
-    options: SetRowOptions,
-    onRemoveClicked: () -> Unit,
     onClick: () -> Unit,
 ) {
 
@@ -153,10 +164,6 @@ private fun MainRow(
         RepsText(state.reps)
 
         WeightText(state.weight)
-
-        if(options.canRemoveSet) {
-            RemoveButton(onRemoveClicked)
-        }
     }
 }
 
