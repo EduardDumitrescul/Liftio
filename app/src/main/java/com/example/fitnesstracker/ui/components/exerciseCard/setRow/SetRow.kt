@@ -7,22 +7,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.rounded.Remove
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.SwipeToDismissBox
-import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.fitnesstracker.ui.components.SwipeToDeleteContainer
 import com.example.fitnesstracker.ui.components.button.TwoButtonRow
 import com.example.fitnesstracker.ui.components.textfield.NumberField
 import com.example.fitnesstracker.ui.theme.AppTheme
@@ -49,12 +39,14 @@ fun EditableSetRow(
     removeSet: () -> Unit,
 ) {
     if(options.canRemoveSet) {
-        SwipeableSetRow(
-            onSwipe = removeSet,
-            state = state,
-            modifier = modifier,
-            onValuesChanged = onValuesChanged
-        )
+        SwipeToDeleteContainer(onDelete = removeSet) {
+            EditableSetRowContent(
+                modifier = modifier,
+                state = state,
+                options = options,
+                onValuesChanged = onValuesChanged
+            )
+        }
     }
     else {
         EditableSetRowContent(
@@ -65,39 +57,39 @@ fun EditableSetRow(
         )
     }
 }
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun SwipeableSetRow(
-    onSwipe: () -> Unit,
-    state: SetState,
-    modifier: Modifier,
-    options: SetRowOptions = SetRowOptions(),
-    onValuesChanged: (SetState) -> Unit,
-) {
-    val dismissState = rememberSwipeToDismissBoxState(
-        positionalThreshold = {it * 0.15f},
-    )
-    when(dismissState.currentValue) {
-        SwipeToDismissBoxValue.EndToStart -> { onSwipe() }
-        SwipeToDismissBoxValue.StartToEnd -> { onSwipe() }
-        SwipeToDismissBoxValue.Settled -> {}
-    }
-
-    SwipeToDismissBox(
-        state = dismissState,
-        backgroundContent = {
-            DismissBackground()
-        },
-    ) {
-        EditableSetRowContent(
-            modifier,
-            state,
-            options,
-            onValuesChanged
-        )
-    }
-}
+//
+//@OptIn(ExperimentalMaterial3Api::class)
+//@Composable
+//private fun SwipeableSetRow(
+//    onSwipe: () -> Unit,
+//    state: SetState,
+//    modifier: Modifier,
+//    options: SetRowOptions = SetRowOptions(),
+//    onValuesChanged: (SetState) -> Unit,
+//) {
+//    val dismissState = rememberSwipeToDismissBoxState(
+//        positionalThreshold = {it * 0.15f},
+//    )
+//    when(dismissState.currentValue) {
+//        SwipeToDismissBoxValue.EndToStart -> { onSwipe() }
+//        SwipeToDismissBoxValue.StartToEnd -> { onSwipe() }
+//        SwipeToDismissBoxValue.Settled -> {}
+//    }
+//
+//    SwipeToDismissBox(
+//        state = dismissState,
+//        backgroundContent = {
+//            DismissBackground()
+//        },
+//    ) {
+//        EditableSetRowContent(
+//            modifier,
+//            state,
+//            options,
+//            onValuesChanged
+//        )
+//    }
+//}
 
 @Composable
 private fun EditableSetRowContent(
@@ -194,19 +186,19 @@ private fun IndexText(index: Int) {
     )
 }
 
-@Composable
-private fun RemoveButton(onRemoveClicked: () -> Unit) {
-    IconButton(
-        onClick = onRemoveClicked,
-        Modifier.size(24.dp)
-    ) {
-        Icon(
-            imageVector = Icons.Rounded.Remove,
-            contentDescription = "remove set",
-            Modifier.size(20.dp)
-        )
-    }
-}
+//@Composable
+//private fun RemoveButton(onRemoveClicked: () -> Unit) {
+//    IconButton(
+//        onClick = onRemoveClicked,
+//        Modifier.size(24.dp)
+//    ) {
+//        Icon(
+//            imageVector = Icons.Rounded.Remove,
+//            contentDescription = "remove set",
+//            Modifier.size(20.dp)
+//        )
+//    }
+//}
 
 data class SetRowOptions(
     val canRemoveSet: Boolean = false,
@@ -328,28 +320,28 @@ private fun addToIntString(value: String, toAdd: Int): String {
     return int.toString()
 }
 
-@Composable
-fun DismissBackground() {
-    val  color = AppTheme.colors.red.copy(alpha = 0.8f)
-    Row(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color)
-            .padding(16.dp, 8.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Icon(
-            Icons.Default.Delete,
-            contentDescription = "delete"
-        )
-        Spacer(modifier = Modifier)
-        Icon(
-            Icons.Default.Delete,
-            contentDescription = "delete"
-        )
-    }
-}
+//@Composable
+//fun DismissBackground() {
+//    val  color = AppTheme.colors.red.copy(alpha = 0.8f)
+//    Row(
+//        modifier = Modifier
+//            .fillMaxSize()
+//            .background(color)
+//            .padding(16.dp, 8.dp),
+//        verticalAlignment = Alignment.CenterVertically,
+//        horizontalArrangement = Arrangement.SpaceBetween
+//    ) {
+//        Icon(
+//            Icons.Default.Delete,
+//            contentDescription = "delete"
+//        )
+//        Spacer(modifier = Modifier)
+//        Icon(
+//            Icons.Default.Delete,
+//            contentDescription = "delete"
+//        )
+//    }
+//}
 
 @Composable
 @Preview(showBackground = true)
