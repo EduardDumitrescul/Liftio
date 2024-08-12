@@ -65,7 +65,8 @@ fun WorkoutOngoingView(
                         options = ExerciseCardOptions().copy(
                             canAddSet = exerciseDetailed.exercise.id == viewModel.currentExerciseId,
                             setRowOptions = SetRowOptions().copy(
-                                canUpdateValues = true
+                                canUpdateValues = true,
+                                canRemoveSet = true
                             )
                         ),
                         onClick = { /*TODO*/ },
