@@ -52,4 +52,8 @@ interface WorkoutDao {
 
     @Update
     suspend fun update(toEntity: WorkoutEntity)
+
+    @Query("select w.* from workouts w " +
+            "where w.duration > 0")
+    fun getAllWorkoutEntries(): Flow<List<WorkoutEntity>>
 }

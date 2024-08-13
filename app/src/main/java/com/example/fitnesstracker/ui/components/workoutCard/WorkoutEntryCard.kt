@@ -26,7 +26,7 @@ import com.example.fitnesstracker.ui.theme.AppTheme
 
 @Composable
 fun WorkoutEntryCard(
-    state: WorkoutCardState,
+    state: WorkoutEntryCardState,
     modifier: Modifier = Modifier
 ) {
     OutlinedCard(
@@ -43,14 +43,7 @@ fun WorkoutEntryCard(
             weight = state.weightMoved
         )
         ExerciseListDescription(
-            exercises = listOf(
-                ExerciseEntrySummary("2 x Push Up", "20 reps"),
-                ExerciseEntrySummary("4 x Bench Press", "32 kg x 12"),
-                ExerciseEntrySummary("2 x Push Up", "20 reps"),
-                ExerciseEntrySummary("2 x Push Up", "20 reps"),
-                ExerciseEntrySummary("2 x Push Up", "20 reps"),
-                ExerciseEntrySummary("2 x Push Up", "20 reps"),
-            )
+            exercises = state.exerciseSummaries
         )
     }
 }
@@ -159,11 +152,12 @@ private fun ExerciseListDescription(
 ) {
     Column(
         modifier = Modifier.fillMaxWidth()
+            .padding(16.dp)
     ) {
         Row(
             modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .padding(vertical = 4.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
@@ -179,8 +173,7 @@ private fun ExerciseListDescription(
         for(exercise in exercises) {
             Row(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
+                    .fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
@@ -198,8 +191,8 @@ private fun ExerciseListDescription(
 
 
 private val colors @Composable get() = CardDefaults.outlinedCardColors(
-    containerColor = AppTheme.colors.container,
-    contentColor = AppTheme.colors.onContainer
+    containerColor = AppTheme.colors.background,
+    contentColor = AppTheme.colors.onBackground
 )
 
 private val border @Composable get() = BorderStroke(AppTheme.dimensions.border, AppTheme.colors.outline)
@@ -209,7 +202,7 @@ private val border @Composable get() = BorderStroke(AppTheme.dimensions.border, 
 fun PreviewWorkoutCard() {
     AppTheme {
         WorkoutEntryCard(
-            state = WorkoutCardState.default(),
+            state = WorkoutEntryCardState.default(),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp)

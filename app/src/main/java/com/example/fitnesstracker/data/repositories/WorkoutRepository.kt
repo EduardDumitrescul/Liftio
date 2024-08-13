@@ -14,4 +14,5 @@ interface WorkoutRepository {
     suspend fun addWorkout(workout: Workout): Int
     suspend fun removeWorkout(workoutId: Int)
     suspend fun updateWorkout(workout: Workout)
+    fun getAllWorkoutEntries(): Flow<List<Workout>>
 }

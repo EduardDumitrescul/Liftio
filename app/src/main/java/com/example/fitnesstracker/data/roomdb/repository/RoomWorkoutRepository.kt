@@ -113,4 +113,12 @@ class RoomWorkoutRepository @Inject constructor(
         workoutDao.update(workout.toEntity())
     }
 
+    override fun getAllWorkoutEntries(): Flow<List<Workout>> {
+        return workoutDao.getAllWorkoutEntries().map { entities ->
+            entities.map {
+                it.toModel()
+            }
+        }
+    }
+
 }

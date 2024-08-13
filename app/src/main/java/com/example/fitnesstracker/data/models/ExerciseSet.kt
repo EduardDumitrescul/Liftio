@@ -6,4 +6,6 @@ data class ExerciseSet (
     val index: Int,
     val reps: Int,
     val weight: Int
-)
+) {
+    fun getTotalWeightMoved() = reps * weight
+}
