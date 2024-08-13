@@ -79,6 +79,7 @@ fun WorkoutOngoingView(
                         state = exerciseDetailed,
                         options = ExerciseCardOptions().copy(
                             canAddSet = exerciseDetailed.workoutExerciseCrossRefId == viewModel.currentWorkoutExerciseId,
+                            canRemoveExercise = true,
                             setRowOptions = SetRowOptions().copy(
                                 canUpdateValues = true,
                                 canRemoveSet = true

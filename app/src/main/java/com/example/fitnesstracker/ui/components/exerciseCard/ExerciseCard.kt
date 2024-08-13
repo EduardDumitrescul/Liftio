@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
-import androidx.compose.material.icons.rounded.DeleteOutline
+import androidx.compose.material.icons.rounded.Remove
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
@@ -130,10 +130,10 @@ private fun Title(text: String) {
 private fun RemoveButton(onRemoveClick: () -> Unit) {
     IconButton(
         onClick = onRemoveClick,
-        imageVector = Icons.Rounded.DeleteOutline,
+        imageVector = Icons.Rounded.Remove,
         contentDescription = "remove exercise",
         containerColor = Color.Transparent,
-        contentColor = AppTheme.colors.red
+        contentColor = AppTheme.colors.onContainer
     )
 }
 
