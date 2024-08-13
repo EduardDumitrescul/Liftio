@@ -104,7 +104,7 @@ object Stats: NavDestination {
         get() = "Stats"
 }
 
-object History: NavDestination {
+object WorkoutHistory: NavDestination {
     override val icon: ImageVector
         get() = Icons.Rounded.History
     override val route: String
@@ -113,6 +113,6 @@ object History: NavDestination {
         get() = "History"
 }
 
-val bottomNavBarDestinations = setOf(Home, Exercises, Stats, History)
+val bottomNavBarDestinations = setOf(Home, Exercises, Stats, WorkoutHistory)
 
 

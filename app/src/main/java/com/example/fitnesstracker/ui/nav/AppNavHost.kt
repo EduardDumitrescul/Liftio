@@ -10,6 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.fitnesstracker.ui.views.exercise.browse.ExerciseBrowseView
 import com.example.fitnesstracker.ui.views.exercise.edit.ExerciseEditView
+import com.example.fitnesstracker.ui.views.history.WorkoutHistoryScreen
 import com.example.fitnesstracker.ui.views.workout.browse.TemplateBrowseView
 import com.example.fitnesstracker.ui.views.workout.detail.TemplateDetailedView
 import com.example.fitnesstracker.ui.views.workout.edit.TemplateEditView
@@ -86,8 +87,8 @@ fun AppNavHost(
         composable(route = Stats.route) {
             Text(text = "Stats")
         }
-        composable(route = History.route) {
-            Text(text = "History")
+        composable(route = WorkoutHistory.route) {
+            WorkoutHistoryScreen()
         }
         composable(route = EditExercise.route) {
             ExerciseEditView(navigateBack = {navController.navigateUp()})
