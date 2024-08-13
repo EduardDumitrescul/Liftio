@@ -1,5 +1,6 @@
 package com.example.fitnesstracker.ui.views.workout.perform
 
+import android.util.Log
 import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetState
 import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetStatus
 import com.example.fitnesstracker.ui.views.workout.detail.WorkoutState
@@ -20,6 +21,7 @@ class ProgressTracker(
 
     init {
         initializeStatus()
+        observeStateUpdates()
     }
 
     private fun initializeStatus() {
@@ -31,6 +33,19 @@ class ProgressTracker(
                     _currentSetId = ids.first()
                     markOngoing(_currentSetId)
                     this.cancel()
+                }
+            }
+        }
+    }
+
+    private fun observeStateUpdates() {
+        scope.launch {
+            state.collect {state ->
+                val sets = state.getAllSets()
+                if(sets.find { it.id == _currentSetId && it.status == SetStatus.ONGOING } == null ) {
+                    val firstTodoSet = sets.find { it.status == SetStatus.TODO }
+                    _currentSetId = firstTodoSet?.id ?: 0
+                    markOngoing(_currentSetId)
                 }
             }
         }
@@ -48,31 +63,31 @@ class ProgressTracker(
 
     fun completeSet() {
         markDone(_currentSetId)
-        markNextOngoing()
     }
 
-    private fun markNextOngoing() {
-        val sets = state.value.getAllSets()
-        for(i in 1 until sets.size) {
-            if(sets[i-1].id == _currentSetId) {
-                _currentSetId = sets[i].id
-                markOngoing(_currentSetId)
-                break
-            }
-        }
-    }
 
-    fun skipSet() {
-        markNextOngoing()
-    }
 
-    val currentExerciseId: Int get() = run {
+    val currentWorkoutExerciseId: Int get() = run {
+
         for(exercise in state.value.exerciseCardStates) {
             if(exercise.sets.find { it.id == _currentSetId } != null) {
-                return exercise.exercise.id
+                return exercise.workoutExerciseCrossRefId
             }
         }
-        return 0
+        _currentSetId = 0
+        Log.d(TAG, "ASDASDASDASD")
+        for(exercise in state.value.exerciseCardStates) {
+            if(exercise.sets.find { it.status != SetStatus.DONE } != null
+                || exercise.sets.isEmpty()) {
+                return exercise.workoutExerciseCrossRefId
+            }
+        }
+        try {
+            return state.value.exerciseCardStates.first().workoutExerciseCrossRefId
+        }
+        catch (ex: NoSuchElementException) {
+            return 0
+        }
     }
 }
 

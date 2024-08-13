@@ -78,7 +78,7 @@ fun WorkoutOngoingView(
                     EditableExerciseCard(
                         state = exerciseDetailed,
                         options = ExerciseCardOptions().copy(
-                            canAddSet = exerciseDetailed.exercise.id == viewModel.currentExerciseId,
+                            canAddSet = exerciseDetailed.workoutExerciseCrossRefId == viewModel.currentWorkoutExerciseId,
                             setRowOptions = SetRowOptions().copy(
                                 canUpdateValues = true,
                                 canRemoveSet = true

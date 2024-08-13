@@ -29,7 +29,7 @@ fun SetEntity.toModel(): ExerciseSet = ExerciseSet(
     workoutExerciseId = workoutExerciseId,
     index = index,
     reps = reps,
-    weight =  weight
+    weight =  weight,
 )
 
 fun ExerciseSet.toEntity(): SetEntity = SetEntity(

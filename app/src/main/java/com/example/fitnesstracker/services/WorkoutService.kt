@@ -111,7 +111,7 @@ class WorkoutService @Inject constructor(
             else
                 sets.last().copy(
                     id = 0,
-                    index = sets.last().index + 1
+                    index = sets.last().index + 1,
                 )
 
 

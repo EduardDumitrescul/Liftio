@@ -1,5 +1,6 @@
 package com.example.fitnesstracker.ui.views.workout.perform
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fitnesstracker.services.WorkoutService
@@ -40,7 +41,7 @@ class WorkoutOngoingViewModel @Inject constructor(
 
     private lateinit var progressTracker: ProgressTracker
 
-    val currentExerciseId get() = if(::progressTracker.isInitialized) progressTracker.currentExerciseId else 0
+    val currentWorkoutExerciseId get() = if(::progressTracker.isInitialized) progressTracker.currentWorkoutExerciseId else 0
 
     private val _startTime = LocalDateTime.now()
     private val _elapsedTime = MutableStateFlow(0L)
@@ -61,7 +62,8 @@ class WorkoutOngoingViewModel @Inject constructor(
             ) { workout, map ->
                 val updatedExercises = workout.detailedExercises.map { exercise ->
                     val updatedSets = exercise.sets.map { set ->
-                        if(map[set.id] != null) {
+                        if(map.containsKey(set.id)) {
+                            Log.d(TAG, "NOT TODO ${set.id}")
                             set.toSetState(map[set.id]!!)
                         }
                         else {
@@ -140,7 +142,6 @@ class WorkoutOngoingViewModel @Inject constructor(
 
     fun skipSet() {
         val id = progressTracker.currentSetId
-        progressTracker.skipSet()
         viewModelScope.launch {
             workoutService.removeSetFromWorkoutExercise(id)
         }
