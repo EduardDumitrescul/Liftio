@@ -12,6 +12,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -20,6 +21,7 @@ import com.example.fitnesstracker.ui.components.appbar.LargeAppBar
 import com.example.fitnesstracker.ui.components.button.Fab
 import com.example.fitnesstracker.ui.components.button.FilledButton
 import com.example.fitnesstracker.ui.theme.AppTheme
+import kotlinx.coroutines.launch
 
 private const val TAG = "TemplateBrowseView"
 
@@ -28,13 +30,21 @@ fun TemplateBrowseView(
     viewModel: TemplateBrowseViewModel = hiltViewModel<TemplateBrowseViewModel>(),
     navigateToTemplateDetailedView: (Int) -> Unit,
     navigateToTemplateEditView: () -> Unit,
+    navigateToOngoingWorkout: (Int) -> Unit,
 ) {
     val templateSummaries by viewModel.templateSummaries.collectAsState()
+    val coroutineScope = rememberCoroutineScope()
 
     StatelessTemplateBrowseView(
         templates = templateSummaries,
         onCardClicked = navigateToTemplateDetailedView,
-        onFabClicked = navigateToTemplateEditView
+        onFabClicked = navigateToTemplateEditView,
+        onNewWorkoutButtonClick = {
+            coroutineScope.launch {
+                val id = viewModel.createBlankWorkout()
+                navigateToOngoingWorkout(id)
+            }
+        }
     )
 }
 
@@ -44,6 +54,7 @@ private fun StatelessTemplateBrowseView(
     templates: List<WorkoutSummary>,
     onCardClicked: (Int) -> Unit = {},
     onFabClicked: () -> Unit,
+    onNewWorkoutButtonClick: () -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -71,7 +82,7 @@ private fun StatelessTemplateBrowseView(
             item {
                 FilledButton(
                     text = "start new workout",
-                    onClick = { /*TODO*/ },
+                    onClick = onNewWorkoutButtonClick,
                     modifier = Modifier.fillMaxWidth()
                 )
             }
@@ -106,6 +117,7 @@ fun PreviewTemplateBrowseView() {
     AppTheme {
         StatelessTemplateBrowseView(
             templates = listOf(template, template, template, template),
+            {},
             {},
             {}
         )

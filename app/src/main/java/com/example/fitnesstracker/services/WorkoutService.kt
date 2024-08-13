@@ -168,4 +168,10 @@ class WorkoutService @Inject constructor(
         val workout = detailedWorkout.getWorkout()
         workoutRepository.updateWorkout(workout)
     }
+
+    suspend fun createBlankWorkout(): Int {
+        val workout = Workout.default()
+        val id = workoutRepository.addWorkout(workout)
+        return id
+    }
 }

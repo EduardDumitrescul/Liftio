@@ -12,9 +12,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TemplateBrowseViewModel @Inject constructor(
-    workoutService: WorkoutService
+    private val workoutService: WorkoutService
 ) :ViewModel()
 {
+
     val templateSummaries: StateFlow<List<WorkoutSummary>> = workoutService
         .getTemplateSummaries()
         .stateIn(
@@ -22,4 +23,8 @@ class TemplateBrowseViewModel @Inject constructor(
             SharingStarted.WhileSubscribed(5000),
             emptyList()
         )
+
+    suspend fun createBlankWorkout(): Int {
+        return workoutService.createBlankWorkout()
+    }
 }

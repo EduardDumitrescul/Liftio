@@ -53,6 +53,7 @@ fun WorkoutOngoingView(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
+                .fillMaxWidth()
                 .padding(paddingValues)
                 .padding(horizontal = AppTheme.dimensions.paddingLarge),
         ) {

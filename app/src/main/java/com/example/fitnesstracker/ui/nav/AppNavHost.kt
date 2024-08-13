@@ -32,6 +32,9 @@ fun AppNavHost(
                 },
                 navigateToTemplateEditView = {
                     navController.navigate(TemplateEdit.createRoute(0))
+                },
+                navigateToOngoingWorkout = {
+                    navController.navigateSingleTopTo(PerformWorkout.createRoute(it))
                 }
             )
         }
