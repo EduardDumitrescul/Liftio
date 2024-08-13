@@ -1,4 +1,4 @@
-package com.example.fitnesstracker.ui.views.workout
+package com.example.fitnesstracker.ui.views.workout.perform
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,6 +26,7 @@ import com.example.fitnesstracker.ui.components.exerciseCard.EditableExerciseCar
 import com.example.fitnesstracker.ui.components.exerciseCard.ExerciseCardOptions
 import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetRowOptions
 import com.example.fitnesstracker.ui.theme.AppTheme
+import com.example.fitnesstracker.ui.views.workout.components.Timer
 
 @Composable
 fun WorkoutOngoingView(

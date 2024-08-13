@@ -1,4 +1,4 @@
-package com.example.fitnesstracker.ui.views.template.browse
+package com.example.fitnesstracker.ui.views.workout.browse
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

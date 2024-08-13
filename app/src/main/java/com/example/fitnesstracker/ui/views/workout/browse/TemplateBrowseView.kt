@@ -1,4 +1,4 @@
-package com.example.fitnesstracker.ui.views.template.browse
+package com.example.fitnesstracker.ui.views.workout.browse
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth

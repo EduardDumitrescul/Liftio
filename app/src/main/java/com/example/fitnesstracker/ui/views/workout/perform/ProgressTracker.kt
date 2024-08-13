@@ -1,8 +1,8 @@
-package com.example.fitnesstracker.ui.views.workout
+package com.example.fitnesstracker.ui.views.workout.perform
 
 import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetState
 import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetStatus
-import com.example.fitnesstracker.ui.views.template.detail.WorkoutState
+import com.example.fitnesstracker.ui.views.workout.detail.WorkoutState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.StateFlow

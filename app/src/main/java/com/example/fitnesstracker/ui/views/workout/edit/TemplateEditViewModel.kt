@@ -1,11 +1,11 @@
-package com.example.fitnesstracker.ui.views.template.edit
+package com.example.fitnesstracker.ui.views.workout.edit
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fitnesstracker.services.WorkoutService
 import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetState
-import com.example.fitnesstracker.ui.views.template.detail.WorkoutState
-import com.example.fitnesstracker.ui.views.template.detail.toWorkoutState
+import com.example.fitnesstracker.ui.views.workout.detail.WorkoutState
+import com.example.fitnesstracker.ui.views.workout.detail.toWorkoutState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

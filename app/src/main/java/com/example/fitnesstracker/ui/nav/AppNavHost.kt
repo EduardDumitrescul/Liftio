@@ -10,10 +10,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.fitnesstracker.ui.views.exercise.browse.ExerciseBrowseView
 import com.example.fitnesstracker.ui.views.exercise.edit.ExerciseEditView
-import com.example.fitnesstracker.ui.views.template.browse.TemplateBrowseView
-import com.example.fitnesstracker.ui.views.template.detail.TemplateDetailedView
-import com.example.fitnesstracker.ui.views.template.edit.TemplateEditView
-import com.example.fitnesstracker.ui.views.workout.WorkoutOngoingView
+import com.example.fitnesstracker.ui.views.workout.browse.TemplateBrowseView
+import com.example.fitnesstracker.ui.views.workout.detail.TemplateDetailedView
+import com.example.fitnesstracker.ui.views.workout.edit.TemplateEditView
+import com.example.fitnesstracker.ui.views.workout.perform.WorkoutOngoingView
 
 @Composable
 fun AppNavHost(

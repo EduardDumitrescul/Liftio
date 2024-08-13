@@ -1,4 +1,4 @@
-package com.example.fitnesstracker.ui.views.template.edit
+package com.example.fitnesstracker.ui.views.workout.edit
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

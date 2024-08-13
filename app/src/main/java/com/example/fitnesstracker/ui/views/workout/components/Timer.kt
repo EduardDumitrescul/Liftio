@@ -1,4 +1,4 @@
-package com.example.fitnesstracker.ui.views.workout
+package com.example.fitnesstracker.ui.views.workout.components
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
