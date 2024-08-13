@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -34,6 +33,7 @@ import com.example.fitnesstracker.ui.components.exerciseCard.EditableExerciseCar
 import com.example.fitnesstracker.ui.components.exerciseCard.ExerciseCardOptions
 import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetRowOptions
 import com.example.fitnesstracker.ui.theme.AppTheme
+import com.example.fitnesstracker.ui.views.workout.components.AddExerciseButton
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -145,15 +145,6 @@ fun TemplateEditView(
             })
     }
 
-}
-
-@Composable
-private fun AddExerciseButton(onNewExerciseButtonClick: () -> Unit) {
-    TextButton(
-        text = "new exercise",
-        imageVector = Icons.Rounded.Add,
-        onClick = onNewExerciseButtonClick
-    )
 }
 
 @Composable

@@ -12,6 +12,7 @@ import androidx.compose.material.icons.rounded.CheckCircleOutline
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -26,13 +27,22 @@ import com.example.fitnesstracker.ui.components.exerciseCard.EditableExerciseCar
 import com.example.fitnesstracker.ui.components.exerciseCard.ExerciseCardOptions
 import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetRowOptions
 import com.example.fitnesstracker.ui.theme.AppTheme
+import com.example.fitnesstracker.ui.views.workout.components.AddExerciseButton
 import com.example.fitnesstracker.ui.views.workout.components.Timer
 
 @Composable
 fun WorkoutOngoingView(
+    previouslySelectedExerciseId: Int = 0,
     viewModel: WorkoutOngoingViewModel = hiltViewModel(),
+    onNewExerciseButtonClick: () -> Unit,
     navigateBack: () -> Unit,
 ) {
+    LaunchedEffect(previouslySelectedExerciseId) {
+        if(previouslySelectedExerciseId > 0) {
+            viewModel.addExercise(previouslySelectedExerciseId)
+        }
+    }
+
     val ongoingWorkout by viewModel.ongoingWorkout.collectAsState()
     val elapsedTime by viewModel.elapsedTime.collectAsState()
 
@@ -89,6 +99,9 @@ fun WorkoutOngoingView(
                         },
                         modifier = Modifier.fillMaxWidth()
                     )
+                }
+                item {
+                    AddExerciseButton(onNewExerciseButtonClick = onNewExerciseButtonClick)
                 }
             }
         }

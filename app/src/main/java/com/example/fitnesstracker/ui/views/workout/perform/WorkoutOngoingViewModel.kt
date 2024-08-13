@@ -174,4 +174,10 @@ class WorkoutOngoingViewModel @Inject constructor(
             }
         }
     }
+
+    fun addExercise(exerciseId: Int) {
+        viewModelScope.launch {
+            workoutService.addExerciseToTemplate(workoutId, exerciseId)
+        }
+    }
 }

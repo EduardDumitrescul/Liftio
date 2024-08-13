@@ -55,8 +55,14 @@ fun AppNavHost(
             )
         }
 
-        composable(route = PerformWorkout.route) {
-            WorkoutOngoingView(navigateBack = {navController.navigateUp()})
+        composable(route = PerformWorkout.route) { navBackStack ->
+            val selectedExerciseId = navBackStack.savedStateHandle.getStateFlow("selectedExerciseId", 0).collectAsState().value
+            navBackStack.savedStateHandle.remove<Int>("selectedExerciseId")
+            WorkoutOngoingView(
+                previouslySelectedExerciseId = selectedExerciseId,
+                onNewExerciseButtonClick = {navController.navigate(SelectExercise.route)},
+                navigateBack = {navController.navigateUp()}
+            )
         }
 
         composable(route = SelectExercise.route) {
