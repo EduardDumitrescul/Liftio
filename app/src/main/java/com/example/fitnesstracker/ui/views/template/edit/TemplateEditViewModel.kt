@@ -106,7 +106,7 @@ class TemplateEditViewModel @Inject constructor(
 
     fun removeExerciseFromTemplate(templateExerciseCrossRefId: Int) {
         viewModelScope.launch {
-            workoutService.removeExerciseFromTemplate(templateExerciseCrossRefId)
+            workoutService.removeExerciseFromWorkout(templateExerciseCrossRefId)
         }
     }
 

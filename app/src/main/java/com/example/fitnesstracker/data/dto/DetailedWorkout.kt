@@ -1,12 +1,17 @@
 package com.example.fitnesstracker.data.dto
 
+import com.example.fitnesstracker.data.models.Workout
+import java.time.LocalDateTime
 
-data class DetailedWorkout (
+
+data class DetailedWorkout(
     val id: Int,
     val parentTemplateId: Int,
     val name: String,
     val isBaseTemplate: Boolean,
-    val exercisesWithSetsAndMuscles: List<DetailedExercise>,
+    val detailedExercises: List<DetailedExercise>,
+    val timeStarted: LocalDateTime,
+    val duration: Long,
 ) {
     companion object {
         fun default() = DetailedWorkout(
@@ -14,7 +19,18 @@ data class DetailedWorkout (
             parentTemplateId = 0,
             name = "Default Workout",
             isBaseTemplate = false,
-            exercisesWithSetsAndMuscles = emptyList(),
+            detailedExercises = emptyList(),
+            timeStarted = LocalDateTime.now(),
+            duration = 0,
         )
     }
+
+    fun getWorkout() = Workout(
+        id = id,
+        parentTemplateId = parentTemplateId,
+        name = name,
+        isBaseTemplate = isBaseTemplate,
+        timeStarted = timeStarted,
+        duration = duration
+    )
 }

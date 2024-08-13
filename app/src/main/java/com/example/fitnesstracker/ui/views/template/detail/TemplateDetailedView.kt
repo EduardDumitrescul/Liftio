@@ -71,7 +71,7 @@ fun TemplateDetailedView(
                 })
             }
 
-            items(templateWithExercises.exercisesWithSetsAndMuscles) {
+            items(templateWithExercises.detailedExercises) {
                 EditableExerciseCard(
                     state = it.toExerciseCardState(),
                     modifier = Modifier.fillMaxWidth()

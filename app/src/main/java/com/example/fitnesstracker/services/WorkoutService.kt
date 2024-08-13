@@ -59,19 +59,22 @@ class WorkoutService @Inject constructor(
     }
 
     fun getDetailedWorkout(id: Int): Flow<DetailedWorkout> {
-        val templateFlow = workoutRepository.getWorkout(id)
+        val workoutFlow = workoutRepository.getWorkout(id)
         val exercises = workoutRepository.getExercisesWithSetsAndMuscles(id)
 
         return combine(
-            templateFlow,
+            workoutFlow,
             exercises
-        ) { temp, ex ->
+        ) { workout, ex ->
             DetailedWorkout(
-                id = temp.id,
-                parentTemplateId = temp.parentTemplateId,
-                name = temp.name,
-                isBaseTemplate =  temp.isBaseTemplate,
-                exercisesWithSetsAndMuscles = ex
+                id = workout.id,
+                parentTemplateId = workout.parentTemplateId,
+                name = workout.name,
+                isBaseTemplate =  workout.isBaseTemplate,
+                detailedExercises = ex,
+                timeStarted = workout.timeStarted,
+                duration = workout.duration,
+
             )
         }
     }
@@ -84,7 +87,7 @@ class WorkoutService @Inject constructor(
         workoutRepository.updateWorkoutName(id, name)
     }
 
-    suspend fun removeExerciseFromTemplate(workoutExerciseCrossRefId: Int) {
+    suspend fun removeExerciseFromWorkout(workoutExerciseCrossRefId: Int) {
         workoutRepository.removeWorkoutExerciseCrossRef(workoutExerciseCrossRefId)
     }
 
@@ -124,7 +127,7 @@ class WorkoutService @Inject constructor(
             id = 0,
             parentTemplateId = 0,
             name = "New Template",
-            isBaseTemplate = true
+            isBaseTemplate = true,
         )
         val id = workoutRepository.addWorkout(workout)
         return id
@@ -144,7 +147,7 @@ class WorkoutService @Inject constructor(
 
         val workoutId = workoutRepository.addWorkout(workout)
 
-        for(detailedExercise in detailedTemplate.exercisesWithSetsAndMuscles) {
+        for(detailedExercise in detailedTemplate.detailedExercises) {
             val workoutExerciseCrossRefId = workoutRepository.addExerciseToWorkout(workoutId, detailedExercise.exercise.id)
             for(set in detailedExercise.sets) {
                 val exerciseSet = ExerciseSet(
@@ -159,5 +162,10 @@ class WorkoutService @Inject constructor(
         }
 
         return workoutId
+    }
+
+    suspend fun saveCompletedWorkout(detailedWorkout: DetailedWorkout) {
+        val workout = detailedWorkout.getWorkout()
+        workoutRepository.updateWorkout(workout)
     }
 }

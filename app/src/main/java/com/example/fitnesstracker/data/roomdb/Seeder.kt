@@ -9,6 +9,7 @@ import com.example.fitnesstracker.data.roomdb.entity.WorkoutEntity
 import com.example.fitnesstracker.data.roomdb.entity.WorkoutExerciseCrossRef
 import com.example.fitnesstracker.utils.fromJson
 import com.example.fitnesstracker.utils.readJsonFromAssets
+import java.time.LocalDateTime
 
 private const val TAG = "Seeder"
 
@@ -63,7 +64,11 @@ class Seeder (
     private suspend fun insertWorkouts(workouts: List<WorkoutEntity>) {
         val workoutDao = database.workoutDao()
         workouts.forEach {
-            workoutDao.insert(it)
+            val workout = it.copy(
+                timeStarted = LocalDateTime.MIN,
+                duration = 0
+            )
+            workoutDao.insert(workout)
         }
     }
 

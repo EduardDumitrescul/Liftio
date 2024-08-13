@@ -109,4 +109,8 @@ class RoomWorkoutRepository @Inject constructor(
         workoutDao.removeWorkout(workoutId)
     }
 
+    override suspend fun updateWorkout(workout: Workout) {
+        workoutDao.update(workout.toEntity())
+    }
+
 }

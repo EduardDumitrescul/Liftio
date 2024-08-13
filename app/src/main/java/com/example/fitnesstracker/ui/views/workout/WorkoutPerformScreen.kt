@@ -38,7 +38,10 @@ fun WorkoutOngoingView(
     Scaffold(
         topBar = { AppBar(
             navigateBack = navigateBack,
-            onFinishButtonClick = { /*TODO*/})  },
+            onFinishButtonClick = {
+                viewModel.finishWorkout()
+                navigateBack()
+            })  },
         bottomBar = {
             BottomBar(
                 completeSet = { viewModel.completeSet() },
@@ -71,13 +74,13 @@ fun WorkoutOngoingView(
                         ),
                         onClick = { /*TODO*/ },
                         onRemoveClick = {
-                            viewModel.removeExerciseFromWorkout(exerciseDetailed.templateExerciseCrossRefId)
+                            viewModel.removeExerciseFromWorkout(exerciseDetailed.workoutExerciseCrossRefId)
                         },
                         updateSet = { set ->
                             viewModel.updateSet(set)
                         },
                         addSet = {
-                            viewModel.addSet(exerciseDetailed.templateExerciseCrossRefId)
+                            viewModel.addSet(exerciseDetailed.workoutExerciseCrossRefId)
                         },
                         removeSet = {
                             viewModel.removeSet(it)

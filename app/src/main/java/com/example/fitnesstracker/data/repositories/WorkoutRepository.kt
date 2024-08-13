@@ -13,4 +13,5 @@ interface WorkoutRepository {
     suspend fun removeWorkoutExerciseCrossRef(workoutExerciseCrossRefId: Int)
     suspend fun addWorkout(workout: Workout): Int
     suspend fun removeWorkout(workoutId: Int)
+    suspend fun updateWorkout(workout: Workout)
 }

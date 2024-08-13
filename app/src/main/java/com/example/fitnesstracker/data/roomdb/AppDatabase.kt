@@ -33,7 +33,7 @@ private const val TAG = "AppDatabase"
         WorkoutExerciseCrossRef::class,
         SetEntity::class,
                ],
-    version = 24)
+    version = 27)
 @TypeConverters(LocalDateTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun exerciseDao(): ExerciseDao

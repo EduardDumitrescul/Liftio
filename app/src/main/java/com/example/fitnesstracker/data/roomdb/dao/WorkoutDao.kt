@@ -2,7 +2,9 @@ package com.example.fitnesstracker.data.roomdb.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.example.fitnesstracker.data.roomdb.entity.WorkoutEntity
 import com.example.fitnesstracker.data.roomdb.entity.WorkoutExerciseCrossRef
 import kotlinx.coroutines.flow.Flow
@@ -14,7 +16,7 @@ interface WorkoutDao {
     )
     fun getTemplates(): Flow<List<WorkoutEntity>>
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(it: WorkoutEntity): Long
 
     @Insert
@@ -47,4 +49,7 @@ interface WorkoutDao {
 
     @Query("delete from workouts where id =:workoutId")
     suspend fun removeWorkout(workoutId: Int)
+
+    @Update
+    suspend fun update(toEntity: WorkoutEntity)
 }

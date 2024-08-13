@@ -113,13 +113,13 @@ fun TemplateEditView(
                             )
                         ),
                         onRemoveClick = {
-                            viewModel.removeExerciseFromTemplate(exerciseCardState.templateExerciseCrossRefId)
+                            viewModel.removeExerciseFromTemplate(exerciseCardState.workoutExerciseCrossRefId)
                         },
                         updateSet = { set ->
                             viewModel.updateSet(set)
                         },
                         addSet = {
-                            viewModel.addSet(exerciseCardState.templateExerciseCrossRefId)
+                            viewModel.addSet(exerciseCardState.workoutExerciseCrossRefId)
                         },
                         removeSet = {
                             viewModel.removeSet(it)

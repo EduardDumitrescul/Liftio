@@ -1,6 +1,5 @@
 package com.example.fitnesstracker.ui.views.workout
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fitnesstracker.services.WorkoutService
@@ -9,6 +8,7 @@ import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetStatus
 import com.example.fitnesstracker.ui.components.exerciseCard.setRow.toSetState
 import com.example.fitnesstracker.ui.components.exerciseCard.toExerciseCardState
 import com.example.fitnesstracker.ui.views.template.detail.WorkoutState
+import com.example.fitnesstracker.ui.views.template.detail.toDetailedWorkout
 import com.example.fitnesstracker.ui.views.template.detail.toWorkoutState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -21,6 +21,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.LocalDateTime
 import javax.inject.Inject
 
 private const val TAG = "WorkoutOngoingViewModel"
@@ -41,6 +42,7 @@ class WorkoutOngoingViewModel @Inject constructor(
 
     val currentExerciseId get() = if(::progressTracker.isInitialized) progressTracker.currentExerciseId else 0
 
+    private val _startTime = LocalDateTime.now()
     private val _elapsedTime = MutableStateFlow(0L)
     val elapsedTime get() = _elapsedTime
     private val timerRunning = true
@@ -57,7 +59,7 @@ class WorkoutOngoingViewModel @Inject constructor(
                 workoutService.getDetailedWorkout(workoutId),
                 _setStyleMapFlow
             ) { workout, map ->
-                val updatedExercises = workout.exercisesWithSetsAndMuscles.map { exercise ->
+                val updatedExercises = workout.detailedExercises.map { exercise ->
                     val updatedSets = exercise.sets.map { set ->
                         if(map[set.id] != null) {
                             set.toSetState(map[set.id]!!)
@@ -80,7 +82,7 @@ class WorkoutOngoingViewModel @Inject constructor(
         progressTracker = ProgressTracker(
             state = ongoingWorkout,
             scope = viewModelScope,
-            updateSetStatus = { id, style-> updateSetStatus(id, style)}
+            updateSetStatus = { id, status-> updateSetStatus(id, status)}
         )
     }
 
@@ -96,8 +98,6 @@ class WorkoutOngoingViewModel @Inject constructor(
 
     private fun updateSetStatus(id: Int, status: SetStatus) {
         _setStyleMapFlow.update { map ->
-
-            Log.d(TAG, "$id, $status")
             map.toMutableMap().apply {
                 put(id, status)
             }
@@ -130,7 +130,7 @@ class WorkoutOngoingViewModel @Inject constructor(
 
     fun removeExerciseFromWorkout(workoutExerciseCrossRefId: Int) {
         viewModelScope.launch {
-            workoutService.removeExerciseFromTemplate(workoutExerciseCrossRefId)
+            workoutService.removeExerciseFromWorkout(workoutExerciseCrossRefId)
         }
     }
 
@@ -143,6 +143,35 @@ class WorkoutOngoingViewModel @Inject constructor(
         progressTracker.skipSet()
         viewModelScope.launch {
             workoutService.removeSetFromWorkoutExercise(id)
+        }
+    }
+
+    fun finishWorkout() {
+        viewModelScope.launch {
+            removeUncompletedSets()
+            removeEmptyExercises()
+            workoutService.saveCompletedWorkout(_ongoingWorkout.value.toDetailedWorkout(
+                timeStarted = _startTime,
+                duration = _elapsedTime.value)
+            )
+        }
+    }
+
+    private suspend fun removeUncompletedSets() {
+        for(exerciseCardState in _ongoingWorkout.value.exerciseCardStates) {
+            for(set in exerciseCardState.sets) {
+                if(set.status != SetStatus.DONE) {
+                    workoutService.removeSetFromWorkoutExercise(set.id)
+                }
+            }
+        }
+    }
+
+    private suspend fun removeEmptyExercises() {
+        for(exerciseCardState in _ongoingWorkout.value.exerciseCardStates) {
+            if(!exerciseCardState.hasSets()) {
+                workoutService.removeExerciseFromWorkout(exerciseCardState.workoutExerciseCrossRefId)
+            }
         }
     }
 }
