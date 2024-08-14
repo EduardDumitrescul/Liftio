@@ -94,7 +94,7 @@ private fun NavItem(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
-            modifier = Modifier.height(48.dp)
+            modifier = Modifier.height(40.dp)
         ) {
         Icon(
             icon,
