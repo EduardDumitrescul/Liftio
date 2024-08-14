@@ -39,7 +39,7 @@ fun ExerciseBrowseView(
     onActionClick: () -> Unit,
 ) {
     val exerciseSummaries by viewModel.filteredExerciseSummaries.collectAsState()
-    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
+    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
     var searchValue by remember { mutableStateOf("")}
 
     Scaffold(
