@@ -43,7 +43,7 @@ fun WorkoutHistoryScreen(
         LazyColumn(
             modifier = Modifier
                 .padding(innerPadding)
-                .padding(16.dp),
+                .padding(horizontal = 16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             items(state.workoutEntryCardStates) { cardState ->
