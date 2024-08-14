@@ -1,18 +1,24 @@
 package com.example.fitnesstracker.ui.theme
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 
 @Composable
 fun AppTheme(
+    useDarkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit,
 ) {
-    val appColors = LightColorTheme()
+    val appColors = if (!useDarkTheme) {
+        lightColorTheme
+    } else {
+        darkColorTheme
+    }
     val typography = CustomTypography()
     val shapes = CustomShapes()
     val dimensions = Dimensions()
 
     CompositionLocalProvider (
-        LocalCustomColors provides appColors,
+        LocalLightColors provides appColors,
         LocalCustomTypography provides typography,
         LocalCustomShapes provides shapes,
         LocalDimensions provides dimensions,
@@ -21,9 +27,9 @@ fun AppTheme(
 }
 
 object AppTheme {
-    val colors: LightColorTheme
+    val colors: ColorScheme
         @Composable
-        get() = LocalCustomColors.current
+        get() = LocalLightColors.current
 
     val typography: CustomTypography
         @Composable

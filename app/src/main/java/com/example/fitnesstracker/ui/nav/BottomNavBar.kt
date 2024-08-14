@@ -78,7 +78,7 @@ private fun NavItem(
     selected: Boolean = false,
     onClick: () -> Unit = {},
 ) {
-    val color = if(selected) AppTheme.colors.primary else AppTheme.colors.primaryVariant
+    val color = if(selected) AppTheme.colors.primary else AppTheme.colors.outline
     val interactionSource = remember { MutableInteractionSource() }
 
     Box (
