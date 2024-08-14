@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
@@ -46,9 +47,11 @@ fun BottomNavBar(
         color = AppTheme.colors.container,
         modifier = modifier
             .fillMaxWidth()
-            .height(64.dp),
+            .height(64.dp)
     ) {
         Row(
+            modifier = Modifier
+                .padding(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             destinations.forEachIndexed { index, item ->
@@ -94,16 +97,16 @@ private fun NavItem(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
-            modifier = Modifier.height(40.dp)
+//            modifier = Modifier.height(40.dp)
         ) {
         Icon(
             icon,
             contentDescription = text,
-            modifier.size(AppTheme.dimensions.iconNormal),
+            modifier.size(32.dp),
             tint = color)
             Text(
                 text = text,
-                style= AppTheme.typography.body,
+                style= AppTheme.typography.caption,
                 color=color)
         }
     }
