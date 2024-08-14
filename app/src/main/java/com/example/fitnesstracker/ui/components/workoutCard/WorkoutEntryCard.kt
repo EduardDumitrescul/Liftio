@@ -11,7 +11,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Timer
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,6 +21,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.fitnesstracker.R
+import com.example.fitnesstracker.ui.components.card.LargeCard
 import com.example.fitnesstracker.ui.theme.AppTheme
 
 @Composable
@@ -29,12 +29,9 @@ fun WorkoutEntryCard(
     state: WorkoutEntryCardState,
     modifier: Modifier = Modifier
 ) {
-    OutlinedCard(
+    LargeCard(
         onClick = { /*TODO*/ },
-        modifier = modifier,
-        shape = AppTheme.shapes.roundedNormalCornerShape,
-        colors = colors,
-        border = border
+        modifier = modifier
     ) {
         TopRow(
             name = state.name,
@@ -99,7 +96,8 @@ private fun WorkoutDate(
 ) {
     Text(
         text = date,
-        style = AppTheme.typography.body
+        style = AppTheme.typography.body,
+        color = AppTheme.colors.onBackground.copy(alpha = 0.7f)
     )
 }
 
@@ -115,11 +113,13 @@ private fun Statistic(
         Icon(
             modifier = Modifier.size(16.dp),
             imageVector = imageVector,
-            contentDescription = text
+            contentDescription = text,
+//            tint = AppTheme.colors.onBackground.copy(alpha = 0.7f)
         )
         Text(
             text = text,
-            style = AppTheme.typography.caption
+            style = AppTheme.typography.caption,
+//            color = AppTheme.colors.onBackground.copy(alpha = 0.7f)
         )
     }
 }
@@ -136,11 +136,13 @@ private fun Statistic(
         Icon(
             modifier = Modifier.size(16.dp),
             painter = painter,
-            contentDescription = text
+            contentDescription = text,
+//            tint = AppTheme.colors.onBackground.copy(alpha = 0.7f)
         )
         Text(
             text = text,
-            style = AppTheme.typography.caption
+            style = AppTheme.typography.caption,
+//            color = AppTheme.colors.onBackground.copy(alpha = 0.7f)
         )
     }
 }
@@ -151,7 +153,8 @@ private fun ExerciseListDescription(
     exercises: List<ExerciseEntrySummary>
 ) {
     Column(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
             .padding(16.dp)
     ) {
         Row(
@@ -178,11 +181,13 @@ private fun ExerciseListDescription(
             ) {
                 Text(
                     text = exercise.name,
-                    style = AppTheme.typography.body
+                    style = AppTheme.typography.body,
+                    color = AppTheme.colors.onBackground.copy(alpha = 0.7f)
                 )
                 Text(
                     text = exercise.effort,
-                    style = AppTheme.typography.body
+                    style = AppTheme.typography.body,
+                    color = AppTheme.colors.onBackground.copy(alpha = 0.7f)
                 )
             }
         }
