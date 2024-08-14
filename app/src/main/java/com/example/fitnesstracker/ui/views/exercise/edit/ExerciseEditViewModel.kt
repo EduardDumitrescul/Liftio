@@ -43,6 +43,7 @@ class ExerciseEditViewModel @Inject constructor(
 
     private fun fetchExerciseWithMuscles() {
         viewModelScope.launch {
+            if(exerciseId != 0)
             exerciseService.getExerciseWithMuscles(exerciseId)
                 .collect { fetchedExerciseWithMuscles ->
                     _exerciseWithMuscles.value = fetchedExerciseWithMuscles
