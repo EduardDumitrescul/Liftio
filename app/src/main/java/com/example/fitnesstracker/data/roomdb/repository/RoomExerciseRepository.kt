@@ -8,7 +8,7 @@ import com.example.fitnesstracker.data.roomdb.dao.ExerciseDao
 import com.example.fitnesstracker.data.roomdb.dao.MuscleDao
 import com.example.fitnesstracker.data.roomdb.dao.SetDao
 import com.example.fitnesstracker.data.roomdb.entity.ExerciseEntity
-import com.example.fitnesstracker.data.roomdb.entity.WorkoutExerciseCrossRef
+import com.example.fitnesstracker.data.roomdb.entity.WorkoutExerciseCrossRefEntity
 import com.example.fitnesstracker.data.roomdb.entity.toEntity
 import com.example.fitnesstracker.data.roomdb.entity.toModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -126,7 +126,7 @@ class RoomExerciseRepository @Inject constructor(
         }
     }
 
-    private fun getExerciseWithSets(workoutExerciseCrossRef: WorkoutExerciseCrossRef): Flow<ExerciseWithSets> {
+    private fun getExerciseWithSets(workoutExerciseCrossRef: WorkoutExerciseCrossRefEntity): Flow<ExerciseWithSets> {
         val exerciseFlow = exerciseDao.getExerciseById(workoutExerciseCrossRef.exerciseId)
         val setsFlow = setDao.getSetsFlowByWorkoutExercise(workoutExerciseCrossRef.id)
 

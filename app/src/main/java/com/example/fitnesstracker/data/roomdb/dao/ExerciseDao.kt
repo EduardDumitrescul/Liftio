@@ -5,7 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.fitnesstracker.data.roomdb.entity.ExerciseEntity
-import com.example.fitnesstracker.data.roomdb.entity.WorkoutExerciseCrossRef
+import com.example.fitnesstracker.data.roomdb.entity.WorkoutExerciseCrossRefEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -35,5 +35,5 @@ interface ExerciseDao {
     @Query("select we.* " +
             "from workoutExerciseCrossRefs we " +
             "where workoutId=:id")
-    fun getWorkoutExerciseCrossRefs(id: Int): Flow<List<WorkoutExerciseCrossRef>>
+    fun getWorkoutExerciseCrossRefs(id: Int): Flow<List<WorkoutExerciseCrossRefEntity>>
 }

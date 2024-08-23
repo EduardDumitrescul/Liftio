@@ -2,6 +2,7 @@ package com.example.fitnesstracker.data.repositories
 
 import com.example.fitnesstracker.data.dto.DetailedExercise
 import com.example.fitnesstracker.data.models.Workout
+import com.example.fitnesstracker.data.models.WorkoutExerciseCrossRef
 import kotlinx.coroutines.flow.Flow
 
 interface WorkoutRepository {
@@ -15,4 +16,6 @@ interface WorkoutRepository {
     suspend fun removeWorkout(workoutId: Int)
     suspend fun updateWorkout(workout: Workout)
     fun getAllWorkoutEntries(): Flow<List<Workout>>
+    suspend fun getWorkoutExercise(workoutExerciseId: Int): WorkoutExerciseCrossRef
+    suspend fun updateWorkoutExercise(workoutExercise: WorkoutExerciseCrossRef)
 }

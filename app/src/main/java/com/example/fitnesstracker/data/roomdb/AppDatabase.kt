@@ -17,7 +17,7 @@ import com.example.fitnesstracker.data.roomdb.entity.ExerciseMuscleCrossRefEntit
 import com.example.fitnesstracker.data.roomdb.entity.MuscleEntity
 import com.example.fitnesstracker.data.roomdb.entity.SetEntity
 import com.example.fitnesstracker.data.roomdb.entity.WorkoutEntity
-import com.example.fitnesstracker.data.roomdb.entity.WorkoutExerciseCrossRef
+import com.example.fitnesstracker.data.roomdb.entity.WorkoutExerciseCrossRefEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -30,7 +30,7 @@ private const val TAG = "AppDatabase"
         MuscleEntity::class,
         ExerciseMuscleCrossRefEntity::class,
         WorkoutEntity::class,
-        WorkoutExerciseCrossRef::class,
+        WorkoutExerciseCrossRefEntity::class,
         SetEntity::class,
                ],
     version = 27)

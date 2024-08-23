@@ -116,4 +116,8 @@ class TemplateEditViewModel @Inject constructor(
             workoutService.removeTemplate(templateId)
         }
     }
+
+    suspend fun reorderExercises(workoutExerciseId1: Int, workoutExerciseId2: Int) {
+        workoutService.reorderWorkoutExercises(workoutExerciseId1, workoutExerciseId2)
+    }
 }

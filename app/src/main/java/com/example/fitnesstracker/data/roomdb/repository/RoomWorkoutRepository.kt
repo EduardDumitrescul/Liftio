@@ -2,12 +2,13 @@ package com.example.fitnesstracker.data.roomdb.repository
 
 import com.example.fitnesstracker.data.dto.DetailedExercise
 import com.example.fitnesstracker.data.models.Workout
+import com.example.fitnesstracker.data.models.WorkoutExerciseCrossRef
 import com.example.fitnesstracker.data.repositories.WorkoutRepository
 import com.example.fitnesstracker.data.roomdb.dao.ExerciseDao
 import com.example.fitnesstracker.data.roomdb.dao.MuscleDao
 import com.example.fitnesstracker.data.roomdb.dao.SetDao
 import com.example.fitnesstracker.data.roomdb.dao.WorkoutDao
-import com.example.fitnesstracker.data.roomdb.entity.WorkoutExerciseCrossRef
+import com.example.fitnesstracker.data.roomdb.entity.WorkoutExerciseCrossRefEntity
 import com.example.fitnesstracker.data.roomdb.entity.toEntity
 import com.example.fitnesstracker.data.roomdb.entity.toModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -44,7 +45,7 @@ class RoomWorkoutRepository @Inject constructor(
 
     override suspend fun addExerciseToWorkout(workoutId: Int, exerciseId: Int): Int {
         val numberOfExercisesInTemplate = workoutDao.getNumberOfExercisesInWorkout(workoutId)
-        val templateExercise = WorkoutExerciseCrossRef(
+        val templateExercise = WorkoutExerciseCrossRefEntity(
             id = 0,
             workoutId = workoutId,
             exerciseId = exerciseId,
@@ -70,7 +71,7 @@ class RoomWorkoutRepository @Inject constructor(
         }
     }
 
-    private fun getDetailedExercise(workoutExerciseCrossRef: WorkoutExerciseCrossRef): Flow<DetailedExercise> {
+    private fun getDetailedExercise(workoutExerciseCrossRef: WorkoutExerciseCrossRefEntity): Flow<DetailedExercise> {
         val exerciseFlow = exerciseDao.getExerciseById(workoutExerciseCrossRef.exerciseId)
         val primaryMuscleFlow = muscleDao.getPrimaryMuscleByExerciseId(workoutExerciseCrossRef.exerciseId)
         val secondaryMusclesFlow = muscleDao.getSecondaryMusclesByExerciseId(workoutExerciseCrossRef.exerciseId)
@@ -119,6 +120,15 @@ class RoomWorkoutRepository @Inject constructor(
                 it.toModel()
             }
         }
+    }
+
+    override suspend fun getWorkoutExercise(workoutExerciseId: Int): WorkoutExerciseCrossRef {
+        return workoutDao.getWorkoutExercise(workoutExerciseId).toModel()
+    }
+
+    override suspend fun updateWorkoutExercise(workoutExercise: WorkoutExerciseCrossRef) {
+        val entity = workoutExercise.toEntity()
+        workoutDao.updateWorkoutExercise(entity)
     }
 
 }

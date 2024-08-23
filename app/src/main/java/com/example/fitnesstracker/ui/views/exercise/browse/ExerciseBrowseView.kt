@@ -47,7 +47,7 @@ fun ExerciseBrowseView(
         modifier = Modifier
             .nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            TopBar(navigateBack, scrollBehavior, onActionClick)
+            TopBar(scrollBehavior, onActionClick)
         },
         containerColor = AppTheme.colors.background
     ) {innerPadding ->
@@ -82,13 +82,12 @@ fun ExerciseBrowseView(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun TopBar(
-    navigateBack: () -> Unit,
     scrollBehavior: TopAppBarScrollBehavior,
     onActionClick: () -> Unit
 ) {
     LargeAppBar(
         title = "Exercises",
-        onNavigationIconClick = navigateBack,
+        showNavigationIcon = false,
         scrollBehavior = scrollBehavior,
         actions = {
             IconButton(onClick = onActionClick) {

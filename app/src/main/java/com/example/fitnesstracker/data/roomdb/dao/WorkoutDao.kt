@@ -6,7 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.example.fitnesstracker.data.roomdb.entity.WorkoutEntity
-import com.example.fitnesstracker.data.roomdb.entity.WorkoutExerciseCrossRef
+import com.example.fitnesstracker.data.roomdb.entity.WorkoutExerciseCrossRefEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -20,7 +20,7 @@ interface WorkoutDao {
     suspend fun insert(it: WorkoutEntity): Long
 
     @Insert
-    suspend fun insertWorkoutExerciseCrossRef(it: WorkoutExerciseCrossRef): Long
+    suspend fun insertWorkoutExerciseCrossRef(it: WorkoutExerciseCrossRefEntity): Long
 
     @Query("select w.* " +
             "from workouts w " +
@@ -36,7 +36,7 @@ interface WorkoutDao {
             "from workoutExerciseCrossRefs we " +
             "where we.workoutId = :workoutId " +
             "order by we.`index`")
-    fun getWorkoutExercisesByTemplateId(workoutId: Int): Flow<List<WorkoutExerciseCrossRef>>
+    fun getWorkoutExercisesByTemplateId(workoutId: Int): Flow<List<WorkoutExerciseCrossRefEntity>>
 
     @Query("update workouts " +
             "set name = :templateName " +
@@ -56,4 +56,11 @@ interface WorkoutDao {
     @Query("select w.* from workouts w " +
             "where w.duration > 0")
     fun getAllWorkoutEntries(): Flow<List<WorkoutEntity>>
+
+    @Query("select we.* from workoutExerciseCrossRefs we " +
+            "where we.id = :workoutExerciseId")
+    suspend fun getWorkoutExercise(workoutExerciseId: Int): WorkoutExerciseCrossRefEntity
+
+    @Update
+    suspend fun updateWorkoutExercise(entity: WorkoutExerciseCrossRefEntity)
 }

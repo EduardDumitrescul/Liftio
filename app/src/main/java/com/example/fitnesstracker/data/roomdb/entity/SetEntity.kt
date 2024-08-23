@@ -9,7 +9,7 @@ import com.example.fitnesstracker.data.models.ExerciseSet
     tableName = "sets",
     foreignKeys = [
         ForeignKey(
-            entity = WorkoutExerciseCrossRef::class,
+            entity = WorkoutExerciseCrossRefEntity::class,
             parentColumns = ["id"],
             childColumns = ["workoutExerciseId"],
             onDelete = ForeignKey.CASCADE

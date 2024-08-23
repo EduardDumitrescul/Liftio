@@ -1,11 +1,14 @@
 package com.example.fitnesstracker.ui.views.workout.edit
 
+import android.view.HapticFeedbackConstants
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -22,6 +25,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -34,9 +38,12 @@ import com.example.fitnesstracker.ui.components.exerciseCard.ExerciseCardOptions
 import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetRowOptions
 import com.example.fitnesstracker.ui.theme.AppTheme
 import com.example.fitnesstracker.ui.views.workout.components.AddExerciseButton
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
+import sh.calvin.reorderable.ReorderableItem
+import sh.calvin.reorderable.rememberReorderableLazyListState
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun TemplateEditView(
     previouslySelectedExerciseId: Int = 0,
@@ -58,6 +65,20 @@ fun TemplateEditView(
 
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
+
+    val listUpdatedChannel = remember { Channel<Unit>() }
+    val lazyListState = rememberLazyListState()
+    val reorderableLazyListState = rememberReorderableLazyListState(lazyListState) { from, to ->
+        listUpdatedChannel.tryReceive()
+        viewModel.reorderExercises(from.key as Int, to.key as Int)
+
+        listUpdatedChannel.receive()
+    }
+    LaunchedEffect(templateWithExercises.exerciseCardStates) {
+        // notify the list is updated
+        listUpdatedChannel.trySend(Unit)
+    }
+    val view = LocalView.current
 
     Scaffold(
         topBar = {
@@ -98,34 +119,47 @@ fun TemplateEditView(
             ChangeNameButton(onClick = { shouldShowNameChangeDialog = true })
             
             LazyColumn(
+                state = lazyListState,
                 horizontalAlignment = Alignment.CenterHorizontally ,
                 verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
-                items(templateWithExercises.exerciseCardStates) { exerciseCardState ->
-                    EditableExerciseCard(
-                        state = exerciseCardState,
-                        options = ExerciseCardOptions(
-                            canRemoveExercise = true,
-                            canAddSet = true,
-                            setRowOptions = SetRowOptions(
-                                canRemoveSet = true,
-                                canUpdateValues = true
-                            )
-                        ),
-                        onRemoveClick = {
-                            viewModel.removeExerciseFromTemplate(exerciseCardState.workoutExerciseCrossRefId)
-                        },
-                        updateSet = { set ->
-                            viewModel.updateSet(set)
-                        },
-                        addSet = {
-                            viewModel.addSet(exerciseCardState.workoutExerciseCrossRefId)
-                        },
-                        removeSet = {
-                            viewModel.removeSet(it)
-                        },
-                        modifier = Modifier.fillMaxWidth()
-                    )
+                items(templateWithExercises.exerciseCardStates, key = {it.workoutExerciseCrossRefId}) { exerciseCardState ->
+                    ReorderableItem(reorderableLazyListState, key = exerciseCardState.workoutExerciseCrossRefId) { isDragging ->
+                        EditableExerciseCard(
+                            state = exerciseCardState,
+                            options = ExerciseCardOptions(
+                                canRemoveExercise = true,
+                                canAddSet = true,
+                                setRowOptions = SetRowOptions(
+                                    canRemoveSet = true,
+                                    canUpdateValues = true
+                                )
+                            ),
+                            onRemoveClick = {
+                                viewModel.removeExerciseFromTemplate(exerciseCardState.workoutExerciseCrossRefId)
+                            },
+                            updateSet = { set ->
+                                viewModel.updateSet(set)
+                            },
+                            addSet = {
+                                viewModel.addSet(exerciseCardState.workoutExerciseCrossRefId)
+                            },
+                            removeSet = {
+                                viewModel.removeSet(it)
+                            },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .draggableHandle(
+                                    onDragStarted = {
+                                        view.performHapticFeedback(HapticFeedbackConstants.DRAG_START)
+                                    },
+                                    onDragStopped = {
+                                        view.performHapticFeedback(HapticFeedbackConstants.GESTURE_END)
+                                    },
+                                )
+                        )
+                    }
+
                 }
 
                 item {

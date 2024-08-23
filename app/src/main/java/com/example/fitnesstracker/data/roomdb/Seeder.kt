@@ -6,7 +6,7 @@ import com.example.fitnesstracker.data.roomdb.entity.ExerciseMuscleCrossRefEntit
 import com.example.fitnesstracker.data.roomdb.entity.MuscleEntity
 import com.example.fitnesstracker.data.roomdb.entity.SetEntity
 import com.example.fitnesstracker.data.roomdb.entity.WorkoutEntity
-import com.example.fitnesstracker.data.roomdb.entity.WorkoutExerciseCrossRef
+import com.example.fitnesstracker.data.roomdb.entity.WorkoutExerciseCrossRefEntity
 import com.example.fitnesstracker.utils.fromJson
 import com.example.fitnesstracker.utils.readJsonFromAssets
 import java.time.LocalDateTime
@@ -50,7 +50,7 @@ class Seeder (
 
     private suspend fun insertWorkoutExerciseCrossRefs() {
         val jsonString = readJsonFromAssets(context, workoutExerciseCrossRefPath)
-        val entities = fromJson<List<WorkoutExerciseCrossRef>>(jsonString)
+        val entities = fromJson<List<WorkoutExerciseCrossRefEntity>>(jsonString)
         entities.forEach {
             database.workoutDao().insertWorkoutExerciseCrossRef(it)
         }
