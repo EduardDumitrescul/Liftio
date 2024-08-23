@@ -1,10 +1,11 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-
+    id("org.jetbrains.kotlin.plugin.compose") version "2.0.20"
     // Hilt - dependency injection
-    kotlin("kapt")
     id("com.google.dagger.hilt.android")
+
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -45,7 +46,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.3"
+        kotlinCompilerExtensionVersion = "1.5.15"
     }
     packaging {
         resources {
@@ -54,12 +55,19 @@ android {
     }
 }
 
+composeCompiler {
+    enableStrongSkippingMode = true
+
+    reportsDestination = layout.buildDirectory.dir("compose_compiler")
+//    stabilityConfigurationFile = rootProject.layout.projectDirectory.file("stability_config.conf")
+}
+
 dependencies {
 
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.4")
     implementation("androidx.activity:activity-compose:1.9.1")
-    implementation(platform("androidx.compose:compose-bom:2024.06.00"))
+    implementation(platform("androidx.compose:compose-bom:2024.08.00"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
@@ -68,14 +76,16 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2024.06.00"))
+    androidTestImplementation(platform("androidx.compose:compose-bom:2024.08.00"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
     // Hilt - dependency injection
-    implementation("com.google.dagger:hilt-android:2.49")
-    kapt("com.google.dagger:hilt-android-compiler:2.49")
+    val hiltVersion = 2.52
+    implementation("com.google.dagger:hilt-android:$hiltVersion")
+    ksp("com.google.dagger:hilt-android-compiler:$hiltVersion")
+    ksp("com.google.dagger:hilt-compiler:$hiltVersion")
     implementation("androidx.hilt:hilt-navigation-fragment:1.2.0")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
@@ -88,7 +98,7 @@ dependencies {
     annotationProcessor("androidx.room:room-compiler:2.6.1")
 
     // To use Kotlin annotation processing tool (kapt)
-    kapt("androidx.room:room-compiler:2.6.1")
+    ksp("androidx.room:room-compiler:2.6.1")
 
     implementation("com.google.code.gson:gson:2.10.1")
 
@@ -96,10 +106,7 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended:1.6.8")
 
     implementation("androidx.navigation:navigation-compose:2.7.7")
-}
 
-// Hilt
-// Allow references to generated code
-kapt {
-    correctErrorTypes = true
+    // For Drag to Reorder Gesture
+    implementation("sh.calvin.reorderable:reorderable:2.3.1")
 }
