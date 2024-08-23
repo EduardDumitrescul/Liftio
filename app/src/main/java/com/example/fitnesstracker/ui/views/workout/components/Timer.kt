@@ -15,7 +15,7 @@ fun Timer(
     Text(
         text = formatElapsedTime(elapsedTime),
         style = AppTheme.typography.display,
-        color = AppTheme.colors.primary,
+        color = AppTheme.colors.onBackground,
         modifier = modifier
     )
 }
@@ -24,7 +24,12 @@ fun formatElapsedTime(seconds: Long): String {
     val hours = seconds / 3600
     val minutes = (seconds % 3600) / 60
     val secs = seconds % 60
-    return String.format(Locale.getDefault(), "%01d:%02d:%02d", hours, minutes, secs)
+    if(hours > 0) {
+        return String.format(Locale.getDefault(), "%01d:%02d:%02d", hours, minutes, secs)
+    }
+    else {
+        return String.format(Locale.getDefault(), "%02d:%02d", minutes, secs)
+    }
 }
 
 @Preview

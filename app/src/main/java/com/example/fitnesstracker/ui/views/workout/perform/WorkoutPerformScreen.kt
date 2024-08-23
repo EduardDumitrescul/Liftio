@@ -69,7 +69,10 @@ fun WorkoutOngoingView(
                 .padding(paddingValues)
                 .padding(horizontal = AppTheme.dimensions.paddingLarge),
         ) {
-            Timer(elapsedTime = elapsedTime)
+            Timer(
+                elapsedTime = elapsedTime,
+                modifier = Modifier.padding(16.dp)
+            )
 
             LazyColumn(
                 horizontalAlignment = Alignment.CenterHorizontally ,
