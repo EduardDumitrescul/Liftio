@@ -1,16 +1,19 @@
 package com.example.fitnesstracker.ui.views.workout.edit
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fitnesstracker.services.WorkoutService
 import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetState
 import com.example.fitnesstracker.ui.views.workout.detail.WorkoutState
 import com.example.fitnesstracker.ui.views.workout.detail.toWorkoutState
+import com.example.fitnesstracker.utils.swap
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -117,7 +120,23 @@ class TemplateEditViewModel @Inject constructor(
         }
     }
 
-    suspend fun reorderExercises(workoutExerciseId1: Int, workoutExerciseId2: Int) {
-        workoutService.reorderWorkoutExercises(workoutExerciseId1, workoutExerciseId2)
+    fun locallyReorderExercises(fromIndex: Int, toIndex: Int) {
+        Log.d(TAG, "local")
+        _state.update { state ->
+            val updatedExerciseCardStates = state.exerciseCardStates.swap(fromIndex, toIndex)
+            state.copy(
+                exerciseCardStates = updatedExerciseCardStates
+            )
+        }
+    }
+
+    fun saveExercisesOrder() {
+        Log.d(TAG, "db")
+        viewModelScope.launch {
+            val newIndexesForId = state.value.exerciseCardStates.mapIndexed { index, exerciseCardState ->
+                Pair(exerciseCardState.workoutExerciseCrossRefId, index)
+            }
+            workoutService.updateWorkoutExerciseIndexes(newIndexesForId)
+        }
     }
 }

@@ -17,5 +17,5 @@ interface WorkoutRepository {
     suspend fun updateWorkout(workout: Workout)
     fun getAllWorkoutEntries(): Flow<List<Workout>>
     suspend fun getWorkoutExercise(workoutExerciseId: Int): WorkoutExerciseCrossRef
-    suspend fun updateWorkoutExercise(workoutExercise: WorkoutExerciseCrossRef)
+    suspend fun updateWorkoutExerciseIndexes(newIndexesForId: List<Pair<Int, Int>>)
 }

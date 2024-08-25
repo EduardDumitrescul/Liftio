@@ -126,9 +126,8 @@ class RoomWorkoutRepository @Inject constructor(
         return workoutDao.getWorkoutExercise(workoutExerciseId).toModel()
     }
 
-    override suspend fun updateWorkoutExercise(workoutExercise: WorkoutExerciseCrossRef) {
-        val entity = workoutExercise.toEntity()
-        workoutDao.updateWorkoutExercise(entity)
+    override suspend fun updateWorkoutExerciseIndexes(newIndexesForId: List<Pair<Int, Int>>) {
+        workoutDao.updateWorkoutExerciseIndexes(newIndexesForId)
     }
 
 }

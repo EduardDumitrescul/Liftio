@@ -66,17 +66,9 @@ fun TemplateEditView(
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
 
-    val listUpdatedChannel = remember { Channel<Unit>() }
     val lazyListState = rememberLazyListState()
     val reorderableLazyListState = rememberReorderableLazyListState(lazyListState) { from, to ->
-        listUpdatedChannel.tryReceive()
-        viewModel.reorderExercises(from.key as Int, to.key as Int)
-
-        listUpdatedChannel.receive()
-    }
-    LaunchedEffect(templateWithExercises.exerciseCardStates) {
-        // notify the list is updated
-        listUpdatedChannel.trySend(Unit)
+        viewModel.locallyReorderExercises(from.index, to.index )
     }
     val view = LocalView.current
 
@@ -149,12 +141,13 @@ fun TemplateEditView(
                             },
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .draggableHandle(
+                                .longPressDraggableHandle(
                                     onDragStarted = {
                                         view.performHapticFeedback(HapticFeedbackConstants.DRAG_START)
                                     },
                                     onDragStopped = {
                                         view.performHapticFeedback(HapticFeedbackConstants.GESTURE_END)
+                                        viewModel.saveExercisesOrder()
                                     },
                                 )
                         )

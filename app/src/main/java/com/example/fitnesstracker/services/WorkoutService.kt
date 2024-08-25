@@ -175,18 +175,7 @@ class WorkoutService @Inject constructor(
         return id
     }
 
-    suspend fun reorderWorkoutExercises(workoutExerciseId1: Int, workoutExerciseId2: Int) {
-        val workoutExercise1 = workoutRepository.getWorkoutExercise(workoutExerciseId1)
-        val workoutExercise2 = workoutRepository.getWorkoutExercise(workoutExerciseId2)
-
-        val updatedWorkoutExercise1 = workoutExercise1.copy(
-            index = workoutExercise2.index
-        )
-        val updatedWorkoutExercise2 = workoutExercise2.copy(
-            index = workoutExercise1.index
-        )
-
-        workoutRepository.updateWorkoutExercise(updatedWorkoutExercise1)
-        workoutRepository.updateWorkoutExercise(updatedWorkoutExercise2)
+    suspend fun updateWorkoutExerciseIndexes(newIndexesForId: List<Pair<Int, Int>>) {
+        workoutRepository.updateWorkoutExerciseIndexes(newIndexesForId)
     }
 }

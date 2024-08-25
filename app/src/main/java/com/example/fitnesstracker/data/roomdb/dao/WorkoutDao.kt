@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import androidx.room.Update
 import com.example.fitnesstracker.data.roomdb.entity.WorkoutEntity
 import com.example.fitnesstracker.data.roomdb.entity.WorkoutExerciseCrossRefEntity
@@ -63,4 +64,16 @@ interface WorkoutDao {
 
     @Update
     suspend fun updateWorkoutExercise(entity: WorkoutExerciseCrossRefEntity)
+
+    @Query("update workoutExerciseCrossRefs " +
+            "set `index` = :newIndex " +
+            "where id = :id")
+    suspend fun updateWorkoutExerciseIndex(id: Int, newIndex: Int)
+
+    @Transaction
+    suspend fun updateWorkoutExerciseIndexes(newIndexesForId: List<Pair<Int, Int>>) {
+        newIndexesForId.forEach {
+            updateWorkoutExerciseIndex(it.first, it.second)
+        }
+    }
 }
