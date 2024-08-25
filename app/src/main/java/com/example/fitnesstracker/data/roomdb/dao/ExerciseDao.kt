@@ -34,6 +34,7 @@ interface ExerciseDao {
 
     @Query("select we.* " +
             "from workoutExerciseCrossRefs we " +
-            "where workoutId=:id")
+            "where workoutId=:id " +
+            "order by we.`index`")
     fun getWorkoutExerciseCrossRefs(id: Int): Flow<List<WorkoutExerciseCrossRefEntity>>
 }
