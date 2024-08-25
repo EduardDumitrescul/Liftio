@@ -1,6 +1,5 @@
 package com.example.fitnesstracker.ui.views.workout.edit
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fitnesstracker.services.WorkoutService
@@ -18,7 +17,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-private const val TAG = "TemplateEditViewModel"
 
 @HiltViewModel
 class TemplateEditViewModel @Inject constructor(
@@ -121,7 +119,6 @@ class TemplateEditViewModel @Inject constructor(
     }
 
     fun locallyReorderExercises(fromIndex: Int, toIndex: Int) {
-        Log.d(TAG, "local")
         _state.update { state ->
             val updatedExerciseCardStates = state.exerciseCardStates.swap(fromIndex, toIndex)
             state.copy(
@@ -131,7 +128,6 @@ class TemplateEditViewModel @Inject constructor(
     }
 
     fun saveExercisesOrder() {
-        Log.d(TAG, "db")
         viewModelScope.launch {
             val newIndexesForId = state.value.exerciseCardStates.mapIndexed { index, exerciseCardState ->
                 Pair(exerciseCardState.workoutExerciseCrossRefId, index)
