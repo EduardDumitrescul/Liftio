@@ -102,10 +102,10 @@ private fun EditableSetRowContent(
     var isEditing by remember {
         mutableStateOf(false)
     }
-    val alpha = if(state.status == Progress.TODO) 0.5f else 1.0f
+    val alpha = if(state.progress == Progress.TODO) 0.5f else 1.0f
 
     val backgroundColor = when {
-        state.status == Progress.ONGOING ->  AppTheme.colors.containerVariant
+        state.progress == Progress.ONGOING ->  AppTheme.colors.containerVariant
         isEditing ->  AppTheme.colors.containerVariant
         else -> AppTheme.colors.container
     }

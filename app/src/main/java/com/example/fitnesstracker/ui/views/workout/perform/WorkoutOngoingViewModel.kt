@@ -36,12 +36,15 @@ class WorkoutOngoingViewModel @Inject constructor(
     private lateinit var _ongoingWorkout: StateFlow<WorkoutState>
     val ongoingWorkout get() = _ongoingWorkout
 
+    //TODO rename
     private val _setStyleMapFlow: MutableStateFlow<Map<Int, Progress>> = MutableStateFlow(emptyMap())
+
+    private val _exerciseProgressMapFlow: MutableStateFlow<Map<Int, Progress>> = MutableStateFlow(emptyMap())
 
 
     private lateinit var progressTracker: ProgressTracker
-
-    val currentWorkoutExerciseId get() = if(::progressTracker.isInitialized) progressTracker.currentWorkoutExerciseId else 0
+    private val _exerciseEndReachedFlow = MutableStateFlow(false)
+    val exerciseEndReachedFlow: StateFlow<Boolean> get() = _exerciseEndReachedFlow
 
     private val _startTime = LocalDateTime.now()
     private val _elapsedTime = MutableStateFlow(0L)
@@ -58,19 +61,21 @@ class WorkoutOngoingViewModel @Inject constructor(
     private fun initializeState() {
         _ongoingWorkout = combine(
                 workoutService.getDetailedWorkout(workoutId),
-                _setStyleMapFlow
-            ) { workout, map ->
+                _setStyleMapFlow,
+                _exerciseProgressMapFlow
+            ) { workout, setProgressMap, exerciseProgressMap ->
                 val updatedExercises = workout.detailedExercises.map { exercise ->
                     val updatedSets = exercise.sets.map { set ->
-                        if(map.containsKey(set.id)) {
-                            Log.d(TAG, "NOT TODO ${set.id}")
-                            set.toSetState(map[set.id]!!)
+                        if(setProgressMap.containsKey(set.id)) {
+                            set.toSetState(setProgressMap[set.id]!!)
                         }
                         else {
                             set.toSetState(Progress.TODO)
                         }
                     }
-                    exercise.toExerciseCardState().copy(
+                    exercise.toExerciseCardState(
+                        progress = exerciseProgressMap[exercise.templateExerciseCrossRefId] ?: Progress.TODO
+                    ).copy(
                         sets = updatedSets
                     )
                 }
@@ -84,7 +89,9 @@ class WorkoutOngoingViewModel @Inject constructor(
         progressTracker = ProgressTracker(
             state = ongoingWorkout,
             scope = viewModelScope,
-            updateSetStatus = { id, status-> updateSetStatus(id, status)}
+            updateSetStatus = { id, status-> updateSetStatus(id, status)},
+            updateExerciseStatus = { id, status -> updateExerciseStatus(id, status)},
+            updateExerciseEndReached = { value -> _exerciseEndReachedFlow.update { value } }
         )
     }
 
@@ -100,6 +107,14 @@ class WorkoutOngoingViewModel @Inject constructor(
 
     private fun updateSetStatus(id: Int, status: Progress) {
         _setStyleMapFlow.update { map ->
+            map.toMutableMap().apply {
+                put(id, status)
+            }
+        }
+    }
+
+    private fun updateExerciseStatus(id: Int, status: Progress) {
+        _exerciseProgressMapFlow.update { map ->
             map.toMutableMap().apply {
                 put(id, status)
             }
@@ -140,6 +155,10 @@ class WorkoutOngoingViewModel @Inject constructor(
         progressTracker.completeSet()
     }
 
+    fun completeExercise() {
+        progressTracker.completeExercise()
+    }
+
     fun skipSet() {
         val id = progressTracker.currentSetId
         viewModelScope.launch {
@@ -161,7 +180,7 @@ class WorkoutOngoingViewModel @Inject constructor(
     private suspend fun removeUncompletedSets() {
         for(exerciseCardState in _ongoingWorkout.value.exerciseCardStates) {
             for(set in exerciseCardState.sets) {
-                if(set.status != Progress.DONE) {
+                if(set.progress != Progress.DONE) {
                     workoutService.removeSetFromWorkoutExercise(set.id)
                 }
             }

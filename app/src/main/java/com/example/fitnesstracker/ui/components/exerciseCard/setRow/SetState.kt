@@ -9,7 +9,7 @@ data class SetState(
     val index: Int,
     val reps: Int,
     val weight: Int,
-    val status: Progress
+    val progress: Progress
 ) {
     fun toExerciseSet() =
         ExerciseSet(
@@ -28,7 +28,7 @@ fun ExerciseSet.toSetState(status: Progress = Progress.TODO) =
         index = index,
         reps = reps,
         weight = weight,
-        status = status
+        progress = status
     )
 
 

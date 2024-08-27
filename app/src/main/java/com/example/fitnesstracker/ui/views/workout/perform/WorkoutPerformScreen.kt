@@ -22,10 +22,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.fitnesstracker.ui.components.appbar.CenteredAppBar
+import com.example.fitnesstracker.ui.components.button.FilledButton
 import com.example.fitnesstracker.ui.components.button.IconButton
 import com.example.fitnesstracker.ui.components.button.TwoButtonRow
 import com.example.fitnesstracker.ui.components.exerciseCard.EditableExerciseCard
 import com.example.fitnesstracker.ui.components.exerciseCard.ExerciseCardOptions
+import com.example.fitnesstracker.ui.components.exerciseCard.Progress
 import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetRowOptions
 import com.example.fitnesstracker.ui.theme.AppTheme
 import com.example.fitnesstracker.ui.views.workout.components.AddExerciseButton
@@ -46,6 +48,7 @@ fun WorkoutOngoingView(
 
     val ongoingWorkout by viewModel.ongoingWorkout.collectAsState()
     val elapsedTime by viewModel.elapsedTime.collectAsState()
+    val exerciseEndReached by viewModel.exerciseEndReachedFlow.collectAsState()
 
     Scaffold(
         topBar = { AppBar(
@@ -56,7 +59,9 @@ fun WorkoutOngoingView(
             })  },
         bottomBar = {
             BottomBar(
+                showCompleteExerciseButton = exerciseEndReached,
                 completeSet = { viewModel.completeSet() },
+                completeExercise = { viewModel.completeExercise() },
                 skipSet = { viewModel.skipSet() }
             )
         },
@@ -82,7 +87,7 @@ fun WorkoutOngoingView(
                     EditableExerciseCard(
                         state = exerciseDetailed,
                         options = ExerciseCardOptions().copy(
-                            canAddSet = exerciseDetailed.workoutExerciseCrossRefId == viewModel.currentWorkoutExerciseId,
+                            canAddSet = exerciseDetailed.progress == Progress.ONGOING,
                             canRemoveExercise = true,
                             setRowOptions = SetRowOptions().copy(
                                 canUpdateValues = true,
@@ -144,13 +149,30 @@ private fun FinishButton(onClick: () -> Unit) {
 
 @Composable
 private fun BottomBar(
+    showCompleteExerciseButton: Boolean,
     completeSet: () -> Unit,
+    completeExercise: () -> Unit,
     skipSet: () -> Unit,
 ) {
-    TwoButtonRow(
-        primaryButtonText = "complete set",
-        onPrimaryButtonClick = completeSet,
-        secondaryButtonText = "skip",
-        onSecondaryButtonClick = skipSet
-    )
+    if(showCompleteExerciseButton) {
+        FilledButton(
+            text = "complete exercise",
+            onClick = completeExercise,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
+                .padding(vertical = 4.dp)
+        )
+    }
+    else {
+        TwoButtonRow(
+            primaryButtonText = "complete set",
+            onPrimaryButtonClick = completeSet,
+            secondaryButtonText = "skip",
+            onSecondaryButtonClick = skipSet,
+            modifier = Modifier
+                .padding(horizontal = 16.dp)
+                .padding(vertical = 4.dp)
+        )
+    }
 }

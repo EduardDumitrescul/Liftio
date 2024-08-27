@@ -5,7 +5,6 @@ import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetState
 import com.example.fitnesstracker.ui.components.exerciseCard.Progress
 import com.example.fitnesstracker.ui.views.workout.WorkoutState
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
@@ -15,104 +14,75 @@ class ProgressTracker(
     private val state: StateFlow<WorkoutState>,
     private val scope: CoroutineScope,
     private val updateSetStatus: (Int, Progress) -> Unit,
+    private val updateExerciseStatus: (Int, Progress) -> Unit,
+    private val updateExerciseEndReached: (Boolean) -> Unit,
 ) {
-    private var _currentSetId = 0
+    private var _currentSetId = Int.MIN_VALUE
     val currentSetId get() = _currentSetId
 
-    private var _currentExerciseId = 0
-    val currentExerciseId get() = _currentExerciseId
+    private var _currentExerciseId = Int.MIN_VALUE
 
     init {
-        initializeStatus()
         observeStateUpdates()
-    }
-
-    private fun initializeStatus() {
-        scope.launch {
-            state.collect { state ->
-                _currentExerciseId = state.getFirstExerciseId()
-                _currentSetId = state.getFirstSetId()
-
-                markOngoing(_currentSetId)
-                cancel()
-            }
-        }
     }
 
     private fun observeStateUpdates() {
         scope.launch {
             state.collect {state ->
-
-                val sets = state.getAllSets()
-                if(sets.find { it.id == _currentSetId && it.status == Progress.ONGOING } == null ) {
-                    val firstTodoSet = sets.find { it.status == Progress.TODO }
-                    _currentSetId = firstTodoSet?.id ?: 0
-                    markOngoing(_currentSetId)
-                }
+                updateCurrentExercise(state)
+                updateCurrentSet(state)
             }
         }
     }
 
-    private fun markOngoing(id: Int) {
-        updateSetStatus(id, Progress.ONGOING)
+    private fun updateCurrentExercise(state: WorkoutState) {
+        updateExerciseEndReached(false)
+
+        Log.d(TAG, "false")
+        val exerciseStates = state.exerciseCardStates
+        if(exerciseStates.find { it.workoutExerciseCrossRefId == _currentExerciseId }?.progress == Progress.ONGOING) {
+            return
+        }
+        for(exerciseState in exerciseStates) {
+            if(exerciseState.progress == Progress.TODO) {
+                _currentExerciseId = exerciseState.workoutExerciseCrossRefId
+                updateExerciseStatus(_currentExerciseId, Progress.ONGOING)
+                break
+            }
+        }
     }
-    private fun markTodo(id: Int) {
-        updateSetStatus(id, Progress.TODO)
-    }
-    private fun markDone(id: Int) {
-        updateSetStatus(id, Progress.DONE)
+
+    private fun updateCurrentSet(state: WorkoutState) {
+        val setStates = state.getAllSets()
+        if(setStates.find { it.id == _currentSetId}?.progress == Progress.ONGOING) {
+            return
+        }
+        val currentExerciseSetStates = state.getAllSets(_currentExerciseId)
+        for(setState in currentExerciseSetStates) {
+            if(setState.progress == Progress.TODO) {
+                _currentSetId = setState.id
+                updateSetStatus(_currentSetId, Progress.ONGOING)
+                return
+            }
+        }
+
+        Log.d(TAG, "true")
+        updateExerciseEndReached(true)
     }
 
     fun completeSet() {
-        markDone(_currentSetId)
-
+        updateSetStatus(_currentSetId, Progress.DONE)
     }
 
-
-
-    val currentWorkoutExerciseId: Int get() = run {
-
-        for(exercise in state.value.exerciseCardStates) {
-            if(exercise.sets.find { it.id == _currentSetId } != null) {
-                return exercise.workoutExerciseCrossRefId
-            }
-        }
-        _currentSetId = 0
-        Log.d(TAG, "ASDASDASDASD")
-        for(exercise in state.value.exerciseCardStates) {
-            if(exercise.sets.find { it.status != Progress.DONE } != null
-                || exercise.sets.isEmpty()) {
-                return exercise.workoutExerciseCrossRefId
-            }
-        }
-        try {
-            return state.value.exerciseCardStates.first().workoutExerciseCrossRefId
-        }
-        catch (ex: NoSuchElementException) {
-            return 0
-        }
+    fun completeExercise() {
+        updateExerciseStatus(_currentExerciseId, Progress.DONE)
     }
-}
-
-private fun WorkoutState.getFirstSetId(): Int {
-    return try {
-        this.getAllSetIds()[0]
-    } catch (exception: IndexOutOfBoundsException) {
-        0
-    }
-}
-
-private fun WorkoutState.getFirstExerciseId(): Int {
-    if(this.exerciseCardStates.isEmpty()) {
-        return 0
-    }
-    return this.exerciseCardStates[0].workoutExerciseCrossRefId
-}
-
-private fun WorkoutState.getAllSetIds(): List<Int> {
-    return exerciseCardStates.flatMap { it.sets.map { set -> set.id } }
 }
 
 private fun WorkoutState.getAllSets(): List<SetState> {
     return exerciseCardStates.flatMap { it.sets }
+}
+
+private fun WorkoutState.getAllSets(workoutExerciseId: Int): List<SetState> {
+    return exerciseCardStates.find { it.workoutExerciseCrossRefId ==  workoutExerciseId}?.sets ?: emptyList()
 }

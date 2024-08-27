@@ -32,7 +32,7 @@ data class ExerciseCardState(
     fun keepOnlyPerformedSets(): ExerciseCardState {
         return this.copy(
             sets = sets.filter {
-                it.status == Progress.DONE
+                it.progress == Progress.DONE
             }
         )
     }
@@ -89,14 +89,14 @@ data class ExerciseCardState(
     }
 }
 
-fun DetailedExercise.toExerciseCardState() =
+fun DetailedExercise.toExerciseCardState(progress: Progress = Progress.TODO) =
     ExerciseCardState(
         exercise = exercise,
         workoutExerciseCrossRefId = templateExerciseCrossRefId,
         primaryMuscle = primaryMuscle,
         secondaryMuscles = secondaryMuscles,
         sets = sets.map {it.toSetState()},
-        progress = Progress.TODO
+        progress = progress
     )
 
 fun ExerciseCardState.toDetailedExercise() =
