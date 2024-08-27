@@ -1,6 +1,5 @@
 package com.example.fitnesstracker.ui.views.workout.perform
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fitnesstracker.services.WorkoutService
@@ -36,8 +35,7 @@ class WorkoutOngoingViewModel @Inject constructor(
     private lateinit var _ongoingWorkout: StateFlow<WorkoutState>
     val ongoingWorkout get() = _ongoingWorkout
 
-    //TODO rename
-    private val _setStyleMapFlow: MutableStateFlow<Map<Int, Progress>> = MutableStateFlow(emptyMap())
+    private val _setProgressMapFlow: MutableStateFlow<Map<Int, Progress>> = MutableStateFlow(emptyMap())
 
     private val _exerciseProgressMapFlow: MutableStateFlow<Map<Int, Progress>> = MutableStateFlow(emptyMap())
 
@@ -61,7 +59,7 @@ class WorkoutOngoingViewModel @Inject constructor(
     private fun initializeState() {
         _ongoingWorkout = combine(
                 workoutService.getDetailedWorkout(workoutId),
-                _setStyleMapFlow,
+                _setProgressMapFlow,
                 _exerciseProgressMapFlow
             ) { workout, setProgressMap, exerciseProgressMap ->
                 val updatedExercises = workout.detailedExercises.map { exercise ->
@@ -106,7 +104,7 @@ class WorkoutOngoingViewModel @Inject constructor(
     }
 
     private fun updateSetStatus(id: Int, status: Progress) {
-        _setStyleMapFlow.update { map ->
+        _setProgressMapFlow.update { map ->
             map.toMutableMap().apply {
                 put(id, status)
             }
