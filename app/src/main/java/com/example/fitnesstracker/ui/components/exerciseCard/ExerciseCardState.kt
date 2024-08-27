@@ -5,7 +5,6 @@ import com.example.fitnesstracker.data.dto.DetailedExercise
 import com.example.fitnesstracker.data.models.Exercise
 import com.example.fitnesstracker.data.models.Muscle
 import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetState
-import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetStatus
 import com.example.fitnesstracker.ui.components.exerciseCard.setRow.toSetState
 
 data class ExerciseCardState(
@@ -13,7 +12,8 @@ data class ExerciseCardState(
     val workoutExerciseCrossRefId: Int,
     val primaryMuscle: Muscle,
     val secondaryMuscles: List<Muscle>,
-    val sets: List<SetState>
+    val sets: List<SetState>,
+    val progress: Progress
 ) {
     fun updateSet(set: SetState): ExerciseCardState {
         val updatedSets = sets.map {
@@ -32,7 +32,7 @@ data class ExerciseCardState(
     fun keepOnlyPerformedSets(): ExerciseCardState {
         return this.copy(
             sets = sets.filter {
-                it.status == SetStatus.DONE
+                it.status == Progress.DONE
             }
         )
     }
@@ -54,7 +54,7 @@ data class ExerciseCardState(
             if(sets.isNotEmpty())
                 sets.last().copy(index = sets.last().index + 1)
             else
-                SetState(0, workoutExerciseCrossRefId, 1, 12, 20, SetStatus.TODO)
+                SetState(0, workoutExerciseCrossRefId, 1, 12, 20, Progress.TODO)
 
         return this.copy(
             sets = sets.plus(set)
@@ -82,7 +82,8 @@ data class ExerciseCardState(
                 workoutExerciseCrossRefId = 0,
                 primaryMuscle = Muscle.default(),
                 secondaryMuscles = emptyList(),
-                sets = emptyList()
+                sets = emptyList(),
+                progress = Progress.TODO
             )
         }
     }
@@ -94,7 +95,8 @@ fun DetailedExercise.toExerciseCardState() =
         workoutExerciseCrossRefId = templateExerciseCrossRefId,
         primaryMuscle = primaryMuscle,
         secondaryMuscles = secondaryMuscles,
-        sets = sets.map {it.toSetState()}
+        sets = sets.map {it.toSetState()},
+        progress = Progress.TODO
     )
 
 fun ExerciseCardState.toDetailedExercise() =

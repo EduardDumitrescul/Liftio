@@ -24,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.fitnesstracker.ui.components.SwipeToDeleteContainer
 import com.example.fitnesstracker.ui.components.button.TwoButtonRow
+import com.example.fitnesstracker.ui.components.exerciseCard.Progress
 import com.example.fitnesstracker.ui.components.textfield.NumberField
 import com.example.fitnesstracker.ui.theme.AppTheme
 import kotlin.math.min
@@ -101,10 +102,10 @@ private fun EditableSetRowContent(
     var isEditing by remember {
         mutableStateOf(false)
     }
-    val alpha = if(state.status == SetStatus.TODO) 0.5f else 1.0f
+    val alpha = if(state.status == Progress.TODO) 0.5f else 1.0f
 
     val backgroundColor = when {
-        state.status == SetStatus.ONGOING ->  AppTheme.colors.containerVariant
+        state.status == Progress.ONGOING ->  AppTheme.colors.containerVariant
         isEditing ->  AppTheme.colors.containerVariant
         else -> AppTheme.colors.container
     }
@@ -350,7 +351,7 @@ fun PreviewEditableSetRow() {
         mutableStateOf(
             SetState(
                 1, 1, 1, 10, 20,
-                SetStatus.DONE
+                Progress.DONE
             )
         )
     }

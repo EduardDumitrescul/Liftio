@@ -1,4 +1,4 @@
-package com.example.fitnesstracker.ui.views.workout.detail
+package com.example.fitnesstracker.ui.views.workout
 
 import com.example.fitnesstracker.data.dto.DetailedWorkout
 import com.example.fitnesstracker.ui.components.exerciseCard.ExerciseCardState

@@ -1,6 +1,7 @@
 package com.example.fitnesstracker.ui.components.exerciseCard.setRow
 
 import com.example.fitnesstracker.data.models.ExerciseSet
+import com.example.fitnesstracker.ui.components.exerciseCard.Progress
 
 data class SetState(
     val id: Int,
@@ -8,7 +9,7 @@ data class SetState(
     val index: Int,
     val reps: Int,
     val weight: Int,
-    val status: SetStatus
+    val status: Progress
 ) {
     fun toExerciseSet() =
         ExerciseSet(
@@ -20,7 +21,7 @@ data class SetState(
         )
 }
 
-fun ExerciseSet.toSetState(status: SetStatus = SetStatus.TODO) =
+fun ExerciseSet.toSetState(status: Progress = Progress.TODO) =
     SetState(
         id = id,
         workoutExerciseId = workoutExerciseId,
@@ -32,8 +33,3 @@ fun ExerciseSet.toSetState(status: SetStatus = SetStatus.TODO) =
 
 
 
-enum class SetStatus {
-    DONE,
-    ONGOING,
-    TODO,
-}

@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fitnesstracker.services.WorkoutService
 import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetState
-import com.example.fitnesstracker.ui.views.workout.detail.WorkoutState
-import com.example.fitnesstracker.ui.views.workout.detail.toWorkoutState
+import com.example.fitnesstracker.ui.views.workout.WorkoutState
+import com.example.fitnesstracker.ui.views.workout.toWorkoutState
 import com.example.fitnesstracker.utils.swap
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

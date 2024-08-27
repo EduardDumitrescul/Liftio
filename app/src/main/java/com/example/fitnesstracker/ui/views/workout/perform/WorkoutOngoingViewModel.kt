@@ -5,12 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fitnesstracker.services.WorkoutService
 import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetState
-import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetStatus
+import com.example.fitnesstracker.ui.components.exerciseCard.Progress
 import com.example.fitnesstracker.ui.components.exerciseCard.setRow.toSetState
 import com.example.fitnesstracker.ui.components.exerciseCard.toExerciseCardState
-import com.example.fitnesstracker.ui.views.workout.detail.WorkoutState
-import com.example.fitnesstracker.ui.views.workout.detail.toDetailedWorkout
-import com.example.fitnesstracker.ui.views.workout.detail.toWorkoutState
+import com.example.fitnesstracker.ui.views.workout.WorkoutState
+import com.example.fitnesstracker.ui.views.workout.toDetailedWorkout
+import com.example.fitnesstracker.ui.views.workout.toWorkoutState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -36,7 +36,7 @@ class WorkoutOngoingViewModel @Inject constructor(
     private lateinit var _ongoingWorkout: StateFlow<WorkoutState>
     val ongoingWorkout get() = _ongoingWorkout
 
-    private val _setStyleMapFlow: MutableStateFlow<Map<Int, SetStatus>> = MutableStateFlow(emptyMap())
+    private val _setStyleMapFlow: MutableStateFlow<Map<Int, Progress>> = MutableStateFlow(emptyMap())
 
 
     private lateinit var progressTracker: ProgressTracker
@@ -67,7 +67,7 @@ class WorkoutOngoingViewModel @Inject constructor(
                             set.toSetState(map[set.id]!!)
                         }
                         else {
-                            set.toSetState(SetStatus.TODO)
+                            set.toSetState(Progress.TODO)
                         }
                     }
                     exercise.toExerciseCardState().copy(
@@ -98,7 +98,7 @@ class WorkoutOngoingViewModel @Inject constructor(
         }
     }
 
-    private fun updateSetStatus(id: Int, status: SetStatus) {
+    private fun updateSetStatus(id: Int, status: Progress) {
         _setStyleMapFlow.update { map ->
             map.toMutableMap().apply {
                 put(id, status)
@@ -161,7 +161,7 @@ class WorkoutOngoingViewModel @Inject constructor(
     private suspend fun removeUncompletedSets() {
         for(exerciseCardState in _ongoingWorkout.value.exerciseCardStates) {
             for(set in exerciseCardState.sets) {
-                if(set.status != SetStatus.DONE) {
+                if(set.status != Progress.DONE) {
                     workoutService.removeSetFromWorkoutExercise(set.id)
                 }
             }

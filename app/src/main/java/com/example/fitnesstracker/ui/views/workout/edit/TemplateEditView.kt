@@ -36,7 +36,7 @@ import com.example.fitnesstracker.ui.components.exerciseCard.ExerciseCardOptions
 import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetRowOptions
 import com.example.fitnesstracker.ui.theme.AppTheme
 import com.example.fitnesstracker.ui.views.workout.components.AddExerciseButton
-import com.example.fitnesstracker.ui.views.workout.detail.WorkoutState
+import com.example.fitnesstracker.ui.views.workout.WorkoutState
 import kotlinx.coroutines.launch
 import sh.calvin.reorderable.ReorderableItem
 import sh.calvin.reorderable.rememberReorderableLazyListState
