@@ -1,6 +1,5 @@
 package com.example.fitnesstracker.ui.components.chip
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,7 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.fitnesstracker.ui.theme.AppTheme
 
-private const val TAG = "SingleChoiceChipGroup"
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -19,12 +17,12 @@ fun SingleChoiceChipGroup(
     options: List<String>,
     selected: String = "",
     onSelectionChanged: (String) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
-    Log.d(TAG, selected)
-
     FlowRow(
         horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal),
-        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal)
+        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal),
+        modifier = modifier,
     ) {
 
         for(option in options) {

@@ -25,6 +25,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
 import com.example.fitnesstracker.ui.theme.AppTheme
 
+//TODO fix bar label not centered under the bar
+//TODO add title
 
 @Composable
 fun BarChart(
