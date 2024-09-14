@@ -1,5 +1,6 @@
 package com.example.fitnesstracker.ui.components.charts
 
+import android.util.Log
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -71,7 +72,10 @@ private class BarChartDrawer(
 
 
     private val leftAxisStepValue: Int get() {
-        val max = model.barModels.maxBy { it.value }.value
+        if(model.barModels.isEmpty()) {
+            return 10
+        }
+        val max = model.barModels.maxByOrNull { it.value }!!.value
         var greatestPowerOf10 = 1;
         while(10 * greatestPowerOf10 < 0.8 * max / model.leftAxisSteps) {
             greatestPowerOf10 *= 10
