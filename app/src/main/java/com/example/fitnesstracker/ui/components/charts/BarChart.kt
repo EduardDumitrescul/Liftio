@@ -28,6 +28,7 @@ import com.example.fitnesstracker.ui.theme.AppTheme
 
 //TODO fix bar label not centered under the bar
 //TODO add title
+//TODO add horizontal scroll
 
 @Composable
 fun BarChart(
@@ -76,6 +77,10 @@ private class BarChartDrawer(
             return 10
         }
         val max = model.barModels.maxByOrNull { it.value }!!.value
+        if(max == 0) {
+            return 5
+        }
+
         var greatestPowerOf10 = 1;
         while(10 * greatestPowerOf10 < 0.8 * max / model.leftAxisSteps) {
             greatestPowerOf10 *= 10

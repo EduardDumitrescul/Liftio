@@ -12,10 +12,10 @@ import javax.inject.Inject
 class AnalysisService @Inject constructor(
     private val workoutRepository: WorkoutRepository
 ) {
-    fun getOverviewStatistics(): Flow<OverviewStatistics> {
-        val workoutsCompletedFlow = workoutRepository.getNumberOfWorkoutsCompleted()
-        val timeTrainedFlow = workoutRepository.getTimeTrained()
-        val setsCompletedFlow = workoutRepository.getSetsCompleted()
+    fun getOverviewStatistics(from: LocalDateTime = LocalDateTime.MIN, to: LocalDateTime = LocalDateTime.MAX): Flow<OverviewStatistics> {
+        val workoutsCompletedFlow = workoutRepository.getNumberOfWorkoutsCompleted(from, to)
+        val timeTrainedFlow = workoutRepository.getTimeTrained(from, to)
+        val setsCompletedFlow = workoutRepository.getSetsCompleted(from, to)
 
         return combine(
             workoutsCompletedFlow,
@@ -30,7 +30,7 @@ class AnalysisService @Inject constructor(
         }
     }
 
-    fun getWorkoutDates(): Flow<List<LocalDateTime>> {
-        return workoutRepository.getWorkoutDates()
+    fun getWorkoutDates(from: LocalDateTime = LocalDateTime.MIN, to: LocalDateTime = LocalDateTime.MAX): Flow<List<LocalDateTime>> {
+        return workoutRepository.getWorkoutDates(from, to)
     }
 }

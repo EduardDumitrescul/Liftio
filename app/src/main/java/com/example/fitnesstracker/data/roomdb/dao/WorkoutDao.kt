@@ -79,21 +79,28 @@ interface WorkoutDao {
     }
 
     @Query("select count(*) from workouts w " +
-            "where w.isTemplate == 0"
+            "where w.isTemplate == 0 " +
+            "and w.timeStarted between :from and :to"
     )
-    fun getNumberOfWorkoutsCompleted(): Flow<Int>
+    fun getNumberOfWorkoutsCompleted(from: LocalDateTime, to: LocalDateTime): Flow<Int>
 
     @Query("select sum(w.duration) from workouts w " +
-            "where w.isTemplate == 0")
-    fun getTimeTrained(): Flow<Int>
+            "where w.isTemplate == 0 " +
+            "and w.timeStarted between :from and :to"
+    )
+    fun getTimeTrained(from: LocalDateTime, to: LocalDateTime): Flow<Int>
 
     @Query("select count(*) from workouts w " +
             "join workoutExerciseCrossRefs we on we.workoutId = w.id " +
             "join sets s on we.id = s.workoutExerciseId " +
-            "where w.isTemplate == 0")
-    fun getSetsCompleted(): Flow<Int>
+            "where w.isTemplate == 0 " +
+            "and w.timeStarted between :from and :to"
+    )
+    fun getSetsCompleted(from: LocalDateTime, to: LocalDateTime): Flow<Int>
 
     @Query("select w.timeStarted from workouts w " +
-            "where w.isTemplate == 0")
-    fun getWorkoutDates(): Flow<List<LocalDateTime>>
+            "where w.isTemplate == 0 " +
+            "and w.timeStarted between :from and :to"
+    )
+    fun getWorkoutDates(from: LocalDateTime, to: LocalDateTime): Flow<List<LocalDateTime>>
 }

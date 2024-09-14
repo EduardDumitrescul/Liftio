@@ -132,20 +132,20 @@ class RoomWorkoutRepository @Inject constructor(
         workoutDao.updateWorkoutExerciseIndexes(newIndexesForId)
     }
 
-    override fun getNumberOfWorkoutsCompleted(): Flow<Int> {
-        return workoutDao.getNumberOfWorkoutsCompleted()
+    override fun getNumberOfWorkoutsCompleted(from: LocalDateTime, to: LocalDateTime): Flow<Int> {
+        return workoutDao.getNumberOfWorkoutsCompleted(from, to)
     }
 
-    override fun getTimeTrained(): Flow<Int> {
-        return workoutDao.getTimeTrained()
+    override fun getTimeTrained(from: LocalDateTime, to: LocalDateTime): Flow<Int> {
+        return workoutDao.getTimeTrained(from, to)
     }
 
-    override fun getSetsCompleted(): Flow<Int> {
-        return workoutDao.getSetsCompleted()
+    override fun getSetsCompleted(from: LocalDateTime, to: LocalDateTime): Flow<Int> {
+        return workoutDao.getSetsCompleted(from, to)
     }
 
-    override fun getWorkoutDates(): Flow<List<LocalDateTime>> {
-        return workoutDao.getWorkoutDates()
+    override fun getWorkoutDates(from: LocalDateTime, to: LocalDateTime): Flow<List<LocalDateTime>> {
+        return workoutDao.getWorkoutDates(from, to)
     }
 
 }

@@ -1,5 +1,8 @@
 package com.example.fitnesstracker.ui.views.analysis
 
+import java.security.InvalidParameterException
+import java.sql.Time
+
 data class OverviewAnalysisCardState(
     val workoutCompleted: Int,
     val timeTrainedInSeconds: Int,
@@ -24,6 +27,17 @@ data class OverviewAnalysisCardState(
 enum class TimePeriodOption(val label: String) {
     ALL("all time"),
     YEAR("this year"),
-    MONTH("this month")
+    MONTH("this month");
+
+    companion object {
+        fun fromString(label: String): TimePeriodOption {
+            return when(label) {
+                ALL.label -> ALL
+                YEAR.label -> YEAR
+                MONTH.label -> MONTH
+                else -> throw InvalidParameterException("There is no TimePeriodOption with the label $label")
+            }
+        }
+    }
 }
 
