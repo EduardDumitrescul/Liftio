@@ -95,13 +95,13 @@ object EditExercise: NavDestination {
     }
 }
 
-object Stats: NavDestination {
+object Analysis: NavDestination {
     override val icon: ImageVector
         get() = Icons.Rounded.BarChart
     override val route: String
-        get() = "stats"
+        get() = "analysis"
     override val name: String
-        get() = "Stats"
+        get() = "Analysis"
 }
 
 object WorkoutHistory: NavDestination {
@@ -113,6 +113,6 @@ object WorkoutHistory: NavDestination {
         get() = "History"
 }
 
-val bottomNavBarDestinations = setOf(Home, Exercises, Stats, WorkoutHistory)
+val bottomNavBarDestinations = setOf(Home, Exercises, Analysis, WorkoutHistory)
 
 

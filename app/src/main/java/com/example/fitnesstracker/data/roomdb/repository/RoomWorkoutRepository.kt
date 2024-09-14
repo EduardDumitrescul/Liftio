@@ -130,4 +130,16 @@ class RoomWorkoutRepository @Inject constructor(
         workoutDao.updateWorkoutExerciseIndexes(newIndexesForId)
     }
 
+    override fun getNumberOfWorkoutsCompleted(): Flow<Int> {
+        return workoutDao.getNumberOfWorkoutsCompleted()
+    }
+
+    override fun getTimeTrained(): Flow<Int> {
+        return workoutDao.getTimeTrained()
+    }
+
+    override fun getSetsCompleted(): Flow<Int> {
+        return workoutDao.getSetsCompleted()
+    }
+
 }

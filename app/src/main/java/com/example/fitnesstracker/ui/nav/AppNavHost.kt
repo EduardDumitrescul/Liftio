@@ -8,6 +8,7 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.fitnesstracker.ui.views.analysis.AnalysisScreen
 import com.example.fitnesstracker.ui.views.exercise.browse.ExerciseBrowseView
 import com.example.fitnesstracker.ui.views.exercise.edit.ExerciseEditView
 import com.example.fitnesstracker.ui.views.history.WorkoutHistoryScreen
@@ -84,8 +85,8 @@ fun AppNavHost(
                 onActionClick = {navController.navigate(EditExercise.createRoute(0))}
             )
         }
-        composable(route = Stats.route) {
-            Text(text = "Stats")
+        composable(route = Analysis.route) {
+            AnalysisScreen()
         }
         composable(route = WorkoutHistory.route) {
             WorkoutHistoryScreen()

@@ -18,4 +18,7 @@ interface WorkoutRepository {
     fun getAllWorkoutEntries(): Flow<List<Workout>>
     suspend fun getWorkoutExercise(workoutExerciseId: Int): WorkoutExerciseCrossRef
     suspend fun updateWorkoutExerciseIndexes(newIndexesForId: List<Pair<Int, Int>>)
+    fun getNumberOfWorkoutsCompleted(): Flow<Int>
+    fun getTimeTrained(): Flow<Int>
+    fun getSetsCompleted(): Flow<Int>
 }

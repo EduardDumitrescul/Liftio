@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.KeyboardArrowRight
 import androidx.compose.material3.Icon
@@ -25,8 +24,8 @@ import com.example.fitnesstracker.ui.components.chip.SingleChoiceChipGroup
 import com.example.fitnesstracker.ui.theme.AppTheme
 
 @Composable
-fun OverallAnalysisCard(
-    state: OverallAnalysisCardState,
+fun OverviewAnalysisCard(
+    state: OverviewAnalysisCardState,
     modifier: Modifier = Modifier,
     onTimePeriodSelectionChanged: (String) -> Unit,
 ) {
@@ -42,7 +41,7 @@ fun OverallAnalysisCard(
         StatsColumn(
             data = listOf(
                 Pair("workouts completed", state.workoutCompleted.toString()),
-                Pair("time trained", state.timeTrained.toString() + " hours"),
+                Pair("time trained", (state.timeTrainedInSeconds / 3600).toString() + " hours"),
                 Pair("sets completed", state.setsCompleted.toString()),
             )
         )
@@ -62,7 +61,7 @@ private fun TitleRow() {
             .padding(top = 16.dp)
     ) {
         Text(
-            text = "Overall Analysis",
+            text = "Overview Analysis",
             style = AppTheme.typography.headline,
             color = AppTheme.colors.onContainer
         )
@@ -82,7 +81,7 @@ private fun TimePeriodChipGroup(
     onSelectionChanged: (String) -> Unit,
 ) {
     SingleChoiceChipGroup(
-        options = OverallAnalysisCardState.timePeriodOptions,
+        options = OverviewAnalysisCardState.timePeriodOptions,
         selected = selected,
         onSelectionChanged = onSelectionChanged,
         modifier = Modifier.padding(horizontal = 16.dp)
@@ -142,10 +141,10 @@ private fun Chart(
 
 @Composable
 @Preview
-private fun PreviewOverallAnalysisCard() {
+private fun PreviewOverviewAnalysisCard() {
     AppTheme {
-        OverallAnalysisCard(
-            state = OverallAnalysisCardState.default(),
+        OverviewAnalysisCard(
+            state = OverviewAnalysisCardState.default(),
             onTimePeriodSelectionChanged = {},
         )
     }

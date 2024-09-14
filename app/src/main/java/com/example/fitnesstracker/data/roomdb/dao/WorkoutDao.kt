@@ -76,4 +76,19 @@ interface WorkoutDao {
             updateWorkoutExerciseIndex(it.first, it.second)
         }
     }
+
+    @Query("select count(*) from workouts w " +
+            "where w.isTemplate == 0"
+    )
+    fun getNumberOfWorkoutsCompleted(): Flow<Int>
+
+    @Query("select sum(w.duration) from workouts w " +
+            "where w.isTemplate == 0")
+    fun getTimeTrained(): Flow<Int>
+
+    @Query("select count(*) from workouts w " +
+            "join workoutExerciseCrossRefs we on we.workoutId = w.id " +
+            "join sets s on we.id = s.workoutExerciseId " +
+            "where w.isTemplate == 0")
+    fun getSetsCompleted(): Flow<Int>
 }
