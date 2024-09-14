@@ -17,6 +17,8 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
+import java.time.LocalDate
+import java.time.LocalDateTime
 import javax.inject.Inject
 
 private const val TAG = "RoomTemplateRepository"
@@ -140,6 +142,10 @@ class RoomWorkoutRepository @Inject constructor(
 
     override fun getSetsCompleted(): Flow<Int> {
         return workoutDao.getSetsCompleted()
+    }
+
+    override fun getWorkoutDates(): Flow<List<LocalDateTime>> {
+        return workoutDao.getWorkoutDates()
     }
 
 }

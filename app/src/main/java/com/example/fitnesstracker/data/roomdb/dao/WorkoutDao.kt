@@ -9,6 +9,7 @@ import androidx.room.Update
 import com.example.fitnesstracker.data.roomdb.entity.WorkoutEntity
 import com.example.fitnesstracker.data.roomdb.entity.WorkoutExerciseCrossRefEntity
 import kotlinx.coroutines.flow.Flow
+import java.time.LocalDateTime
 
 @Dao
 interface WorkoutDao {
@@ -91,4 +92,8 @@ interface WorkoutDao {
             "join sets s on we.id = s.workoutExerciseId " +
             "where w.isTemplate == 0")
     fun getSetsCompleted(): Flow<Int>
+
+    @Query("select w.timeStarted from workouts w " +
+            "where w.isTemplate == 0")
+    fun getWorkoutDates(): Flow<List<LocalDateTime>>
 }

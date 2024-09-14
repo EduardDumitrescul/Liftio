@@ -4,7 +4,7 @@ data class OverviewAnalysisCardState(
     val workoutCompleted: Int,
     val timeTrainedInSeconds: Int,
     val setsCompleted: Int,
-    val selectedTimePeriod: String,
+    val selectedTimePeriod: TimePeriodOption,
     val chartData: List<Pair<String, Int>>
 ) {
 
@@ -14,10 +14,16 @@ data class OverviewAnalysisCardState(
             timeTrainedInSeconds = 295,
             setsCompleted = 2693,
             selectedTimePeriod = timePeriodOptions[0],
-            chartData = listOf(Pair("Jan", 14), Pair("Feb", 10), Pair("Mar", 24), Pair("Apr", 16), Pair("May", 8), Pair("Jun", 15))
+            chartData = emptyList()
         )
 
-        val timePeriodOptions = listOf("all time", "this year", "this month")
+        val timePeriodOptions = listOf(TimePeriodOption.ALL, TimePeriodOption.YEAR, TimePeriodOption.MONTH)
     }
+}
+
+enum class TimePeriodOption(val label: String) {
+    ALL("all time"),
+    YEAR("this year"),
+    MONTH("this month")
 }
 

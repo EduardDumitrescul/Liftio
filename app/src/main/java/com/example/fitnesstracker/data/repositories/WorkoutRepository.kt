@@ -4,6 +4,8 @@ import com.example.fitnesstracker.data.dto.DetailedExercise
 import com.example.fitnesstracker.data.models.Workout
 import com.example.fitnesstracker.data.models.WorkoutExerciseCrossRef
 import kotlinx.coroutines.flow.Flow
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 interface WorkoutRepository {
     fun getTemplates(): Flow<List<Workout>>
@@ -21,4 +23,5 @@ interface WorkoutRepository {
     fun getNumberOfWorkoutsCompleted(): Flow<Int>
     fun getTimeTrained(): Flow<Int>
     fun getSetsCompleted(): Flow<Int>
+    fun getWorkoutDates(): Flow<List<LocalDateTime>>
 }

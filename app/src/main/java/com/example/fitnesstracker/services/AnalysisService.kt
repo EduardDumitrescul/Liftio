@@ -4,6 +4,9 @@ import com.example.fitnesstracker.data.dto.OverviewStatistics
 import com.example.fitnesstracker.data.repositories.WorkoutRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
+import java.time.LocalDate
+import java.time.LocalDateTime
 import javax.inject.Inject
 
 class AnalysisService @Inject constructor(
@@ -25,5 +28,9 @@ class AnalysisService @Inject constructor(
                 setsCompleted = setsCompleted
             )
         }
+    }
+
+    fun getWorkoutDates(): Flow<List<LocalDateTime>> {
+        return workoutRepository.getWorkoutDates()
     }
 }

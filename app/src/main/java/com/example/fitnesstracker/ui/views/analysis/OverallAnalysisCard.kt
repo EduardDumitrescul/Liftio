@@ -35,7 +35,7 @@ fun OverviewAnalysisCard(
     ) {
         TitleRow()
         TimePeriodChipGroup(
-            selected = state.selectedTimePeriod,
+            selected = state.selectedTimePeriod.label,
             onSelectionChanged = onTimePeriodSelectionChanged
         )
         StatsColumn(
@@ -81,7 +81,7 @@ private fun TimePeriodChipGroup(
     onSelectionChanged: (String) -> Unit,
 ) {
     SingleChoiceChipGroup(
-        options = OverviewAnalysisCardState.timePeriodOptions,
+        options = OverviewAnalysisCardState.timePeriodOptions.map { it.label },
         selected = selected,
         onSelectionChanged = onSelectionChanged,
         modifier = Modifier.padding(horizontal = 16.dp)
