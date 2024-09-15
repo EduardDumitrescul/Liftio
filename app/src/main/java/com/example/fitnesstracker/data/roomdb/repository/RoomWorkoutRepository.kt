@@ -145,4 +145,8 @@ class RoomWorkoutRepository @Inject constructor(
         return workoutDao.getWorkoutDates(from, to)
     }
 
+    override suspend fun deleteAllWorkoutEntries() {
+        workoutDao.removeAllWorkoutEntries()
+    }
+
 }

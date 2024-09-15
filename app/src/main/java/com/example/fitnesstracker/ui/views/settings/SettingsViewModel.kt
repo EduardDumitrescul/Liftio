@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.fitnesstracker.data.datastore.Theme
 import com.example.fitnesstracker.data.datastore.UserPreferences
 import com.example.fitnesstracker.data.repositories.SettingsRepository
+import com.example.fitnesstracker.services.HistoryService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
-    private val settingsRepository: SettingsRepository
+    private val settingsRepository: SettingsRepository,
+    private val historyService: HistoryService,
 ): ViewModel() {
     private val _state: MutableStateFlow<SettingsScreenState> = MutableStateFlow(SettingsScreenState.default())
     val state: StateFlow<SettingsScreenState> get() = _state.asStateFlow()
@@ -41,6 +43,12 @@ class SettingsViewModel @Inject constructor(
     fun updateTheme(value: Theme) {
         viewModelScope.launch {
             settingsRepository.updateTheme(value)
+        }
+    }
+
+    fun clearHistory() {
+        viewModelScope.launch {
+            historyService.clearHistory()
         }
     }
 

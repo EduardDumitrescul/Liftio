@@ -23,4 +23,5 @@ interface WorkoutRepository {
     fun getTimeTrained(from: LocalDateTime, to: LocalDateTime): Flow<Int>
     fun getSetsCompleted(from: LocalDateTime, to: LocalDateTime): Flow<Int>
     fun getWorkoutDates(from: LocalDateTime, to: LocalDateTime): Flow<List<LocalDateTime>>
+    suspend fun deleteAllWorkoutEntries()
 }

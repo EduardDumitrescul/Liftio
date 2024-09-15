@@ -49,4 +49,8 @@ class HistoryService @Inject constructor(
     fun getSetsWithDate(exerciseId: Int): Flow<List<DateWithSets>> {
         return setRepository.getSetsHistory(exerciseId)
     }
+
+    suspend fun clearHistory() {
+        workoutRepository.deleteAllWorkoutEntries()
+    }
 }

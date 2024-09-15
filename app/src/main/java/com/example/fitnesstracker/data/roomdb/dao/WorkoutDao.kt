@@ -103,4 +103,8 @@ interface WorkoutDao {
             "and w.timeStarted between :from and :to"
     )
     fun getWorkoutDates(from: LocalDateTime, to: LocalDateTime): Flow<List<LocalDateTime>>
+
+    @Query("delete from workouts " +
+            "where isTemplate = 0")
+    suspend fun removeAllWorkoutEntries()
 }
