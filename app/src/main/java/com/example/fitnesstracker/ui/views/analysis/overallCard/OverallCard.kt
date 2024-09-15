@@ -126,15 +126,22 @@ private fun Chart(
 ) {
     BarChart(
         model = BarChartModel(
+            title = "# of workouts",
+            titleStyle = AppTheme.typography.body,
+            titleColor = AppTheme.colors.onContainer,
             barModels = data.map { BarModel(it.second, it.first) },
             backgroundColor = AppTheme.colors.container,
             barColor = AppTheme.colors.primary,
             helperLineColor = AppTheme.colors.outline,
             textStyle = AppTheme.typography.caption,
+            textColor = AppTheme.colors.onContainer,
             leftAxisSteps = 5,
             leftAxisWidth = 24.dp,
         ),
-        modifier = Modifier.height(160.dp)
+        modifier = Modifier
+            .height(160.dp)
+            .padding(top = 16.dp)
+            .padding(end = 16.dp)
     )
 }
 

@@ -17,6 +17,8 @@ import com.example.fitnesstracker.ui.theme.AppTheme
 import com.example.fitnesstracker.ui.views.analysis.overallCard.OverviewCard
 import com.example.fitnesstracker.ui.views.analysis.overallCard.TimePeriodOption
 
+//TODO adjust parameters for analysis card depending on time frame
+
 //TODO exercise analysis card
 //TODO muscle analysis card
 //TODO last workout card
