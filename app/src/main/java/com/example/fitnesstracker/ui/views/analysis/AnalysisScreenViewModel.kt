@@ -1,19 +1,16 @@
 package com.example.fitnesstracker.ui.views.analysis
 
-import android.util.Log
-import androidx.compose.ui.text.capitalize
-import androidx.compose.ui.text.decapitalize
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fitnesstracker.data.dto.OverviewStatistics
 import com.example.fitnesstracker.services.AnalysisService
+import com.example.fitnesstracker.ui.views.analysis.overallCard.TimePeriodOption
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -31,7 +28,8 @@ class AnalysisScreenViewModel @Inject constructor(
     private val _state: MutableStateFlow<AnalysisScreenState> = MutableStateFlow(AnalysisScreenState.default())
     val state: StateFlow<AnalysisScreenState> get() = _state.asStateFlow()
 
-    private val _overviewAnalysisTimePeriodOption: MutableStateFlow<TimePeriodOption> = MutableStateFlow(TimePeriodOption.ALL)
+    private val _overviewAnalysisTimePeriodOption: MutableStateFlow<TimePeriodOption> = MutableStateFlow(
+        TimePeriodOption.ALL)
 
     private var fetchDataJob: Job? = null
 

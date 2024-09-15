@@ -1,7 +1,6 @@
-package com.example.fitnesstracker.ui.views.analysis
+package com.example.fitnesstracker.ui.views.analysis.overallCard
 
 import java.security.InvalidParameterException
-import java.sql.Time
 
 data class OverviewAnalysisCardState(
     val workoutCompleted: Int,
@@ -20,7 +19,11 @@ data class OverviewAnalysisCardState(
             chartData = emptyList()
         )
 
-        val timePeriodOptions = listOf(TimePeriodOption.ALL, TimePeriodOption.YEAR, TimePeriodOption.MONTH)
+        val timePeriodOptions = listOf(
+            TimePeriodOption.ALL,
+            TimePeriodOption.YEAR,
+            TimePeriodOption.MONTH
+        )
     }
 }
 

@@ -1,6 +1,5 @@
 package com.example.fitnesstracker.ui.views.analysis
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -15,6 +14,8 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.fitnesstracker.ui.components.appbar.LargeAppBar
 import com.example.fitnesstracker.ui.theme.AppTheme
+import com.example.fitnesstracker.ui.views.analysis.overallCard.OverviewCard
+import com.example.fitnesstracker.ui.views.analysis.overallCard.TimePeriodOption
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -38,7 +39,7 @@ fun AnalysisScreen(
         Column(
             modifier = Modifier.padding(innerPadding)
         ) {
-            OverviewAnalysisCard(
+            OverviewCard(
                 state = state.overviewAnalysisCardState,
                 onTimePeriodSelectionChanged = {
                     viewModel.updateOverviewAnalysisTimePeriodOption(TimePeriodOption.fromString(it))

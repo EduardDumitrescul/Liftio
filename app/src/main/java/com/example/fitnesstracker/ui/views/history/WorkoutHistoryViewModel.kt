@@ -17,7 +17,9 @@ import javax.inject.Inject
 class WorkoutHistoryViewModel @Inject constructor(
     private val historyService: HistoryService
 ): ViewModel() {
-    private val _state : MutableStateFlow<WorkoutHistoryScreenState> = MutableStateFlow(WorkoutHistoryScreenState.default())
+    private val _state : MutableStateFlow<WorkoutHistoryScreenState> = MutableStateFlow(
+        WorkoutHistoryScreenState.default()
+    )
     val state: StateFlow<WorkoutHistoryScreenState> get() = _state
 
     init {

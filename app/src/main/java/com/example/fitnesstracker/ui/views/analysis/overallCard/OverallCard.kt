@@ -1,4 +1,4 @@
-package com.example.fitnesstracker.ui.views.analysis
+package com.example.fitnesstracker.ui.views.analysis.overallCard
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,7 +24,7 @@ import com.example.fitnesstracker.ui.components.chip.SingleChoiceChipGroup
 import com.example.fitnesstracker.ui.theme.AppTheme
 
 @Composable
-fun OverviewAnalysisCard(
+fun OverviewCard(
     state: OverviewAnalysisCardState,
     modifier: Modifier = Modifier,
     onTimePeriodSelectionChanged: (String) -> Unit,
@@ -143,7 +143,7 @@ private fun Chart(
 @Preview
 private fun PreviewOverviewAnalysisCard() {
     AppTheme {
-        OverviewAnalysisCard(
+        OverviewCard(
             state = OverviewAnalysisCardState.default(),
             onTimePeriodSelectionChanged = {},
         )
