@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.CheckCircle
 import androidx.compose.material.icons.rounded.CheckCircleOutline
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -38,6 +37,7 @@ fun WorkoutOngoingView(
     previouslySelectedExerciseId: Int = 0,
     viewModel: WorkoutOngoingViewModel = hiltViewModel(),
     onNewExerciseButtonClick: () -> Unit,
+    onViewExerciseHistoryClick: (Int) -> Unit,
     navigateBack: () -> Unit,
 ) {
     LaunchedEffect(previouslySelectedExerciseId) {
@@ -92,11 +92,15 @@ fun WorkoutOngoingView(
                             setRowOptions = SetRowOptions().copy(
                                 canUpdateValues = true,
                                 canRemoveSet = true
-                            )
+                            ),
+                            canViewHistory = true,
                         ),
                         onClick = { /*TODO*/ },
                         onRemoveClick = {
                             viewModel.removeExerciseFromWorkout(exerciseDetailed.workoutExerciseCrossRefId)
+                        },
+                        onHistoryClick = {
+                            onViewExerciseHistoryClick(exerciseDetailed.exercise.id)
                         },
                         updateSet = { set ->
                             viewModel.updateSet(set)

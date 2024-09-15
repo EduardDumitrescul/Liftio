@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.History
 import androidx.compose.material.icons.rounded.Remove
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,6 +34,7 @@ fun EditableExerciseCard(
     options: ExerciseCardOptions = ExerciseCardOptions(),
     onClick: () -> Unit = {},
     onRemoveClick: () -> Unit = {},
+    onHistoryClick: () -> Unit = {},
     updateSet: (SetState) -> Unit = {},
     addSet: () -> Unit = {},
     removeSet: (Int) -> Unit = {},
@@ -50,8 +52,15 @@ fun EditableExerciseCard(
             ) {
                 Title(state.exercise.name)
 
-                if(options.canRemoveExercise) {
-                    RemoveButton(onRemoveClick)
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(0.dp)
+                ) {
+                    if(options.canViewHistory) {
+                        HistoryButton(onHistoryClick)
+                    }
+                    if(options.canRemoveExercise) {
+                        RemoveButton(onRemoveClick)
+                    }
                 }
             }
 
@@ -137,10 +146,22 @@ private fun RemoveButton(onRemoveClick: () -> Unit) {
     )
 }
 
+@Composable
+private fun HistoryButton(onClick: () -> Unit) {
+    IconButton(
+        onClick = onClick,
+        imageVector = Icons.Rounded.History,
+        contentDescription = "view exercise history",
+        containerColor = Color.Transparent,
+        contentColor = AppTheme.colors.onContainer
+    )
+}
+
 data class ExerciseCardOptions(
     val canRemoveExercise: Boolean = false,
     val canAddSet: Boolean = false,
     val setRowOptions: SetRowOptions = SetRowOptions(),
+    val canViewHistory: Boolean = false,
 )
 
 @Preview

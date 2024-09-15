@@ -63,6 +63,7 @@ fun AppNavHost(
             WorkoutOngoingView(
                 previouslySelectedExerciseId = selectedExerciseId,
                 onNewExerciseButtonClick = {navController.navigate(SelectExercise.route)},
+                onViewExerciseHistoryClick = {navController.navigate(ExerciseHistory.createRoute(it))},
                 navigateBack = {navController.navigateUp()}
             )
         }
