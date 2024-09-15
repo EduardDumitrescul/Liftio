@@ -133,7 +133,6 @@ private fun Chart(
             textStyle = AppTheme.typography.caption,
             leftAxisSteps = 5,
             leftAxisWidth = 24.dp,
-            barWidthToGapRatio = 1f,
         ),
         modifier = Modifier.height(160.dp)
     )
