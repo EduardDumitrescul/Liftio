@@ -2,6 +2,7 @@ package com.example.fitnesstracker.ui.components.charts
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -13,7 +14,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.geometry.CornerRadius
@@ -42,23 +45,33 @@ fun BarChart(
     val textMeasurer = rememberTextMeasurer()
     val scrollState = rememberScrollState()
 
-    Surface(
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
-            .height(model.height)  // Use model's defined height
-            .fillMaxWidth()
-            .horizontalScroll(scrollState)
-            .padding(end = model.leftAxisWidth/2),
-        color = model.backgroundColor
     ) {
-        Canvas(
+        Text(
+            text = model.title,
+            style = model.titleStyle,
+            color = model.textColor
+        )
+        Surface(
             modifier = Modifier
-                .width(model.chartWidth)  // Ensure horizontal scroll by setting the chart width
-                .fillMaxHeight()  // Make the Canvas fill the available height
-                .padding(bottom = 16.dp)  // Optional: Add padding for labels or axis
+                .fillMaxHeight()  // Use model's defined height
+                .fillMaxWidth()
+                .horizontalScroll(scrollState),
+            color = model.backgroundColor
         ) {
-            val drawer = BarChartDrawer(this, model, textMeasurer, scrollState.value)
-            drawer.drawLeftAxis()
-            drawer.drawBars()
+            Canvas(
+                modifier = Modifier
+                    .width(model.chartWidth)  // Ensure horizontal scroll by setting the chart width
+                    .fillMaxHeight()  // Make the Canvas fill the available height
+                    .padding(bottom = 16.dp)  // Optional: Add padding for labels or axis
+            ) {
+                val drawer = BarChartDrawer(this, model, textMeasurer, scrollState.value)
+                drawer.drawLeftAxis()
+                drawer.drawBars()
+            }
         }
     }
 }
