@@ -29,6 +29,8 @@ import com.example.fitnesstracker.data.datastore.Theme
 import com.example.fitnesstracker.ui.components.appbar.LargeAppBar
 import com.example.fitnesstracker.ui.theme.AppTheme
 
+//TODO option to erase data
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
@@ -53,39 +55,58 @@ fun SettingsScreen(
         Column(
             modifier = Modifier.padding(innerPadding)
         ) {
-            Row(
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth()
-                    .clickable { themeDropdownExpanded = !themeDropdownExpanded }
-                    .padding(16.dp)
+            ThemeRow(
+                state.theme,
+                themeDropdownExpanded,
+                showDropdown = {themeDropdownExpanded = true},
+                hideDropdown = {themeDropdownExpanded = false},
+                updateTheme = {viewModel.updateTheme(it)}
+            )
+
+        }
+    }
+}
+
+@Composable
+private fun ThemeRow(
+    theme: Theme,
+    themeDropdownExpanded: Boolean,
+    showDropdown: () -> Unit,
+    hideDropdown: () -> Unit,
+    updateTheme: (Theme) -> Unit,
+) {
+    SettingsRow(
+        onClick = showDropdown
+    ) {
+        Text(
+            text = "Theme",
+            style = AppTheme.typography.body,
+            color = AppTheme.colors.onBackground
+        )
+        Box {
+            Text(
+                theme.name,
+                style = AppTheme.typography.caption,
+                color = AppTheme.colors.onBackground
+            )
+            DropdownMenu(
+                expanded = themeDropdownExpanded,
+                onDismissRequest = hideDropdown,
+                containerColor = AppTheme.colors.container
             ) {
-                Text(text = "Theme", style = AppTheme.typography.body, color = AppTheme.colors.onBackground)
-                Box() {
-                    Text(state.theme.name, style = AppTheme.typography.caption, color = AppTheme.colors.onBackground)
-                    DropdownMenu(
-                        expanded = themeDropdownExpanded,
-                        onDismissRequest = { themeDropdownExpanded = false },
-                        containerColor = AppTheme.colors.container,
-                        modifier = Modifier.clickable { themeDropdownExpanded = true }
-                    ) {
-                        DropdownMenuItem(
-                            text = {Text(text = "light", style = AppTheme.typography.body, color = AppTheme.colors.onBackground)},
-                            onClick = {viewModel.updateTheme(Theme.LIGHT)}
-                        )
-                        DropdownMenuItem(
-                            text = {Text(text = "dark", style = AppTheme.typography.body, color = AppTheme.colors.onBackground)},
-                            onClick = {viewModel.updateTheme(Theme.DARK)}
-                        )
-                        DropdownMenuItem(
-                            text = {Text(text = "system", style = AppTheme.typography.body, color = AppTheme.colors.onBackground)},
-                            onClick = {viewModel.updateTheme(Theme.SYSTEM)}
-                        )
-                    }
+                for (themeIterator in Theme.entries) {
+                    DropdownMenuItem(
+                        text = {
+                            Text(
+                                text = themeIterator.name,
+                                style = AppTheme.typography.body,
+                                color = AppTheme.colors.onBackground
+                            )
+                        },
+                        onClick = {updateTheme(themeIterator)}
+                    )
                 }
-
             }
-
         }
     }
 }
