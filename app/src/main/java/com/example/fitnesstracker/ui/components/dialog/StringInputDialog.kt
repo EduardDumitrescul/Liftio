@@ -20,6 +20,8 @@ import com.example.fitnesstracker.ui.components.button.TwoButtonRow
 import com.example.fitnesstracker.ui.components.textfield.FilledTextField
 import com.example.fitnesstracker.ui.theme.AppTheme
 
+// TODO refator to use LargeCard
+
 @Composable
 fun StringInputDialog(
     title: String,
