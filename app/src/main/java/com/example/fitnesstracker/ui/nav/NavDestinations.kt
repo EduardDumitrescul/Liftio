@@ -8,6 +8,7 @@ import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.FitnessCenter
 import androidx.compose.material.icons.rounded.History
 import androidx.compose.material.icons.rounded.Home
+import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
 
 sealed interface NavDestination {
@@ -123,6 +124,16 @@ data object ExerciseHistory: NavDestination {
     fun createRoute(id: Int): String {
         return "exercise/$id/history"
     }
+}
+
+data object Settings: NavDestination {
+    override val icon: ImageVector
+        get() = Icons.Rounded.Settings
+    override val route: String
+        get() = "settings"
+    override val name: String
+        get() = "Settings"
+
 }
 
 val bottomNavBarDestinations = setOf(Home, Exercises, Analysis, WorkoutHistory)

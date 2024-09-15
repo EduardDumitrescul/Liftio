@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
@@ -17,6 +18,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -24,6 +26,7 @@ import com.example.fitnesstracker.data.dto.WorkoutSummary
 import com.example.fitnesstracker.ui.components.appbar.LargeAppBar
 import com.example.fitnesstracker.ui.components.button.Fab
 import com.example.fitnesstracker.ui.components.button.FilledButton
+import com.example.fitnesstracker.ui.components.button.IconButton
 import com.example.fitnesstracker.ui.theme.AppTheme
 import kotlinx.coroutines.launch
 
@@ -34,6 +37,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun TemplateBrowseView(
     viewModel: TemplateBrowseViewModel = hiltViewModel<TemplateBrowseViewModel>(),
+    navigateToSettings: () -> Unit,
     navigateToTemplateDetailedView: (Int) -> Unit,
     navigateToTemplateEditView: () -> Unit,
     navigateToOngoingWorkout: (Int) -> Unit,
@@ -44,6 +48,7 @@ fun TemplateBrowseView(
 
     StatelessTemplateBrowseView(
         templates = templateSummaries,
+        onSettingsButtonClick = navigateToSettings,
         onCardClicked = navigateToTemplateDetailedView,
         onFabClicked = navigateToTemplateEditView,
         onNewWorkoutButtonClick = {
@@ -60,6 +65,7 @@ fun TemplateBrowseView(
 @Composable
 private fun StatelessTemplateBrowseView(
     templates: List<WorkoutSummary>,
+    onSettingsButtonClick: () -> Unit,
     onCardClicked: (Int) -> Unit = {},
     onFabClicked: () -> Unit,
     onNewWorkoutButtonClick: () -> Unit,
@@ -70,7 +76,11 @@ private fun StatelessTemplateBrowseView(
             LargeAppBar(
                 title = "Templates",
                 showNavigationIcon = false,
-                actions = {},
+                actions = {
+                    SettingsButton(
+                        onClick = onSettingsButtonClick
+                    )
+                },
                 scrollBehavior = scrollBehavior,
             )
         },
@@ -111,6 +121,19 @@ private fun StatelessTemplateBrowseView(
     }
 }
 
+@Composable
+private fun SettingsButton(
+    onClick: () -> Unit
+) {
+    IconButton(
+        onClick = onClick,
+        imageVector = Icons.Rounded.Settings,
+        contentDescription = "open settings",
+        containerColor = Color.Transparent,
+        contentColor = AppTheme.colors.onBackground,
+    )
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
@@ -129,6 +152,7 @@ fun PreviewTemplateBrowseView() {
     AppTheme {
         StatelessTemplateBrowseView(
             templates = listOf(template, template, template, template),
+            {},
             {},
             {},
             {},
