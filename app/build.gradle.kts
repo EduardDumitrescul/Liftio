@@ -110,4 +110,7 @@ dependencies {
 
     // For Drag to Reorder Gesture
     implementation("sh.calvin.reorderable:reorderable:2.4.0-alpha02")
+
+    //For storing settings and other key-value pairs
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
 }

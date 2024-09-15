@@ -2,13 +2,21 @@ package com.example.fitnesstracker.ui.theme
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.fitnesstracker.data.datastore.Theme
 
 @Composable
 fun AppTheme(
+    viewModel: ThemeViewModel = hiltViewModel(),
     useDarkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit,
 ) {
-    val appColors = if (!useDarkTheme) {
+    val theme by viewModel.theme.collectAsState()
+
+    val appColors = if ((theme == Theme.SYSTEM && !useDarkTheme) || theme == Theme.LIGHT) {
         lightColorTheme
     } else {
         darkColorTheme

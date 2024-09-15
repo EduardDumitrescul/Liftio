@@ -1,9 +1,14 @@
 package com.example.fitnesstracker.hilt
 
 import android.content.Context
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
+import com.example.fitnesstracker.data.datastore.DataStoreSettingsRepository
 import com.example.fitnesstracker.data.repositories.ExerciseRepository
 import com.example.fitnesstracker.data.repositories.MuscleRepository
 import com.example.fitnesstracker.data.repositories.SetRepository
+import com.example.fitnesstracker.data.repositories.SettingsRepository
 import com.example.fitnesstracker.data.repositories.WorkoutRepository
 import com.example.fitnesstracker.data.roomdb.AppDatabase
 import com.example.fitnesstracker.data.roomdb.dao.ExerciseDao
@@ -24,14 +29,30 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+private const val SETTINGS_NAME = "settings"
+private val Context.dataStore by preferencesDataStore(
+    name = SETTINGS_NAME
+)
+
 @Module
 @InstallIn(SingletonComponent::class)
 class DataModule {
-
     @Provides
     @Singleton
     fun provideAppDatabase(@ApplicationContext appContext: Context): AppDatabase {
         return AppDatabase.getInstance(appContext)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDataStore(@ApplicationContext appContext: Context): DataStore<Preferences> {
+        return appContext.dataStore
+    }
+
+    @Provides
+    @Singleton
+    fun provideSettingsRepository(dataStore: DataStore<Preferences>): SettingsRepository {
+        return DataStoreSettingsRepository(dataStore)
     }
 
     @Provides
@@ -139,86 +160,5 @@ class DataModule {
         return SetService(setRepository)
     }
 
-//
-//    @Provides
-//    fun provideChannelDao(appDatabase: AppDatabase): TestDao {
-//        return appDatabase.testDao()
-//    }
-//
-//    @Provides
-//    fun provideExerciseMuscleDao(appDatabase: AppDatabase): ExerciseMuscleDao {
-//        return appDatabase.exerciseMuscleDao()
-//    }
-//
-//    @Provides
-//    fun provideExerciseDao(appDatabase: AppDatabase): ExerciseDao {
-//        return appDatabase.exerciseDao()
-//    }
-//
-//    @Provides
-//    fun provideExerciseRepository(
-//        exerciseDao: ExerciseDao
-//    ): ExerciseRepository {
-//        return ExerciseRepository(exerciseDao)
-//    }
-//
-//    @Provides
-//    fun provideMuscleDao(appDatabase: AppDatabase): MuscleDao {
-//        return appDatabase.muscleDao()
-//    }
-//
-//    @Provides
-//    fun provideMuscleRepository(
-//        muscleDao: MuscleDao
-//    ): MuscleRepository {
-//        return MuscleRepository(muscleDao)
-//    }
-//
-//    @Provides
-//    fun provideSetDao(appDatabase: AppDatabase): SetDao {
-//        return appDatabase.setDao()
-//    }
-//
-//    @Provides
-//    fun provideSetRepository(
-//        setDao: SetDao
-//    ): SetRepository {
-//        return SetRepository(setDao)
-//    }
-//
-//    @Provides
-//    fun provideTemplateExerciseDao(appDatabase: AppDatabase): TemplateExerciseDao {
-//        return appDatabase.templateExerciseDao()
-//    }
-//
-//    @Provides
-//    fun provideTemplateExerciseRepository(
-//        templateExerciseDao: TemplateExerciseDao
-//    ): TemplateExerciseRepository {
-//        return TemplateExerciseRepository(templateExerciseDao)
-//    }
-//
-//    @Provides
-//    fun provideTemplateDao(appDatabase: AppDatabase): TemplateDao {
-//        return appDatabase.templateDao()
-//    }
-//
-//    @Provides
-//    fun provideTemplateRepository(
-//        templateDao: TemplateDao
-//    ): TemplateRepository {
-//        return TemplateRepository(templateDao)
-//    }
-//
-//    @Provides
-//    fun provideWorkoutDao(appDatabase: AppDatabase): WorkoutDao {
-//        return appDatabase.workoutDao()
-//    }
-//
-//    @Provides
-//    fun provideWorkoutRepository(
-//        workoutDao: WorkoutDao
-//    ): WorkoutRepository {
-//        return WorkoutRepository(workoutDao)
-//    }
+
 }
