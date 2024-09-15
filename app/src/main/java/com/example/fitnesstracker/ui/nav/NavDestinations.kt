@@ -113,6 +113,18 @@ object WorkoutHistory: NavDestination {
         get() = "History"
 }
 
+object ExerciseHistory: NavDestination {
+    override val icon: ImageVector
+        get() = Icons.Rounded.History
+    override val route: String
+        get() = "exercise/{id}/history"
+    override val name: String
+        get() = "exercise history"
+    fun createRoute(id: Int): String {
+        return "exercise/$id/history"
+    }
+}
+
 val bottomNavBarDestinations = setOf(Home, Exercises, Analysis, WorkoutHistory)
 
 

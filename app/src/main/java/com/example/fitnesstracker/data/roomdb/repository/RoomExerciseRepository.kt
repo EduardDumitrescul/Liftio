@@ -126,6 +126,10 @@ class RoomExerciseRepository @Inject constructor(
         }
     }
 
+    override fun getExerciseById(id: Int): Flow<Exercise> {
+        return exerciseDao.getExerciseById(id).map { it.toModel() }
+    }
+
     private fun getExerciseWithSets(workoutExerciseCrossRef: WorkoutExerciseCrossRefEntity): Flow<ExerciseWithSets> {
         val exerciseFlow = exerciseDao.getExerciseById(workoutExerciseCrossRef.exerciseId)
         val setsFlow = setDao.getSetsFlowByWorkoutExercise(workoutExerciseCrossRef.id)

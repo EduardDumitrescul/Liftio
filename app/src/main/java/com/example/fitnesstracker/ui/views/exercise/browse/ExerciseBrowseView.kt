@@ -31,6 +31,8 @@ import com.example.fitnesstracker.ui.theme.AppTheme
 
 private const val TAG = "ExerciseListView"
 
+//TODO add exercise detailed view (from which to edit or view history)
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ExerciseBrowseView(

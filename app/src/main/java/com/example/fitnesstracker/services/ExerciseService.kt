@@ -1,6 +1,7 @@
 package com.example.fitnesstracker.services
 
 import com.example.fitnesstracker.data.dto.ExerciseWithMuscles
+import com.example.fitnesstracker.data.models.Exercise
 import com.example.fitnesstracker.data.models.ExerciseMuscleCrossRef
 import com.example.fitnesstracker.data.repositories.ExerciseRepository
 import com.example.fitnesstracker.data.repositories.MuscleRepository
@@ -47,5 +48,9 @@ class ExerciseService @Inject constructor(
             val muscleId = muscleRepository.getMuscleId(muscle)
             muscleRepository.addExerciseMuscleCrossRef(ExerciseMuscleCrossRef(exercise.id, muscleId, false))
         }
+    }
+
+    fun getExercise(id: Int): Flow<Exercise> {
+        return exerciseRepository.getExerciseById(id)
     }
 }

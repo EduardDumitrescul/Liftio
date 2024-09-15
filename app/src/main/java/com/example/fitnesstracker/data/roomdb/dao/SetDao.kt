@@ -2,10 +2,14 @@ package com.example.fitnesstracker.data.roomdb.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.MapColumn
+import androidx.room.MapInfo
 import androidx.room.Query
 import androidx.room.Update
 import com.example.fitnesstracker.data.roomdb.entity.SetEntity
+import com.example.fitnesstracker.data.roomdb.entity.WorkoutEntity
 import kotlinx.coroutines.flow.Flow
+import java.time.LocalDateTime
 
 @Dao
 interface SetDao {
@@ -41,4 +45,14 @@ interface SetDao {
     @Update
     suspend fun updateSet(set: SetEntity)
 
+    @Query("select * from workouts w " +
+            "join sets s " +
+            "where exists (" +
+            "   select * from workoutExerciseCrossRefs we " +
+            "   where we.workoutId = w.id and we.exerciseId = :exerciseId and s.workoutExerciseId = we.id " +
+            ") ")
+    fun getSetsGroupedByDate(exerciseId: Int): Flow<
+            Map<
+                WorkoutEntity,
+                List<SetEntity>>>
 }

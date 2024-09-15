@@ -1,9 +1,11 @@
 package com.example.fitnesstracker.services
 
 import com.example.fitnesstracker.data.dto.ExerciseWithSets
+import com.example.fitnesstracker.data.dto.DateWithSets
 import com.example.fitnesstracker.data.dto.WorkoutEntry
 import com.example.fitnesstracker.data.models.Workout
 import com.example.fitnesstracker.data.repositories.ExerciseRepository
+import com.example.fitnesstracker.data.repositories.SetRepository
 import com.example.fitnesstracker.data.repositories.WorkoutRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -13,7 +15,8 @@ import javax.inject.Inject
 
 class HistoryService @Inject constructor(
     private val workoutRepository: WorkoutRepository,
-    private val exerciseRepository: ExerciseRepository
+    private val exerciseRepository: ExerciseRepository,
+    private val setRepository: SetRepository,
 ) {
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -41,5 +44,9 @@ class HistoryService @Inject constructor(
         }
 
         return workoutEntries
+    }
+
+    fun getSetsWithDate(exerciseId: Int): Flow<List<DateWithSets>> {
+        return setRepository.getSetsHistory(exerciseId)
     }
 }

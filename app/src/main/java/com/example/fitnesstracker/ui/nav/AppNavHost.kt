@@ -11,6 +11,7 @@ import com.example.fitnesstracker.ui.views.analysis.AnalysisScreen
 import com.example.fitnesstracker.ui.views.exercise.browse.ExerciseBrowseView
 import com.example.fitnesstracker.ui.views.exercise.edit.ExerciseEditView
 import com.example.fitnesstracker.ui.views.history.WorkoutHistoryScreen
+import com.example.fitnesstracker.ui.views.history.exercise.ExerciseHistoryScreen
 import com.example.fitnesstracker.ui.views.workout.browse.TemplateBrowseView
 import com.example.fitnesstracker.ui.views.workout.detail.TemplateDetailedView
 import com.example.fitnesstracker.ui.views.workout.edit.TemplateEditView
@@ -80,7 +81,7 @@ fun AppNavHost(
         composable(route = Exercises.route) {
             ExerciseBrowseView(
                 navigateBack = { navController.navigateUp() },
-                onExerciseClick = {navController.navigate(EditExercise.createRoute(it))},
+                onExerciseClick = {navController.navigate(ExerciseHistory.createRoute(it))},
                 onActionClick = {navController.navigate(EditExercise.createRoute(0))}
             )
         }
@@ -92,6 +93,11 @@ fun AppNavHost(
         }
         composable(route = EditExercise.route) {
             ExerciseEditView(navigateBack = {navController.navigateUp()})
+        }
+        composable(route = ExerciseHistory.route) {
+            ExerciseHistoryScreen(
+                navigateBack = { navController.navigateUp() }
+            )
         }
     }
 }
