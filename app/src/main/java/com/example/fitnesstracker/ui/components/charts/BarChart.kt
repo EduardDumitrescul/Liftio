@@ -31,9 +31,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.fitnesstracker.ui.theme.AppTheme
 
-//TODO fix bar label not centered under the bar
 //TODO add title
-//TODO add horizontal scroll
+//TODO refactor
 
 @Composable
 fun BarChart(
@@ -159,7 +158,7 @@ private class BarChartDrawer(
                 scope.drawText(
                     textLayoutResult = textLayoutResult,
                     topLeft = Offset(
-                        x = leftAxisWidth + (i + 1) * barGapWidth + (i * barWidth),
+                        x = leftAxisWidth + (i + 1) * barGapWidth + ((i + 0.5f) * barWidth) - textLayoutResult.size.width/2,
                         y = actualChartHeight + 4 * scope.density
                     ),
                 )

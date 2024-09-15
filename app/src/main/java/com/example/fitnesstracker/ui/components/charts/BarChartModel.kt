@@ -14,10 +14,10 @@ data class BarChartModel(
     val helperLineColor: Color = Color.LightGray,
 
     val barModels: List<BarModel>,
-    val barWidth: Dp = 12.dp,
+    val barWidth: Dp = 20.dp,
     val barColor: Color = Color.Blue,
 
-    val barGapWidth: Dp = 8.dp,
+    val barGapWidth: Dp = 12.dp,
 
     val textStyle: TextStyle = TextStyle.Default,
     val leftAxisWidth: Dp = 48.dp,
