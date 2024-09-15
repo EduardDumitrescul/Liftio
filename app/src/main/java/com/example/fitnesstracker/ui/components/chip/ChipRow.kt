@@ -15,9 +15,9 @@ import com.example.fitnesstracker.ui.theme.AppTheme
 @Composable
 fun SingleChoiceChipGroup(
     options: List<String>,
-    selected: String = "",
     onSelectionChanged: (String) -> Unit,
     modifier: Modifier = Modifier,
+    selected: String = "",
 ) {
     FlowRow(
         horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal),

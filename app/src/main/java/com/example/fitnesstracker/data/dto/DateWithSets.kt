@@ -6,5 +6,4 @@ import java.time.LocalDateTime
 data class DateWithSets(
     val sets: List<ExerciseSet>,
     val date: LocalDateTime,
-) {
-}
+)

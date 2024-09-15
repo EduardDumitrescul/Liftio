@@ -29,8 +29,6 @@ import com.example.fitnesstracker.ui.components.textfield.NumberField
 import com.example.fitnesstracker.ui.theme.AppTheme
 import kotlin.math.min
 
-private const val TAG = "SetRow"
-
 @Composable
 fun EditableSetRow(
     state: SetState,

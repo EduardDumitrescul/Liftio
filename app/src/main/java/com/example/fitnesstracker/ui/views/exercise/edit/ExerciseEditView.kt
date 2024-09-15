@@ -24,8 +24,6 @@ import com.example.fitnesstracker.ui.components.textfield.StringValueEditField
 import com.example.fitnesstracker.ui.theme.AppTheme
 import kotlinx.coroutines.launch
 
-private const val TAG = "ExerciseEditView"
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ExerciseEditView(

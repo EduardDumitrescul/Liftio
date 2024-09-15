@@ -1,6 +1,5 @@
 package com.example.fitnesstracker.ui.views.workout.edit
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -35,14 +34,14 @@ import com.example.fitnesstracker.ui.components.exerciseCard.EditableExerciseCar
 import com.example.fitnesstracker.ui.components.exerciseCard.ExerciseCardOptions
 import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetRowOptions
 import com.example.fitnesstracker.ui.theme.AppTheme
-import com.example.fitnesstracker.ui.views.workout.components.AddExerciseButton
 import com.example.fitnesstracker.ui.views.workout.WorkoutState
+import com.example.fitnesstracker.ui.views.workout.components.AddExerciseButton
 import kotlinx.coroutines.launch
 import sh.calvin.reorderable.ReorderableItem
 import sh.calvin.reorderable.rememberReorderableLazyListState
 
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TemplateEditView(
     previouslySelectedExerciseId: Int = 0,

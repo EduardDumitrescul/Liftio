@@ -31,7 +31,7 @@ fun DateWithSetsColumn(
             .fillMaxWidth()
     ) {
         Text(
-            text = state.date.format(DateTimeFormatter.ofPattern("EEEE, MMMM d, YYYY")),
+            text = state.date.format(DateTimeFormatter.ofPattern("EEEE, MMMM d, y")),
             style = AppTheme.typography.caption,
             color = AppTheme.colors.onBackground
         )

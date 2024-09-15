@@ -27,7 +27,8 @@ import com.example.fitnesstracker.ui.components.button.FilledButton
 import com.example.fitnesstracker.ui.theme.AppTheme
 import kotlinx.coroutines.launch
 
-private const val TAG = "TemplateBrowseView"
+//TODO add card with current ongoing workout
+//TODO don't allow user to start other workouts if one is already in progress
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

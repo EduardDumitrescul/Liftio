@@ -20,8 +20,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
-private const val TAG = "RoomExerciseRepository"
-
 class RoomExerciseRepository @Inject constructor(
     private val exerciseDao: ExerciseDao,
     private val muscleDao: MuscleDao,

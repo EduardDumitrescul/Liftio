@@ -29,15 +29,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.fitnesstracker.ui.components.appbar.LargeAppBar
 import com.example.fitnesstracker.ui.theme.AppTheme
 
-private const val TAG = "ExerciseListView"
-
 //TODO add exercise detailed view (from which to edit or view history)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ExerciseBrowseView(
     viewModel: ExerciseBrowseViewModel = hiltViewModel<ExerciseBrowseViewModel>(),
-    navigateBack: () -> Unit,
     onExerciseClick: (Int) -> Unit,
     onActionClick: () -> Unit,
 ) {
@@ -110,7 +107,6 @@ private fun TopBar(
 fun Preview() {
     AppTheme {
         ExerciseBrowseView(
-            navigateBack = {},
             onExerciseClick = {},
             onActionClick = {}
         )

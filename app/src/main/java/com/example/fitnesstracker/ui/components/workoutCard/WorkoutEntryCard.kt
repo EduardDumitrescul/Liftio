@@ -1,6 +1,5 @@
 package com.example.fitnesstracker.ui.components.workoutCard
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Timer
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -194,13 +192,6 @@ private fun ExerciseListDescription(
     }
 }
 
-
-private val colors @Composable get() = CardDefaults.outlinedCardColors(
-    containerColor = AppTheme.colors.background,
-    contentColor = AppTheme.colors.onBackground
-)
-
-private val border @Composable get() = BorderStroke(AppTheme.dimensions.border, AppTheme.colors.outline)
 
 @Preview(widthDp = 412, heightDp = 260, showBackground = true)
 @Composable

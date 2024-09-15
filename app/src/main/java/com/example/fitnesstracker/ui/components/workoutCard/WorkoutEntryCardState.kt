@@ -58,11 +58,11 @@ private fun getBestEffort(sets: List<ExerciseSet>): String {
             bestSet = set
         }
     }
-    if(bestSet.weight == 0) {
-        return "${bestSet.reps} reps"
+    return if(bestSet.weight == 0) {
+        "${bestSet.reps} reps"
     }
     else {
-        return "${bestSet.reps} x ${bestSet.weight}kg"
+        "${bestSet.reps} x ${bestSet.weight}kg"
     }
 
 }

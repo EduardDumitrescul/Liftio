@@ -19,8 +19,6 @@ import java.util.Locale
 import javax.inject.Inject
 import kotlin.math.max
 
-private const val TAG = "AnalysisScreenViewModel"
-
 @HiltViewModel
 class AnalysisScreenViewModel @Inject constructor(
     private val analysisService: AnalysisService,

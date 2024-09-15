@@ -8,8 +8,6 @@ import com.example.fitnesstracker.data.repositories.MuscleRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-private const val TAG = "ExerciseService"
-
 class ExerciseService @Inject constructor(
     private val exerciseRepository: ExerciseRepository,
     private val muscleRepository: MuscleRepository

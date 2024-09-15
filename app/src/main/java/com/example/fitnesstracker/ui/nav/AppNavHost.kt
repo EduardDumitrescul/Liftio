@@ -70,7 +70,6 @@ fun AppNavHost(
 
         composable(route = SelectExercise.route) {
             ExerciseBrowseView(
-                navigateBack = { navController.navigateUp() },
                 onExerciseClick = { exerciseId ->
                     navController.previousBackStackEntry
                         ?.savedStateHandle
@@ -81,7 +80,6 @@ fun AppNavHost(
         }
         composable(route = Exercises.route) {
             ExerciseBrowseView(
-                navigateBack = { navController.navigateUp() },
                 onExerciseClick = {navController.navigate(ExerciseHistory.createRoute(it))},
                 onActionClick = {navController.navigate(EditExercise.createRoute(0))}
             )

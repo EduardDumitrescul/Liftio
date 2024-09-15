@@ -16,7 +16,7 @@ sealed interface NavDestination {
     val name: String
 }
 
-object Home: NavDestination {
+data object Home: NavDestination {
     override val icon: ImageVector
         get() = Icons.Rounded.Home
     override val route: String
@@ -25,7 +25,7 @@ object Home: NavDestination {
         get() = "Home"
 }
 
-object TemplateView: NavDestination {
+data object TemplateView: NavDestination {
     override val icon: ImageVector
         get() = Icons.AutoMirrored.Rounded.List
     override val route: String
@@ -38,7 +38,7 @@ object TemplateView: NavDestination {
     }
 }
 
-object TemplateEdit: NavDestination {
+data object TemplateEdit: NavDestination {
     override val icon: ImageVector
         get() = Icons.AutoMirrored.Rounded.List
     override val route: String
@@ -51,7 +51,7 @@ object TemplateEdit: NavDestination {
     }
 }
 
-object PerformWorkout: NavDestination {
+data object PerformWorkout: NavDestination {
     override val icon: ImageVector
         get() = Icons.Rounded.FitnessCenter
     override val route: String
@@ -65,7 +65,7 @@ object PerformWorkout: NavDestination {
 
 }
 
-object Exercises: NavDestination {
+data object Exercises: NavDestination {
     override val icon: ImageVector
         get() = Icons.Rounded.FitnessCenter
     override val route: String
@@ -74,7 +74,7 @@ object Exercises: NavDestination {
         get() = "Exercises"
 }
 
-object SelectExercise: NavDestination {
+data object SelectExercise: NavDestination {
     override val icon: ImageVector
         get() = Icons.Rounded.CheckCircleOutline
     override val route: String
@@ -83,7 +83,7 @@ object SelectExercise: NavDestination {
         get() = "Select Exercise"
 }
 
-object EditExercise: NavDestination {
+data object EditExercise: NavDestination {
     override val icon: ImageVector
         get() = Icons.Rounded.Edit
     override val route: String
@@ -95,7 +95,7 @@ object EditExercise: NavDestination {
     }
 }
 
-object Analysis: NavDestination {
+data object Analysis: NavDestination {
     override val icon: ImageVector
         get() = Icons.Rounded.BarChart
     override val route: String
@@ -104,7 +104,7 @@ object Analysis: NavDestination {
         get() = "Analysis"
 }
 
-object WorkoutHistory: NavDestination {
+data object WorkoutHistory: NavDestination {
     override val icon: ImageVector
         get() = Icons.Rounded.History
     override val route: String
@@ -113,7 +113,7 @@ object WorkoutHistory: NavDestination {
         get() = "History"
 }
 
-object ExerciseHistory: NavDestination {
+data object ExerciseHistory: NavDestination {
     override val icon: ImageVector
         get() = Icons.Rounded.History
     override val route: String

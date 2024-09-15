@@ -64,6 +64,3 @@ val darkColorTheme = ColorScheme(
 val LocalLightColors = staticCompositionLocalOf {
     lightColorTheme
 }
-val LocalDarkColors = staticCompositionLocalOf {
-    darkColorTheme
-}

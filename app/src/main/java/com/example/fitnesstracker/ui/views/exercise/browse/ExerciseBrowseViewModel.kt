@@ -12,7 +12,6 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-private const val TAG = "ExerciseListViewModel"
 @HiltViewModel
 class ExerciseBrowseViewModel @Inject constructor(
     exerciseService: ExerciseService

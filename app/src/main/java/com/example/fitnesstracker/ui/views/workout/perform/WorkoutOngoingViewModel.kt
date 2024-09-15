@@ -24,8 +24,6 @@ import kotlinx.coroutines.withContext
 import java.time.LocalDateTime
 import javax.inject.Inject
 
-private const val TAG = "WorkoutOngoingViewModel"
-
 @HiltViewModel
 class WorkoutOngoingViewModel @Inject constructor(
     private val workoutId: Int,

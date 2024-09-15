@@ -1,11 +1,9 @@
 package com.example.fitnesstracker.ui.components.charts
 
-import android.util.Log
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -14,16 +12,13 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.graphics.drawscope.draw
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.times
 import com.example.fitnesstracker.ui.theme.AppTheme
 
 //TODO fix bar label not centered under the bar
@@ -81,7 +76,7 @@ private class BarChartDrawer(
             return 5
         }
 
-        var greatestPowerOf10 = 1;
+        var greatestPowerOf10 = 1
         while(10 * greatestPowerOf10 < 0.8 * max / model.leftAxisSteps) {
             greatestPowerOf10 *= 10
         }

@@ -24,11 +24,11 @@ fun formatElapsedTime(seconds: Long): String {
     val hours = seconds / 3600
     val minutes = (seconds % 3600) / 60
     val secs = seconds % 60
-    if(hours > 0) {
-        return String.format(Locale.getDefault(), "%01d:%02d:%02d", hours, minutes, secs)
+    return if(hours > 0) {
+        String.format(Locale.getDefault(), "%01d:%02d:%02d", hours, minutes, secs)
     }
     else {
-        return String.format(Locale.getDefault(), "%02d:%02d", minutes, secs)
+        String.format(Locale.getDefault(), "%02d:%02d", minutes, secs)
     }
 }
 

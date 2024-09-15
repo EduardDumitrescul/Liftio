@@ -19,6 +19,8 @@ import com.example.fitnesstracker.ui.components.appbar.LargeAppBar
 import com.example.fitnesstracker.ui.components.workoutCard.WorkoutEntryCard
 import com.example.fitnesstracker.ui.theme.AppTheme
 
+//TODO on card click -> open workout details screen
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WorkoutHistoryScreen(

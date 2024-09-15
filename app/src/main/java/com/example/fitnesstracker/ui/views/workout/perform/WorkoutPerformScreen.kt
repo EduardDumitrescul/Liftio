@@ -32,6 +32,11 @@ import com.example.fitnesstracker.ui.theme.AppTheme
 import com.example.fitnesstracker.ui.views.workout.components.AddExerciseButton
 import com.example.fitnesstracker.ui.views.workout.components.Timer
 
+// TODO don't let an exercise with no sets be completed
+// TODO confirmation on workout finish (if not all exercises have been completed)
+// TODO after all exercises completed, display finish workout button instead of complete exercise
+// TODO make this persistent (even after going back)
+
 @Composable
 fun WorkoutOngoingView(
     previouslySelectedExerciseId: Int = 0,

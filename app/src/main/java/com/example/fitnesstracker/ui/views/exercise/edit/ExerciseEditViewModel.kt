@@ -18,8 +18,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-private const val TAG = "ExerciseEditViewModel"
-
 @HiltViewModel
 class ExerciseEditViewModel @Inject constructor(
     private val exerciseId: Int,

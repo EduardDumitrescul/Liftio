@@ -11,8 +11,6 @@ import com.example.fitnesstracker.utils.fromJson
 import com.example.fitnesstracker.utils.readJsonFromAssets
 import java.time.LocalDateTime
 
-private const val TAG = "Seeder"
-
 class Seeder (
     private val context: Context,
     private val database: AppDatabase

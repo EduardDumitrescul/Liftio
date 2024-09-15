@@ -1,6 +1,5 @@
 package com.example.fitnesstracker.ui.components.exerciseCard
 
-import android.content.res.Resources.NotFoundException
 import com.example.fitnesstracker.data.dto.DetailedExercise
 import com.example.fitnesstracker.data.models.Exercise
 import com.example.fitnesstracker.data.models.Muscle
@@ -29,37 +28,7 @@ data class ExerciseCardState(
         )
     }
 
-    fun keepOnlyPerformedSets(): ExerciseCardState {
-        return this.copy(
-            sets = sets.filter {
-                it.progress == Progress.DONE
-            }
-        )
-    }
-
     fun hasSets(): Boolean = sets.isNotEmpty()
-
-    fun findSet(id: Int): SetState {
-       val set = sets.find {
-            it.id == id
-        }
-        if(set == null) {
-            throw NotFoundException("Set with id $id does not exist")
-        }
-        return set
-    }
-
-    fun addSet(): ExerciseCardState {
-        val set =
-            if(sets.isNotEmpty())
-                sets.last().copy(index = sets.last().index + 1)
-            else
-                SetState(0, workoutExerciseCrossRefId, 1, 12, 20, Progress.TODO)
-
-        return this.copy(
-            sets = sets.plus(set)
-        )
-    }
 
     fun removeSet(id: Int): ExerciseCardState {
         val filteredSets = sets.filter {
