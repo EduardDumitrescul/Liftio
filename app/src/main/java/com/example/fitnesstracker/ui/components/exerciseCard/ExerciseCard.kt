@@ -11,7 +11,11 @@ import androidx.compose.material.icons.rounded.History
 import androidx.compose.material.icons.rounded.Remove
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,6 +26,7 @@ import com.example.fitnesstracker.ui.components.MuscleChipRowModel
 import com.example.fitnesstracker.ui.components.button.IconButton
 import com.example.fitnesstracker.ui.components.button.TextButton
 import com.example.fitnesstracker.ui.components.card.LargeCard
+import com.example.fitnesstracker.ui.components.dialog.ConfirmationDialog
 import com.example.fitnesstracker.ui.components.exerciseCard.setRow.EditableSetRow
 import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetRowOptions
 import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetState
@@ -64,7 +69,10 @@ fun EditableExerciseCard(
                         HistoryButton(onHistoryClick)
                     }
                     if(options.canRemoveExercise) {
-                        RemoveButton(onRemoveClick)
+                        RemoveButton(
+                            removeExercise = onRemoveClick,
+                            requiresConfirmation = state.requiresConfirmationToDelete()
+                        )
                     }
                 }
             }
@@ -149,14 +157,40 @@ private fun Title(text: String) {
 }
 
 @Composable
-private fun RemoveButton(onRemoveClick: () -> Unit) {
+private fun RemoveButton(
+    removeExercise: () -> Unit,
+    requiresConfirmation: Boolean = false,
+) {
+    var showConfirmationDialog by remember { mutableStateOf(false) }
     IconButton(
-        onClick = onRemoveClick,
+        onClick = {
+            if(requiresConfirmation) {
+                showConfirmationDialog = true
+            }
+            else {
+                removeExercise()
+            }
+        },
         imageVector = Icons.Rounded.Remove,
         contentDescription = "remove exercise",
         containerColor = Color.Transparent,
         contentColor = AppTheme.colors.onContainer
     )
+
+    if(showConfirmationDialog) {
+        ConfirmationDialog(
+            mainText = "Remove Exercise?",
+            secondaryText = "This exercise contains some of your progress.",
+            confirmText = "Remove it",
+            cancelText = "No, keep it",
+            onCancel = {showConfirmationDialog = false},
+            onConfirm = {
+                removeExercise()
+                showConfirmationDialog = false
+            },
+            onDismissRequest = {showConfirmationDialog = false}
+        )
+    }
 }
 
 @Composable

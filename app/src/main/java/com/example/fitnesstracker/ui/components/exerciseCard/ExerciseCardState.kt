@@ -44,6 +44,10 @@ data class ExerciseCardState(
         )
     }
 
+    private fun hasCompletedSets(): Boolean =sets.find { it.progress == Progress.DONE } != null
+
+    fun requiresConfirmationToDelete(): Boolean = hasCompletedSets()
+
     companion object {
         fun default(): ExerciseCardState {
             return ExerciseCardState(
