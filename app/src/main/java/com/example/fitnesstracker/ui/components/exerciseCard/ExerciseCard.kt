@@ -33,7 +33,6 @@ import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetState
 import com.example.fitnesstracker.ui.theme.AppTheme
 import com.example.fitnesstracker.ui.views.workout.SetEditController
 
-//TODO confirmation after trying to remove an exercise (if it contains sets)
 //TODO drag to reorder sets
 
 @Composable

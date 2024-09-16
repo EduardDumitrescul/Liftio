@@ -24,6 +24,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.fitnesstracker.ui.components.SwipeToDeleteContainer
+import com.example.fitnesstracker.ui.components.TextWithSuffix
 import com.example.fitnesstracker.ui.components.button.TwoButtonRow
 import com.example.fitnesstracker.ui.components.exerciseCard.Progress
 import com.example.fitnesstracker.ui.components.textfield.NumberField
@@ -157,29 +158,9 @@ private fun MainRow(
             .clickable { onClick() }
     ) {
         IndexText(state.index)
-
-        RepsText(state.reps)
-
-        WeightText(state.weight)
+        TextWithSuffix(text = state.reps.toString(), suffix = "reps")
+        TextWithSuffix(text = state.weight.toString(), suffix = "kg")
     }
-}
-
-@Composable
-private fun WeightText(weight: Int) {
-    Text(
-        text = "$weight kg",
-        style = AppTheme.typography.body,
-        modifier = Modifier.defaultMinSize(minWidth = 60.dp),
-    )
-}
-
-@Composable
-private fun RepsText(reps: Int) {
-    Text(
-        text = "$reps reps",
-        style = AppTheme.typography.body,
-        modifier = Modifier.defaultMinSize(minWidth = 60.dp),
-    )
 }
 
 @Composable

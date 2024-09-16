@@ -10,16 +10,16 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.fitnesstracker.data.dto.DateWithSets
 import com.example.fitnesstracker.data.models.ExerciseSet
+import com.example.fitnesstracker.ui.components.TextWithSuffix
 import com.example.fitnesstracker.ui.theme.AppTheme
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-
-// TODO make suffix stand out less (maybe change color, font)
 
 @Composable
 fun DateWithSetsColumn(
@@ -46,21 +46,19 @@ fun DateWithSetsColumn(
                     .padding(top = 8.dp)
             ) {
                 Spacer(modifier = Modifier.width(128.dp))
-                Text(
-                    text = "${set.weight} kg",
-                    style = AppTheme.typography.body,
-                    color = AppTheme.colors.onBackground
+                TextWithSuffix(
+                    text = set.weight.toString(),
+                    suffix = "kg"
                 )
-
-                Text(
-                    text = "${set.reps} reps",
-                    style = AppTheme.typography.body,
-                    color = AppTheme.colors.onBackground
+                TextWithSuffix(
+                    text = set.reps.toString(),
+                    suffix = "reps"
                 )
             }
         }
     }
 }
+
 
 @Composable
 @Preview
