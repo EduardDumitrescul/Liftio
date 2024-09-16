@@ -1,5 +1,6 @@
 package com.example.fitnesstracker.ui.views.workout.browse
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -30,8 +31,9 @@ import com.example.fitnesstracker.ui.components.button.IconButton
 import com.example.fitnesstracker.ui.theme.AppTheme
 import kotlinx.coroutines.launch
 
-//TODO add card with current ongoing workout
 //TODO don't allow user to start other workouts if one is already in progress
+
+private const val TAG = "TemplateBrowseView"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -42,12 +44,15 @@ fun TemplateBrowseView(
     navigateToTemplateEditView: () -> Unit,
     navigateToOngoingWorkout: (Int) -> Unit,
 ) {
+    val ongoingWorkoutState by viewModel.ongoingWorkoutState.collectAsState()
     val templateSummaries by viewModel.templateSummaries.collectAsState()
     val coroutineScope = rememberCoroutineScope()
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
 
     StatelessTemplateBrowseView(
         templates = templateSummaries,
+        ongoingWorkoutState = ongoingWorkoutState,
+        onOngoingWorkoutCardClick = {navigateToOngoingWorkout(ongoingWorkoutState.id)},
         onSettingsButtonClick = navigateToSettings,
         onCardClicked = navigateToTemplateDetailedView,
         onFabClicked = navigateToTemplateEditView,
@@ -65,6 +70,8 @@ fun TemplateBrowseView(
 @Composable
 private fun StatelessTemplateBrowseView(
     templates: List<WorkoutSummary>,
+    ongoingWorkoutState: OngoingWorkoutState,
+    onOngoingWorkoutCardClick: () -> Unit,
     onSettingsButtonClick: () -> Unit,
     onCardClicked: (Int) -> Unit = {},
     onFabClicked: () -> Unit,
@@ -101,11 +108,19 @@ private fun StatelessTemplateBrowseView(
             verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingLarge)
         ) {
             item {
-                FilledButton(
-                    text = "start new workout",
-                    onClick = onNewWorkoutButtonClick,
-                    modifier = Modifier.fillMaxWidth()
-                )
+                if(ongoingWorkoutState.exists) {
+                    OngoingWorkoutCard(
+                        onClick = onOngoingWorkoutCardClick,
+                        state = ongoingWorkoutState
+                    )
+                }
+                else {
+                    FilledButton(
+                        text = "start new workout",
+                        onClick = onNewWorkoutButtonClick,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
             }
 
             items(templates) {template ->
@@ -152,6 +167,8 @@ fun PreviewTemplateBrowseView() {
     AppTheme {
         StatelessTemplateBrowseView(
             templates = listOf(template, template, template, template),
+            ongoingWorkoutState = OngoingWorkoutState.default(),
+            {},
             {},
             {},
             {},

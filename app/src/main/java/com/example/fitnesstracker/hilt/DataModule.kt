@@ -4,9 +4,11 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
+import com.example.fitnesstracker.data.datastore.DataStoreSessionRepository
 import com.example.fitnesstracker.data.datastore.DataStoreSettingsRepository
 import com.example.fitnesstracker.data.repositories.ExerciseRepository
 import com.example.fitnesstracker.data.repositories.MuscleRepository
+import com.example.fitnesstracker.data.repositories.SessionRepository
 import com.example.fitnesstracker.data.repositories.SetRepository
 import com.example.fitnesstracker.data.repositories.SettingsRepository
 import com.example.fitnesstracker.data.repositories.WorkoutRepository
@@ -53,6 +55,12 @@ class DataModule {
     @Singleton
     fun provideSettingsRepository(dataStore: DataStore<Preferences>): SettingsRepository {
         return DataStoreSettingsRepository(dataStore)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSessionRepository(dataStore: DataStore<Preferences>): SessionRepository {
+        return DataStoreSessionRepository(dataStore)
     }
 
     @Provides
@@ -104,13 +112,15 @@ class DataModule {
         workoutRepository: WorkoutRepository,
         exerciseRepository: ExerciseRepository,
         muscleRepository: MuscleRepository,
-        setRepository: SetRepository
+        setRepository: SetRepository,
+        sessionRepository: SessionRepository
     ): WorkoutService {
         return WorkoutService(
             workoutRepository,
             setRepository,
             muscleRepository,
-            exerciseRepository
+            exerciseRepository,
+            sessionRepository
         )
     }
 

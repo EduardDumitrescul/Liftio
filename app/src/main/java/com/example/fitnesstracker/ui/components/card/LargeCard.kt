@@ -11,23 +11,27 @@ import com.example.fitnesstracker.ui.theme.AppTheme
 fun LargeCard(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    colors: CardColors = LargeCardDefaults.colors,
     content: @Composable (() -> Unit),
 ) {
     ElevatedCard(
         onClick = onClick,
         shape = AppTheme.shapes.roundedNormalCornerShape,
-        colors = cardColors,
+        colors = colors,
         elevation = cardElevation,
         modifier = modifier
     ) {
         content()
     }
 }
-private val cardColors @Composable get() = CardColors(
-    contentColor = AppTheme.colors.onContainer,
-    containerColor = AppTheme.colors.container,
-    disabledContentColor = AppTheme.colors.onContainer,
-    disabledContainerColor = AppTheme.colors.container,
-)
+
+object LargeCardDefaults {
+    val colors @Composable get() = CardColors(
+        contentColor = AppTheme.colors.onContainer,
+        containerColor = AppTheme.colors.container,
+        disabledContentColor = AppTheme.colors.onContainer,
+        disabledContainerColor = AppTheme.colors.container,
+    )
+}
 
 private val cardElevation @Composable get() = CardDefaults.elevatedCardElevation()

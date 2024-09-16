@@ -1,19 +1,26 @@
 package com.example.fitnesstracker.services
 
 import android.util.Log
+import com.example.fitnesstracker.data.datastore.SessionPreferences
 import com.example.fitnesstracker.data.dto.DetailedWorkout
 import com.example.fitnesstracker.data.dto.WorkoutSummary
 import com.example.fitnesstracker.data.models.ExerciseSet
 import com.example.fitnesstracker.data.models.Workout
 import com.example.fitnesstracker.data.repositories.ExerciseRepository
 import com.example.fitnesstracker.data.repositories.MuscleRepository
+import com.example.fitnesstracker.data.repositories.SessionRepository
 import com.example.fitnesstracker.data.repositories.SetRepository
 import com.example.fitnesstracker.data.repositories.WorkoutRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flatMapMerge
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
+import java.time.LocalDateTime
 import javax.inject.Inject
 
 private const val TAG = "TemplateService"
@@ -22,7 +29,8 @@ class WorkoutService @Inject constructor(
     private val workoutRepository: WorkoutRepository,
     private val setRepository: SetRepository,
     private val muscleRepository: MuscleRepository,
-    private val exerciseRepository: ExerciseRepository
+    private val exerciseRepository: ExerciseRepository,
+    private val sessionRepository: SessionRepository,
 ) {
     @OptIn(ExperimentalCoroutinesApi::class)
     fun getTemplateSummaries(): Flow<List<WorkoutSummary>> {
@@ -128,6 +136,8 @@ class WorkoutService @Inject constructor(
             parentTemplateId = 0,
             name = "New Template",
             isBaseTemplate = true,
+            timeStarted = LocalDateTime.now(),
+            duration = 0,
         )
         val id = workoutRepository.addWorkout(workout)
         return id
@@ -142,7 +152,9 @@ class WorkoutService @Inject constructor(
             id = 0,
             parentTemplateId = detailedTemplate.id,
             name = detailedTemplate.name,
-            isBaseTemplate = false
+            isBaseTemplate = false,
+            timeStarted = LocalDateTime.now(),
+            duration = 0,
         )
 
         val workoutId = workoutRepository.addWorkout(workout)
@@ -161,21 +173,39 @@ class WorkoutService @Inject constructor(
             }
         }
 
+        sessionRepository.addOngoingWorkout(workoutId)
         return workoutId
     }
 
     suspend fun saveCompletedWorkout(detailedWorkout: DetailedWorkout) {
         val workout = detailedWorkout.getWorkout()
         workoutRepository.updateWorkout(workout)
+        sessionRepository.removeOngoingWorkout()
     }
 
     suspend fun createBlankWorkout(): Int {
         val workout = Workout.default()
         val id = workoutRepository.addWorkout(workout)
+        sessionRepository.addOngoingWorkout(id)
         return id
     }
 
     suspend fun updateWorkoutExerciseIndexes(newIndexesForId: List<Pair<Int, Int>>) {
         workoutRepository.updateWorkoutExerciseIndexes(newIndexesForId)
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    fun getOngoingWorkout(): Flow<Workout?> {
+        val temp = sessionRepository.getSessionPreferences()
+            .flatMapLatest { sessionPreferences ->
+                if (!sessionPreferences.existsOngoingWorkout) {
+                    Log.d(TAG, "null")
+                    flow { emit(null) }
+                }
+                else{
+                    workoutRepository.getWorkout(sessionPreferences.ongoingWorkoutId) as Flow<Workout?>
+                }
+            }
+        return temp
     }
 }

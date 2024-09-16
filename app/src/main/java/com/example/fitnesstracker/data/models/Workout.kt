@@ -7,8 +7,8 @@ data class Workout(
     val parentTemplateId: Int,
     val name: String,
     val isBaseTemplate: Boolean,
-    val timeStarted: LocalDateTime = LocalDateTime.MIN,
-    val duration: Long = 0,
+    val timeStarted: LocalDateTime,
+    val duration: Long,
 ) {
 
 
