@@ -30,8 +30,6 @@ import com.example.fitnesstracker.ui.components.button.IconButton
 import com.example.fitnesstracker.ui.theme.AppTheme
 import kotlinx.coroutines.launch
 
-//TODO don't allow user to start other workouts if one is already in progress
-
 private const val TAG = "TemplateBrowseView"
 
 @OptIn(ExperimentalMaterial3Api::class)

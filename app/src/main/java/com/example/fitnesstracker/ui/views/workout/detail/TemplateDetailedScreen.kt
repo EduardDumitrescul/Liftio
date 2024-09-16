@@ -15,13 +15,17 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.fitnesstracker.ui.components.appbar.LargeAppBar
 import com.example.fitnesstracker.ui.components.button.FilledButton
+import com.example.fitnesstracker.ui.components.dialog.ConfirmationDialog
 import com.example.fitnesstracker.ui.components.exerciseCard.EditableExerciseCard
 import com.example.fitnesstracker.ui.components.exerciseCard.toExerciseCardState
 import com.example.fitnesstracker.ui.theme.AppTheme
@@ -36,6 +40,7 @@ fun TemplateDetailedView(
     viewModel: TemplateDetailedViewModel = hiltViewModel(),
 ) {
     val templateWithExercises by viewModel.detailedWorkout.collectAsState()
+    val sessionPreferences by viewModel.sessionPreferences.collectAsState()
     val coroutineScope = rememberCoroutineScope()
 
     Scaffold(
@@ -63,12 +68,18 @@ fun TemplateDetailedView(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             item {
-                StartTrainingButton(onClick = {
-                    coroutineScope.launch {
-                        val id = viewModel.createWorkoutFromThisTemplate()
-                        navigateToOngoingWorkout(id)
+                StartTrainingButton(
+                    existsOngoingWorkout = sessionPreferences.exists,
+                    startWorkout = {
+                        coroutineScope.launch {
+                            val id = viewModel.createWorkoutFromThisTemplate()
+                            navigateToOngoingWorkout(id)
+                        }
+                    },
+                    continueWorkout = {
+                        navigateToOngoingWorkout(sessionPreferences.workoutId)
                     }
-                })
+                )
             }
 
             items(templateWithExercises.detailedExercises) {
@@ -83,14 +94,41 @@ fun TemplateDetailedView(
 
 @Composable
 private fun StartTrainingButton(
-    onClick: () -> Unit,
+    existsOngoingWorkout: Boolean,
+    startWorkout: () -> Unit,
+    continueWorkout: () -> Unit,
 ) {
+    var showDialog by remember { mutableStateOf(false) }
     FilledButton(
         text = "start training",
-        onClick = onClick,
+        onClick = {
+            if(existsOngoingWorkout) {
+                showDialog = true
+            }
+            else {
+                startWorkout()
+            }
+        },
         modifier = Modifier
             .fillMaxWidth()
     )
+
+    if(showDialog) {
+        ConfirmationDialog(
+            mainText = "Workout in Progress",
+            secondaryText = "Please continue the active workout.",
+            cancelText = "No, cancel",
+            confirmText = "Go to workout",
+            onCancel = {showDialog = false},
+            onConfirm = {
+                showDialog = false
+                continueWorkout()
+            },
+            onDismissRequest = {
+                showDialog = false
+            }
+        )
+    }
 }
 
 @Composable
