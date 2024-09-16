@@ -1,4 +1,4 @@
-package com.example.fitnesstracker.ui.views.workout.browse
+package com.example.fitnesstracker.ui.views.home
 
 data class OngoingWorkoutState(
     val id: Int,

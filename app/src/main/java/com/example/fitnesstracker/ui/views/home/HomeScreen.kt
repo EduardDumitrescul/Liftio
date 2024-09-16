@@ -1,6 +1,5 @@
-package com.example.fitnesstracker.ui.views.workout.browse
+package com.example.fitnesstracker.ui.views.home
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -38,7 +37,7 @@ private const val TAG = "TemplateBrowseView"
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TemplateBrowseView(
-    viewModel: TemplateBrowseViewModel = hiltViewModel<TemplateBrowseViewModel>(),
+    viewModel: HomeScreenViewModel = hiltViewModel<HomeScreenViewModel>(),
     navigateToSettings: () -> Unit,
     navigateToTemplateDetailedView: (Int) -> Unit,
     navigateToTemplateEditView: () -> Unit,

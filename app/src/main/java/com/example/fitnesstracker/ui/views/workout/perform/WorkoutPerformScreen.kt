@@ -40,7 +40,7 @@ import com.example.fitnesstracker.ui.views.workout.components.Timer
 @Composable
 fun WorkoutOngoingView(
     previouslySelectedExerciseId: Int = 0,
-    viewModel: WorkoutOngoingViewModel = hiltViewModel(),
+    viewModel: WorkoutPerformViewModel = hiltViewModel(),
     onNewExerciseButtonClick: () -> Unit,
     onViewExerciseHistoryClick: (Int) -> Unit,
     navigateBack: () -> Unit,

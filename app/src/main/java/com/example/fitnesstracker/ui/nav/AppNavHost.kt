@@ -13,7 +13,7 @@ import com.example.fitnesstracker.ui.views.exercise.edit.ExerciseEditView
 import com.example.fitnesstracker.ui.views.history.WorkoutHistoryScreen
 import com.example.fitnesstracker.ui.views.history.exercise.ExerciseHistoryScreen
 import com.example.fitnesstracker.ui.views.settings.SettingsScreen
-import com.example.fitnesstracker.ui.views.workout.browse.TemplateBrowseView
+import com.example.fitnesstracker.ui.views.home.TemplateBrowseView
 import com.example.fitnesstracker.ui.views.workout.detail.TemplateDetailedView
 import com.example.fitnesstracker.ui.views.workout.edit.TemplateEditView
 import com.example.fitnesstracker.ui.views.workout.perform.WorkoutOngoingView

@@ -1,4 +1,4 @@
-package com.example.fitnesstracker.ui.views.workout.browse
+package com.example.fitnesstracker.ui.views.home
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -24,7 +24,7 @@ import javax.inject.Inject
 private const val TAG = "TemplateBrowseViewModel"
 
 @HiltViewModel
-class TemplateBrowseViewModel @Inject constructor(
+class HomeScreenViewModel @Inject constructor(
     private val workoutService: WorkoutService,
 ) :ViewModel()
 {
@@ -36,7 +36,9 @@ class TemplateBrowseViewModel @Inject constructor(
             emptyList()
         )
 
-    private val _ongoingWorkoutState: MutableStateFlow<OngoingWorkoutState> = MutableStateFlow(OngoingWorkoutState.default())
+    private val _ongoingWorkoutState: MutableStateFlow<OngoingWorkoutState> = MutableStateFlow(
+        OngoingWorkoutState.default()
+    )
     val ongoingWorkoutState: StateFlow<OngoingWorkoutState> get() = _ongoingWorkoutState.asStateFlow()
 
     init {

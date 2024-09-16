@@ -1,4 +1,4 @@
-package com.example.fitnesstracker.ui.views.workout.browse
+package com.example.fitnesstracker.ui.views.home
 
 import android.graphics.Color
 import androidx.compose.foundation.layout.Arrangement

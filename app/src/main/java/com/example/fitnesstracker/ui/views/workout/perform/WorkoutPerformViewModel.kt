@@ -29,7 +29,7 @@ import javax.inject.Inject
 private const val TAG = "WorkoutOngoingViewModel"
 
 @HiltViewModel
-class WorkoutOngoingViewModel @Inject constructor(
+class WorkoutPerformViewModel @Inject constructor(
     private val workoutId: Int,
     private val workoutService: WorkoutService,
     private val sessionService: SessionService
