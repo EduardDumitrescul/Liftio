@@ -33,6 +33,7 @@ fun ConfirmationDialog(
     secondaryText: String,
     cancelText: String,
     confirmText: String,
+    isWarning: Boolean = false,
     onCancel: () -> Unit,
     onConfirm: () -> Unit,
     onDismissRequest: () -> Unit,
@@ -90,7 +91,7 @@ fun ConfirmationDialog(
                         Text(
                             text = confirmText,
                             style = AppTheme.typography.body,
-                            color = AppTheme.colors.red
+                            color = if(isWarning) AppTheme.colors.red else AppTheme.colors.green
                         )
                     }
                 }

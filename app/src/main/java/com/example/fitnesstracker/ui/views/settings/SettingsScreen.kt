@@ -103,6 +103,7 @@ private fun ClearHistoryRow(
             secondaryText = "Everything will be permanently deleted",
             confirmText = "Clear history",
             cancelText = "No, go back",
+            isWarning = true,
             onCancel = {showConfirmationDialog = false},
             onConfirm = {
                 onClearHistory()

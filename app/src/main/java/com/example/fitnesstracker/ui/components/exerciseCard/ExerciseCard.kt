@@ -182,6 +182,7 @@ private fun RemoveButton(
             secondaryText = "This exercise contains some of your progress.",
             confirmText = "Remove it",
             cancelText = "No, keep it",
+            isWarning = true,
             onCancel = {showConfirmationDialog = false},
             onConfirm = {
                 removeExercise()
