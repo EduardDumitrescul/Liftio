@@ -7,11 +7,13 @@ import com.example.fitnesstracker.data.dto.WorkoutSummary
 import com.example.fitnesstracker.data.models.Workout
 import com.example.fitnesstracker.services.WorkoutService
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -39,6 +41,25 @@ class TemplateBrowseViewModel @Inject constructor(
 
     init {
         fetchOngoingWorkoutState()
+        runUpdateTicker()
+    }
+
+    private fun runUpdateTicker() {
+        val ticker = flow {
+            while (true) {
+                emit(System.currentTimeMillis()) // You can use this as a trigger
+                delay(1000L) // Emit every second
+            }
+        }
+        viewModelScope.launch {
+            ticker.collect {
+                _ongoingWorkoutState.update {
+                    _ongoingWorkoutState.value.copy(
+                        durationInSeconds = _ongoingWorkoutState.value.durationInSeconds + 1
+                    )
+                }
+            }
+        }
     }
 
     private fun fetchOngoingWorkoutState() {
