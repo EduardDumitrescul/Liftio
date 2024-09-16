@@ -21,7 +21,7 @@ data class SetState(
         )
 }
 
-fun ExerciseSet.toSetState(status: Progress = Progress.TODO) =
+fun ExerciseSet.toSetState(status: Progress = Progress.DONE) =
     SetState(
         id = id,
         workoutExerciseId = workoutExerciseId,
