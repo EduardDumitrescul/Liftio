@@ -65,13 +65,10 @@ class TemplateBrowseViewModel @Inject constructor(
     private fun fetchOngoingWorkoutState() {
         viewModelScope.launch {
             try {
-                Log.d(TAG, "fetchOngoingWorkoutState()")
                 val workoutFlow: Flow<Workout?> = workoutService.getOngoingWorkout()
                 workoutFlow.collect { workout ->
-                    Log.d(TAG, workout.toString())
                     _ongoingWorkoutState.update {
                         if(workout == null) {
-                            Log.d(TAG, "null")
                             OngoingWorkoutState.default()
                         }
                         else {

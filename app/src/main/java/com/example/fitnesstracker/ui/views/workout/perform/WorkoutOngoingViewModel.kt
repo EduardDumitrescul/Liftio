@@ -62,7 +62,8 @@ class WorkoutOngoingViewModel @Inject constructor(
             }.collect { (workout, preferences) ->
                 val currentExerciseIndex = preferences.exercisesCompleted
                 val currentSetIndex = preferences.setsCompleted
-                if(workout.detailedExercises[currentExerciseIndex].sets.size == currentSetIndex) {
+                if(workout.detailedExercises.size > currentExerciseIndex
+                    && workout.detailedExercises[currentExerciseIndex].sets.size == currentSetIndex) {
                     _exerciseEndReachedFlow.update { true }
                 }
                 else {
@@ -90,7 +91,7 @@ class WorkoutOngoingViewModel @Inject constructor(
                 _ongoingWorkout.update {
                     workout.toWorkoutState().copy(
                         exerciseCardStates = updatedExercises,
-                        duration = Duration.between(workout.timeStarted, LocalDateTime.now()).seconds
+                        duration = preferences.duration
                     )
                 }
             }
@@ -144,6 +145,7 @@ class WorkoutOngoingViewModel @Inject constructor(
     }
 
     fun completeExercise() {
+        Log.d(TAG, "completed")
         viewModelScope.launch {
             sessionService.completeExercise()
         }
