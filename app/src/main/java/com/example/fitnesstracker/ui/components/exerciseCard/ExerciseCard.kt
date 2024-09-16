@@ -26,6 +26,7 @@ import com.example.fitnesstracker.ui.components.exerciseCard.setRow.EditableSetR
 import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetRowOptions
 import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetState
 import com.example.fitnesstracker.ui.theme.AppTheme
+import com.example.fitnesstracker.ui.views.workout.SetEditController
 
 //TODO make something so only one set can be edited at a time
 //TODO confirmation after trying to remove an exercise (if it contains sets)
@@ -35,6 +36,7 @@ import com.example.fitnesstracker.ui.theme.AppTheme
 fun EditableExerciseCard(
     state: ExerciseCardState,
     modifier: Modifier = Modifier,
+    setEditController: SetEditController = SetEditController(),
     options: ExerciseCardOptions = ExerciseCardOptions(),
     onClick: () -> Unit = {},
     onRemoveClick: () -> Unit = {},
@@ -83,7 +85,13 @@ fun EditableExerciseCard(
                     .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                SetRowsColumn(state, options, updateSet, removeSet)
+                SetRowsColumn(
+                    state = state,
+                    setEditController = setEditController,
+                    options = options,
+                    updateSet = updateSet,
+                    removeSet = removeSet,
+                )
 
                 if(options.canAddSet) {
                     AddSetButton(addSet)
@@ -96,14 +104,16 @@ fun EditableExerciseCard(
 @Composable
 private fun SetRowsColumn(
     state: ExerciseCardState,
+    setEditController: SetEditController = SetEditController(),
     options: ExerciseCardOptions,
     updateSet: (SetState) -> Unit,
-    removeSet: (Int) -> Unit
+    removeSet: (Int) -> Unit,
 ) {
     for (set in state.sets) {
         key(set.id) {
             EditableSetRow(
                 state = set,
+                setEditController = setEditController,
                 options = options.setRowOptions,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -112,7 +122,7 @@ private fun SetRowsColumn(
                 onValuesChanged = updateSet,
                 removeSet = {
                     removeSet(set.id)
-                }
+                },
             )
         }
     }

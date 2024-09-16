@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,11 +28,13 @@ import com.example.fitnesstracker.ui.components.button.TwoButtonRow
 import com.example.fitnesstracker.ui.components.exerciseCard.Progress
 import com.example.fitnesstracker.ui.components.textfield.NumberField
 import com.example.fitnesstracker.ui.theme.AppTheme
+import com.example.fitnesstracker.ui.views.workout.SetEditController
 import kotlin.math.min
 
 @Composable
 fun EditableSetRow(
     state: SetState,
+    setEditController: SetEditController = SetEditController(),
     modifier: Modifier = Modifier,
     options: SetRowOptions = SetRowOptions(),
     onValuesChanged: (SetState) -> Unit,
@@ -41,18 +44,20 @@ fun EditableSetRow(
         SwipeToDeleteContainer(onDelete = removeSet) {
             EditableSetRowContent(
                 modifier = modifier,
+                setEditController = setEditController,
                 state = state,
                 options = options,
-                onValuesChanged = onValuesChanged
+                onValuesChanged = onValuesChanged,
             )
         }
     }
     else {
         EditableSetRowContent(
             modifier = modifier,
+            setEditController = setEditController,
             state = state,
             options = options,
-            onValuesChanged = onValuesChanged
+            onValuesChanged = onValuesChanged,
         )
     }
 }
@@ -92,14 +97,13 @@ fun EditableSetRow(
 
 @Composable
 private fun EditableSetRowContent(
-    modifier: Modifier,
     state: SetState,
+    setEditController: SetEditController,
     options: SetRowOptions,
-    onValuesChanged: (SetState) -> Unit
+    onValuesChanged: (SetState) -> Unit,
+    modifier: Modifier,
 ) {
-    var isEditing by remember {
-        mutableStateOf(false)
-    }
+    val isEditing by setEditController.isEditable(state.id).collectAsState(false)
     val alpha = if(state.progress == Progress.TODO) 0.5f else 1.0f
 
     val backgroundColor = when {
@@ -119,7 +123,7 @@ private fun EditableSetRowContent(
             state = state,
             onClick = {
                 if (options.canUpdateValues) {
-                    isEditing = true
+                    setEditController.tryEditing(state.id)
                 }
             }
         )
@@ -129,9 +133,11 @@ private fun EditableSetRowContent(
                 state,
                 onSave = {
                     onValuesChanged(it)
-                    isEditing = false
+                    setEditController.stopEditing(state.id)
                 },
-                onCancel = { isEditing = false }
+                onCancel = {
+                    setEditController.stopEditing(state.id)
+                }
             )
         }
     }
@@ -372,7 +378,7 @@ fun PreviewEditableSetRow() {
                 state,
                 modifier = Modifier.width(160.dp),
                 onValuesChanged = {},
-                removeSet = {}
+                removeSet = {},
             )
         }
     }

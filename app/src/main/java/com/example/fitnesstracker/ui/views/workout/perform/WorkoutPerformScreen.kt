@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -34,6 +35,7 @@ import com.example.fitnesstracker.ui.components.exerciseCard.ExerciseCardOptions
 import com.example.fitnesstracker.ui.components.exerciseCard.Progress
 import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetRowOptions
 import com.example.fitnesstracker.ui.theme.AppTheme
+import com.example.fitnesstracker.ui.views.workout.SetEditController
 import com.example.fitnesstracker.ui.views.workout.components.AddExerciseButton
 import com.example.fitnesstracker.ui.views.workout.components.Timer
 import kotlinx.coroutines.delay
@@ -63,7 +65,7 @@ fun WorkoutOngoingView(
 
     val ongoingWorkout by viewModel.ongoingWorkout.collectAsState()
     val exerciseEndReached by viewModel.exerciseEndReachedFlow.collectAsState()
-    Log.d(TAG, ongoingWorkout.timeStarted.toString())
+    val setEditController = SetEditController()
 
     Scaffold(
         topBar = { AppBar(
@@ -102,6 +104,7 @@ fun WorkoutOngoingView(
                 items(ongoingWorkout.exerciseCardStates) { exerciseDetailed ->
                     EditableExerciseCard(
                         state = exerciseDetailed,
+                        setEditController = setEditController,
                         options = ExerciseCardOptions().copy(
                             canAddSet = exerciseDetailed.progress == Progress.ONGOING,
                             canRemoveExercise = true,
