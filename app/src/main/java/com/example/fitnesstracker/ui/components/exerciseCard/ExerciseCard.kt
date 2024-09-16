@@ -28,7 +28,6 @@ import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetState
 import com.example.fitnesstracker.ui.theme.AppTheme
 import com.example.fitnesstracker.ui.views.workout.SetEditController
 
-//TODO make something so only one set can be edited at a time
 //TODO confirmation after trying to remove an exercise (if it contains sets)
 //TODO drag to reorder sets
 
