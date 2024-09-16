@@ -1,5 +1,6 @@
 package com.example.fitnesstracker.ui.views.workout.perform
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,6 +16,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,11 +36,16 @@ import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetRowOption
 import com.example.fitnesstracker.ui.theme.AppTheme
 import com.example.fitnesstracker.ui.views.workout.components.AddExerciseButton
 import com.example.fitnesstracker.ui.views.workout.components.Timer
+import kotlinx.coroutines.delay
+import java.time.Duration
+import java.time.LocalDateTime
 
 // TODO don't let an exercise with no sets be completed
 // TODO confirmation on workout finish (if not all exercises have been completed)
 // TODO after all exercises completed, display finish workout button instead of complete exercise
 // TODO make this persistent (even after going back)
+
+private const val TAG = "WorkoutOngoingView"
 
 @Composable
 fun WorkoutOngoingView(
@@ -53,6 +63,7 @@ fun WorkoutOngoingView(
 
     val ongoingWorkout by viewModel.ongoingWorkout.collectAsState()
     val exerciseEndReached by viewModel.exerciseEndReachedFlow.collectAsState()
+    Log.d(TAG, ongoingWorkout.timeStarted.toString())
 
     Scaffold(
         topBar = { AppBar(

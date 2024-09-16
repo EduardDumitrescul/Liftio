@@ -4,6 +4,7 @@ import com.example.fitnesstracker.data.datastore.SessionPreferences
 import com.example.fitnesstracker.data.repositories.SessionRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import java.time.LocalDateTime
 import javax.inject.Inject
 
 class SessionService @Inject constructor(
@@ -24,8 +25,8 @@ class SessionService @Inject constructor(
         sessionRepository.updateCompletedSets(0)
     }
 
-    suspend fun updateDuration(value: Long) {
-        sessionRepository.updateDuration(value)
+    suspend fun updateTimeStarted(value: LocalDateTime) {
+        sessionRepository.updateTimeStarted(value)
     }
 
 }

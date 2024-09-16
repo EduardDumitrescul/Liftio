@@ -1,8 +1,8 @@
 package com.example.fitnesstracker.data.repositories
 
-import androidx.datastore.preferences.core.Preferences
 import com.example.fitnesstracker.data.datastore.SessionPreferences
 import kotlinx.coroutines.flow.Flow
+import java.time.LocalDateTime
 
 interface SessionRepository {
     fun getSessionPreferences(): Flow<SessionPreferences>
@@ -13,5 +13,5 @@ interface SessionRepository {
     suspend fun updateCompletedSets(value: Int)
     fun getExercisesCompleted(): Flow<Int>
     suspend fun updateCompletedExercises(value: Int)
-    suspend fun updateDuration(value: Long)
+    suspend fun updateTimeStarted(value: LocalDateTime)
 }

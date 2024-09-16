@@ -6,10 +6,12 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
-import androidx.datastore.preferences.core.longPreferencesKey
+import androidx.datastore.preferences.core.stringPreferencesKey
 import com.example.fitnesstracker.data.repositories.SessionRepository
+import com.example.fitnesstracker.utils.DateUtil
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import java.time.LocalDateTime
 import javax.inject.Inject
 
 private const val TAG = "DataStoreSessionRepository"
@@ -22,7 +24,7 @@ class DataStoreSessionRepository @Inject constructor(
         val workoutId = intPreferencesKey("ongoingWorkoutId")
         val exercisesCompleted = intPreferencesKey("exercisesCompleted")
         val setsCompleted = intPreferencesKey("setsCompleted")
-        val duration = longPreferencesKey("duration")
+        val timeStarted = stringPreferencesKey("timeStarted")
     }
 
     override fun getSessionPreferences(): Flow<SessionPreferences> {
@@ -39,7 +41,7 @@ class DataStoreSessionRepository @Inject constructor(
             preferences[Keys.workoutId] = 0
             preferences[Keys.exercisesCompleted] = 0
             preferences[Keys.setsCompleted] = 0
-            preferences[Keys.duration] = 0
+            preferences[Keys.timeStarted] = DateUtil.toString(LocalDateTime.now())
         }
     }
 
@@ -70,9 +72,9 @@ class DataStoreSessionRepository @Inject constructor(
         }
     }
 
-    override suspend fun updateDuration(value: Long) {
+    override suspend fun updateTimeStarted(value: LocalDateTime) {
         dataStore.edit { preferences ->
-            preferences[Keys.duration] = value
+            preferences[Keys.timeStarted] = DateUtil.toString(value)
         }
     }
 
@@ -81,14 +83,14 @@ class DataStoreSessionRepository @Inject constructor(
         val workoutId: Int = preferences[Keys.workoutId] ?: 0
         val exercisesCompleted = preferences[Keys.exercisesCompleted] ?: 0
         val setsCompleted = preferences[Keys.setsCompleted] ?: 0
-        val duration = preferences[Keys.duration] ?: 0
+        val timeStarted = preferences[Keys.timeStarted]?.let { DateUtil.toDate(it) } ?: LocalDateTime.now()
 
         return SessionPreferences(
             exists = exists,
             workoutId = workoutId,
             exercisesCompleted = exercisesCompleted,
             setsCompleted = setsCompleted,
-            duration = duration
+            timeStarted = timeStarted
         )
     }
 

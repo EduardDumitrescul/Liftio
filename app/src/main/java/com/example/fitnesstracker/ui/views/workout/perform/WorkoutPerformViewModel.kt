@@ -24,6 +24,8 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.Duration
+import java.time.LocalDateTime
 import javax.inject.Inject
 
 private const val TAG = "WorkoutOngoingViewModel"
@@ -89,7 +91,7 @@ class WorkoutPerformViewModel @Inject constructor(
                 _ongoingWorkout.update {
                     workout.toWorkoutState().copy(
                         exerciseCardStates = updatedExercises,
-                        duration = preferences.duration
+                        duration = Duration.between(_ongoingWorkout.value.timeStarted, LocalDateTime.now()).seconds
                     )
                 }
             }
@@ -101,7 +103,11 @@ class WorkoutPerformViewModel @Inject constructor(
         viewModelScope.launch {
             while (timerRunning) {
                 delay(1000)
-                sessionService.updateDuration(sessionPreferences.first().duration + 1)
+                _ongoingWorkout.update {
+                    _ongoingWorkout.value.copy(
+                        duration = Duration.between(_ongoingWorkout.value.timeStarted, LocalDateTime.now()).seconds
+                    )
+                }
             }
         }
     }
