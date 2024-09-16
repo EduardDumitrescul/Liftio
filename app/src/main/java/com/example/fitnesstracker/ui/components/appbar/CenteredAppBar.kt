@@ -63,7 +63,7 @@ fun CenteredAppBarPreview() {
         title = "Pull Workout",
         actions = {
             IconButton(
-                onClick = { /*TODO*/ },
+                onClick = { },
                 modifier = Modifier.size(40.dp),
                 imageVector = Icons.Rounded.CheckCircleOutline,
                 contentDescription = "",

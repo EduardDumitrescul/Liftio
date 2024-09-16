@@ -17,10 +17,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.example.fitnesstracker.ui.components.button.TwoButtonRow
+import com.example.fitnesstracker.ui.components.card.LargeCard
+import com.example.fitnesstracker.ui.components.card.LargeCardDefaults
 import com.example.fitnesstracker.ui.components.textfield.FilledTextField
 import com.example.fitnesstracker.ui.theme.AppTheme
-
-// TODO refator to use LargeCard
+import com.example.fitnesstracker.ui.theme.AppThemeNoViewModel
 
 @Composable
 fun StringInputDialog(
@@ -36,9 +37,9 @@ fun StringInputDialog(
     Dialog(
         onDismissRequest = onDismissRequest,
     ) {
-        Card(
-            shape = AppTheme.shapes.roundedNormalCornerShape,
-            colors = CardDefaults.cardColors().copy(
+        LargeCard(
+            onClick = {},
+            colors = LargeCardDefaults.colors.copy(
                 containerColor = AppTheme.colors.background,
                 contentColor = AppTheme.colors.onBackground
             ),
@@ -78,7 +79,7 @@ fun StringInputDialog(
 @Composable
 @Preview
 fun PreviewStringInputDialog() {
-    AppTheme {
+    AppThemeNoViewModel() {
         StringInputDialog(
             title = "Choose a name",
             onDismissRequest = {},

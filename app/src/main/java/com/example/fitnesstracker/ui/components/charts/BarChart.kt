@@ -34,7 +34,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.fitnesstracker.ui.theme.AppTheme
 
-//TODO add title
 //TODO refactor
 
 @Composable

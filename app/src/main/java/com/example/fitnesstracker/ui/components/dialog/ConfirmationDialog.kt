@@ -27,8 +27,6 @@ import com.example.fitnesstracker.ui.components.button.TwoButtonRow
 import com.example.fitnesstracker.ui.components.card.LargeCard
 import com.example.fitnesstracker.ui.theme.AppTheme
 
-// TODO see f you can extract text compenents for every type
-
 @Composable
 fun ConfirmationDialog(
     mainText: String,
