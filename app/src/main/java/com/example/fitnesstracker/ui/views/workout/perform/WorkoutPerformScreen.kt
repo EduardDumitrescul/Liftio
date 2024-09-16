@@ -52,7 +52,6 @@ fun WorkoutOngoingView(
     }
 
     val ongoingWorkout by viewModel.ongoingWorkout.collectAsState()
-    val elapsedTime by viewModel.elapsedTime.collectAsState()
     val exerciseEndReached by viewModel.exerciseEndReachedFlow.collectAsState()
 
     Scaffold(
@@ -81,7 +80,7 @@ fun WorkoutOngoingView(
                 .padding(horizontal = AppTheme.dimensions.paddingLarge),
         ) {
             Timer(
-                elapsedTime = elapsedTime,
+                elapsedTime = ongoingWorkout.duration,
                 modifier = Modifier.padding(16.dp)
             )
 

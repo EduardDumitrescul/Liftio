@@ -1,7 +1,10 @@
 package com.example.fitnesstracker.ui.views.workout.perform
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.fitnesstracker.data.datastore.SessionPreferences
+import com.example.fitnesstracker.services.SessionService
 import com.example.fitnesstracker.services.WorkoutService
 import com.example.fitnesstracker.ui.components.exerciseCard.setRow.SetState
 import com.example.fitnesstracker.ui.components.exerciseCard.Progress
@@ -13,82 +16,85 @@ import com.example.fitnesstracker.ui.views.workout.toWorkoutState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.Duration
 import java.time.LocalDateTime
 import javax.inject.Inject
+
+private const val TAG = "WorkoutOngoingViewModel"
 
 @HiltViewModel
 class WorkoutOngoingViewModel @Inject constructor(
     private val workoutId: Int,
-    private val workoutService: WorkoutService
+    private val workoutService: WorkoutService,
+    private val sessionService: SessionService
 ): ViewModel() {
 
-    private lateinit var _ongoingWorkout: StateFlow<WorkoutState>
+    private var _ongoingWorkout: MutableStateFlow<WorkoutState> = MutableStateFlow(WorkoutState.default())
     val ongoingWorkout get() = _ongoingWorkout
 
-    private val _setProgressMapFlow: MutableStateFlow<Map<Int, Progress>> = MutableStateFlow(emptyMap())
+    private val sessionPreferences: Flow<SessionPreferences> = sessionService.getSessionPreferences()
 
-    private val _exerciseProgressMapFlow: MutableStateFlow<Map<Int, Progress>> = MutableStateFlow(emptyMap())
-
-
-    private lateinit var progressTracker: ProgressTracker
     private val _exerciseEndReachedFlow = MutableStateFlow(false)
     val exerciseEndReachedFlow: StateFlow<Boolean> get() = _exerciseEndReachedFlow
 
-    private val _startTime = LocalDateTime.now()
-    private val _elapsedTime = MutableStateFlow(0L)
-    val elapsedTime get() = _elapsedTime
     private val timerRunning = true
-
 
     init {
         initializeState()
-        initializeProgressTracker()
         runTimer()
     }
 
     private fun initializeState() {
-        _ongoingWorkout = combine(
+        viewModelScope.launch {
+            combine(
                 workoutService.getDetailedWorkout(workoutId),
-                _setProgressMapFlow,
-                _exerciseProgressMapFlow
-            ) { workout, setProgressMap, exerciseProgressMap ->
-                val updatedExercises = workout.detailedExercises.map { exercise ->
-                    val updatedSets = exercise.sets.map { set ->
-                        if(setProgressMap.containsKey(set.id)) {
-                            set.toSetState(setProgressMap[set.id]!!)
+                sessionPreferences
+            ) { workout, preferences ->
+                Pair(workout, preferences)
+            }.collect { (workout, preferences) ->
+                val currentExerciseIndex = preferences.exercisesCompleted
+                val currentSetIndex = preferences.setsCompleted
+                if(workout.detailedExercises[currentExerciseIndex].sets.size == currentSetIndex) {
+                    _exerciseEndReachedFlow.update { true }
+                }
+                else {
+                    _exerciseEndReachedFlow.update { false }
+                }
+                val updatedExercises =
+                    workout.detailedExercises.mapIndexed { exerciseIndex, exercise ->
+                        val updatedSets = exercise.sets.mapIndexed() { setIndex, set ->
+                            if (exerciseIndex < preferences.exercisesCompleted) {
+                                set.toSetState(Progress.DONE)
+                            } else if (exerciseIndex == currentExerciseIndex && setIndex < currentSetIndex) {
+                                set.toSetState(Progress.DONE)
+                            } else if (exerciseIndex == currentExerciseIndex && setIndex == currentSetIndex) {
+                                set.toSetState(Progress.ONGOING)
+                            } else {
+                                set.toSetState(Progress.TODO)
+                            }
                         }
-                        else {
-                            set.toSetState(Progress.TODO)
-                        }
+                        exercise.toExerciseCardState(
+                            progress = if (exerciseIndex < currentExerciseIndex) Progress.DONE else Progress.TODO
+                        ).copy(
+                            sets = updatedSets
+                        )
                     }
-                    exercise.toExerciseCardState(
-                        progress = exerciseProgressMap[exercise.templateExerciseCrossRefId] ?: Progress.TODO
-                    ).copy(
-                        sets = updatedSets
+                _ongoingWorkout.update {
+                    workout.toWorkoutState().copy(
+                        exerciseCardStates = updatedExercises,
+                        duration = Duration.between(workout.timeStarted, LocalDateTime.now()).seconds
                     )
                 }
-                workout.toWorkoutState().copy(
-                    exerciseCardStates = updatedExercises
-                )
-            }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), WorkoutState.default())
-    }
-
-    private fun initializeProgressTracker() {
-        progressTracker = ProgressTracker(
-            state = ongoingWorkout,
-            scope = viewModelScope,
-            updateSetStatus = { id, status-> updateSetStatus(id, status)},
-            updateExerciseStatus = { id, status -> updateExerciseStatus(id, status)},
-            updateExerciseEndReached = { value -> _exerciseEndReachedFlow.update { value } }
-        )
+            }
+        }
     }
 
 
@@ -96,23 +102,7 @@ class WorkoutOngoingViewModel @Inject constructor(
         viewModelScope.launch {
             while (timerRunning) {
                 delay(1000)
-                _elapsedTime.update { _elapsedTime.value + 1 }
-            }
-        }
-    }
-
-    private fun updateSetStatus(id: Int, status: Progress) {
-        _setProgressMapFlow.update { map ->
-            map.toMutableMap().apply {
-                put(id, status)
-            }
-        }
-    }
-
-    private fun updateExerciseStatus(id: Int, status: Progress) {
-        _exerciseProgressMapFlow.update { map ->
-            map.toMutableMap().apply {
-                put(id, status)
+                sessionService.updateDuration(sessionPreferences.first().duration + 1)
             }
         }
     }
@@ -148,28 +138,37 @@ class WorkoutOngoingViewModel @Inject constructor(
     }
 
     fun completeSet() {
-        progressTracker.completeSet()
+        viewModelScope.launch {
+            sessionService.completeSet()
+        }
     }
 
     fun completeExercise() {
-        progressTracker.completeExercise()
+        viewModelScope.launch {
+            sessionService.completeExercise()
+        }
     }
 
     fun skipSet() {
-        val id = progressTracker.currentSetId
-        viewModelScope.launch {
-            workoutService.removeSetFromWorkoutExercise(id)
+        try {
+            viewModelScope.launch {
+                val id = ongoingWorkout
+                    .value
+                    .exerciseCardStates[sessionPreferences.first().exercisesCompleted]
+                    .sets[sessionPreferences.first().setsCompleted]
+                    .id
+                workoutService.removeSetFromWorkoutExercise(id)
+            }
         }
+        catch (ignored: Exception) {}
+
     }
 
     fun finishWorkout() {
         viewModelScope.launch {
             removeUncompletedSets()
             removeEmptyExercises()
-            workoutService.saveCompletedWorkout(_ongoingWorkout.value.toDetailedWorkout(
-                timeStarted = _startTime,
-                duration = _elapsedTime.value)
-            )
+            workoutService.saveCompletedWorkout(ongoingWorkout.value.toDetailedWorkout())
         }
     }
 

@@ -1,7 +1,6 @@
 package com.example.fitnesstracker.services
 
 import android.util.Log
-import com.example.fitnesstracker.data.datastore.SessionPreferences
 import com.example.fitnesstracker.data.dto.DetailedWorkout
 import com.example.fitnesstracker.data.dto.WorkoutSummary
 import com.example.fitnesstracker.data.models.ExerciseSet
@@ -14,12 +13,9 @@ import com.example.fitnesstracker.data.repositories.WorkoutRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flatMapMerge
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.map
 import java.time.LocalDateTime
 import javax.inject.Inject
 
@@ -173,7 +169,7 @@ class WorkoutService @Inject constructor(
             }
         }
 
-        sessionRepository.addOngoingWorkout(workoutId)
+        sessionRepository.updateOngoingWorkout(workoutId)
         return workoutId
     }
 
@@ -186,7 +182,7 @@ class WorkoutService @Inject constructor(
     suspend fun createBlankWorkout(): Int {
         val workout = Workout.default()
         val id = workoutRepository.addWorkout(workout)
-        sessionRepository.addOngoingWorkout(id)
+        sessionRepository.updateOngoingWorkout(id)
         return id
     }
 
@@ -198,12 +194,12 @@ class WorkoutService @Inject constructor(
     fun getOngoingWorkout(): Flow<Workout?> {
         val temp = sessionRepository.getSessionPreferences()
             .flatMapLatest { sessionPreferences ->
-                if (!sessionPreferences.existsOngoingWorkout) {
+                if (!sessionPreferences.exists) {
                     Log.d(TAG, "null")
                     flow { emit(null) }
                 }
                 else{
-                    workoutRepository.getWorkout(sessionPreferences.ongoingWorkoutId) as Flow<Workout?>
+                    workoutRepository.getWorkout(sessionPreferences.workoutId) as Flow<Workout?>
                 }
             }
         return temp

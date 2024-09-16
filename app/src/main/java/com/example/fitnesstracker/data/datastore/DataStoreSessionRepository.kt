@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.longPreferencesKey
 import com.example.fitnesstracker.data.repositories.SessionRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -17,8 +18,11 @@ class DataStoreSessionRepository @Inject constructor(
     private val dataStore: DataStore<Preferences>
 ): SessionRepository {
     private object Keys {
-        val existsOngoingWorkout = booleanPreferencesKey("existsOngoingWorkout")
-        val ongoingWorkoutId = intPreferencesKey("ongoingWorkoutId")
+        val exists = booleanPreferencesKey("existsOngoingWorkout")
+        val workoutId = intPreferencesKey("ongoingWorkoutId")
+        val exercisesCompleted = intPreferencesKey("exercisesCompleted")
+        val setsCompleted = intPreferencesKey("setsCompleted")
+        val duration = longPreferencesKey("duration")
     }
 
     override fun getSessionPreferences(): Flow<SessionPreferences> {
@@ -31,26 +35,60 @@ class DataStoreSessionRepository @Inject constructor(
 
         Log.d(TAG, "remove()")
         dataStore.edit { preferences ->
-            preferences[Keys.existsOngoingWorkout] = false
-            preferences[Keys.ongoingWorkoutId] = 0
+            preferences[Keys.exists] = false
+            preferences[Keys.workoutId] = 0
+            preferences[Keys.exercisesCompleted] = 0
+            preferences[Keys.setsCompleted] = 0
+            preferences[Keys.duration] = 0
         }
     }
 
-    override suspend fun addOngoingWorkout(id: Int) {
+    override suspend fun updateOngoingWorkout(id: Int) {
         dataStore.edit { preferences ->
-            Log.d(TAG, "addOngoingWorkout()")
-            preferences[Keys.existsOngoingWorkout] = true
-            preferences[Keys.ongoingWorkoutId] = id
+            preferences[Keys.exists] = true
+            preferences[Keys.workoutId] = id
+        }
+    }
+
+    override fun getSetsCompleted(): Flow<Int> {
+        return dataStore.data.map {it[Keys.setsCompleted] ?: 0}
+    }
+
+    override suspend fun updateCompletedSets(value: Int) {
+        dataStore.edit { preferences ->
+            preferences[Keys.setsCompleted] = value
+        }
+    }
+
+    override fun getExercisesCompleted(): Flow<Int> {
+        return dataStore.data.map {it[Keys.exercisesCompleted] ?: 0}
+    }
+
+    override suspend fun updateCompletedExercises(value: Int) {
+        dataStore.edit { preferences ->
+            preferences[Keys.exercisesCompleted] = value
+        }
+    }
+
+    override suspend fun updateDuration(value: Long) {
+        dataStore.edit { preferences ->
+            preferences[Keys.duration] = value
         }
     }
 
     private fun mapToSessionPreferences(preferences: Preferences): SessionPreferences {
-        val existsOngoingWorkoutSession: Boolean = preferences[Keys.existsOngoingWorkout] ?: false
-        val ongoingWorkoutId: Int = preferences[Keys.ongoingWorkoutId] ?: 0
+        val exists: Boolean = preferences[Keys.exists] ?: false
+        val workoutId: Int = preferences[Keys.workoutId] ?: 0
+        val exercisesCompleted = preferences[Keys.exercisesCompleted] ?: 0
+        val setsCompleted = preferences[Keys.setsCompleted] ?: 0
+        val duration = preferences[Keys.duration] ?: 0
 
         return SessionPreferences(
-            existsOngoingWorkout = existsOngoingWorkoutSession,
-            ongoingWorkoutId = ongoingWorkoutId
+            exists = exists,
+            workoutId = workoutId,
+            exercisesCompleted = exercisesCompleted,
+            setsCompleted = setsCompleted,
+            duration = duration
         )
     }
 

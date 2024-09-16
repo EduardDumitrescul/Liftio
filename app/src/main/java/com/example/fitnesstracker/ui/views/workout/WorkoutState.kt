@@ -10,6 +10,8 @@ import java.time.LocalDateTime
 data class WorkoutState(
     val id: Int,
     val parentTemplateId: Int,
+    val timeStarted: LocalDateTime,
+    val duration: Long,
     val name: String,
     val isBaseTemplate: Boolean,
     val exerciseCardStates: List<ExerciseCardState>,
@@ -19,6 +21,8 @@ data class WorkoutState(
             return WorkoutState(
                 id = 0,
                 parentTemplateId = 0,
+                timeStarted = LocalDateTime.now(),
+                duration = 0,
                 name = "Default Workout",
                 isBaseTemplate = false,
                 exerciseCardStates = emptyList(),
@@ -40,12 +44,14 @@ fun DetailedWorkout.toWorkoutState() =
     WorkoutState(
         id = id,
         parentTemplateId = parentTemplateId,
+        timeStarted = timeStarted,
+        duration = duration,
         name = name,
         isBaseTemplate = isBaseTemplate,
         exerciseCardStates = detailedExercises.map { it.toExerciseCardState() },
     )
 
-fun WorkoutState.toDetailedWorkout(timeStarted: LocalDateTime = LocalDateTime.now(), duration: Long = 0) =
+fun WorkoutState.toDetailedWorkout() =
     DetailedWorkout(
         id = id,
         parentTemplateId = parentTemplateId,

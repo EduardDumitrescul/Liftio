@@ -22,6 +22,11 @@ class ProgressTracker(
 
     private var _currentExerciseId = Int.MIN_VALUE
 
+    private var _setsCompleted: Int = 0
+    val setsCompleted: Int get() = _setsCompleted
+    private var _exercisesCompleted: Int = 0
+    val exercisesCompleted: Int get() = _exercisesCompleted
+
     init {
         observeStateUpdates()
     }
@@ -71,10 +76,13 @@ class ProgressTracker(
     }
 
     fun completeSet() {
+        _setsCompleted ++
         updateSetStatus(_currentSetId, Progress.DONE)
     }
 
     fun completeExercise() {
+        _exercisesCompleted ++
+        _setsCompleted = 0
         updateExerciseStatus(_currentExerciseId, Progress.DONE)
     }
 }
