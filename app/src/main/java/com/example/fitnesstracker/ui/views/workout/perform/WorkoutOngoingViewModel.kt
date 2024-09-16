@@ -24,8 +24,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.time.Duration
-import java.time.LocalDateTime
 import javax.inject.Inject
 
 private const val TAG = "WorkoutOngoingViewModel"
@@ -168,26 +166,27 @@ class WorkoutOngoingViewModel @Inject constructor(
 
     fun finishWorkout() {
         viewModelScope.launch {
-            removeUncompletedSets()
-            removeEmptyExercises()
+            removeUncompletedSetsAndExercises()
             workoutService.saveCompletedWorkout(ongoingWorkout.value.toDetailedWorkout())
         }
     }
 
-    private suspend fun removeUncompletedSets() {
-        for(exerciseCardState in _ongoingWorkout.value.exerciseCardStates) {
-            for(set in exerciseCardState.sets) {
-                if(set.progress != Progress.DONE) {
-                    workoutService.removeSetFromWorkoutExercise(set.id)
-                }
-            }
-        }
-    }
-
-    private suspend fun removeEmptyExercises() {
-        for(exerciseCardState in _ongoingWorkout.value.exerciseCardStates) {
-            if(!exerciseCardState.hasSets()) {
+    private suspend fun removeUncompletedSetsAndExercises() {
+        _ongoingWorkout.value.exerciseCardStates.forEachIndexed() { exerciseIndex, exerciseCardState ->
+            val currentExerciseIndex = sessionPreferences.first().exercisesCompleted
+            val currentSetIndex = sessionPreferences.first().setsCompleted
+            if(currentExerciseIndex < exerciseIndex) {
                 workoutService.removeExerciseFromWorkout(exerciseCardState.workoutExerciseCrossRefId)
+            }
+            else if(currentExerciseIndex == exerciseIndex && currentSetIndex == 0) {
+                workoutService.removeExerciseFromWorkout(exerciseCardState.workoutExerciseCrossRefId)
+            }
+            else {
+                exerciseCardState.sets.forEachIndexed {setIndex, set ->
+                    if(currentSetIndex <= setIndex) {
+                        workoutService.removeSetFromWorkoutExercise(set.id)
+                    }
+                }
             }
         }
     }
