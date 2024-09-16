@@ -57,6 +57,7 @@ fun WorkoutOngoingView(
 
     Scaffold(
         topBar = { AppBar(
+            title = ongoingWorkout.name,
             navigateBack = navigateBack,
             onFinishButtonClick = {
                 viewModel.finishWorkout()
@@ -133,9 +134,10 @@ fun WorkoutOngoingView(
 private fun AppBar(
     onFinishButtonClick: () -> Unit,
     navigateBack: () -> Unit,
+    title: String,
 ) {
     CenteredAppBar(
-        title = "Pull Workout",
+        title = title,
         onNavigationIconClick = navigateBack,
         actions = {
             FinishButton(onFinishButtonClick)
