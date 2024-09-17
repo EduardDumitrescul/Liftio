@@ -18,14 +18,14 @@ interface MuscleDao {
     @Query("Select * from muscles where id = :id")
     fun getMuscleById(id: Int): Flow<MuscleEntity?>
 
-    @Query("Select m.id, m.name from exerciseMuscleCrossRef e " +
+    @Query("Select m.* from exerciseMuscleCrossRef e " +
             "join muscles m on e.muscleId = m.id " +
             "where e.exerciseId = :exerciseId " +
             "and e.isPrimary = 1"
     )
     fun getPrimaryMuscleByExerciseId(exerciseId: Int): Flow<MuscleEntity?>
 
-    @Query("Select m.id, m.name from exerciseMuscleCrossRef e " +
+    @Query("Select m.* from exerciseMuscleCrossRef e " +
             "join muscles m on e.muscleId = m.id " +
             "where e.exerciseId = :exerciseId " +
             "and e.isPrimary = 0"

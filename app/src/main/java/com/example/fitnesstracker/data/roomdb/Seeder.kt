@@ -1,6 +1,7 @@
 package com.example.fitnesstracker.data.roomdb
 
 import android.content.Context
+import android.util.Log
 import com.example.fitnesstracker.data.roomdb.entity.ExerciseEntity
 import com.example.fitnesstracker.data.roomdb.entity.ExerciseMuscleCrossRefEntity
 import com.example.fitnesstracker.data.roomdb.entity.MuscleEntity
@@ -24,6 +25,7 @@ class Seeder (
 
     suspend fun seed() {
         val muscles = loadMuscles()
+        Log.d("SEEDER", "sdasdas")
         insertMuscles(muscles)
         val exercises = loadExercises()
         insertExercises(exercises)
