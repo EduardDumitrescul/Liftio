@@ -1,38 +1,1088 @@
 [
   {
     "id": 1,
-    "name": "bench press",
+    "name": "bench press (barbell)",
     "description": "",
     "equipment": "barbell"
   },
   {
     "id": 2,
-    "name": "shoulder press",
+    "name": "bench press (dumbbells)",
     "description": "",
     "equipment": "dumbbells"
   },
   {
     "id": 3,
-    "name": "triceps kickback",
-    "description": "",
-    "equipment": "dumbbells"
-  },
-  {
-    "id": 4,
-    "name": "lat pulldown",
+    "name": "bench press (machine)",
     "description": "",
     "equipment": "machine"
   },
   {
+    "id": 4,
+    "name": "bench press (smith machine)",
+    "description": "",
+    "equipment": "smith machine"
+  },
+  {
     "id": 5,
-    "name": "barbell row",
+    "name": "bench press (cable)",
+    "description": "",
+    "equipment": "cable"
+  },
+  {
+    "id": 6,
+    "name": "incline bench press (barbell)",
     "description": "",
     "equipment": "barbell"
   },
   {
-    "id": 6,
-    "name": "bicep curl",
+    "id": 7,
+    "name": "incline bench press (dumbbells)",
     "description": "",
     "equipment": "dumbbells"
+  },
+  {
+    "id": 8,
+    "name": "incline bench press (machine)",
+    "description": "",
+    "equipment": "machine"
+  },
+  {
+    "id": 9,
+    "name": "incline bench press (smith machine)",
+    "description": "",
+    "equipment": "smith machine"
+  },
+  {
+    "id": 10,
+    "name": "incline bench press (cable)",
+    "description": "",
+    "equipment": "cable"
+  },
+  {
+    "id": 11,
+    "name": "decline bench press (barbell)",
+    "description": "",
+    "equipment": "barbell"
+  },
+  {
+    "id": 12,
+    "name": "decline bench press (dumbbells)",
+    "description": "",
+    "equipment": "dumbbells"
+  },
+  {
+    "id": 13,
+    "name": "decline bench press (smith machine)",
+    "description": "",
+    "equipment": "smith machine"
+  },
+  {
+    "id": 14,
+    "name": "decline bench press (machine)",
+    "description": "",
+    "equipment": "machine"
+  },
+  {
+    "id": 15,
+    "name": "push-up ",
+    "description": "",
+    "equipment": ""
+  },
+  {
+    "id": 16,
+    "name": "incline push-up",
+    "description": "",
+    "equipment": "bench"
+  },
+  {
+    "id": 17,
+    "name": "decline push-up",
+    "description": "",
+    "equipment": "bench"
+  },
+  {
+    "id": 18,
+    "name": "chest fly (machine)",
+    "description": "",
+    "equipment": "machine"
+  },
+  {
+    "id": 19,
+    "name": "chest fly (cable)",
+    "description": "",
+    "equipment": "cable"
+  },
+  {
+    "id": 20,
+    "name": "incline chest fly (dumbbells)",
+    "description": "",
+    "equipment": "dumbbells"
+  },
+  {
+    "id": 21,
+    "name": "incline chest fly (cable)",
+    "description": "",
+    "equipment": "cable"
+  },
+  {
+    "id": 22,
+    "name": "pec deck",
+    "description": "",
+    "equipment": "machine"
+  },
+  {
+    "id": 23,
+    "name": "chest dip (parallel bars)",
+    "description": "",
+    "equipment": "parallel bars"
+  },
+  {
+    "id": 24,
+    "name": "chest dip (machine)",
+    "description": "",
+    "equipment": "machine"
+  },
+  {
+    "id": 25,
+    "name": "overhead press (barbell)",
+    "description": "",
+    "equipment": "barbell"
+  },
+  {
+    "id": 26,
+    "name": "overhead press (dumbbells)",
+    "description": "",
+    "equipment": "dumbbells"
+  },
+  {
+    "id": 27,
+    "name": "overhead press (smith machine)",
+    "description": "",
+    "equipment": "smith machine"
+  },
+  {
+    "id": 28,
+    "name": "overhead press (machine)",
+    "description": "",
+    "equipment": "machine"
+  },
+  {
+    "id": 29,
+    "name": "overhead press (cable)",
+    "description": "",
+    "equipment": "cable"
+  },
+  {
+    "id": 30,
+    "name": "overhead press - seated (barbell)",
+    "description": "",
+    "equipment": "barbell"
+  },
+  {
+    "id": 31,
+    "name": "overhead press \u2013 seated (dumbbells)",
+    "description": "",
+    "equipment": "dumbbells"
+  },
+  {
+    "id": 32,
+    "name": "overhead press \u2013 seated (smith machine)",
+    "description": "",
+    "equipment": "smith machine"
+  },
+  {
+    "id": 33,
+    "name": "overhead press \u2013 seated (machine)",
+    "description": "",
+    "equipment": "machine"
+  },
+  {
+    "id": 34,
+    "name": "overhead press \u2013 seated (cable)",
+    "description": "",
+    "equipment": "cable"
+  },
+  {
+    "id": 35,
+    "name": "lateral raise (dumbbells)",
+    "description": "",
+    "equipment": "dumbbells"
+  },
+  {
+    "id": 36,
+    "name": "lateral raise (cable)",
+    "description": "",
+    "equipment": "cable"
+  },
+  {
+    "id": 37,
+    "name": "lateral raise (machine)",
+    "description": "",
+    "equipment": "machine"
+  },
+  {
+    "id": 38,
+    "name": "front raise (dumbbells)",
+    "description": "",
+    "equipment": "dumbbells"
+  },
+  {
+    "id": 39,
+    "name": "front raise (cable)",
+    "description": "",
+    "equipment": "cable"
+  },
+  {
+    "id": 40,
+    "name": "front raise (plate)",
+    "description": "",
+    "equipment": ""
+  },
+  {
+    "id": 41,
+    "name": "arnold press",
+    "description": "",
+    "equipment": "dumbbells"
+  },
+  {
+    "id": 42,
+    "name": "reverse fly (dumbbells)",
+    "description": "",
+    "equipment": "dumbbells"
+  },
+  {
+    "id": 43,
+    "name": "reverse fly (machine)",
+    "description": "",
+    "equipment": "machine"
+  },
+  {
+    "id": 44,
+    "name": "reverse fly (cable)",
+    "description": "",
+    "equipment": "cable"
+  },
+  {
+    "id": 45,
+    "name": "pike push-up",
+    "description": "",
+    "equipment": "bench"
+  },
+  {
+    "id": 46,
+    "name": "upright row (barbell)",
+    "description": "",
+    "equipment": "barbell"
+  },
+  {
+    "id": 47,
+    "name": "upright row (dumbbells)",
+    "description": "",
+    "equipment": "dumbbells"
+  },
+  {
+    "id": 48,
+    "name": "upright row (cable)",
+    "description": "",
+    "equipment": "cable"
+  },
+  {
+    "id": 49,
+    "name": "face pull",
+    "description": "",
+    "equipment": "cable"
+  },
+  {
+    "id": 50,
+    "name": "pull-up",
+    "description": "",
+    "equipment": "high bars"
+  },
+  {
+    "id": 51,
+    "name": "pull-up \u2013 wide",
+    "description": "",
+    "equipment": "high bars"
+  },
+  {
+    "id": 52,
+    "name": "muscle-up",
+    "description": "",
+    "equipment": "high bars"
+  },
+  {
+    "id": 53,
+    "name": "wide chin up",
+    "description": "",
+    "equipment": "high bars"
+  },
+  {
+    "id": 54,
+    "name": "lat pulldown (cable)",
+    "description": "",
+    "equipment": "cable"
+  },
+  {
+    "id": 55,
+    "name": "lat pulldown (machine)",
+    "description": "",
+    "equipment": "machine"
+  },
+  {
+    "id": 56,
+    "name": "lat pulldown \u2013 underhand (cable)",
+    "description": "",
+    "equipment": "cable"
+  },
+  {
+    "id": 57,
+    "name": "lat pulldown \u2013 underhand (machine)",
+    "description": "",
+    "equipment": "machine"
+  },
+  {
+    "id": 58,
+    "name": "lat pulldown \u2013 wide (cable)",
+    "description": "",
+    "equipment": "cable"
+  },
+  {
+    "id": 59,
+    "name": "lat pulldown \u2013 wide (machine)",
+    "description": "",
+    "equipment": "machine"
+  },
+  {
+    "id": 60,
+    "name": "pullover (barbell)",
+    "description": "",
+    "equipment": "barbell"
+  },
+  {
+    "id": 61,
+    "name": "pullover (dumbbells)",
+    "description": "",
+    "equipment": "dumbbells"
+  },
+  {
+    "id": 62,
+    "name": "pullover (machine)",
+    "description": "",
+    "equipment": "machine"
+  },
+  {
+    "id": 63,
+    "name": "straight-arm pulldown (cable)",
+    "description": "",
+    "equipment": "cable"
+  },
+  {
+    "id": 64,
+    "name": "bent over row (barbell)",
+    "description": "",
+    "equipment": "barbell"
+  },
+  {
+    "id": 65,
+    "name": "chest supported row (barbell)",
+    "description": "",
+    "equipment": "barbell"
+  },
+  {
+    "id": 66,
+    "name": "bent over row (dumbbells)",
+    "description": "",
+    "equipment": "dumbbells"
+  },
+  {
+    "id": 67,
+    "name": "bent over row \u2013 one arm (dumbbells)",
+    "description": "",
+    "equipment": "dumbbells"
+  },
+  {
+    "id": 68,
+    "name": "chest supported row (dumbbells)",
+    "description": "",
+    "equipment": "dumbbells"
+  },
+  {
+    "id": 69,
+    "name": "seated row (machine)",
+    "description": "",
+    "equipment": "machine"
+  },
+  {
+    "id": 70,
+    "name": "seated row (cable)",
+    "description": "",
+    "equipment": "cable"
+  },
+  {
+    "id": 71,
+    "name": "t-bar row",
+    "description": "",
+    "equipment": "t-bar"
+  },
+  {
+    "id": 72,
+    "name": "pendlay row (barbell)",
+    "description": "",
+    "equipment": "barbell"
+  },
+  {
+    "id": 73,
+    "name": "shrug (dumbbells)",
+    "description": "",
+    "equipment": "dumbbells"
+  },
+  {
+    "id": 74,
+    "name": "shrug (barbell)",
+    "description": "",
+    "equipment": "barbell"
+  },
+  {
+    "id": 75,
+    "name": "shrug (cable)",
+    "description": "",
+    "equipment": "cable"
+  },
+  {
+    "id": 76,
+    "name": "shrug (trap bar)",
+    "description": "",
+    "equipment": "trap bar"
+  },
+  {
+    "id": 77,
+    "name": "back extension",
+    "description": "",
+    "equipment": "machine"
+  },
+  {
+    "id": 78,
+    "name": "inverted row",
+    "description": "",
+    "equipment": "low bars"
+  },
+  {
+    "id": 79,
+    "name": "lying triceps extension (barbell)",
+    "description": "",
+    "equipment": "barbell"
+  },
+  {
+    "id": 80,
+    "name": "lying triceps extension (dumbbells)",
+    "description": "",
+    "equipment": "dumbbells"
+  },
+  {
+    "id": 81,
+    "name": "lying triceps extension (ez-bar)",
+    "description": "",
+    "equipment": "ez-bar"
+  },
+  {
+    "id": 82,
+    "name": "seated triceps extension (barbell)",
+    "description": "",
+    "equipment": "barbell"
+  },
+  {
+    "id": 83,
+    "name": "seated triceps extension (dumbbells)",
+    "description": "",
+    "equipment": "dumbbells"
+  },
+  {
+    "id": 84,
+    "name": "seated triceps extension (ez-bar)",
+    "description": "",
+    "equipment": "ez-bar"
+  },
+  {
+    "id": 85,
+    "name": "seated triceps extension (machine)",
+    "description": "",
+    "equipment": "machine"
+  },
+  {
+    "id": 86,
+    "name": "standing triceps extension (barbell)",
+    "description": "",
+    "equipment": "barbell"
+  },
+  {
+    "id": 87,
+    "name": "standing triceps extension (dumbbells)",
+    "description": "",
+    "equipment": "dumbbells"
+  },
+  {
+    "id": 88,
+    "name": "standing triceps extension (ez-bar)",
+    "description": "",
+    "equipment": "ez-bar"
+  },
+  {
+    "id": 89,
+    "name": "bench press \u2013 close grip (barbell)",
+    "description": "",
+    "equipment": "barbell"
+  },
+  {
+    "id": 90,
+    "name": "bench press \u2013 close grip (dumbbells)",
+    "description": "",
+    "equipment": "dumbbells"
+  },
+  {
+    "id": 91,
+    "name": "triceps kickback (cable)",
+    "description": "",
+    "equipment": "cable"
+  },
+  {
+    "id": 92,
+    "name": "triceps kickback (dumbbells)",
+    "description": "",
+    "equipment": "dumbbells"
+  },
+  {
+    "id": 93,
+    "name": "skullcrusher (barbell)",
+    "description": "",
+    "equipment": "barbell"
+  },
+  {
+    "id": 94,
+    "name": "skullcrusher (dumbbells)",
+    "description": "",
+    "equipment": "dumbbells"
+  },
+  {
+    "id": 95,
+    "name": "skullcrusher (smith machine)",
+    "description": "",
+    "equipment": "smith machine"
+  },
+  {
+    "id": 96,
+    "name": "triceps pushdown",
+    "description": "",
+    "equipment": "cable"
+  },
+  {
+    "id": 97,
+    "name": "bench dip",
+    "description": "",
+    "equipment": "bench"
+  },
+  {
+    "id": 98,
+    "name": "triceps dip (parallel bars)",
+    "description": "",
+    "equipment": "parallel bars"
+  },
+  {
+    "id": 99,
+    "name": "triceps dip (machine)",
+    "description": "",
+    "equipment": "machine"
+  },
+  {
+    "id": 100,
+    "name": "diamond push-up",
+    "description": "",
+    "equipment": ""
+  },
+  {
+    "id": 101,
+    "name": "biceps curl (dumbbells)",
+    "description": "",
+    "equipment": "dumbbells"
+  },
+  {
+    "id": 102,
+    "name": "biceps curl (barbell)",
+    "description": "",
+    "equipment": "barbell"
+  },
+  {
+    "id": 103,
+    "name": "biceps curl (ez-bar)",
+    "description": "",
+    "equipment": "ez-bar"
+  },
+  {
+    "id": 104,
+    "name": "biceps curl (cable)",
+    "description": "",
+    "equipment": "cable"
+  },
+  {
+    "id": 105,
+    "name": "biceps curl (machine)",
+    "description": "",
+    "equipment": "machine"
+  },
+  {
+    "id": 106,
+    "name": "hammer curl (dumbbells)",
+    "description": "",
+    "equipment": "dumbbells"
+  },
+  {
+    "id": 107,
+    "name": "hammer curl (cable)",
+    "description": "",
+    "equipment": "cable"
+  },
+  {
+    "id": 108,
+    "name": "incline biceps curl (dumbbells)",
+    "description": "",
+    "equipment": "dumbbells"
+  },
+  {
+    "id": 109,
+    "name": "incline biceps curl (cable)",
+    "description": "",
+    "equipment": "cable"
+  },
+  {
+    "id": 110,
+    "name": "incline hammer curl (dumbbells)",
+    "description": "",
+    "equipment": "dumbbells"
+  },
+  {
+    "id": 111,
+    "name": "incline hammer curl (cable)",
+    "description": "",
+    "equipment": "cable"
+  },
+  {
+    "id": 112,
+    "name": "preacher curl (barbell)",
+    "description": "",
+    "equipment": "barbell"
+  },
+  {
+    "id": 113,
+    "name": "preacher curl (ez-bar)",
+    "description": "",
+    "equipment": "ez-bar"
+  },
+  {
+    "id": 114,
+    "name": "preacher curl (dumbbells)",
+    "description": "",
+    "equipment": "dumbbells"
+  },
+  {
+    "id": 115,
+    "name": "preacher curl (machine)",
+    "description": "",
+    "equipment": "machine"
+  },
+  {
+    "id": 116,
+    "name": "narrow chin-up",
+    "description": "",
+    "equipment": "high bars"
+  },
+  {
+    "id": 117,
+    "name": "reverse curl (barbell)",
+    "description": "",
+    "equipment": "barbell"
+  },
+  {
+    "id": 118,
+    "name": "reverse curl (ez-bar)",
+    "description": "",
+    "equipment": "ez-bar"
+  },
+  {
+    "id": 119,
+    "name": "reverse curl (dumbbells)",
+    "description": "",
+    "equipment": "dumbbells"
+  },
+  {
+    "id": 120,
+    "name": "reverse curl (cable)",
+    "description": "",
+    "equipment": "cable"
+  },
+  {
+    "id": 121,
+    "name": "wrist curl \u2013 palms up (barbell)",
+    "description": "",
+    "equipment": "barbell"
+  },
+  {
+    "id": 122,
+    "name": "wrist curl \u2013 palms up (dumbbells)",
+    "description": "",
+    "equipment": "dumbbells"
+  },
+  {
+    "id": 123,
+    "name": "wrist curl \u2013 palms up (cable)",
+    "description": "",
+    "equipment": "cable"
+  },
+  {
+    "id": 124,
+    "name": "wrist curl \u2013 palms down (barbell)",
+    "description": "",
+    "equipment": "barbell"
+  },
+  {
+    "id": 125,
+    "name": "wrist curl \u2013 palms down (dumbbells)",
+    "description": "",
+    "equipment": "dumbbells"
+  },
+  {
+    "id": 126,
+    "name": "wrist curl \u2013 palms down (cable)",
+    "description": "",
+    "equipment": "cable"
+  },
+  {
+    "id": 127,
+    "name": "crunch",
+    "description": "",
+    "equipment": ""
+  },
+  {
+    "id": 128,
+    "name": "cable crunch",
+    "description": "",
+    "equipment": "cable"
+  },
+  {
+    "id": 129,
+    "name": "decline crunch",
+    "description": "",
+    "equipment": "machine"
+  },
+  {
+    "id": 130,
+    "name": "bicycle crunch",
+    "description": "",
+    "equipment": ""
+  },
+  {
+    "id": 131,
+    "name": "machine crunch",
+    "description": "",
+    "equipment": "machine"
+  },
+  {
+    "id": 132,
+    "name": "sit-up",
+    "description": "",
+    "equipment": ""
+  },
+  {
+    "id": 133,
+    "name": "decline sit-up",
+    "description": "",
+    "equipment": "machine"
+  },
+  {
+    "id": 134,
+    "name": "ab rollout",
+    "description": "",
+    "equipment": "ab wheel"
+  },
+  {
+    "id": 135,
+    "name": "dragon fly",
+    "description": "",
+    "equipment": "machine"
+  },
+  {
+    "id": 136,
+    "name": "hanging toes to bar",
+    "description": "",
+    "equipment": "high bars"
+  },
+  {
+    "id": 137,
+    "name": "hanging leg raise",
+    "description": "",
+    "equipment": "high bars"
+  },
+  {
+    "id": 138,
+    "name": "hanging knee raise",
+    "description": "",
+    "equipment": "high bars"
+  },
+  {
+    "id": 139,
+    "name": "lying leg raise",
+    "description": "",
+    "equipment": "high bars"
+  },
+  {
+    "id": 140,
+    "name": "v-up",
+    "description": "",
+    "equipment": ""
+  },
+  {
+    "id": 141,
+    "name": "twisting hanging leg raise",
+    "description": "",
+    "equipment": "high bars"
+  },
+  {
+    "id": 142,
+    "name": "twisting hanging knee raise",
+    "description": "",
+    "equipment": "high bars"
+  },
+  {
+    "id": 143,
+    "name": "twisting crunch",
+    "description": "",
+    "equipment": ""
+  },
+  {
+    "id": 144,
+    "name": "side plank",
+    "description": "",
+    "equipment": ""
+  },
+  {
+    "id": 145,
+    "name": "russian twist",
+    "description": "",
+    "equipment": ""
+  },
+  {
+    "id": 146,
+    "name": "squat (barbell)",
+    "description": "",
+    "equipment": "barbell"
+  },
+  {
+    "id": 147,
+    "name": "squat (dumbbell)",
+    "description": "",
+    "equipment": "dumbbells"
+  },
+  {
+    "id": 148,
+    "name": "squat (smith machine)",
+    "description": "",
+    "equipment": "smith machine"
+  },
+  {
+    "id": 149,
+    "name": "squat (machine)",
+    "description": "",
+    "equipment": "machine"
+  },
+  {
+    "id": 150,
+    "name": "hack squat",
+    "description": "",
+    "equipment": "machine"
+  },
+  {
+    "id": 151,
+    "name": "leg press",
+    "description": "",
+    "equipment": "machine"
+  },
+  {
+    "id": 152,
+    "name": "leg extension",
+    "description": "",
+    "equipment": "machine"
+  },
+  {
+    "id": 153,
+    "name": "split squat (barbell)",
+    "description": "",
+    "equipment": "barbell"
+  },
+  {
+    "id": 154,
+    "name": "split squat (dumbbells)",
+    "description": "",
+    "equipment": "dumbbells"
+  },
+  {
+    "id": 155,
+    "name": "split squat (smith machine)",
+    "description": "",
+    "equipment": "smith machine"
+  },
+  {
+    "id": 156,
+    "name": "bulgarian split squat (barbell)",
+    "description": "",
+    "equipment": "barbell"
+  },
+  {
+    "id": 157,
+    "name": "bulgarian split squat (dumbbells)",
+    "description": "",
+    "equipment": "dumbbells"
+  },
+  {
+    "id": 158,
+    "name": "bulgarian split squat (smith machine)",
+    "description": "",
+    "equipment": "smith machine"
+  },
+  {
+    "id": 159,
+    "name": "lunge (barbell)",
+    "description": "",
+    "equipment": "barbell"
+  },
+  {
+    "id": 160,
+    "name": "lunge (dumbbells)",
+    "description": "",
+    "equipment": "dumbbells"
+  },
+  {
+    "id": 161,
+    "name": "leg curl \u2013 seated",
+    "description": "",
+    "equipment": "machine"
+  },
+  {
+    "id": 162,
+    "name": "leg curl \u2013 lying",
+    "description": "",
+    "equipment": "machine"
+  },
+  {
+    "id": 163,
+    "name": "good-morning",
+    "description": "",
+    "equipment": "barbell"
+  },
+  {
+    "id": 164,
+    "name": "hyperextension",
+    "description": "",
+    "equipment": "machine"
+  },
+  {
+    "id": 165,
+    "name": "straight leg deadlift",
+    "description": "",
+    "equipment": "dumbbells"
+  },
+  {
+    "id": 166,
+    "name": "romanian deadlift",
+    "description": "",
+    "equipment": "dumbbells"
+  },
+  {
+    "id": 167,
+    "name": "deadlift (barbell)",
+    "description": "",
+    "equipment": "barbell"
+  },
+  {
+    "id": 168,
+    "name": "deadlift (dumbbells)",
+    "description": "",
+    "equipment": "dumbbells"
+  },
+  {
+    "id": 169,
+    "name": "hip thrust (barbell)",
+    "description": "",
+    "equipment": "barbell"
+  },
+  {
+    "id": 170,
+    "name": "hip thrust (machine)",
+    "description": "",
+    "equipment": "machine"
+  },
+  {
+    "id": 171,
+    "name": "rear lunge (barbell)",
+    "description": "",
+    "equipment": "barbell"
+  },
+  {
+    "id": 172,
+    "name": "rear lunge (dumbbells)",
+    "description": "",
+    "equipment": "dumbbells"
+  },
+  {
+    "id": 173,
+    "name": "leg kickback",
+    "description": "",
+    "equipment": "cable"
+  },
+  {
+    "id": 174,
+    "name": "standing calf raise (barbell)",
+    "description": "",
+    "equipment": "barbell"
+  },
+  {
+    "id": 175,
+    "name": "standing calf raise (dumbbells)",
+    "description": "",
+    "equipment": "dumbbells"
+  },
+  {
+    "id": 176,
+    "name": "standing calf raise (machine)",
+    "description": "",
+    "equipment": "machine"
+  },
+  {
+    "id": 177,
+    "name": "seated calf raise",
+    "description": "",
+    "equipment": "machine"
+  },
+  {
+    "id": 178,
+    "name": "hip abduction (cable)",
+    "description": "",
+    "equipment": "cable"
+  },
+  {
+    "id": 179,
+    "name": "machine abduction",
+    "description": "",
+    "equipment": "machine"
+  },
+  {
+    "id": 180,
+    "name": "hip adduction (cable)",
+    "description": "",
+    "equipment": "cable"
+  },
+  {
+    "id": 181,
+    "name": "machine adduction",
+    "description": "",
+    "equipment": "machine"
   }
 ]

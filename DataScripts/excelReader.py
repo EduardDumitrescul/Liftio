@@ -19,6 +19,8 @@ class ExcelReader:
             exercise = self.exercises[i]
             if exercise.checkMuscles(self.muscles) == False:
                 print(f"Some error regarding exercise #{i} and it's corresponding muscles")
+            if exercise.checkEquipment() == False:
+                print(f"Some error regarding exercise #{i} and it's corresponding equipment")
 
     def _readExcel(self, sheetName):
         return pd.read_excel(self.path, sheet_name=sheetName)

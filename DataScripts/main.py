@@ -8,7 +8,6 @@ from muscle import MuscleEntity
 
 
 
-
 outputPath = '../app/src/main/assets/'
 reader = ExcelReader('../data/db-preload.xlsx')
 
@@ -24,5 +23,4 @@ with open(outputPath + 'exercises.json', 'w') as file:
     json.dump(exercises, file, cls=JsonEncoder, indent=2)
 with open(outputPath + 'exerciseMuscles.json', 'w') as file:
     json.dump(exerciseMuscles, file, cls=JsonEncoder, indent=2)
-
 

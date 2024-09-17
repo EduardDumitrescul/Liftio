@@ -13,3 +13,11 @@
 .externalNativeBuild
 .cxx
 local.properties
+.kotlin/
+DataScripts/__pycache__/
+DataScripts/tempCodeRunnerFile.py
+DataScripts/venv/
+data/.~lock.db-preload.xlsx#
+notes/.obsidian/
+notes/Tasks.md
+

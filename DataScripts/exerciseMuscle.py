@@ -2,7 +2,7 @@ class ExerciseMuscleEntity:
     def __init__(self, exerciseId, muscleId, isPrimary=False):
         self.exerciseId = exerciseId
         self.muscleId = muscleId
-        self.isPrimary = isPimary
+        self.isPrimary = isPrimary
 
 
 def createExerciseMuscleEntities(exercises, exerciseEntities, muscleEntities):
@@ -18,7 +18,7 @@ def createExerciseMuscleEntities(exercises, exerciseEntities, muscleEntities):
     em = []
 
     for exercise in exercises:
-        em.append(ExerciseMuscleEntity(exDict[exercise.name], muscleDict[exercise.primaryMuscle], True))
+        em.append(ExerciseMuscleEntity(exDict[exercise.name], muscleDict[exercise.focus], True))
         for muscle in exercise.secondaryMuscles:
             em.append(ExerciseMuscleEntity(exDict[exercise.name], muscleDict[muscle], False))
 
