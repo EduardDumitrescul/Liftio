@@ -1,5 +1,8 @@
 @file:Suppress("UnstableApiUsage")
 
+include(":app:fuzzysearch")
+
+
 pluginManagement {
     repositories {
         google()
