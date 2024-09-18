@@ -1,45 +1,59 @@
 package com.example.fitnesstracker.ui.views.exercise.browse
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fitnesstracker.data.dto.ExerciseWithMuscles
 import com.example.fitnesstracker.services.ExerciseService
+import com.example.fuzzysearch.FuzzySearch
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ExerciseBrowseViewModel @Inject constructor(
-    exerciseService: ExerciseService
+    private val exerciseService: ExerciseService
 ) : ViewModel() {
+    private val _searchValue: MutableStateFlow<String> = MutableStateFlow("")
+    val searchValue: StateFlow<String> get() = _searchValue
 
-    private val _exerciseWithMuscles: StateFlow<List<ExerciseWithMuscles>> = exerciseService
-        .getExercisesWithMuscles()
-        .stateIn(
-            viewModelScope,
-            SharingStarted.WhileSubscribed(5000),
-            emptyList()
-        )
+    private val _exerciseSummaries: MutableStateFlow<List<ExerciseWithMuscles>> = MutableStateFlow(emptyList())
 
-    private val _filteredExerciseSummaries: MutableStateFlow<List<ExerciseWithMuscles>> = MutableStateFlow(_exerciseWithMuscles.value)
-
+    private val _filteredExerciseSummaries: MutableStateFlow<List<ExerciseWithMuscles>> = MutableStateFlow(emptyList())
     val filteredExerciseSummaries: StateFlow<List<ExerciseWithMuscles>> = _filteredExerciseSummaries
 
+    private var fuzzySearch: FuzzySearch = FuzzySearch(emptyList())
+
     init {
+        fetchExerciseSummaries()
+        syncSearchValue()
+
+    }
+
+    private fun fetchExerciseSummaries() {
         viewModelScope.launch {
-            _exerciseWithMuscles.collect { exercises ->
-                _filteredExerciseSummaries.value = exercises
+            exerciseService
+                .getExercisesWithMuscles()
+                .collect { exercises ->
+                    fuzzySearch = FuzzySearch(exercises.map { it.exercise.name })
+                    _exerciseSummaries.update { exercises }
+                    _filteredExerciseSummaries.update { fuzzySearch.search(searchValue.value).map { exercises[it] }}
+                }
+        }
+    }
+
+    private fun syncSearchValue() {
+        viewModelScope.launch {
+            _searchValue.collect { searchValue ->
+                _filteredExerciseSummaries.value = fuzzySearch.search(searchValue).map { _exerciseSummaries.value[it] }
             }
         }
     }
 
-    fun updateFilter(filter: String) {
-        _filteredExerciseSummaries.value = _exerciseWithMuscles.value.filter {
-            it.exercise.name.contains(filter, ignoreCase = true)
-        }
+    fun updateSearchValue(value: String) {
+        _searchValue.update { value }
     }
 }

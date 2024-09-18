@@ -49,16 +49,6 @@ class Trie {
     }
 }
 
-fun Node.getWord(): String {
-    val charList: MutableList<Char> = mutableListOf()
-    var node = this
-    while(node.parent != null) {
-        charList.add(node.value)
-        node = node.parent!!
-    }
-    return charList.joinToString("").reversed()
-}
-
 fun main() {
     val trie = Trie()
     trie.insertWord("cat")

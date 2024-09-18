@@ -1,21 +1,22 @@
 package com.example.fuzzysearch
 
 import java.util.Stack
+import kotlin.math.exp
 import kotlin.math.min
 
 class DamerauLevenshteinTrieSearch(
     private val trie: Trie,
-    private val maxDistanceDiff: Int,
 ) {
     private var searchWord: String = ""
     private var letterStack: MutableList<Char> = mutableListOf()
     private var bestDistanceFound: Int = Int.MAX_VALUE
-    private val similarWords: MutableList<String> = mutableListOf()
+    private val similarWords: MutableList<Pair<String, Float>> = mutableListOf()
     private val distanceMatrix: MutableList<MutableList<Int>> = mutableListOf()
 
-    fun getSimilarWords(word: String): List<String> {
+    fun getSimilarWords(word: String): List<Pair<String, Float>> {
         bestDistanceFound = Int.MAX_VALUE
         distanceMatrix.clear()
+        similarWords.clear()
         this.searchWord = "_$word"
 
         searchRecursive(
@@ -34,16 +35,16 @@ class DamerauLevenshteinTrieSearch(
             if(i == 0 && depth == 0) {
                 distanceMatrix[depth][i] = 0
             }
-            // Case 1: deletion from trie word
-            try { distanceMatrix[depth][i] = min(distanceMatrix[depth][i], distanceMatrix[depth][i-1] + 1) }
+            // Case 1: deletion from search word
+            try { distanceMatrix[depth][i] = min(distanceMatrix[depth][i], distanceMatrix[depth][i-1] + 20) }
             catch (ignored: Exception) {}
 
-            // Case 2: deletion from search word
-            try { distanceMatrix[depth][i] = min(distanceMatrix[depth][i], distanceMatrix[depth-1][i] + 1) }
+            // Case 2: deletion from trie word
+            try { distanceMatrix[depth][i] = min(distanceMatrix[depth][i], distanceMatrix[depth-1][i] + 10) }
             catch (ignored: Exception) {}
 
             // Case 3: identical/different last characters
-            try { distanceMatrix[depth][i] = min(distanceMatrix[depth][i], distanceMatrix[depth-1][i-1] + if(searchWord[i] == node.value) 0 else 1) }
+            try { distanceMatrix[depth][i] = min(distanceMatrix[depth][i], distanceMatrix[depth-1][i-1] + if(searchWord[i] == node.value) 0 else 100) }
             catch (ignored: Exception) {}
 
             // Case 4: transposition of the last two characters from each word
@@ -57,9 +58,7 @@ class DamerauLevenshteinTrieSearch(
 
         if(node.isEndOfWord()) {
             val distance = distanceMatrix.last().last()
-            if(maxDistanceDiff >= distance) {
-                similarWords.add(letterStack.joinToString(""))
-            }
+            similarWords.add(Pair(letterStack.joinToString(""), exp(-distance.toDouble()).toFloat()))
         }
 
         for(nextNode in node.getChildren()) {

@@ -13,7 +13,7 @@ interface ExerciseDao {
     @Insert
     suspend fun insert(it: ExerciseEntity)
 
-    @Query("Select * from exercises")
+    @Query("Select * from exercises order by name")
     fun getExercises(): Flow<List<ExerciseEntity>>
 
     @Query("Select * from exercises " +

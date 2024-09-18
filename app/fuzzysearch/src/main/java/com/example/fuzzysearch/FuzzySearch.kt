@@ -1,8 +1,7 @@
 package com.example.fuzzysearch
 
 class FuzzySearch(
-    private val searchItems: List<SearchEntry>,
-    typoThreshold: Int = 3,
+    private val searchItems: List<String>,
 ) {
 
     private val indexDictionary: MutableMap<String, MutableList<Int>> = mutableMapOf()
@@ -12,15 +11,15 @@ class FuzzySearch(
     init {
         createIndexDictionary()
         populateTrie()
-        damerauLevenshteinTrieSearch = DamerauLevenshteinTrieSearch(trie, typoThreshold)
+        damerauLevenshteinTrieSearch = DamerauLevenshteinTrieSearch(trie)
     }
 
     private fun createIndexDictionary() {
-        searchItems.forEach { entry ->
-            entry.value
+        searchItems.forEachIndexed { index, entry ->
+            entry
                 .splitWords()
                 .forEach { word ->
-                    addWordToDictionary(word, entry.id)
+                    addWordToDictionary(word, index)
             }
         }
     }
@@ -40,12 +39,12 @@ class FuzzySearch(
 
     fun search(sentence: String): List<Int> {
         val words = sentence.splitWords()
-        val scoreMap: MutableMap<Int, Int> = mutableMapOf()
+        val scoreMap: MutableMap<Int, Float> = mutableMapOf()
+        searchItems.forEachIndexed {index, _ -> scoreMap.putIfAbsent(index, 0f) }
         words.forEach { word ->
-            val ids = searchWordMatch(word)
-            ids.forEach { id ->
-                scoreMap.putIfAbsent(id, 0)
-                scoreMap[id] = scoreMap[id]!! + 1
+            val similarityMap = searchWordMatch(word)
+            similarityMap.entries.forEach { (index, score) ->
+                scoreMap[index] = scoreMap[index]!! + score
             }
         }
 
@@ -56,14 +55,20 @@ class FuzzySearch(
     }
 
     // Given a word, find the ids of all the search entries that contain the most similar words, based on Damerau-Levenshtein Distance
-    private fun searchWordMatch(word: String): List<Int> {
+    private fun searchWordMatch(word: String): Map<Int, Float> {
         val similarWords = damerauLevenshteinTrieSearch.getSimilarWords(word)
-        return similarWords
-            .flatMap { indexDictionary[it]!! }
-            .removeDuplicates()
+        val similarityMap: MutableMap<Int, Float> = mutableMapOf()
+        similarWords.forEach { (word, score) ->
+            val indexes = indexDictionary[word]!!
+            indexes.forEach { index ->
+                similarityMap.putIfAbsent(index, 0f)
+                similarityMap[index] = similarityMap[index]!! + score
+            }
+        }
+        return similarityMap
     }
 
-    private fun List<Int>.removeDuplicates() = this.toSet().toList()
+//    private fun List<Int>.removeDuplicates() = this.toSet().toList()
 
     private fun String.filterLetters(): String {
         return this.map { if(!it.isLetter()) ' ' else it }.joinToString("")
@@ -74,8 +79,9 @@ class FuzzySearch(
             .split(" ")
             .filter { it.isNotBlank() }
 
-    class SearchEntry(
-        val id: Int,
-        val value: String
-    )
+}
+
+fun main() {
+    val f = FuzzySearch(listOf("bench press"))
+    f.search("biceps")
 }
