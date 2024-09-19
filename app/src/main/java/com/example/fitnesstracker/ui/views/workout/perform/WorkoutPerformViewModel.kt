@@ -11,7 +11,6 @@ import com.example.fitnesstracker.ui.components.exerciseCard.Progress
 import com.example.fitnesstracker.ui.components.exerciseCard.setRow.toSetState
 import com.example.fitnesstracker.ui.components.exerciseCard.toExerciseCardState
 import com.example.fitnesstracker.ui.views.workout.WorkoutState
-import com.example.fitnesstracker.ui.views.workout.toDetailedWorkout
 import com.example.fitnesstracker.ui.views.workout.toWorkoutState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -23,8 +22,6 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import java.time.Duration
 import java.time.LocalDateTime
@@ -46,6 +43,10 @@ class WorkoutPerformViewModel @Inject constructor(
 
     private val _exerciseEndReachedFlow = MutableStateFlow(false)
     val exerciseEndReachedFlow: StateFlow<Boolean> get() = _exerciseEndReachedFlow
+
+
+    private val _workoutEndReachedFlow = MutableStateFlow(false)
+    val workoutEndReachedFlow: StateFlow<Boolean> get() = _workoutEndReachedFlow
 
     private val timerRunning = true
 
@@ -71,6 +72,14 @@ class WorkoutPerformViewModel @Inject constructor(
                 else {
                     _exerciseEndReachedFlow.update { false }
                 }
+
+                if(workout.detailedExercises.size <= currentExerciseIndex) {
+                    _workoutEndReachedFlow.update { true }
+                }
+                else {
+                    _workoutEndReachedFlow.update { false }
+                }
+
                 val updatedExercises =
                     workout.detailedExercises.mapIndexed { exerciseIndex, exercise ->
                         val updatedSets = exercise.sets.mapIndexed() { setIndex, set ->
@@ -174,7 +183,7 @@ class WorkoutPerformViewModel @Inject constructor(
         catch (ignored: Exception) {}
     }
 
-    fun finishWorkout() {
+    fun completeWorkout() {
         viewModelScope.launch {
             removeUncompletedSetsAndExercises()
             workoutService.finishWorkout(workoutId)

@@ -1,6 +1,5 @@
 package com.example.fitnesstracker.ui.views.workout.perform
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,8 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -30,6 +27,7 @@ import com.example.fitnesstracker.ui.components.appbar.CenteredAppBar
 import com.example.fitnesstracker.ui.components.button.FilledButton
 import com.example.fitnesstracker.ui.components.button.IconButton
 import com.example.fitnesstracker.ui.components.button.TwoButtonRow
+import com.example.fitnesstracker.ui.components.dialog.ConfirmationDialog
 import com.example.fitnesstracker.ui.components.exerciseCard.EditableExerciseCard
 import com.example.fitnesstracker.ui.components.exerciseCard.ExerciseCardOptions
 import com.example.fitnesstracker.ui.components.exerciseCard.Progress
@@ -38,9 +36,6 @@ import com.example.fitnesstracker.ui.theme.AppTheme
 import com.example.fitnesstracker.ui.views.workout.SetEditController
 import com.example.fitnesstracker.ui.views.workout.components.AddExerciseButton
 import com.example.fitnesstracker.ui.views.workout.components.Timer
-import kotlinx.coroutines.delay
-import java.time.Duration
-import java.time.LocalDateTime
 
 // TODO don't let an exercise with no sets be completed
 // TODO confirmation on workout finish (if not all exercises have been completed)
@@ -65,21 +60,28 @@ fun WorkoutOngoingView(
 
     val ongoingWorkout by viewModel.ongoingWorkout.collectAsState()
     val exerciseEndReached by viewModel.exerciseEndReachedFlow.collectAsState()
+    val workoutEndReached by viewModel.workoutEndReachedFlow.collectAsState()
     val setEditController = SetEditController()
 
     Scaffold(
         topBar = { AppBar(
             title = ongoingWorkout.name,
+            workoutEndReached = workoutEndReached,
             navigateBack = navigateBack,
-            onFinishButtonClick = {
-                viewModel.finishWorkout()
+            finishWorkout = {
+                viewModel.completeWorkout()
                 navigateBack()
             })  },
         bottomBar = {
             BottomBar(
                 showCompleteExerciseButton = exerciseEndReached,
+                showFinishWorkoutButton = workoutEndReached,
                 completeSet = { viewModel.completeSet() },
                 completeExercise = { viewModel.completeExercise() },
+                completeWorkout = {
+                    viewModel.completeWorkout()
+                    navigateBack()
+                },
                 skipSet = { viewModel.skipSet() }
             )
         },
@@ -145,23 +147,31 @@ fun WorkoutOngoingView(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun AppBar(
-    onFinishButtonClick: () -> Unit,
-    navigateBack: () -> Unit,
     title: String,
+    workoutEndReached: Boolean,
+    finishWorkout: () -> Unit,
+    navigateBack: () -> Unit,
 ) {
     CenteredAppBar(
         title = title,
         onNavigationIconClick = navigateBack,
         actions = {
-            FinishButton(onFinishButtonClick)
+            FinishButton(
+                workoutEndReached = workoutEndReached,
+                finishWorkout = {finishWorkout()}
+            )
         }
     )
 }
 
 @Composable
-private fun FinishButton(onClick: () -> Unit) {
+private fun FinishButton(
+    workoutEndReached: Boolean,
+    finishWorkout: () -> Unit,
+) {
+    var showDialog by remember { mutableStateOf(false) }
     IconButton(
-        onClick = onClick,
+        onClick = { if(workoutEndReached) finishWorkout() else showDialog=true },
         modifier = Modifier.size(40.dp),
         imageVector = Icons.Rounded.CheckCircleOutline,
         contentDescription = "finish workout",
@@ -169,16 +179,44 @@ private fun FinishButton(onClick: () -> Unit) {
         contentColor = AppTheme.colors.onBackground,
         size = 40.dp
     )
+
+    if(showDialog) {
+        ConfirmationDialog(
+            mainText = "End Workout?",
+            secondaryText = "You have uncompleted exercises",
+            cancelText = "No, continue",
+            confirmText = "Finish workout",
+            isWarning = true,
+            onCancel = {showDialog = false},
+            onConfirm = {
+                finishWorkout()
+                showDialog = false
+            },
+            onDismissRequest = {showDialog = false},
+        )
+    }
 }
 
 @Composable
 private fun BottomBar(
     showCompleteExerciseButton: Boolean,
+    showFinishWorkoutButton: Boolean,
     completeSet: () -> Unit,
     completeExercise: () -> Unit,
+    completeWorkout: () -> Unit,
     skipSet: () -> Unit,
 ) {
-    if(showCompleteExerciseButton) {
+    if(showFinishWorkoutButton) {
+        FilledButton(
+            text = "END WORKOUT",
+            onClick = completeWorkout,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
+                .padding(vertical = 4.dp)
+        )
+    }
+    else if(showCompleteExerciseButton) {
         FilledButton(
             text = "complete exercise",
             onClick = completeExercise,
