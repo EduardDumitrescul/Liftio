@@ -13,6 +13,8 @@ import com.example.fitnesstracker.data.dto.ExerciseWithMuscles
 import com.example.fitnesstracker.data.models.Exercise
 import com.example.fitnesstracker.ui.components.MuscleChipRow
 import com.example.fitnesstracker.ui.theme.AppTheme
+import com.example.fitnesstracker.utils.capitalize
+import java.util.Locale
 
 @Composable
 fun ExerciseRow(
@@ -27,7 +29,7 @@ fun ExerciseRow(
         EquipmentIcon(model.exercise.equipment)
         Column {
             Text(
-                text = model.exercise.name,
+                text = model.exercise.name.capitalize(),
                 color = AppTheme.colors.onBackground,
                 style = AppTheme.typography.headline
             )
