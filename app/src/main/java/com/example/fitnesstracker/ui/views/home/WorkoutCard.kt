@@ -34,7 +34,7 @@ fun WorkoutCard(
         ) {
             Title(workout.name)
 
-            HorizontalDivider(color = AppTheme.colors.container)
+//            HorizontalDivider(color = AppTheme.colors.container)
 
             MusclesRow(workout.workedMuscles)
 
@@ -65,6 +65,7 @@ private fun MusclesRow(workedMuscles: List<String>) {
     FlowRow(
         horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal),
         verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.spacingNormal),
+        modifier = Modifier.padding(bottom = 16.dp)
     ) {
         for (muscle in workedMuscles) {
             FilledChip(label = muscle)
@@ -76,7 +77,8 @@ private fun MusclesRow(workedMuscles: List<String>) {
 private fun Title(text: String) {
     Text(
         text = text,
-        style = AppTheme.typography.headline
+        style = AppTheme.typography.headline,
+        color = AppTheme.colors.onContainer
     )
 }
 

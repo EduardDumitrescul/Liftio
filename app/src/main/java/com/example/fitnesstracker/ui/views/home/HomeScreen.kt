@@ -125,7 +125,8 @@ private fun StatelessTemplateBrowseView(
                     workout = template,
                     onClick = {
                         onCardClicked(template.id)
-                    }
+                    },
+                    modifier = Modifier.fillMaxWidth()
                 )
             }
 

@@ -32,11 +32,9 @@ class WorkoutService @Inject constructor(
     fun getTemplateSummaries(): Flow<List<WorkoutSummary>> {
         return workoutRepository.getTemplates().flatMapLatest { templates ->
             if (templates.isEmpty()) {
-                Log.d(TAG, "No templates found.")
                 flowOf(emptyList())
             } else {
                 val workoutSummaryFlows = templates.map { getWorkoutSummary(it.id) }
-
 
                 combine(workoutSummaryFlows) {
                     val summaries = it.toList()
@@ -52,11 +50,10 @@ class WorkoutService @Inject constructor(
         val workoutFlow = workoutRepository.getWorkout(id)
 
         return combine(workoutFlow, musclesFlow, exercisesFlow) { workout, muscles, exercises ->
-
             WorkoutSummary(
                 id = workout.id,
                 name = workout.name,
-                workedMuscles = muscles.map { it.name },
+                workedMuscles = muscles.distinctBy { it.group }.map { it.group },
                 exerciseList = exercises.map { "${it.sets.size} x ${it.exercise.name}" }
             )
         }
