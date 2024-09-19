@@ -38,11 +38,15 @@ class ExerciseBrowseViewModel @Inject constructor(
             exerciseService
                 .getExercisesWithMuscles()
                 .collect { exercises ->
-                    fuzzySearch = FuzzySearch(exercises.map { it.exercise.name })
+                    fuzzySearch = FuzzySearch(exercises.map { it.createSearchEntry() })
                     _exerciseSummaries.update { exercises }
                     _filteredExerciseSummaries.update { fuzzySearch.search(searchValue.value).map { exercises[it] }}
                 }
         }
+    }
+
+    private fun ExerciseWithMuscles.createSearchEntry(): String {
+        return "${this.exercise.name} ${this.exercise.equipment} ${this.primaryMuscle} ${this.secondaryMuscles.joinToString(" ")}"
     }
 
     private fun syncSearchValue() {
