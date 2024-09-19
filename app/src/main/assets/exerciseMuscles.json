@@ -6,12 +6,12 @@
   },
   {
     "exerciseId": 1,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": false
   },
   {
     "exerciseId": 1,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": false
   },
   {
@@ -21,12 +21,12 @@
   },
   {
     "exerciseId": 2,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": false
   },
   {
     "exerciseId": 2,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": false
   },
   {
@@ -36,12 +36,12 @@
   },
   {
     "exerciseId": 3,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": false
   },
   {
     "exerciseId": 3,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": false
   },
   {
@@ -51,12 +51,12 @@
   },
   {
     "exerciseId": 4,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": false
   },
   {
     "exerciseId": 4,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": false
   },
   {
@@ -66,12 +66,12 @@
   },
   {
     "exerciseId": 5,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": false
   },
   {
     "exerciseId": 5,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": false
   },
   {
@@ -81,12 +81,12 @@
   },
   {
     "exerciseId": 6,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": false
   },
   {
     "exerciseId": 6,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": false
   },
   {
@@ -96,12 +96,12 @@
   },
   {
     "exerciseId": 7,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": false
   },
   {
     "exerciseId": 7,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": false
   },
   {
@@ -111,12 +111,12 @@
   },
   {
     "exerciseId": 8,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": false
   },
   {
     "exerciseId": 8,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": false
   },
   {
@@ -126,12 +126,12 @@
   },
   {
     "exerciseId": 9,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": false
   },
   {
     "exerciseId": 9,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": false
   },
   {
@@ -141,12 +141,12 @@
   },
   {
     "exerciseId": 10,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": false
   },
   {
     "exerciseId": 10,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": false
   },
   {
@@ -156,12 +156,12 @@
   },
   {
     "exerciseId": 11,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": false
   },
   {
     "exerciseId": 11,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": false
   },
   {
@@ -171,12 +171,12 @@
   },
   {
     "exerciseId": 12,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": false
   },
   {
     "exerciseId": 12,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": false
   },
   {
@@ -186,12 +186,12 @@
   },
   {
     "exerciseId": 13,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": false
   },
   {
     "exerciseId": 13,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": false
   },
   {
@@ -201,12 +201,12 @@
   },
   {
     "exerciseId": 14,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": false
   },
   {
     "exerciseId": 14,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": false
   },
   {
@@ -216,12 +216,12 @@
   },
   {
     "exerciseId": 15,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": false
   },
   {
     "exerciseId": 15,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": false
   },
   {
@@ -231,12 +231,12 @@
   },
   {
     "exerciseId": 16,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": false
   },
   {
     "exerciseId": 16,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": false
   },
   {
@@ -246,12 +246,12 @@
   },
   {
     "exerciseId": 17,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": false
   },
   {
     "exerciseId": 17,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": false
   },
   {
@@ -261,12 +261,12 @@
   },
   {
     "exerciseId": 18,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": false
   },
   {
     "exerciseId": 18,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": false
   },
   {
@@ -276,12 +276,12 @@
   },
   {
     "exerciseId": 19,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": false
   },
   {
     "exerciseId": 19,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": false
   },
   {
@@ -291,12 +291,12 @@
   },
   {
     "exerciseId": 20,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": false
   },
   {
     "exerciseId": 20,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": false
   },
   {
@@ -306,12 +306,12 @@
   },
   {
     "exerciseId": 21,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": false
   },
   {
     "exerciseId": 21,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": false
   },
   {
@@ -321,7 +321,7 @@
   },
   {
     "exerciseId": 22,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": false
   },
   {
@@ -331,12 +331,12 @@
   },
   {
     "exerciseId": 23,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": false
   },
   {
     "exerciseId": 23,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": false
   },
   {
@@ -346,22 +346,22 @@
   },
   {
     "exerciseId": 24,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": false
   },
   {
     "exerciseId": 24,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": false
   },
   {
     "exerciseId": 25,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": true
   },
   {
     "exerciseId": 25,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": false
   },
   {
@@ -371,12 +371,12 @@
   },
   {
     "exerciseId": 26,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": true
   },
   {
     "exerciseId": 26,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": false
   },
   {
@@ -386,12 +386,12 @@
   },
   {
     "exerciseId": 27,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": true
   },
   {
     "exerciseId": 27,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": false
   },
   {
@@ -401,12 +401,12 @@
   },
   {
     "exerciseId": 28,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": true
   },
   {
     "exerciseId": 28,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": false
   },
   {
@@ -416,12 +416,12 @@
   },
   {
     "exerciseId": 29,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": true
   },
   {
     "exerciseId": 29,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": false
   },
   {
@@ -431,12 +431,12 @@
   },
   {
     "exerciseId": 30,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": true
   },
   {
     "exerciseId": 30,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": false
   },
   {
@@ -446,12 +446,12 @@
   },
   {
     "exerciseId": 31,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": true
   },
   {
     "exerciseId": 31,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": false
   },
   {
@@ -461,12 +461,12 @@
   },
   {
     "exerciseId": 32,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": true
   },
   {
     "exerciseId": 32,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": false
   },
   {
@@ -476,12 +476,12 @@
   },
   {
     "exerciseId": 33,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": true
   },
   {
     "exerciseId": 33,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": false
   },
   {
@@ -491,12 +491,12 @@
   },
   {
     "exerciseId": 34,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": true
   },
   {
     "exerciseId": 34,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": false
   },
   {
@@ -506,57 +506,57 @@
   },
   {
     "exerciseId": 35,
-    "muscleId": 6,
+    "muscleId": 5,
     "isPrimary": true
   },
   {
     "exerciseId": 35,
-    "muscleId": 8,
+    "muscleId": 7,
     "isPrimary": false
   },
   {
     "exerciseId": 36,
-    "muscleId": 6,
+    "muscleId": 5,
     "isPrimary": true
   },
   {
     "exerciseId": 36,
-    "muscleId": 8,
+    "muscleId": 7,
     "isPrimary": false
   },
   {
     "exerciseId": 37,
-    "muscleId": 6,
+    "muscleId": 5,
     "isPrimary": true
   },
   {
     "exerciseId": 37,
-    "muscleId": 8,
+    "muscleId": 7,
     "isPrimary": false
   },
   {
     "exerciseId": 38,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": true
   },
   {
     "exerciseId": 39,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": true
   },
   {
     "exerciseId": 40,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": true
   },
   {
     "exerciseId": 41,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": true
   },
   {
     "exerciseId": 41,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": false
   },
   {
@@ -566,42 +566,42 @@
   },
   {
     "exerciseId": 42,
-    "muscleId": 5,
-    "isPrimary": true
-  },
-  {
-    "exerciseId": 42,
-    "muscleId": 8,
-    "isPrimary": false
-  },
-  {
-    "exerciseId": 43,
-    "muscleId": 5,
-    "isPrimary": true
-  },
-  {
-    "exerciseId": 43,
-    "muscleId": 8,
-    "isPrimary": false
-  },
-  {
-    "exerciseId": 44,
-    "muscleId": 5,
-    "isPrimary": true
-  },
-  {
-    "exerciseId": 44,
-    "muscleId": 8,
-    "isPrimary": false
-  },
-  {
-    "exerciseId": 45,
     "muscleId": 4,
     "isPrimary": true
   },
   {
+    "exerciseId": 42,
+    "muscleId": 7,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 43,
+    "muscleId": 4,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 43,
+    "muscleId": 7,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 44,
+    "muscleId": 4,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 44,
+    "muscleId": 7,
+    "isPrimary": false
+  },
+  {
     "exerciseId": 45,
-    "muscleId": 12,
+    "muscleId": 3,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 45,
+    "muscleId": 11,
     "isPrimary": false
   },
   {
@@ -611,87 +611,87 @@
   },
   {
     "exerciseId": 46,
-    "muscleId": 6,
-    "isPrimary": true
-  },
-  {
-    "exerciseId": 46,
-    "muscleId": 8,
-    "isPrimary": false
-  },
-  {
-    "exerciseId": 46,
-    "muscleId": 11,
-    "isPrimary": false
-  },
-  {
-    "exerciseId": 47,
-    "muscleId": 6,
-    "isPrimary": true
-  },
-  {
-    "exerciseId": 47,
-    "muscleId": 8,
-    "isPrimary": false
-  },
-  {
-    "exerciseId": 47,
-    "muscleId": 11,
-    "isPrimary": false
-  },
-  {
-    "exerciseId": 48,
-    "muscleId": 6,
-    "isPrimary": true
-  },
-  {
-    "exerciseId": 48,
-    "muscleId": 8,
-    "isPrimary": false
-  },
-  {
-    "exerciseId": 48,
-    "muscleId": 11,
-    "isPrimary": false
-  },
-  {
-    "exerciseId": 49,
     "muscleId": 5,
     "isPrimary": true
   },
   {
+    "exerciseId": 46,
+    "muscleId": 7,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 46,
+    "muscleId": 10,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 47,
+    "muscleId": 5,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 47,
+    "muscleId": 7,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 47,
+    "muscleId": 10,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 48,
+    "muscleId": 5,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 48,
+    "muscleId": 7,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 48,
+    "muscleId": 10,
+    "isPrimary": false
+  },
+  {
     "exerciseId": 49,
+    "muscleId": 4,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 49,
+    "muscleId": 7,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 50,
     "muscleId": 8,
-    "isPrimary": false
-  },
-  {
-    "exerciseId": 50,
-    "muscleId": 9,
     "isPrimary": true
   },
   {
     "exerciseId": 50,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": false
   },
   {
     "exerciseId": 51,
-    "muscleId": 9,
+    "muscleId": 8,
     "isPrimary": true
   },
   {
     "exerciseId": 51,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": false
   },
   {
     "exerciseId": 52,
-    "muscleId": 9,
+    "muscleId": 8,
     "isPrimary": true
   },
   {
     "exerciseId": 52,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": false
   },
   {
@@ -701,352 +701,352 @@
   },
   {
     "exerciseId": 52,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": false
   },
   {
     "exerciseId": 52,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": false
   },
   {
     "exerciseId": 53,
-    "muscleId": 9,
+    "muscleId": 8,
     "isPrimary": true
   },
   {
     "exerciseId": 53,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": false
   },
   {
     "exerciseId": 54,
-    "muscleId": 9,
+    "muscleId": 8,
     "isPrimary": true
   },
   {
     "exerciseId": 54,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": false
   },
   {
     "exerciseId": 55,
-    "muscleId": 9,
+    "muscleId": 8,
     "isPrimary": true
   },
   {
     "exerciseId": 55,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": false
   },
   {
     "exerciseId": 56,
-    "muscleId": 9,
+    "muscleId": 8,
     "isPrimary": true
   },
   {
     "exerciseId": 56,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": false
   },
   {
     "exerciseId": 57,
-    "muscleId": 9,
+    "muscleId": 8,
     "isPrimary": true
   },
   {
     "exerciseId": 57,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": false
   },
   {
     "exerciseId": 58,
-    "muscleId": 9,
+    "muscleId": 8,
     "isPrimary": true
   },
   {
     "exerciseId": 58,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": false
   },
   {
     "exerciseId": 59,
-    "muscleId": 9,
+    "muscleId": 8,
     "isPrimary": true
   },
   {
     "exerciseId": 59,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": false
   },
   {
     "exerciseId": 60,
-    "muscleId": 9,
+    "muscleId": 8,
     "isPrimary": true
   },
   {
     "exerciseId": 60,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": false
   },
   {
     "exerciseId": 61,
-    "muscleId": 9,
+    "muscleId": 8,
     "isPrimary": true
   },
   {
     "exerciseId": 61,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": false
   },
   {
     "exerciseId": 62,
-    "muscleId": 9,
+    "muscleId": 8,
     "isPrimary": true
   },
   {
     "exerciseId": 62,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": false
   },
   {
     "exerciseId": 63,
-    "muscleId": 9,
+    "muscleId": 8,
     "isPrimary": true
   },
   {
     "exerciseId": 63,
-    "muscleId": 12,
-    "isPrimary": false
-  },
-  {
-    "exerciseId": 64,
-    "muscleId": 7,
-    "isPrimary": true
-  },
-  {
-    "exerciseId": 64,
     "muscleId": 11,
     "isPrimary": false
   },
   {
     "exerciseId": 64,
-    "muscleId": 5,
+    "muscleId": 6,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 64,
+    "muscleId": 10,
+    "isPrimary": false
+  },
+  {
+    "exerciseId": 64,
+    "muscleId": 4,
     "isPrimary": false
   },
   {
     "exerciseId": 65,
-    "muscleId": 7,
+    "muscleId": 6,
     "isPrimary": true
   },
   {
     "exerciseId": 65,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": false
   },
   {
     "exerciseId": 65,
-    "muscleId": 5,
+    "muscleId": 4,
     "isPrimary": false
   },
   {
     "exerciseId": 66,
-    "muscleId": 7,
+    "muscleId": 6,
     "isPrimary": true
   },
   {
     "exerciseId": 66,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": false
   },
   {
     "exerciseId": 66,
-    "muscleId": 5,
+    "muscleId": 4,
     "isPrimary": false
   },
   {
     "exerciseId": 67,
-    "muscleId": 7,
+    "muscleId": 6,
     "isPrimary": true
   },
   {
     "exerciseId": 67,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": false
   },
   {
     "exerciseId": 67,
-    "muscleId": 5,
+    "muscleId": 4,
     "isPrimary": false
   },
   {
     "exerciseId": 68,
-    "muscleId": 7,
+    "muscleId": 6,
     "isPrimary": true
   },
   {
     "exerciseId": 68,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": false
   },
   {
     "exerciseId": 68,
-    "muscleId": 5,
+    "muscleId": 4,
     "isPrimary": false
   },
   {
     "exerciseId": 69,
-    "muscleId": 7,
+    "muscleId": 6,
     "isPrimary": true
   },
   {
     "exerciseId": 69,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": false
   },
   {
     "exerciseId": 69,
-    "muscleId": 5,
+    "muscleId": 4,
     "isPrimary": false
   },
   {
     "exerciseId": 70,
-    "muscleId": 7,
+    "muscleId": 6,
     "isPrimary": true
   },
   {
     "exerciseId": 70,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": false
   },
   {
     "exerciseId": 70,
-    "muscleId": 5,
+    "muscleId": 4,
     "isPrimary": false
   },
   {
     "exerciseId": 71,
-    "muscleId": 7,
+    "muscleId": 6,
     "isPrimary": true
   },
   {
     "exerciseId": 71,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": false
   },
   {
     "exerciseId": 71,
-    "muscleId": 5,
+    "muscleId": 4,
     "isPrimary": false
   },
   {
     "exerciseId": 72,
-    "muscleId": 7,
+    "muscleId": 6,
     "isPrimary": true
   },
   {
     "exerciseId": 72,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": false
   },
   {
     "exerciseId": 72,
-    "muscleId": 5,
+    "muscleId": 4,
     "isPrimary": false
   },
   {
     "exerciseId": 73,
-    "muscleId": 8,
-    "isPrimary": true
-  },
-  {
-    "exerciseId": 74,
-    "muscleId": 8,
-    "isPrimary": true
-  },
-  {
-    "exerciseId": 75,
-    "muscleId": 8,
-    "isPrimary": true
-  },
-  {
-    "exerciseId": 76,
-    "muscleId": 8,
-    "isPrimary": true
-  },
-  {
-    "exerciseId": 77,
-    "muscleId": 10,
-    "isPrimary": true
-  },
-  {
-    "exerciseId": 78,
     "muscleId": 7,
     "isPrimary": true
   },
   {
+    "exerciseId": 74,
+    "muscleId": 7,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 75,
+    "muscleId": 7,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 76,
+    "muscleId": 7,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 77,
+    "muscleId": 9,
+    "isPrimary": true
+  },
+  {
     "exerciseId": 78,
-    "muscleId": 11,
+    "muscleId": 6,
+    "isPrimary": true
+  },
+  {
+    "exerciseId": 78,
+    "muscleId": 10,
     "isPrimary": false
   },
   {
     "exerciseId": 78,
-    "muscleId": 5,
+    "muscleId": 4,
     "isPrimary": false
   },
   {
     "exerciseId": 79,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": true
   },
   {
     "exerciseId": 80,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": true
   },
   {
     "exerciseId": 81,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": true
   },
   {
     "exerciseId": 82,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": true
   },
   {
     "exerciseId": 83,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": true
   },
   {
     "exerciseId": 84,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": true
   },
   {
     "exerciseId": 85,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": true
   },
   {
     "exerciseId": 86,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": true
   },
   {
     "exerciseId": 87,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": true
   },
   {
     "exerciseId": 88,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": true
   },
   {
     "exerciseId": 89,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": true
   },
   {
@@ -1056,12 +1056,12 @@
   },
   {
     "exerciseId": 89,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": false
   },
   {
     "exerciseId": 90,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": true
   },
   {
@@ -1071,47 +1071,47 @@
   },
   {
     "exerciseId": 90,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": false
   },
   {
     "exerciseId": 91,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": true
   },
   {
     "exerciseId": 92,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": true
   },
   {
     "exerciseId": 93,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": true
   },
   {
     "exerciseId": 94,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": true
   },
   {
     "exerciseId": 95,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": true
   },
   {
     "exerciseId": 96,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": true
   },
   {
     "exerciseId": 97,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": true
   },
   {
     "exerciseId": 98,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": true
   },
   {
@@ -1121,12 +1121,12 @@
   },
   {
     "exerciseId": 98,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": false
   },
   {
     "exerciseId": 99,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": true
   },
   {
@@ -1136,12 +1136,12 @@
   },
   {
     "exerciseId": 99,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": false
   },
   {
     "exerciseId": 100,
-    "muscleId": 12,
+    "muscleId": 11,
     "isPrimary": true
   },
   {
@@ -1151,512 +1151,512 @@
   },
   {
     "exerciseId": 100,
-    "muscleId": 4,
+    "muscleId": 3,
     "isPrimary": false
   },
   {
     "exerciseId": 101,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": true
   },
   {
     "exerciseId": 101,
-    "muscleId": 13,
+    "muscleId": 12,
     "isPrimary": false
   },
   {
     "exerciseId": 102,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": true
   },
   {
     "exerciseId": 102,
-    "muscleId": 13,
+    "muscleId": 12,
     "isPrimary": false
   },
   {
     "exerciseId": 103,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": true
   },
   {
     "exerciseId": 103,
-    "muscleId": 13,
+    "muscleId": 12,
     "isPrimary": false
   },
   {
     "exerciseId": 104,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": true
   },
   {
     "exerciseId": 104,
-    "muscleId": 13,
+    "muscleId": 12,
     "isPrimary": false
   },
   {
     "exerciseId": 105,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": true
   },
   {
     "exerciseId": 105,
-    "muscleId": 13,
+    "muscleId": 12,
     "isPrimary": false
   },
   {
     "exerciseId": 106,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": true
   },
   {
     "exerciseId": 106,
-    "muscleId": 13,
+    "muscleId": 12,
     "isPrimary": false
   },
   {
     "exerciseId": 107,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": true
   },
   {
     "exerciseId": 107,
-    "muscleId": 13,
+    "muscleId": 12,
     "isPrimary": false
   },
   {
     "exerciseId": 108,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": true
   },
   {
     "exerciseId": 108,
-    "muscleId": 13,
+    "muscleId": 12,
     "isPrimary": false
   },
   {
     "exerciseId": 109,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": true
   },
   {
     "exerciseId": 109,
-    "muscleId": 13,
+    "muscleId": 12,
     "isPrimary": false
   },
   {
     "exerciseId": 110,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": true
   },
   {
     "exerciseId": 110,
-    "muscleId": 13,
+    "muscleId": 12,
     "isPrimary": false
   },
   {
     "exerciseId": 111,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": true
   },
   {
     "exerciseId": 111,
-    "muscleId": 13,
+    "muscleId": 12,
     "isPrimary": false
   },
   {
     "exerciseId": 112,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": true
   },
   {
     "exerciseId": 112,
-    "muscleId": 13,
+    "muscleId": 12,
     "isPrimary": false
   },
   {
     "exerciseId": 113,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": true
   },
   {
     "exerciseId": 113,
-    "muscleId": 13,
+    "muscleId": 12,
     "isPrimary": false
   },
   {
     "exerciseId": 114,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": true
   },
   {
     "exerciseId": 114,
-    "muscleId": 13,
+    "muscleId": 12,
     "isPrimary": false
   },
   {
     "exerciseId": 115,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": true
   },
   {
     "exerciseId": 115,
-    "muscleId": 13,
+    "muscleId": 12,
     "isPrimary": false
   },
   {
     "exerciseId": 116,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": true
   },
   {
     "exerciseId": 116,
-    "muscleId": 9,
+    "muscleId": 8,
     "isPrimary": false
   },
   {
     "exerciseId": 117,
-    "muscleId": 13,
+    "muscleId": 12,
     "isPrimary": true
   },
   {
     "exerciseId": 117,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": false
   },
   {
     "exerciseId": 118,
-    "muscleId": 13,
+    "muscleId": 12,
     "isPrimary": true
   },
   {
     "exerciseId": 118,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": false
   },
   {
     "exerciseId": 119,
-    "muscleId": 13,
+    "muscleId": 12,
     "isPrimary": true
   },
   {
     "exerciseId": 119,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": false
   },
   {
     "exerciseId": 120,
-    "muscleId": 13,
+    "muscleId": 12,
     "isPrimary": true
   },
   {
     "exerciseId": 120,
-    "muscleId": 11,
+    "muscleId": 10,
     "isPrimary": false
   },
   {
     "exerciseId": 121,
-    "muscleId": 13,
+    "muscleId": 12,
     "isPrimary": true
   },
   {
     "exerciseId": 122,
-    "muscleId": 13,
+    "muscleId": 12,
     "isPrimary": true
   },
   {
     "exerciseId": 123,
-    "muscleId": 13,
+    "muscleId": 12,
     "isPrimary": true
   },
   {
     "exerciseId": 124,
-    "muscleId": 13,
+    "muscleId": 12,
     "isPrimary": true
   },
   {
     "exerciseId": 125,
-    "muscleId": 13,
+    "muscleId": 12,
     "isPrimary": true
   },
   {
     "exerciseId": 126,
-    "muscleId": 13,
+    "muscleId": 12,
     "isPrimary": true
   },
   {
     "exerciseId": 127,
-    "muscleId": 14,
+    "muscleId": 13,
     "isPrimary": true
   },
   {
     "exerciseId": 128,
-    "muscleId": 14,
+    "muscleId": 13,
     "isPrimary": true
   },
   {
     "exerciseId": 129,
-    "muscleId": 14,
+    "muscleId": 13,
     "isPrimary": true
   },
   {
     "exerciseId": 130,
-    "muscleId": 14,
+    "muscleId": 13,
     "isPrimary": true
   },
   {
     "exerciseId": 131,
-    "muscleId": 14,
+    "muscleId": 13,
     "isPrimary": true
   },
   {
     "exerciseId": 132,
-    "muscleId": 14,
+    "muscleId": 13,
     "isPrimary": true
   },
   {
     "exerciseId": 133,
-    "muscleId": 14,
+    "muscleId": 13,
     "isPrimary": true
   },
   {
     "exerciseId": 134,
-    "muscleId": 14,
+    "muscleId": 13,
     "isPrimary": true
   },
   {
     "exerciseId": 135,
-    "muscleId": 14,
+    "muscleId": 13,
     "isPrimary": true
   },
   {
     "exerciseId": 136,
-    "muscleId": 14,
+    "muscleId": 13,
     "isPrimary": true
   },
   {
     "exerciseId": 137,
-    "muscleId": 15,
+    "muscleId": 14,
     "isPrimary": true
   },
   {
     "exerciseId": 138,
-    "muscleId": 15,
+    "muscleId": 14,
     "isPrimary": true
   },
   {
     "exerciseId": 139,
-    "muscleId": 15,
+    "muscleId": 14,
     "isPrimary": true
   },
   {
     "exerciseId": 140,
-    "muscleId": 16,
+    "muscleId": 15,
     "isPrimary": true
   },
   {
     "exerciseId": 141,
-    "muscleId": 16,
+    "muscleId": 15,
     "isPrimary": true
   },
   {
     "exerciseId": 142,
-    "muscleId": 16,
+    "muscleId": 15,
     "isPrimary": true
   },
   {
     "exerciseId": 143,
-    "muscleId": 16,
+    "muscleId": 15,
     "isPrimary": true
   },
   {
     "exerciseId": 144,
-    "muscleId": 16,
+    "muscleId": 15,
     "isPrimary": true
   },
   {
     "exerciseId": 145,
-    "muscleId": 16,
+    "muscleId": 15,
     "isPrimary": true
   },
   {
     "exerciseId": 146,
-    "muscleId": 17,
+    "muscleId": 16,
     "isPrimary": true
   },
   {
     "exerciseId": 147,
-    "muscleId": 17,
+    "muscleId": 16,
     "isPrimary": true
   },
   {
     "exerciseId": 148,
-    "muscleId": 17,
+    "muscleId": 16,
     "isPrimary": true
   },
   {
     "exerciseId": 149,
-    "muscleId": 17,
+    "muscleId": 16,
     "isPrimary": true
   },
   {
     "exerciseId": 150,
-    "muscleId": 17,
+    "muscleId": 16,
     "isPrimary": true
   },
   {
     "exerciseId": 151,
-    "muscleId": 17,
+    "muscleId": 16,
     "isPrimary": true
   },
   {
     "exerciseId": 152,
-    "muscleId": 17,
+    "muscleId": 16,
     "isPrimary": true
   },
   {
     "exerciseId": 153,
-    "muscleId": 17,
+    "muscleId": 16,
     "isPrimary": true
   },
   {
     "exerciseId": 154,
-    "muscleId": 17,
+    "muscleId": 16,
     "isPrimary": true
   },
   {
     "exerciseId": 155,
-    "muscleId": 17,
+    "muscleId": 16,
     "isPrimary": true
   },
   {
     "exerciseId": 156,
-    "muscleId": 17,
+    "muscleId": 16,
     "isPrimary": true
   },
   {
     "exerciseId": 157,
-    "muscleId": 17,
+    "muscleId": 16,
     "isPrimary": true
   },
   {
     "exerciseId": 158,
-    "muscleId": 17,
+    "muscleId": 16,
     "isPrimary": true
   },
   {
     "exerciseId": 159,
-    "muscleId": 17,
+    "muscleId": 16,
     "isPrimary": true
   },
   {
     "exerciseId": 160,
-    "muscleId": 17,
+    "muscleId": 16,
     "isPrimary": true
   },
   {
     "exerciseId": 161,
-    "muscleId": 18,
+    "muscleId": 17,
     "isPrimary": true
   },
   {
     "exerciseId": 162,
-    "muscleId": 18,
+    "muscleId": 17,
     "isPrimary": true
   },
   {
     "exerciseId": 163,
-    "muscleId": 18,
+    "muscleId": 17,
     "isPrimary": true
   },
   {
     "exerciseId": 164,
-    "muscleId": 18,
+    "muscleId": 17,
     "isPrimary": true
   },
   {
     "exerciseId": 165,
-    "muscleId": 18,
+    "muscleId": 17,
     "isPrimary": true
   },
   {
     "exerciseId": 166,
-    "muscleId": 18,
+    "muscleId": 17,
     "isPrimary": true
   },
   {
     "exerciseId": 167,
-    "muscleId": 20,
+    "muscleId": 19,
     "isPrimary": true
   },
   {
     "exerciseId": 168,
-    "muscleId": 20,
+    "muscleId": 19,
     "isPrimary": true
   },
   {
     "exerciseId": 169,
-    "muscleId": 20,
+    "muscleId": 19,
     "isPrimary": true
   },
   {
     "exerciseId": 170,
-    "muscleId": 20,
+    "muscleId": 19,
     "isPrimary": true
   },
   {
     "exerciseId": 171,
-    "muscleId": 20,
+    "muscleId": 19,
     "isPrimary": true
   },
   {
     "exerciseId": 172,
-    "muscleId": 20,
+    "muscleId": 19,
     "isPrimary": true
   },
   {
     "exerciseId": 173,
-    "muscleId": 20,
+    "muscleId": 19,
     "isPrimary": true
   },
   {
     "exerciseId": 174,
-    "muscleId": 19,
+    "muscleId": 18,
     "isPrimary": true
   },
   {
     "exerciseId": 175,
-    "muscleId": 19,
+    "muscleId": 18,
     "isPrimary": true
   },
   {
     "exerciseId": 176,
-    "muscleId": 19,
+    "muscleId": 18,
     "isPrimary": true
   },
   {
     "exerciseId": 177,
-    "muscleId": 19,
+    "muscleId": 18,
     "isPrimary": true
   },
   {
     "exerciseId": 178,
-    "muscleId": 22,
+    "muscleId": 21,
     "isPrimary": true
   },
   {
     "exerciseId": 179,
-    "muscleId": 22,
+    "muscleId": 21,
     "isPrimary": true
   },
   {
     "exerciseId": 180,
-    "muscleId": 21,
+    "muscleId": 20,
     "isPrimary": true
   },
   {
     "exerciseId": 181,
-    "muscleId": 21,
+    "muscleId": 20,
     "isPrimary": true
   }
 ]

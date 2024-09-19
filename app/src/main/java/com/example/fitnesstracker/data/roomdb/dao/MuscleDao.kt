@@ -15,6 +15,9 @@ interface MuscleDao {
     @Query("Select name from muscles")
     fun getMuscleNames(): Flow<List<String>>
 
+    @Query("select m.* from muscles m")
+    fun getMuscles(): Flow<List<MuscleEntity>>
+
     @Query("Select * from muscles where id = :id")
     fun getMuscleById(id: Int): Flow<MuscleEntity?>
 

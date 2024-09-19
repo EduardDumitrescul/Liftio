@@ -13,120 +13,114 @@
   },
   {
     "id": 3,
-    "group": "chest",
-    "name": "general",
-    "scientificName": "Pectoralis Major"
-  },
-  {
-    "id": 4,
     "group": "shoulders",
     "name": "front delt",
     "scientificName": "Anterior Deltoid"
   },
   {
-    "id": 5,
+    "id": 4,
     "group": "shoulders",
     "name": "rear delt",
     "scientificName": "Posterior Deltoid"
   },
   {
-    "id": 6,
+    "id": 5,
     "group": "shoulders",
     "name": "side delt",
     "scientificName": "Lateral Deltoid"
   },
   {
-    "id": 7,
+    "id": 6,
     "group": "back",
     "name": "general",
     "scientificName": NaN
   },
   {
-    "id": 8,
+    "id": 7,
     "group": "back",
     "name": "traps",
     "scientificName": "Trapezius"
   },
   {
-    "id": 9,
+    "id": 8,
     "group": "back",
     "name": "lats",
     "scientificName": "Latissimus Dorsi"
   },
   {
-    "id": 10,
-    "group": "back ",
+    "id": 9,
+    "group": "back",
     "name": "lower back",
     "scientificName": "Erector Spinae"
   },
   {
-    "id": 11,
+    "id": 10,
     "group": "arms",
     "name": "biceps",
     "scientificName": "Biceps Brachii"
   },
   {
-    "id": 12,
+    "id": 11,
     "group": "arms",
     "name": "triceps",
     "scientificName": "Triceps Brachii"
   },
   {
-    "id": 13,
+    "id": 12,
     "group": "arms",
     "name": "forearms",
     "scientificName": NaN
   },
   {
-    "id": 14,
+    "id": 13,
     "group": "abs",
     "name": "upper abs",
     "scientificName": "Rectus Abdominis"
   },
   {
-    "id": 15,
+    "id": 14,
     "group": "abs",
     "name": "lower abs",
     "scientificName": "Rectus Abdominis"
   },
   {
-    "id": 16,
-    "group": "abs ",
+    "id": 15,
+    "group": "abs",
     "name": "obliques",
     "scientificName": "Obliques"
   },
   {
-    "id": 17,
+    "id": 16,
     "group": "legs",
     "name": "quads",
     "scientificName": "Qudriceps"
   },
   {
-    "id": 18,
+    "id": 17,
     "group": "legs",
     "name": "hamstrings",
     "scientificName": "Hamstrings"
   },
   {
-    "id": 19,
+    "id": 18,
     "group": "legs",
     "name": "calves",
     "scientificName": "Gastrocnemius"
   },
   {
-    "id": 20,
-    "group": "legs ",
+    "id": 19,
+    "group": "legs",
     "name": "glutes",
     "scientificName": "Gluteus Maximus"
   },
   {
-    "id": 21,
+    "id": 20,
     "group": "legs",
     "name": "adductors",
     "scientificName": "Hip Adductors"
   },
   {
-    "id": 22,
+    "id": 21,
     "group": "legs",
     "name": "abductors",
     "scientificName": "Abductors"

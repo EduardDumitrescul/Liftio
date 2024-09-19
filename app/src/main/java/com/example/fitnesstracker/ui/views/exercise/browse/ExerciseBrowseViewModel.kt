@@ -1,6 +1,5 @@
 package com.example.fitnesstracker.ui.views.exercise.browse
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fitnesstracker.data.dto.ExerciseWithMuscles
@@ -46,7 +45,7 @@ class ExerciseBrowseViewModel @Inject constructor(
     }
 
     private fun ExerciseWithMuscles.createSearchEntry(): String {
-        return "${this.exercise.name} ${this.exercise.equipment} ${this.primaryMuscle} ${this.secondaryMuscles.joinToString(" ")}"
+        return "${this.exercise.name} ${this.exercise.equipment} ${this.primaryMuscle.name} ${this.secondaryMuscles.joinToString(" ")}"
     }
 
     private fun syncSearchValue() {

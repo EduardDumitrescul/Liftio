@@ -3,6 +3,7 @@ package com.example.fitnesstracker.data.roomdb.repository
 import com.example.fitnesstracker.data.dto.ExerciseWithMuscles
 import com.example.fitnesstracker.data.dto.ExerciseWithSets
 import com.example.fitnesstracker.data.models.Exercise
+import com.example.fitnesstracker.data.models.Muscle
 import com.example.fitnesstracker.data.repositories.ExerciseRepository
 import com.example.fitnesstracker.data.roomdb.dao.ExerciseDao
 import com.example.fitnesstracker.data.roomdb.dao.MuscleDao
@@ -54,9 +55,8 @@ class RoomExerciseRepository @Inject constructor(
         ) { ex, pm, sm ->
             ExerciseWithMuscles(
                 exercise = ex.toModel(),
-                group = pm?.group ?: "",
-                primaryMuscle = pm?.name ?: "",
-                secondaryMuscles = sm.map { it.name }
+                primaryMuscle = pm?.toModel() ?: Muscle.default(),
+                secondaryMuscles = sm.map { it.toModel() }
             )
         }
 
@@ -87,9 +87,8 @@ class RoomExerciseRepository @Inject constructor(
         ) { pm, sm ->
             ExerciseWithMuscles(
                 exercise = ex.toModel(),
-                group = pm?.group ?: "",
-                primaryMuscle = pm?.name ?: "",
-                secondaryMuscles = sm.map { it.name }
+                primaryMuscle = pm?.toModel() ?: Muscle.default(),
+                secondaryMuscles = sm.map { it.toModel() }
             )
         }
     }

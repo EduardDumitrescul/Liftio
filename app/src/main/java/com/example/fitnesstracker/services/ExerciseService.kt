@@ -21,11 +21,11 @@ class ExerciseService @Inject constructor(
         val exercise = exerciseWithMuscles.exercise
         val exerciseId = exerciseRepository.add(exercise)
 
-        val primaryMuscleId = muscleRepository.getMuscleId(exerciseWithMuscles.primaryMuscle)
+        val primaryMuscleId = muscleRepository.getMuscleId(exerciseWithMuscles.primaryMuscle.name)
         muscleRepository.addExerciseMuscleCrossRef(ExerciseMuscleCrossRef(exerciseId, primaryMuscleId, true))
 
         for(muscle in exerciseWithMuscles.secondaryMuscles) {
-            val muscleId = muscleRepository.getMuscleId(muscle)
+            val muscleId = muscleRepository.getMuscleId(muscle.name)
             muscleRepository.addExerciseMuscleCrossRef(ExerciseMuscleCrossRef(exerciseId, muscleId, false))
         }
     }
@@ -39,11 +39,11 @@ class ExerciseService @Inject constructor(
         exerciseRepository.updateExercise(exercise)
         muscleRepository.removeExerciseMuscleRefs(exercise.id)
 
-        val primaryMuscleId = muscleRepository.getMuscleId(exerciseWithMuscles.primaryMuscle)
+        val primaryMuscleId = muscleRepository.getMuscleId(exerciseWithMuscles.primaryMuscle.name)
         muscleRepository.addExerciseMuscleCrossRef(ExerciseMuscleCrossRef(exercise.id, primaryMuscleId, true))
 
         for(muscle in exerciseWithMuscles.secondaryMuscles) {
-            val muscleId = muscleRepository.getMuscleId(muscle)
+            val muscleId = muscleRepository.getMuscleId(muscle.name)
             muscleRepository.addExerciseMuscleCrossRef(ExerciseMuscleCrossRef(exercise.id, muscleId, false))
         }
     }

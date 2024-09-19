@@ -9,9 +9,9 @@ data class Muscle(
     companion object {
         fun default() = Muscle(
             id = 0,
-            name = "generic muscle",
-            group = "group",
-            scientificName = "scientificName",
+            name = "",
+            group = "",
+            scientificName = "",
         )
     }
 }

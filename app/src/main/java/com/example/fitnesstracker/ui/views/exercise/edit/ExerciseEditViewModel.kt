@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fitnesstracker.data.dto.ExerciseWithMuscles
 import com.example.fitnesstracker.data.models.Exercise
+import com.example.fitnesstracker.data.models.Muscle
 import com.example.fitnesstracker.services.ExerciseService
 import com.example.fitnesstracker.services.MuscleService
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,12 +25,15 @@ class ExerciseEditViewModel @Inject constructor(
     private val exerciseService: ExerciseService,
     muscleService: MuscleService,
 ): ViewModel() {
+    private var _muscles: StateFlow<List<Muscle>> = muscleService
+        .getMuscles()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(0), listOf())
+    val muscles: StateFlow<List<Muscle>> = _muscles
 
     private var _exerciseWithMuscles: MutableStateFlow<ExerciseWithMuscles> = MutableStateFlow(
         ExerciseWithMuscles(
             exercise = Exercise.default(),
-            group = "",
-            primaryMuscle = "",
+            primaryMuscle = Muscle(0, "chest","upper chest", ""),
             secondaryMuscles = listOf()
         )
     )
@@ -50,10 +54,7 @@ class ExerciseEditViewModel @Inject constructor(
         }
     }
 
-    private var _muscleNames: StateFlow<List<String>> = muscleService
-        .getMuscleNames()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(0), listOf())
-    val muscleNames: StateFlow<List<String>> = _muscleNames
+
 
     fun updateExerciseName(newName: String) {
         _exerciseWithMuscles.update { currentState ->
@@ -67,18 +68,32 @@ class ExerciseEditViewModel @Inject constructor(
         }
     }
 
-    fun updatePrimaryMuscle(newPrimaryMuscle: String) {
+    fun updateMuscleGroup(muscleGroup: String) {
+        _exerciseWithMuscles.update { exerciseWithMuscles ->
+            exerciseWithMuscles.copy(
+                primaryMuscle = _muscles.value.find { it.group == muscleGroup } ?: Muscle.default(),
+                secondaryMuscles = exerciseWithMuscles.secondaryMuscles.filter { it.group != muscleGroup }
+            )
+        }
+    }
+
+    fun updateFocusMuscle(focusMuscle: String) {
         _exerciseWithMuscles.update { currentState ->
             currentState.copy(
-                primaryMuscle = newPrimaryMuscle,
-                secondaryMuscles = currentState.secondaryMuscles.filter { it != newPrimaryMuscle }
+                primaryMuscle = _muscles.value.find { it.name ==  focusMuscle} ?: Muscle.default()
             )
         }
     }
 
     fun updateSecondaryMuscles(newSecondaryMuscles: Set<String>) {
         _exerciseWithMuscles.update { currentState ->
-            currentState.copy(secondaryMuscles = newSecondaryMuscles.minus(currentState.primaryMuscle).toList())
+            currentState.copy(
+                secondaryMuscles = newSecondaryMuscles
+                    .map { string -> muscles.value.find { it.name == string }!! }
+                    .filter { it.group != currentState.primaryMuscle.group }
+                    .minus(currentState.primaryMuscle)
+                    .toList()
+            )
         }
     }
 

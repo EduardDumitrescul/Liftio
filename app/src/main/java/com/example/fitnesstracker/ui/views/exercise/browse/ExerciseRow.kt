@@ -11,10 +11,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.fitnesstracker.data.dto.ExerciseWithMuscles
 import com.example.fitnesstracker.data.models.Exercise
+import com.example.fitnesstracker.data.models.Muscle
 import com.example.fitnesstracker.ui.components.MuscleChipRow
 import com.example.fitnesstracker.ui.theme.AppTheme
 import com.example.fitnesstracker.utils.capitalize
-import java.util.Locale
 
 @Composable
 fun ExerciseRow(
@@ -51,9 +51,8 @@ private fun PreviewExerciseRow() {
                     description = "!231",
                     equipment = "barbell",
                     name = "Bench Press"),
-                group = "chest",
-                primaryMuscle = "chest",
-                secondaryMuscles = listOf("shoulders", "triceps"),
+                primaryMuscle = Muscle.default(),
+                secondaryMuscles = listOf(),
             )
         )
     }

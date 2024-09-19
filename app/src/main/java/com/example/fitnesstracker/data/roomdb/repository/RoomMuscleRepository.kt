@@ -58,4 +58,8 @@ class RoomMuscleRepository @Inject constructor(
         }
     }
 
+    override fun getMuscles(): Flow<List<Muscle>> {
+        return muscleDao.getMuscles().map { list -> list.map {it.toModel() }}
+    }
+
 }

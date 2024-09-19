@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.fitnesstracker.data.dto.ExerciseWithMuscles
+import com.example.fitnesstracker.data.models.Muscle
 import com.example.fitnesstracker.ui.components.appbar.LargeAppBar
 import com.example.fitnesstracker.ui.components.button.TwoButtonRow
 import com.example.fitnesstracker.ui.components.chip.MultiChoiceChipGroupField
@@ -30,7 +31,7 @@ fun ExerciseEditView(
     viewModel: ExerciseEditViewModel = hiltViewModel(),
     navigateBack: () -> Unit,
 ) {
-    val muscleNames by viewModel.muscleNames.collectAsState()
+    val muscles by viewModel.muscles.collectAsState()
     val exercise by viewModel.exerciseWithMuscles.collectAsState()
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -53,8 +54,11 @@ fun ExerciseEditView(
                     if(exercise.exercise.name == "") {
                         scope.launch { snackbarHostState.showSnackbar("Please enter the name for the exercise") }
                     }
-                    else if(exercise.primaryMuscle == "") {
-                        scope.launch { snackbarHostState.showSnackbar("Please select the targeted muscle") }
+                    else if(exercise.primaryMuscle.group == "") {
+                        scope.launch { snackbarHostState.showSnackbar("Please select the targeted muscle group") }
+                    }
+                    else if(exercise.primaryMuscle.name == "") {
+                        scope.launch { snackbarHostState.showSnackbar("Please select the muscle this exercise is most focused on") }
                     }
                     else {
                         viewModel.save()
@@ -81,38 +85,58 @@ fun ExerciseEditView(
 
             EquipmentSelect(exercise, viewModel)
 
-            PrimaryMuscleSelect(muscleNames, exercise, viewModel)
+            MuscleGroupSelect(muscles, exercise, viewModel)
 
-            SecondaryMusclesSelect(muscleNames, exercise, viewModel)
+            FocusMuscleSelect(muscles, exercise, viewModel)
+
+            SecondaryMusclesSelect(muscles, exercise, viewModel)
         }
     }
 }
 
 @Composable
 private fun SecondaryMusclesSelect(
-    muscleNames: List<String>,
+    muscles: List<Muscle>,
     exercise: ExerciseWithMuscles,
     viewModel: ExerciseEditViewModel
 ) {
+    val options = muscles.filter { it.group!=exercise.primaryMuscle.group }.map { it.name }
     MultiChoiceChipGroupField(
         title = "Secondary Muscles",
-        options = muscleNames,
-        selectedOptions = exercise.secondaryMuscles.toSet(),
+        options = options,
+        selectedOptions = exercise.secondaryMuscles.map { it.name }.toSet(),
         onSelectionChanged = { viewModel.updateSecondaryMuscles(it) }
     )
 }
 
 @Composable
-private fun PrimaryMuscleSelect(
-    muscleNames: List<String>,
+private fun MuscleGroupSelect(
+    muscles: List<Muscle>,
     exercise: ExerciseWithMuscles,
     viewModel: ExerciseEditViewModel
 ) {
+    val groups = muscles.distinctBy { it.group }.map { it.group }
     SingleChoiceChipGroupField(
-        title = "Target Muscle",
-        options = muscleNames,
-        selectedOption = exercise.primaryMuscle,
-        onSelectionChanged = { viewModel.updatePrimaryMuscle(it) }
+        title = "Target Muscle Group",
+        options = groups,
+        selectedOption = exercise.primaryMuscle.group,
+        onSelectionChanged = { viewModel.updateMuscleGroup(it) }
+    )
+}
+
+@Composable
+private fun FocusMuscleSelect(
+    muscles: List<Muscle>,
+    exercise: ExerciseWithMuscles,
+    viewModel: ExerciseEditViewModel
+) {
+    val options = muscles.filter { it.group == exercise.primaryMuscle.group }.map { it.name }
+
+    SingleChoiceChipGroupField(
+        title = "Focus Muscle",
+        options = options,
+        selectedOption = exercise.primaryMuscle.name,
+        onSelectionChanged = { viewModel.updateFocusMuscle(it) }
     )
 }
 

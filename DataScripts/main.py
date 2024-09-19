@@ -9,7 +9,7 @@ from muscle import MuscleEntity
 
 
 outputPath = '../app/src/main/assets/'
-reader = ExcelReader('../data/db-preload.xlsx')
+reader = ExcelReader('db-preload.xlsx')
 
 
 muscles = [MuscleEntity(muscle) for muscle in reader.muscles]
