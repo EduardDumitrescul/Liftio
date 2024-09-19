@@ -83,7 +83,11 @@ class WorkoutPerformViewModel @Inject constructor(
                             }
                         }
                         exercise.toExerciseCardState(
-                            progress = if (exerciseIndex < currentExerciseIndex) Progress.DONE else Progress.TODO
+                            progress = when {
+                                exerciseIndex < currentExerciseIndex -> Progress.DONE
+                                exerciseIndex == currentExerciseIndex -> Progress.ONGOING
+                                else -> Progress.TODO
+                            }
                         ).copy(
                             sets = updatedSets
                         )
