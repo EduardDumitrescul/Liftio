@@ -20,4 +20,6 @@ DataScripts/venv/
 data/.~lock.db-preload.xlsx#
 notes/.obsidian/
 notes/Tasks.md
+deployment_cert.der
+keystore.jks
 

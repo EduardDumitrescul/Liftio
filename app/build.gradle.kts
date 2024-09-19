@@ -10,15 +10,15 @@ plugins {
 
 
 android {
-    namespace = "com.example.fitnesstracker"
+    namespace = "com.thinkerbyte.fitnesstracker"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.fitnesstracker"
+        applicationId = "com.thinkerbyte.fitnesstracker"
         minSdk = 26
         targetSdk = 35
         versionCode = 1
-        versionName = "1.0"
+        versionName = "0.1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -28,6 +28,7 @@ android {
 
     buildTypes {
         release {
+            isDebuggable = false
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
