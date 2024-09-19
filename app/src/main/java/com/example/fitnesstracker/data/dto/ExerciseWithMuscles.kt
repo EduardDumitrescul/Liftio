@@ -5,12 +5,13 @@ import com.example.fitnesstracker.ui.components.MuscleChipRowModel
 
 data class ExerciseWithMuscles(
     val exercise: Exercise,
+    val group: String,
     var primaryMuscle: String,
     var secondaryMuscles: List<String>,
 ) {
     fun getMuscleChipRowModel(): MuscleChipRowModel {
         return MuscleChipRowModel(
-            primaryMuscle = primaryMuscle,
+            primaryMuscle = "$group ($primaryMuscle)",
             secondaryMuscles = secondaryMuscles,
         )
     }

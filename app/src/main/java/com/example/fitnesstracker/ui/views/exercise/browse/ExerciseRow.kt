@@ -49,6 +49,7 @@ private fun PreviewExerciseRow() {
                     description = "!231",
                     equipment = "barbell",
                     name = "Bench Press"),
+                group = "chest",
                 primaryMuscle = "chest",
                 secondaryMuscles = listOf("shoulders", "triceps"),
             )
