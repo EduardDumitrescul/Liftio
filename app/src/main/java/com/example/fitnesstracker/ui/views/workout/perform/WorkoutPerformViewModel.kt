@@ -153,7 +153,6 @@ class WorkoutPerformViewModel @Inject constructor(
     }
 
     fun completeExercise() {
-        Log.d(TAG, "completed")
         viewModelScope.launch {
             sessionService.completeExercise()
         }
@@ -176,8 +175,9 @@ class WorkoutPerformViewModel @Inject constructor(
 
     fun finishWorkout() {
         viewModelScope.launch {
+            val workout = _ongoingWorkout.value
             removeUncompletedSetsAndExercises()
-            workoutService.saveCompletedWorkout(ongoingWorkout.value.toDetailedWorkout())
+            workoutService.saveCompletedWorkout(workout.toDetailedWorkout())
         }
     }
 

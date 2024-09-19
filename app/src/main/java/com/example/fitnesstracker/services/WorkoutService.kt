@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.flowOf
 import java.time.LocalDateTime
 import javax.inject.Inject
 
-private const val TAG = "TemplateService"
+private const val TAG = "WorkoutService"
 
 class WorkoutService @Inject constructor(
     private val workoutRepository: WorkoutRepository,
@@ -175,6 +175,13 @@ class WorkoutService @Inject constructor(
 
     suspend fun saveCompletedWorkout(detailedWorkout: DetailedWorkout) {
         val workout = detailedWorkout.getWorkout()
+        if(!workout.isBaseTemplate) {
+            TemplateUpdateHandler(
+                detailedWorkout = detailedWorkout,
+                workoutRepository = workoutRepository,
+                setRepository = setRepository
+            ).run()
+        }
         workoutRepository.updateWorkout(workout)
         sessionRepository.removeOngoingWorkout()
     }
