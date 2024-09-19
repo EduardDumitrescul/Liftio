@@ -1,5 +1,6 @@
 package com.example.fitnesstracker.services
 
+import android.util.Log
 import com.example.fitnesstracker.data.dto.ExerciseWithSets
 import com.example.fitnesstracker.data.dto.DateWithSets
 import com.example.fitnesstracker.data.dto.WorkoutEntry
@@ -12,6 +13,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import javax.inject.Inject
+
+private const val TAG = "HistoryService"
 
 class HistoryService @Inject constructor(
     private val workoutRepository: WorkoutRepository,

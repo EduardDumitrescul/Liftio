@@ -34,8 +34,6 @@ class DataStoreSessionRepository @Inject constructor(
     }
 
     override suspend fun removeOngoingWorkout() {
-
-        Log.d(TAG, "remove()")
         dataStore.edit { preferences ->
             preferences[Keys.exists] = false
             preferences[Keys.workoutId] = 0

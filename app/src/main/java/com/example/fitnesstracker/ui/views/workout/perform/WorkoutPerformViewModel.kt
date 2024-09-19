@@ -23,6 +23,8 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import java.time.Duration
 import java.time.LocalDateTime
@@ -170,28 +172,28 @@ class WorkoutPerformViewModel @Inject constructor(
             }
         }
         catch (ignored: Exception) {}
-
     }
 
     fun finishWorkout() {
         viewModelScope.launch {
-            val workout = _ongoingWorkout.value
             removeUncompletedSetsAndExercises()
-            workoutService.saveCompletedWorkout(workout.toDetailedWorkout())
+            workoutService.finishWorkout(workoutId)
         }
     }
 
+
     private suspend fun removeUncompletedSetsAndExercises() {
-        _ongoingWorkout.value.exerciseCardStates.forEachIndexed() { exerciseIndex, exerciseCardState ->
+        _ongoingWorkout.first().exerciseCardStates.forEachIndexed() { exerciseIndex, exerciseCardState ->
             val currentExerciseIndex = sessionPreferences.first().exercisesCompleted
             val currentSetIndex = sessionPreferences.first().setsCompleted
+            Log.d(TAG, "$currentExerciseIndex $currentSetIndex")
             if(currentExerciseIndex < exerciseIndex) {
                 workoutService.removeExerciseFromWorkout(exerciseCardState.workoutExerciseCrossRefId)
             }
             else if(currentExerciseIndex == exerciseIndex && currentSetIndex == 0) {
                 workoutService.removeExerciseFromWorkout(exerciseCardState.workoutExerciseCrossRefId)
             }
-            else {
+            else if(currentExerciseIndex == exerciseIndex){
                 exerciseCardState.sets.forEachIndexed {setIndex, set ->
                     if(currentSetIndex <= setIndex) {
                         workoutService.removeSetFromWorkoutExercise(set.id)

@@ -13,9 +13,11 @@ import com.example.fitnesstracker.data.repositories.WorkoutRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
+import java.time.Duration
 import java.time.LocalDateTime
 import javax.inject.Inject
 
@@ -170,16 +172,21 @@ class WorkoutService @Inject constructor(
         return workoutId
     }
 
-    suspend fun saveCompletedWorkout(detailedWorkout: DetailedWorkout) {
-        val workout = detailedWorkout.getWorkout()
-        if(!workout.isBaseTemplate) {
+    suspend fun finishWorkout(workoutId: Int) {
+        val detailedWorkout = getDetailedWorkout(workoutId).first()
+        if(!detailedWorkout.isBaseTemplate) {
             TemplateUpdateHandler(
                 detailedWorkout = detailedWorkout,
                 workoutRepository = workoutRepository,
                 setRepository = setRepository
             ).run()
         }
-        workoutRepository.updateWorkout(workout)
+        val workout = detailedWorkout.getWorkout()
+        val updatedWorkout = workout.copy(
+            duration = Duration.between(workout.timeStarted, LocalDateTime.now()).seconds
+        )
+
+        workoutRepository.updateWorkout(updatedWorkout)
         sessionRepository.removeOngoingWorkout()
     }
 

@@ -49,6 +49,9 @@ private fun ExerciseWithSets.asExerciseEntrySummary() = ExerciseEntrySummary(
 )
 
 private fun getBestEffort(sets: List<ExerciseSet>): String {
+    if(sets.isEmpty()) {
+        return ""
+    }
     var bestSet = sets.first()
     for(set in sets) {
         if(set.weight > bestSet.weight) {

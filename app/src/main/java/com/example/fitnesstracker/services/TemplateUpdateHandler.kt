@@ -35,13 +35,8 @@ class TemplateUpdateHandler(
     }
 
     private suspend fun updateExercise(templateExercise: DetailedExercise) {
-        Log.d(TAG, "updateExercise()")
-        Log.d(TAG, "${templateExercise}")
-        Log.d(TAG, "${workoutExercises}")
         val detailedExercise: DetailedExercise? = findCorrespondingExercise(templateExercise)
         detailedExercise?.let {
-            exercisedUsed[it.exercise.id]
-            Log.d(TAG, "Let")
 
             for(setIndex in 0 until min(it.sets.size, templateExercise.sets.size)) {
                 val templateSet = templateExercise.sets[setIndex]
