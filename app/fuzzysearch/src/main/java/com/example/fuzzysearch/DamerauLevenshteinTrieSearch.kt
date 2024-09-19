@@ -30,21 +30,21 @@ class DamerauLevenshteinTrieSearch(
     private fun searchRecursive(node: Trie.Node, depth: Int) {
         distanceMatrix.add(MutableList(searchWord.length) {Int.MAX_VALUE})
 
-        for(i in 0 until searchWord.length) {
+        for(i in searchWord.indices) {
             // Case 0: empty words
             if(i == 0 && depth == 0) {
                 distanceMatrix[depth][i] = 0
             }
             // Case 1: deletion from search word
-            try { distanceMatrix[depth][i] = min(distanceMatrix[depth][i], distanceMatrix[depth][i-1] + 20) }
+            try { distanceMatrix[depth][i] = min(distanceMatrix[depth][i], distanceMatrix[depth][i-1] + 2) }
             catch (ignored: Exception) {}
 
             // Case 2: deletion from trie word
-            try { distanceMatrix[depth][i] = min(distanceMatrix[depth][i], distanceMatrix[depth-1][i] + 10) }
+            try { distanceMatrix[depth][i] = min(distanceMatrix[depth][i], distanceMatrix[depth-1][i] + 1) }
             catch (ignored: Exception) {}
 
             // Case 3: identical/different last characters
-            try { distanceMatrix[depth][i] = min(distanceMatrix[depth][i], distanceMatrix[depth-1][i-1] + if(searchWord[i] == node.value) 0 else 100) }
+            try { distanceMatrix[depth][i] = min(distanceMatrix[depth][i], distanceMatrix[depth-1][i-1] + if(searchWord[i] == node.value) 0 else 3) }
             catch (ignored: Exception) {}
 
             // Case 4: transposition of the last two characters from each word
@@ -58,6 +58,7 @@ class DamerauLevenshteinTrieSearch(
 
         if(node.isEndOfWord()) {
             val distance = distanceMatrix.last().last()
+            if(distance < 5)
             similarWords.add(Pair(letterStack.joinToString(""), exp(-distance.toDouble()).toFloat()))
         }
 

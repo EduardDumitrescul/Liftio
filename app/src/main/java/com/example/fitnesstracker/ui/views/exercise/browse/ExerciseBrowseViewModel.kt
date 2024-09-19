@@ -45,7 +45,7 @@ class ExerciseBrowseViewModel @Inject constructor(
     }
 
     private fun ExerciseWithMuscles.createSearchEntry(): String {
-        return "${this.exercise.name} ${this.exercise.equipment} ${this.primaryMuscle.name} ${this.secondaryMuscles.joinToString(" ")}"
+        return "${this.exercise.name} ${this.primaryMuscle.name} ${this.secondaryMuscles.joinToString(" ")}"
     }
 
     private fun syncSearchValue() {

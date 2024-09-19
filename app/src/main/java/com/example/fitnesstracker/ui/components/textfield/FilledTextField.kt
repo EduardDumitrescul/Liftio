@@ -39,7 +39,7 @@ fun FilledTextField(
         interactionSource = interactionSource,
         singleLine = singleLine,
         minLines = minLines,
-        textStyle = AppTheme.typography.body.copy(color = AppTheme.colors.primary),
+        textStyle = AppTheme.typography.body.copy(color = AppTheme.colors.onContainer),
     ) { innerTextField ->
         TextFieldDefaults.DecorationBox(
             value = text,

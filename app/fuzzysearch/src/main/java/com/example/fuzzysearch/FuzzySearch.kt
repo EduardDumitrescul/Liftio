@@ -17,6 +17,7 @@ class FuzzySearch(
     private fun createIndexDictionary() {
         searchItems.forEachIndexed { index, entry ->
             entry
+                .lowercase()
                 .splitWords()
                 .forEach { word ->
                     addWordToDictionary(word, index)
@@ -38,7 +39,7 @@ class FuzzySearch(
     }
 
     fun search(sentence: String): List<Int> {
-        val words = sentence.splitWords()
+        val words = sentence.lowercase().splitWords()
         val scoreMap: MutableMap<Int, Float> = mutableMapOf()
         searchItems.forEachIndexed {index, _ -> scoreMap.putIfAbsent(index, 0f) }
         words.forEach { word ->
@@ -59,12 +60,19 @@ class FuzzySearch(
         val similarWords = damerauLevenshteinTrieSearch.getSimilarWords(word)
         val similarityMap: MutableMap<Int, Float> = mutableMapOf()
         similarWords.forEach { (word, score) ->
-            val indexes = indexDictionary[word]!!
-            indexes.forEach { index ->
-                similarityMap.putIfAbsent(index, 0f)
-                similarityMap[index] = similarityMap[index]!! + score
+            try {
+                val indexes = indexDictionary[word]!!
+                indexes.forEach { index ->
+                    similarityMap.putIfAbsent(index, 0f)
+                    similarityMap[index] = similarityMap[index]!! + score
+                }
             }
+            catch (exception: Exception) {
+                throw Exception(indexDictionary.toString())
+            }
+
         }
+
         return similarityMap
     }
 
